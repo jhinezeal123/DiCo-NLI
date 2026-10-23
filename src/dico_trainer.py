@@ -12,6 +12,7 @@ import re
 import numpy as np
 import pandas as pd
 import torch
+import torch.nn.functional as F
 import transformers
 from sklearn.metrics import f1_score
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
@@ -94,6 +95,10 @@ def run(cfg, seed, train_path, dev_path, device):
     total = steps_per_epoch * epochs
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
     ytr_t = torch.tensor(ytr, device=device)
+    lam = float(cfg.get("lambda_cons", 0.0))
+    paired = bool(cfg.get("paired_ce", False))
+    rev_t = torch.tensor(REV, device=device)
+    f_train_swap = encode(tok, tr2, tr1, L) if (lam > 0 or paired) else None
 
     for epoch in range(epochs):
         model.train()
@@ -102,7 +107,22 @@ def run(cfg, seed, train_path, dev_path, device):
         for s in range(0, len(perm), bs):
             idx = perm[s:s + bs]
             b = batch(tok, f_train, idx, device)
-            loss = torch.nn.functional.cross_entropy(model(**b).logits, ytr_t[idx])
+            y = ytr_t[idx]
+            logits = model(**b).logits
+            loss = F.cross_entropy(logits, y)
+            if lam > 0 or paired:
+                logits_q = model(**batch(tok, f_train_swap, idx, device)).logits
+                if paired:
+                    loss = 0.5 * (loss + F.cross_entropy(logits_q, rev_t[y]))
+                if lam > 0:
+                    # Reversal consistency only where the gold label is reversible.
+                    m = y != LABEL2ID["NEGATIVE_OTHER"]
+                    if m.any():
+                        logp = F.log_softmax(logits[m], dim=-1)
+                        logq = F.log_softmax(logits_q[m], dim=-1)[:, rev_t]
+                        kl = 0.5 * (F.kl_div(logq, logp, log_target=True, reduction="batchmean")
+                                    + F.kl_div(logp, logq, log_target=True, reduction="batchmean"))
+                        loss = loss + lam * kl
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
