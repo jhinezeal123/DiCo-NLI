@@ -8,6 +8,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import shutil
 import statistics
 import subprocess
@@ -76,38 +77,51 @@ def environment(model_id):
         print(f"model_id={model_id} model_revision=unavailable ({exc.__class__.__name__})")
 
 
-def train_and_predict(cfg, upstream, dev_path, train_path, reference_path, results_dir):
-    section("TRAIN (starter kit, train split only)")
-    cmd = [
-        sys.executable, "-u", "main.py",
-        "--model_path", cfg["model_id"], "--tokenizer_path", cfg["model_id"],
-        "--do_train", "--train_path", str(train_path),
-        "--do_dev", "--dev_path", str(dev_path),
-        "--no-do_test",
-        "--seed", str(cfg["seed"]), "--dropout", str(cfg["dropout"]),
-        "--warmup_pcrt", str(cfg["warmup_pcrt"]), "--lr", str(cfg["lr"]),
-        "--batch_size", str(cfg["batch_size"]), "--wd", str(cfg["wd"]),
-        "--num_epochs", str(cfg["num_epochs"]), "--no-is_optuna_trial",
-        "--max_length", str(cfg["max_length"]),
-        "--results_dir", str(results_dir), "--reference_path", str(reference_path),
-    ]
-    print("cmd:", " ".join(cmd), flush=True)
-    t0 = time.time()
-    proc = subprocess.Popen(cmd, cwd=upstream / "starter_kit", stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT, text=True, bufsize=1)
-    per_example = 0
-    for line in proc.stdout:
-        # The kit prints one line per dev example each epoch; keep the log compact.
-        if line.startswith("ID: "):
-            per_example += 1
-            continue
-        print(line, end="", flush=True)
-    if proc.wait() != 0:
-        sys.exit(f"starter kit failed with exit code {proc.returncode}")
-    print(f"train_wall_seconds={time.time() - t0:.1f} suppressed_per_example_lines={per_example}")
-    preds = sorted(results_dir.glob("predictions_dev_*.csv"))
-    assert len(preds) == cfg["num_epochs"], f"expected one dev prediction per epoch, got {len(preds)}"
-    return preds[-1]  # final epoch: fixed budget, no selection on dev
+def gpu_count():
+    try:
+        out = subprocess.run(["nvidia-smi", "-L"], capture_output=True, text=True, check=True).stdout
+        return max(1, sum(1 for line in out.splitlines() if line.startswith("GPU ")))
+    except (OSError, subprocess.CalledProcessError):
+        return 1
+
+
+def train_seeds_parallel(config_path, seeds, paths, out_root):
+    """Train each seed in its own process pinned to one GPU; at most one live job per GPU."""
+    import numpy as np
+    n_gpu = gpu_count()
+    print(f"gpus_available={n_gpu} seeds={list(seeds)}", flush=True)
+    worker = Path(__file__).resolve().parent / "train_worker.py"
+    pending, running, trained = list(seeds), {}, {}
+    free_gpus = list(range(n_gpu))
+    while pending or running:
+        while pending and free_gpus:
+            seed, gpu = pending.pop(0), free_gpus.pop(0)
+            out = out_root / f"seed{seed}"
+            out.mkdir()
+            env = {**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu)}
+            log = open(out / "train.log", "w")
+            proc = subprocess.Popen(
+                [sys.executable, "-u", str(worker), "--config", str(config_path), "--seed", str(seed),
+                 "--train", str(paths["train"]), "--dev", str(paths["dev"]), "--out", str(out / "probs.npz")],
+                stdout=log, stderr=subprocess.STDOUT, env=env)
+            running[seed] = (proc, gpu, log, time.time())
+            print(f"launched seed={seed} on gpu={gpu}", flush=True)
+        time.sleep(5)
+        for seed in list(running):
+            proc, gpu, log, t0 = running[seed]
+            if proc.poll() is None:
+                continue
+            log.close()
+            del running[seed]
+            free_gpus.append(gpu)
+            print(f"seed={seed} finished rc={proc.returncode} gpu={gpu} wall={time.time() - t0:.0f}s", flush=True)
+            if proc.returncode != 0:
+                print((out_root / f"seed{seed}" / "train.log").read_text(errors="replace")[-3000:])
+                for p2, _, _, _ in running.values():
+                    p2.kill()
+                sys.exit(f"worker for seed {seed} failed")
+            trained[seed] = dict(np.load(out_root / f"seed{seed}" / "probs.npz"))
+    return trained
 
 
 def validate(pred_path, dev_rows):
@@ -191,40 +205,59 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
-    results = {}
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    import dico_trainer as dt
+    import numpy as np
+
+    section("TRAIN (seeds in parallel, one per GPU)")
+    t0 = time.time()
+    trained = train_seeds_parallel(args.config, cfg["seeds"], paths, out_root)
+    print(f"train_wall_seconds_all_seeds={time.time() - t0:.1f}")
+
+    headline = cfg.get("decode", "standard")
+    modes = ["standard", "bidir"]
+    results = {m: {} for m in modes}
     for seed in cfg["seeds"]:
         section(f"SEED {seed}")
-        cfg_s = {**cfg, "seed": seed}
         out = out_root / f"seed{seed}"
-        out.mkdir()
-        final_pred = train_and_predict(cfg_s, upstream, paths["dev"], paths["train"], paths["dev_reference"],
-                                       (out / "kit_results").resolve())
-        pred_path = out / f"{t}_dev_predictions.csv"
-        shutil.copy(final_pred, pred_path)
-        pred = validate(pred_path, dev_rows)
-        scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(), (out / "scores").resolve())
-        error_analysis(pred, ref_rows)
-
-        print(f"<<<PREDICTIONS_CSV seed={seed}")
-        print(pred_path.read_text(), end="")
-        print("PREDICTIONS_CSV>>>")
-        print(f"<<<SCORES_JSON seed={seed}")
-        print((out / "scores" / "scores.json").read_text())
-        print("SCORES_JSON>>>")
-        results[seed] = scores
-        print(f"SEED_METRICS seed={seed} weighted_f1={scores['weighted_f1']:.4f} "
-              f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
+        print((out / "train.log").read_text(errors="replace"), end="")
+        p, q = trained[seed]["orig"], trained[seed]["swap"]
+        # q is the prediction for the swapped input; map it back through the reversal.
+        final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
+        print(f"<<<DEV_PROBS seed={seed}")
+        print("instance_id," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
+        for r, pi, qi in zip(dev_rows, p, q):
+            print(r["instance_id"] + "," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
+        print("DEV_PROBS>>>")
+        for mode in modes:
+            pred_path = out / f"{t}_dev_predictions_{mode}.csv"
+            with open(pred_path, "w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f, lineterminator="\n")
+                w.writerow(["instance_id", "label"])
+                for r, pr in zip(dev_rows, final[mode]):
+                    w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+            section(f"seed {seed} decoding={mode}")
+            pred = validate(pred_path, dev_rows)
+            scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
+                                    (out / f"scores_{mode}").resolve())
+            if mode == headline:
+                error_analysis(pred, ref_rows)
+            print(f"<<<PREDICTIONS_CSV seed={seed} decoding={mode}")
+            print(pred_path.read_text(), end="")
+            print("PREDICTIONS_CSV>>>")
+            results[mode][seed] = scores
+            print(f"SEED_METRICS decoding={mode} seed={seed} weighted_f1={scores['weighted_f1']:.4f} "
+                  f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
 
     section("SUMMARY")
-    agg = {}
-    for m in ("weighted_f1", "soft_cons", "hard_cons"):
-        vals = [r[m] for r in results.values()]
-        agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
-    for seed, r in results.items():
-        print(f"SEED_METRICS seed={seed} weighted_f1={r['weighted_f1']:.4f} "
-              f"soft_cons={r['soft_cons']:.4f} hard_cons={r['hard_cons']:.4f}")
-    print(f"FINAL_METRICS split=dev track={cfg['track']} seeds={list(results)} "
-          + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
+    for mode in modes:
+        tag = "FINAL_METRICS" if mode == headline else "DIAG_METRICS"
+        agg = {}
+        for m in ("weighted_f1", "soft_cons", "hard_cons"):
+            vals = [r[m] for r in results[mode].values()]
+            agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
+        print(f"{tag} decoding={mode} split=dev track={cfg['track']} seeds={list(results[mode])} "
+              + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
 
 
 if __name__ == "__main__":
