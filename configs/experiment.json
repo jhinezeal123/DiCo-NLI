@@ -1,5 +1,5 @@
 {
-  "name": "track1_modernbert_base_3seed",
+  "name": "track1_modernbert_base_3seed_recipec",
   "track": 1,
   "model_id": "answerdotai/ModernBERT-base",
   "seeds": [
@@ -8,10 +8,10 @@
     7
   ],
   "dropout": 0.1,
-  "warmup_pcrt": 0.01,
+  "warmup_pcrt": 0.1,
   "lr": 5e-05,
   "batch_size": 8,
   "wd": 1e-05,
-  "num_epochs": 3,
+  "num_epochs": 5,
   "max_length": 128
 }
