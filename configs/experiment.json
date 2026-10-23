@@ -1,11 +1,9 @@
 {
-  "name": "track1_qwen25_3b_lora_3seed",
+  "name": "track1_qwen3b_modernbert_distillation_pilot",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-3B",
   "seeds": [
-    42,
-    13,
-    7
+    42
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
@@ -31,5 +29,27 @@
       "down_proj"
     ]
   },
-  "base_dtype": "float16"
+  "base_dtype": "float16",
+  "distillation": {
+    "temperature": 2.0,
+    "kd_weight": 0.5,
+    "exclude_train_dev_text_overlap_groups": true,
+    "student": {
+      "model_id": "answerdotai/ModernBERT-base",
+      "dropout": 0.1,
+      "warmup_pcrt": 0.1,
+      "lr": 0.00005,
+      "batch_size": 8,
+      "wd": 0.00001,
+      "num_epochs": 5,
+      "max_length": 128,
+      "amp": true
+    },
+    "arms": [
+      {"name": "ce", "paired": false, "kd": false},
+      {"name": "kd", "paired": false, "kd": true},
+      {"name": "paired_ce", "paired": true, "kd": false},
+      {"name": "paired_projected_kd", "paired": true, "kd": true}
+    ]
+  }
 }

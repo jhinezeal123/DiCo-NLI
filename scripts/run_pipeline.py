@@ -185,6 +185,9 @@ def main():
     ap.add_argument("--upstream", required=True)
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
+    if "distillation" in cfg:
+        from run_distillation import run_pilot
+        return run_pilot(cfg, Path(args.upstream).resolve())
     upstream = Path(args.upstream).resolve()
     t = f"track{cfg['track']}"
     data = upstream / "final_data"

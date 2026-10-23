@@ -81,14 +81,15 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
 
 
 def build_model(cfg, num_labels, device):
-    config = AutoConfig.from_pretrained(cfg["model_id"])
+    revision = {"revision": cfg["revision"]} if cfg.get("revision") else {}
+    config = AutoConfig.from_pretrained(cfg["model_id"], **revision)
     # Dropout handling mirrors the starter kit's Model class.
     if hasattr(config, "classifier_dropout"):
         config.classifier_dropout = float(cfg["dropout"])
     elif hasattr(config, "pooler_dropout") and not hasattr(config, "cls_dropout"):
         config.cls_dropout = float(cfg["dropout"])
     config.num_labels = num_labels
-    tok = AutoTokenizer.from_pretrained(cfg["model_id"])
+    tok = AutoTokenizer.from_pretrained(cfg["model_id"], **revision)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
@@ -101,7 +102,9 @@ def build_model(cfg, num_labels, device):
             bnb_4bit_compute_dtype=torch.float16))
     elif cfg.get("base_dtype") == "float16":
         load_kwargs["torch_dtype"] = torch.float16
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config, **load_kwargs)
+    config.id2label = dict(enumerate(LABELS))
+    config.label2id = LABEL2ID
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config, **revision, **load_kwargs)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model, prepare_model_for_kbit_training
         if quant:
