@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_3seed",
+  "name": "track1_qwen25_1p5b_lora_scaffold_3seed",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -16,7 +16,7 @@
   "max_length": 128,
   "amp": true,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "pair_template": "Text 1: {t1}\nText 2: {t2}\nShared: {sh}\nOnly in text 1: {o1}\nOnly in text 2: {o2}\nRelation:",
   "lora": {
     "r": 16,
     "alpha": 32,

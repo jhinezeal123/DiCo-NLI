@@ -52,10 +52,28 @@ def load_split(path):
     return ids, t1, t2, y
 
 
+def align_words(t1, t2):
+    """Deterministic word-level diff: words shared, only in text 1, only in text 2 ('-' if none)."""
+    norm = lambda w: re.sub(r"[^\w]", "", w.lower())
+    w1, w2 = t1.split(), t2.split()
+    n1, n2 = {norm(w) for w in w1}, {norm(w) for w in w2}
+    shared = [w for w in w1 if norm(w) and norm(w) in n2]
+    only1 = [w for w in w1 if norm(w) not in n2]
+    only2 = [w for w in w2 if norm(w) not in n1]
+    return " ".join(shared) or "-", " ".join(only1) or "-", " ".join(only2) or "-"
+
+
+def fill_template(template, t1, t2):
+    if "{sh}" in template:
+        sh, o1, o2 = align_words(t1, t2)
+        return template.format(t1=t1, t2=t2, sh=sh, o1=o1, o2=o2)
+    return template.format(t1=t1, t2=t2)
+
+
 def encode(tok, t1, t2, max_length, template=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
-        enc = tok([template.format(t1=a, t2=b) for a, b in zip(t1, t2)], truncation=True,
+        enc = tok([fill_template(template, a, b) for a, b in zip(t1, t2)], truncation=True,
                   max_length=max_length)
     else:
         enc = tok(t1, t2, truncation="only_second", max_length=max_length)
