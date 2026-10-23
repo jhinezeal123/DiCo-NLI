@@ -1,9 +1,37 @@
 {
-  "name": "track1_vuar_stage1b_spans",
+  "name": "track1_vuar_stage2_student",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "max_length": 128,
-  "mode": "vuar_spans",
-  "teacher_model": "Qwen/Qwen2.5-7B-Instruct",
-  "span_batch_size": 16
+  "mode": "vuar_student",
+  "seeds": [
+    42,
+    13,
+    7
+  ],
+  "dropout": 0.1,
+  "warmup_pcrt": 0.1,
+  "lr": 0.0001,
+  "batch_size": 8,
+  "wd": 0.01,
+  "num_epochs": 3,
+  "amp": true,
+  "decode": "bidir",
+  "max_new_tokens": 110,
+  "decode_batch_size": 48,
+  "traces_file": "data/vuar_train_traces.jsonl",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  }
 }

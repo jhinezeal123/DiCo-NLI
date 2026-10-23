@@ -272,9 +272,93 @@ def spans(cfg, config_path, upstream, paths, out_root, rp):
           f"train_zero_shot_weighted_f1={tr_wf1:.4f}")
 
 
+def reconcile(orig, swap):
+    """Final label from the trace of (t1,t2) and the trace of (t2,t1) (mirrored back).
+
+    Returns (standard_label, bidir_label, mirror_consistent, orig_label, swap_label_mirrored).
+    """
+    l1 = vuar.compose(vuar.parse(orig[0]))
+    l2 = vuar.compose(vuar.parse(swap[0]))
+    l2m = vuar.LABEL_REV[l2] if l2 else None
+    if l1 and l2m:
+        bidir = l1 if (l1 == l2m or orig[1] >= swap[1]) else l2m
+    else:
+        bidir = l1 or l2m or "NEGATIVE_OTHER"
+    return l1 or "NEGATIVE_OTHER", bidir, (l1 is not None and l1 == l2m), l1, l2m
+
+
+def student(cfg, config_path, upstream, paths, out_root, rp):
+    import statistics
+    repo = Path(__file__).resolve().parents[1]
+    traces_path = repo / cfg["traces_file"]
+    dev_rows = rp.read_csv(paths["dev"])
+    ref = {r["instance_id"]: r["label"] for r in dev_rows}
+    section = rp.section
+    section("STUDENT TRAIN + DECODE (seeds in parallel, one per GPU)")
+    t0 = time.time()
+    worker = Path(__file__).resolve().parent / "student_worker.py"
+    seeds = cfg["seeds"]
+    run_workers([(f"seed{sd}", [sys.executable, "-u", str(worker), "--config", str(config_path), "--seed", str(sd),
+                                "--traces", str(traces_path), "--train", str(paths["train"]),
+                                "--dev", str(paths["dev"]), "--out", str(out_root / f"seed{sd}.json")],
+                  out_root / f"seed{sd}.log") for sd in seeds], rp.gpu_count())
+    print(f"student_wall_seconds_all_seeds={time.time() - t0:.0f}")
+
+    headline = cfg.get("decode", "bidir")
+    modes = ["standard", "bidir"]
+    results = {m: {} for m in modes}
+    for sd in seeds:
+        section(f"SEED {sd}")
+        print((out_root / f"seed{sd}.log").read_text(errors="replace"), end="")
+        gen = json.loads((out_root / f"seed{sd}.json").read_text(encoding="utf-8"))
+        rec = [reconcile(o, w) for o, w in zip(gen["orig"], gen["swap"])]
+        ids = [r["instance_id"] for r in dev_rows]
+        n = len(ids)
+        unparsable = sum(1 for r in rec if r[3] is None)
+        agree = [i for i, r in enumerate(rec) if r[2]]
+        dis = [i for i in range(n) if not rec[i][2]]
+        acc = lambda sel, k: sum(rec[i][k] == ref[ids[i]] for i in sel) / max(1, len(sel))
+        print(f"trace stats seed {sd}: unparsable_orig={unparsable}/{n} mirror_consistent={len(agree)}/{n} "
+              f"acc_standard_on_consistent={acc(agree, 0):.3f} acc_bidir_on_inconsistent={acc(dis, 1):.3f} "
+              f"acc_standard_on_inconsistent={acc(dis, 0):.3f}")
+        print(f"<<<DEV_TRACES seed={sd}")
+        print("\t".join(["instance_id", "label_orig", "label_swap_mirrored", "lp_orig", "lp_swap",
+                         "trace_orig", "trace_swap"]))
+        for i in range(n):
+            print("\t".join([ids[i], str(rec[i][3]), str(rec[i][4]), f"{gen['orig'][i][1]:.4f}",
+                             f"{gen['swap'][i][1]:.4f}", gen["orig"][i][0], gen["swap"][i][0]]))
+        print("DEV_TRACES>>>")
+        for mode, k in (("standard", 0), ("bidir", 1)):
+            pred_path = out_root / f"seed{sd}_{mode}_predictions.csv"
+            with open(pred_path, "w", encoding="utf-8", newline="") as f:
+                f.write("instance_id,label\n")
+                for i in range(n):
+                    f.write(f"{ids[i]},{rec[i][k]}\n")
+            rp.validate(pred_path, dev_rows)
+            sc = rp.official_score(upstream, paths["dev_reference"], pred_path.resolve(),
+                                   (out_root / f"seed{sd}_scores_{mode}").resolve())
+            print(f"<<<PREDICTIONS_CSV seed={sd} decoding={mode}")
+            print(pred_path.read_text(encoding="utf-8"), end="")
+            print("PREDICTIONS_CSV>>>")
+            results[mode][sd] = sc
+            print(f"SEED_METRICS decoding={mode} seed={sd} weighted_f1={sc['weighted_f1']:.4f} "
+                  f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}", flush=True)
+    section("SUMMARY")
+    for mode in modes:
+        tag = "FINAL_METRICS" if mode == headline else "DIAG_METRICS"
+        agg = {}
+        for m in ("weighted_f1", "soft_cons", "hard_cons"):
+            vals = [r[m] for r in results[mode].values()]
+            agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
+        print(f"{tag} decoding={mode} split=dev track={cfg['track']} seeds={list(results[mode])} "
+              + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
+
+
 def run(mode, cfg, config_path, upstream, paths, out_root, rp):
     if mode == "vuar_spans":
         return spans(cfg, config_path, upstream, paths, out_root, rp)
+    if mode == "vuar_student":
+        return student(cfg, config_path, upstream, paths, out_root, rp)
     if mode == "vuar_teacher":
         return teacher(cfg, config_path, upstream, paths, out_root, rp)
     raise SystemExit(f"unknown mode {mode}")
