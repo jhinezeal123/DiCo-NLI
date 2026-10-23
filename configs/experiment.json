@@ -1,7 +1,7 @@
 {
-  "name": "track1_modernbert_base_3seed_recipec",
+  "name": "track1_modernbert_large_3seed",
   "track": 1,
-  "model_id": "answerdotai/ModernBERT-base",
+  "model_id": "answerdotai/ModernBERT-large",
   "seeds": [
     42,
     13,
@@ -9,9 +9,10 @@
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
-  "lr": 5e-05,
+  "lr": 2e-05,
   "batch_size": 8,
   "wd": 1e-05,
   "num_epochs": 5,
-  "max_length": 128
+  "max_length": 128,
+  "decode": "bidir"
 }
