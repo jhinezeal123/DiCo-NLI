@@ -4,6 +4,6 @@
 # to the kit's version, the first release with ModernBERT support.
 transformers==4.48.3
 # Tokenizer/adapters for non-ModernBERT encoders (DeBERTa-v3) and LoRA runs.
-sentencepiece==0.2.0
+sentencepiece>=0.2.1
 tiktoken==0.9.0
 peft==0.14.0
