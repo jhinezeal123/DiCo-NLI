@@ -198,6 +198,14 @@ def main():
     scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(), (out / "scores").resolve())
     error_analysis(pred, ref_rows)
 
+    section("ARTIFACTS (copied from log)")
+    print("<<<PREDICTIONS_CSV")
+    print(pred_path.read_text(), end="")
+    print("PREDICTIONS_CSV>>>")
+    print("<<<SCORES_JSON")
+    print((out / "scores" / "scores.json").read_text())
+    print("SCORES_JSON>>>")
+
     section("SUMMARY")
     print(f"FINAL_METRICS split=dev track={cfg['track']} weighted_f1={scores['weighted_f1']:.4f} "
           f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}")
