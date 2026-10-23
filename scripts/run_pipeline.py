@@ -59,9 +59,13 @@ def audit(train_rows, dev_rows, paths):
 
 def environment(model_id):
     section("ENVIRONMENT")
+    import numpy
+    import pandas
+    import sklearn
     import torch
     import transformers
-    print(f"python={sys.version.split()[0]} torch={torch.__version__} transformers={transformers.__version__}")
+    print(f"python={sys.version.split()[0]} torch={torch.__version__} transformers={transformers.__version__} "
+          f"numpy={numpy.__version__} pandas={pandas.__version__} sklearn={sklearn.__version__}")
     print(f"cuda_available={torch.cuda.is_available()}"
           + (f" gpu={torch.cuda.get_device_name(0)}" if torch.cuda.is_available() else ""))
     try:

@@ -1,10 +1,5 @@
-# Pins from the official starter kit (upstream 588968e) except torch, which is
-# taken from the CUDA-matched preinstalled build on the compute host and logged.
-numpy==1.26.4
-pandas==2.2.2
-scikit-learn==1.5.2
+# Starter kit (upstream 588968e) pins numpy/pandas/scikit-learn/torch versions that
+# do not build on the current Kaggle image, so those come from the host's
+# preinstalled stack (versions are logged by the pipeline). transformers is pinned
+# to the kit's version, the first release with ModernBERT support.
 transformers==4.48.3
-optuna==4.1.0
-tqdm==4.67.1
-sentencepiece==0.2.0
-protobuf==5.29.3

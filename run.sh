@@ -19,6 +19,7 @@ git -C "$UPSTREAM_DIR" checkout -q "$UPSTREAM_SHA"
 echo "upstream_sha: $(git -C "$UPSTREAM_DIR" rev-parse HEAD)"
 
 PY="${PYTHON:-python3}"
-"$PY" -m pip install -q -r requirements-run.txt
+"$PY" --version
+"$PY" -m pip install -q --only-binary=:all: -r requirements-run.txt
 
 "$PY" -u scripts/run_pipeline.py --config configs/experiment.json --upstream "$UPSTREAM_DIR"
