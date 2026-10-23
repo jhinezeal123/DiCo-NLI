@@ -1,7 +1,7 @@
 {
-  "name": "track1_modernbert_base_3seed_recipec",
+  "name": "track1_qwen25_1p5b_lora_3seed",
   "track": 1,
-  "model_id": "answerdotai/ModernBERT-base",
+  "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
     42,
     13,
@@ -9,9 +9,26 @@
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
-  "lr": 5e-05,
+  "lr": 0.0001,
   "batch_size": 8,
-  "wd": 1e-05,
-  "num_epochs": 5,
-  "max_length": 128
+  "wd": 0.01,
+  "num_epochs": 3,
+  "max_length": 128,
+  "amp": true,
+  "decode": "bidir",
+  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  }
 }
