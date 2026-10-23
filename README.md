@@ -172,6 +172,7 @@ The IDs above are illustrative; in real submissions, preserve the organizer-prov
 From **this participant repo's root**, one reproducible setup option is:
 
 ~~~bash
+mkdir -p external outputs
 git clone https://github.com/ilopezgazpio/SemEval-2027-Task-2-DiCo-NLI.git external/dico_nli_official
 python3 --version   # Python >= 3.10 required for official scorer
 ~~~
