@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_3seed",
+  "name": "track1_qwen25_7b_qlora_3seed",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen2.5-7B",
   "seeds": [
     42,
     13,
@@ -30,5 +30,6 @@
       "up_proj",
       "down_proj"
     ]
-  }
+  },
+  "quant_4bit": true
 }
