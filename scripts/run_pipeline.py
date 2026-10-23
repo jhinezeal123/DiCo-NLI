@@ -9,6 +9,7 @@ import csv
 import hashlib
 import json
 import shutil
+import statistics
 import subprocess
 import sys
 import time
@@ -178,10 +179,10 @@ def main():
         "dev": data / "dev" / f"dico_nli_dev_{t}_participant_labeled.csv",
         "dev_reference": data / "dev" / f"dico_nli_dev_{t}_reference.csv",
     }
-    out = Path("outputs") / cfg["name"]
-    if out.exists():
-        shutil.rmtree(out)
-    out.mkdir(parents=True)
+    out_root = Path("outputs") / cfg["name"]
+    if out_root.exists():
+        shutil.rmtree(out_root)
+    out_root.mkdir(parents=True)
 
     section("CONFIG")
     print(json.dumps(cfg, indent=1))
@@ -190,17 +191,40 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
-    final_pred = train_and_predict(cfg, upstream, paths["dev"], paths["train"], paths["dev_reference"],
-                                   (out / "kit_results").resolve())
-    pred_path = out / f"{t}_dev_predictions.csv"
-    shutil.copy(final_pred, pred_path)
-    pred = validate(pred_path, dev_rows)
-    scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(), (out / "scores").resolve())
-    error_analysis(pred, ref_rows)
+    results = {}
+    for seed in cfg["seeds"]:
+        section(f"SEED {seed}")
+        cfg_s = {**cfg, "seed": seed}
+        out = out_root / f"seed{seed}"
+        out.mkdir()
+        final_pred = train_and_predict(cfg_s, upstream, paths["dev"], paths["train"], paths["dev_reference"],
+                                       (out / "kit_results").resolve())
+        pred_path = out / f"{t}_dev_predictions.csv"
+        shutil.copy(final_pred, pred_path)
+        pred = validate(pred_path, dev_rows)
+        scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(), (out / "scores").resolve())
+        error_analysis(pred, ref_rows)
+
+        print(f"<<<PREDICTIONS_CSV seed={seed}")
+        print(pred_path.read_text(), end="")
+        print("PREDICTIONS_CSV>>>")
+        print(f"<<<SCORES_JSON seed={seed}")
+        print((out / "scores" / "scores.json").read_text())
+        print("SCORES_JSON>>>")
+        results[seed] = scores
+        print(f"SEED_METRICS seed={seed} weighted_f1={scores['weighted_f1']:.4f} "
+              f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
 
     section("SUMMARY")
-    print(f"FINAL_METRICS split=dev track={cfg['track']} weighted_f1={scores['weighted_f1']:.4f} "
-          f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}")
+    agg = {}
+    for m in ("weighted_f1", "soft_cons", "hard_cons"):
+        vals = [r[m] for r in results.values()]
+        agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
+    for seed, r in results.items():
+        print(f"SEED_METRICS seed={seed} weighted_f1={r['weighted_f1']:.4f} "
+              f"soft_cons={r['soft_cons']:.4f} hard_cons={r['hard_cons']:.4f}")
+    print(f"FINAL_METRICS split=dev track={cfg['track']} seeds={list(results)} "
+          + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
 
 
 if __name__ == "__main__":

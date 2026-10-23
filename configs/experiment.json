@@ -1,8 +1,12 @@
 {
-  "name": "track1_modernbert_base_starterkit_seed42",
+  "name": "track1_modernbert_base_3seed",
   "track": 1,
   "model_id": "answerdotai/ModernBERT-base",
-  "seed": 42,
+  "seeds": [
+    42,
+    13,
+    7
+  ],
   "dropout": 0.1,
   "warmup_pcrt": 0.01,
   "lr": 5e-05,
