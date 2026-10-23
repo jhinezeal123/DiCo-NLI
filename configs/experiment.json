@@ -1,12 +1,9 @@
 {
-  "name": "track1_vuar_stage1_teacher",
+  "name": "track1_vuar_stage1b_spans",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "max_length": 128,
-  "mode": "vuar_teacher",
+  "mode": "vuar_spans",
   "teacher_model": "Qwen/Qwen2.5-7B-Instruct",
-  "teacher_batch_size": 24,
-  "teacher_max_new_tokens": 110,
-  "teacher_retries": 3,
-  "teacher_zero_shot_train": 300
+  "span_batch_size": 16
 }

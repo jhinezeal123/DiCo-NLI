@@ -148,7 +148,133 @@ def teacher(cfg, config_path, upstream, paths, out_root, rp):
           f"hard_cons={scores['hard_cons']:.4f} train_zero_shot_weighted_f1={zero['train_zero'][1]:.4f}")
 
 
+def spans(cfg, config_path, upstream, paths, out_root, rp):
+    """Stage 1b: deterministic alignment; the teacher only scores the relation of replaced spans."""
+    import math
+    from sklearn.metrics import f1_score
+    train_rows, dev_rows = rp.read_csv(paths["train"]), rp.read_csv(paths["dev"])
+    originals = [r for r in train_rows if r["instance_id"].endswith("__original")]
+    items, jobs = [], []
+
+    def add(group, row):
+        t1, t2 = clean(row["text1"]), clean(row["text2"])
+        units = vuar.diff_units(t1, t2)
+        items.append((group, row["instance_id"], row["label"], t1, t2, units))
+        for n, i in enumerate(vuar.rep_indices(units)):
+            a, b, _ = units[i]
+            key = f"{group}|{row['instance_id']}|{n}"
+            jobs.append(dict(key=key, t1=t1, t2=t2, a=a, b=b))
+            jobs.append(dict(key=key + "|sw", t1=t2, t2=t1, a=b, b=a))
+
+    for r in originals:
+        add("train", r)
+    for r in dev_rows:
+        add("dev", r)
+    print(f"items: train={sum(1 for x in items if x[0] == 'train')} dev={sum(1 for x in items if x[0] == 'dev')} "
+          f"span_queries={len(jobs)}", flush=True)
+    jobs_path = out_root / "jobs.json"
+    jobs_path.write_text(json.dumps(jobs, ensure_ascii=False), encoding="utf-8")
+
+    section = rp.section
+    section("TEACHER SPAN SCORING (shards in parallel, one per GPU)")
+    n = rp.gpu_count()
+    t0 = time.time()
+    worker = Path(__file__).resolve().parent / "span_worker.py"
+    run_workers([(f"shard{i}", [sys.executable, "-u", str(worker), "--config", str(config_path),
+                                "--jobs", str(jobs_path), "--shard", str(i), "--nshards", str(n),
+                                "--out", str(out_root / f"shard{i}.json")],
+                  out_root / f"shard{i}.log") for i in range(n)], n)
+    print(f"span_scoring_wall_seconds={time.time() - t0:.0f}")
+    raw = {}
+    for i in range(n):
+        raw.update(json.loads((out_root / f"shard{i}.json").read_text(encoding="utf-8")))
+
+    def rel_scores(group, rid, k):
+        """Log-probs over relations, averaging the query with its mirrored (swapped) counterpart."""
+        f, w = raw[f"{group}|{rid}|{k}"], raw[f"{group}|{rid}|{k}|sw"]
+        out = {}
+        for rel in vuar.SPAN_RELS:
+            p = 0.5 * (math.exp(f[vuar.REL_LETTER[rel]]) + math.exp(w[vuar.REL_LETTER[vuar.MIRROR[rel]]]))
+            out[rel] = math.log(max(p, 1e-9))
+        return out
+
+    def scores_for(item):
+        group, rid, _, _, _, units = item
+        return [rel_scores(group, rid, k) for k in range(len(vuar.rep_indices(units)))]
+
+    uniform = lambda units: [{r: 0.0 for r in vuar.SPAN_RELS} for _ in vuar.rep_indices(units)]
+
+    section("DSL FIT (deterministic alignment): label-conditioned relation assignment on train originals")
+    tr_items = [x for x in items if x[0] == "train"]
+    accepted, per_label = [], {}
+    zero_pred, zero_ref = [], []
+    for it in tr_items:
+        group, rid, gold, t1, t2, units = it
+        sc = scores_for(it)
+        trace = vuar.best_assignment(units, sc, gold)
+        per_label.setdefault(gold, Counter())["n"] += 1
+        per_label[gold]["structural_feasible"] += int(vuar.best_assignment(units, uniform(units), gold) is not None)
+        per_label[gold]["has_rep"] += int(bool(vuar.rep_indices(units)))
+        if trace is not None:
+            accepted.append((it, trace))
+            per_label[gold]["accepted"] += 1
+            for _, _, rel in trace:
+                per_label[gold]["rel_" + rel] += 1
+        z = vuar.compose(vuar.best_assignment(units, sc, None))
+        per_label[gold]["zero_shot_correct"] += int(z == gold)
+        zero_pred.append(z)
+        zero_ref.append(gold)
+    tot = len(tr_items)
+    print(f"train originals={tot} accepted={len(accepted)} ({len(accepted) / tot:.1%})")
+    for lab in LABELS:
+        c = per_label.get(lab)
+        if not c:
+            continue
+        rels = {k[4:]: v for k, v in c.items() if k.startswith("rel_")}
+        print(f"  {lab:20s} n={c['n']:4d} feasible={c['structural_feasible'] / c['n']:.1%} "
+              f"has_replaced_span={c['has_rep'] / c['n']:.1%} zero_shot_acc={c['zero_shot_correct'] / c['n']:.1%} "
+              f"relations={dict(sorted(rels.items(), key=lambda kv: -kv[1]))}")
+    tr_wf1 = f1_score(zero_ref, zero_pred, average="weighted")
+    print(f"train zero-shot (teacher argmax, no labels) accuracy={sum(a == b for a, b in zip(zero_pred, zero_ref)) / tot:.4f} "
+          f"weighted_f1={tr_wf1:.4f}")
+
+    section("ZERO-SHOT on dev: deterministic alignment + teacher span relations, label composed by rule")
+    dv_items = {x[1]: x for x in items if x[0] == "dev"}
+    preds, feasible = {}, 0
+    for rid, it in dv_items.items():
+        z = vuar.compose(vuar.best_assignment(it[5], scores_for(it), None))
+        preds[rid] = z
+        feasible += int(vuar.best_assignment(it[5], uniform(it[5]), it[2]) is not None)
+    print(f"dev rows whose gold label is reachable by the composition rule (structural ceiling): "
+          f"{feasible}/{len(dv_items)} = {feasible / len(dv_items):.1%}")
+    pred_path = out_root / "dev_zero_shot_predictions.csv"
+    with open(pred_path, "w", encoding="utf-8", newline="") as f:
+        f.write("instance_id,label\n")
+        for r in dev_rows:
+            f.write(f"{r['instance_id']},{preds[r['instance_id']]}\n")
+    rp.validate(pred_path, dev_rows)
+    scores = rp.official_score(upstream, paths["dev_reference"], pred_path.resolve(),
+                               (out_root / "scores_dev_zero").resolve())
+
+    section("ARTIFACTS (copied from log)")
+    print("<<<TRACES_JSONL")
+    for (group, rid, gold, t1, t2, units), trace in accepted:
+        print(json.dumps({"id": rid, "t1": t1, "t2": t2, "label": gold, "units": vuar.format_units(trace)},
+                         ensure_ascii=False))
+    print("TRACES_JSONL>>>")
+    print("<<<RAW_SCORES_JSON")
+    print(json.dumps(raw))
+    print("RAW_SCORES_JSON>>>")
+    section("SUMMARY")
+    print(f"FINAL_METRICS mode=vuar_spans train_accept={len(accepted) / tot:.4f} "
+          f"dev_ceiling={feasible / len(dv_items):.4f} dev_zero_shot_weighted_f1={scores['weighted_f1']:.4f} "
+          f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f} "
+          f"train_zero_shot_weighted_f1={tr_wf1:.4f}")
+
+
 def run(mode, cfg, config_path, upstream, paths, out_root, rp):
+    if mode == "vuar_spans":
+        return spans(cfg, config_path, upstream, paths, out_root, rp)
     if mode == "vuar_teacher":
         return teacher(cfg, config_path, upstream, paths, out_root, rp)
     raise SystemExit(f"unknown mode {mode}")

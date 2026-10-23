@@ -39,7 +39,7 @@ def parse(text):
 
 
 def format_units(units):
-    q = lambda s: '"%s"' % s if s else "-"
+    q = lambda s: '"%s"' % s.replace('"', "'") if s else "-"
     return " | ".join(f"{q(a)} ~ {q(b)} = {r}" for a, b, r in units)
 
 
@@ -134,4 +134,127 @@ def teacher_prompt(t1, t2, gold=None):
     if gold:
         parts.append(f"annotated relation: {LABEL_DESC[gold]}\n(Choose units that explain this annotation.)")
     parts.append("units:")
+    return "\n".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Stage 1b: deterministic alignment; the teacher only judges replaced spans.
+# ---------------------------------------------------------------------------
+import difflib
+import itertools
+
+SPAN_RELS = ("EQ", "SPEC", "GEN", "CONF", "LOOSE")
+LETTER = {"A": "EQ", "B": "SPEC", "C": "GEN", "D": "CONF", "E": "LOOSE"}
+REL_LETTER = {v: k for k, v in LETTER.items()}
+
+
+def _tok(w):
+    return re.sub(r"[^\w]", "", w.lower()) or w.lower()
+
+
+def diff_units(t1, t2):
+    """Deterministic alignment into [(span1, span2, kind)], kind in EQ / X1 / X2 / REP.
+
+    EQ  = words equal up to case and punctuation, X1 = only in text1, X2 = only in text2,
+    REP = a replaced span whose relation must be judged.
+    """
+    a, b = t1.split(), t2.split()
+    ops = difflib.SequenceMatcher(None, [_tok(w) for w in a], [_tok(w) for w in b], autojunk=False).get_opcodes()
+    units = []
+    for tag, i1, i2, j1, j2 in ops:
+        sa, sb = " ".join(a[i1:i2]), " ".join(b[j1:j2])
+        units.append((sa, sb, {"equal": "EQ", "delete": "X1", "insert": "X2"}.get(tag, "REP")))
+    return _collapse_paraphrase(_merge_moves(units))
+
+
+def _collapse_paraphrase(units):
+    """Words only in text1 AND words only in text2 form a paraphrase region whose relation must be judged:
+    collapse all X1/X2 units into one REP unit (placed at the first of them)."""
+    x = [i for i, (_, _, k) in enumerate(units) if k in ("X1", "X2")]
+    if not any(units[i][2] == "X1" for i in x) or not any(units[i][2] == "X2" for i in x):
+        return units
+    merged = (" ".join(units[i][0] for i in x if units[i][0]), " ".join(units[i][1] for i in x if units[i][1]), "REP")
+    return [merged if i == x[0] else u for i, u in enumerate(units) if i not in x or i == x[0]]
+
+
+def _merge_moves(units):
+    """If the words only present in text1 are exactly the words only present in text2 (a pure reordering),
+    replace those X1/X2 units by one EQ unit."""
+    x1 = [i for i, (_, _, k) in enumerate(units) if k == "X1"]
+    x2 = [i for i, (_, _, k) in enumerate(units) if k == "X2"]
+    if not x1 or not x2 or any(k == "REP" for _, _, k in units):
+        return units
+    w1 = sorted(_tok(w) for i in x1 for w in units[i][0].split())
+    w2 = sorted(_tok(w) for i in x2 for w in units[i][1].split())
+    if w1 != w2:
+        return units
+    first = min(x1 + x2)
+    merged = (" ".join(units[i][0] for i in x1), " ".join(units[i][1] for i in x2), "EQ")
+    return [merged if i == first else u for i, u in enumerate(units) if i not in x1 + x2 or i == first]
+
+
+def rep_indices(units):
+    return [i for i, (_, _, k) in enumerate(units) if k == "REP"]
+
+
+def build_trace(units, rels):
+    """rels: one relation (from SPAN_RELS) per REP unit, in order. Returns [(a, b, rel)]."""
+    it = iter(rels)
+    return [(a, b, next(it) if k == "REP" else k) for a, b, k in units]
+
+
+def best_assignment(units, scores, gold=None, max_reps=5):
+    """Pick relations for the REP units.
+
+    scores: list (one per REP unit, same order) of {rel: log-prob}.
+    gold=None: per-span argmax. gold set: the highest-scoring assignment whose composition equals gold,
+    or None if the gold label is infeasible for this alignment.
+    """
+    k = len(rep_indices(units))
+    if k == 0:
+        trace = build_trace(units, [])
+        return trace if gold is None or compose(trace) == gold else None
+    if gold is None:
+        return build_trace(units, [max(sc, key=sc.get) for sc in scores])
+    if k > max_reps:
+        return None
+    best, best_s = None, None
+    for combo in itertools.product(SPAN_RELS, repeat=k):
+        trace = build_trace(units, combo)
+        if compose(trace) != gold:
+            continue
+        s = sum(scores[n][r] for n, r in enumerate(combo))
+        if best_s is None or s > best_s:
+            best, best_s = trace, s
+    return best
+
+
+SPAN_INSTRUCTIONS = """Two short English phrases differ in one part. Decide how the differing part of phrase 1 relates to the differing part of phrase 2, taking the phrases as context.
+A  same meaning (equivalent)
+B  the part of phrase 1 is more specific than the part of phrase 2 (it implies it), e.g. "a dog" vs "an animal"
+C  the part of phrase 1 is more general than the part of phrase 2
+D  they contradict each other or are different, mutually exclusive things (black vs blue, a carabiner vs a pulley)
+E  related or similar, but neither implies the other (different prepositions, singular vs plural, nearby but different concepts, hedges)
+Answer with a single letter."""
+
+SPAN_FEW_SHOT = [
+    ("Black bird", "Blue bird", "Black", "Blue", "D"),
+    ("are standing", "is standing", "are", "is", "E"),
+    ("a carabiner", "a pulley", "carabiner", "pulley", "D"),
+    ("of breast cancer", "about breast cancer", "of", "about", "E"),
+    ("some dirt bikes", "a bicycle", "some dirt bikes", "a bicycle", "B"),
+    ("a bicycle", "some dirt bikes", "a bicycle", "some dirt bikes", "C"),
+    ("puts on notice", "warned", "puts on notice", "warned", "A"),
+    ("The white sheep", "A sheep", "The white", "A", "B"),
+    ("are seated", "sitting", "are seated", "sitting", "A"),
+]
+
+
+def span_prompt(t1, t2, a, b):
+    parts = [SPAN_INSTRUCTIONS, ""]
+    for p1, p2, sa, sb, ans in SPAN_FEW_SHOT:
+        parts.append(f'Phrase 1: {p1}\nPhrase 2: {p2}\nDiffering part of phrase 1: "{sa}"\n'
+                     f'Differing part of phrase 2: "{sb}"\nAnswer: {ans}\n')
+    parts.append(f'Phrase 1: {t1}\nPhrase 2: {t2}\nDiffering part of phrase 1: "{a}"\n'
+                 f'Differing part of phrase 2: "{b}"\nAnswer:')
     return "\n".join(parts)
