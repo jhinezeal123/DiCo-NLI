@@ -217,6 +217,7 @@ def main():
     headline = cfg.get("decode", "standard")
     modes = ["standard", "bidir"]
     results = {m: {} for m in modes}
+    ens_sum = {}
     for seed in cfg["seeds"]:
         section(f"SEED {seed}")
         out = out_root / f"seed{seed}"
@@ -224,6 +225,8 @@ def main():
         p, q = trained[seed]["orig"], trained[seed]["swap"]
         # q is the prediction for the swapped input; map it back through the reversal.
         final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
+        for mode in final:
+            ens_sum[mode] = ens_sum.get(mode, 0) + final[mode]
         print(f"<<<DEV_PROBS seed={seed}")
         print("instance_id," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
         for r, pi, qi in zip(dev_rows, p, q):
@@ -249,7 +252,24 @@ def main():
             print(f"SEED_METRICS decoding={mode} seed={seed} weighted_f1={scores['weighted_f1']:.4f} "
                   f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
 
+    section("SEED ENSEMBLE (diagnostic: mean probabilities over seeds)")
+    ens_scores = {}
+    for mode in modes:
+        pred_path = out_root / f"{t}_dev_predictions_ensemble_{mode}.csv"
+        with open(pred_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f, lineterminator="\n")
+            w.writerow(["instance_id", "label"])
+            for r, pr in zip(dev_rows, ens_sum[mode]):
+                w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+        validate(pred_path, dev_rows)
+        ens_scores[mode] = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
+                                          (out_root / f"scores_ensemble_{mode}").resolve())
+
     section("SUMMARY")
+    for mode in modes:
+        e = ens_scores[mode]
+        print(f"ENSEMBLE_METRICS decoding={mode} n_seeds={len(cfg['seeds'])} weighted_f1={e['weighted_f1']:.4f} "
+              f"soft_cons={e['soft_cons']:.4f} hard_cons={e['hard_cons']:.4f}")
     for mode in modes:
         tag = "FINAL_METRICS" if mode == headline else "DIAG_METRICS"
         agg = {}
