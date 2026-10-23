@@ -205,6 +205,13 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    mode = cfg.get("mode", "classify")
+    if mode != "classify":
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import vuar_pipeline
+        vuar_pipeline.run(mode, cfg, args.config, upstream, paths, out_root, sys.modules[__name__])
+        return
+
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
     import numpy as np
