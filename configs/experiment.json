@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_ls_frac25",
+  "name": "track1_qwen25_1p5b_ls_frac25_ep12",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -12,7 +12,7 @@
   "lr": 0.0001,
   "batch_size": 8,
   "wd": 0.01,
-  "num_epochs": 3,
+  "num_epochs": 12,
   "max_length": 128,
   "amp": true,
   "decode": "bidir",
