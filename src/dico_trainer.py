@@ -6,8 +6,10 @@ Difference: per-batch dynamic padding instead of padding to max_length (identica
 under the attention mask, much faster).
 """
 import os
+import json
 import random
 import re
+from collections import Counter
 
 import numpy as np
 import pandas as pd
@@ -81,18 +83,18 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
 
 
 def build_model(cfg, num_labels, device):
-    config = AutoConfig.from_pretrained(cfg["model_id"])
+    config = AutoConfig.from_pretrained(cfg["model_id"],revision=cfg.get("model_revision"))
     # Dropout handling mirrors the starter kit's Model class.
     if hasattr(config, "classifier_dropout"):
         config.classifier_dropout = float(cfg["dropout"])
     elif hasattr(config, "pooler_dropout") and not hasattr(config, "cls_dropout"):
         config.cls_dropout = float(cfg["dropout"])
     config.num_labels = num_labels
-    tok = AutoTokenizer.from_pretrained(cfg["model_id"])
+    tok = AutoTokenizer.from_pretrained(cfg["model_id"],revision=cfg.get("model_revision"))
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"],revision=cfg.get("model_revision"), config=config)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
@@ -112,7 +114,7 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    train_ids, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
@@ -125,6 +127,18 @@ def run(cfg, seed, train_path, dev_path, device):
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
     f_train = encode(tok, tr1, tr2, L, tpl)
+    view_probability=cfg.get("spanish_view_probability")
+    if view_probability is not None:
+        assert not factorized and cfg["track"]==1
+        from train_views import prepare_spanish,epoch_features
+        alt1,alt2,source_pairs,eligible,view_audit=prepare_spanish(
+            train_path,train_ids,tr1,tr2,[LABELS[i] for i in ytr])
+        f_spanish=encode(tok,alt1,alt2,L,tpl)
+        identity,_=epoch_features(f_train,f_spanish,source_pairs,eligible,random.Random(0),0)
+        assert all(a is b for a,b in zip(identity,f_train))
+        view_rng=random.Random(seed+1000003)
+        print("TRAIN_VIEW_AUDIT",json.dumps({**view_audit,"spanish_probability":view_probability,
+              "rng_independent":True,"zero_probability_identity_checked":True},sort_keys=True),flush=True)
     f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
@@ -146,11 +160,17 @@ def run(cfg, seed, train_path, dev_path, device):
 
     for epoch in range(epochs):
         model.train()
+        train_features=f_train
+        if view_probability is not None:
+            train_features,selected=epoch_features(f_train,f_spanish,source_pairs,eligible,view_rng,float(view_probability))
+            print("TRAIN_VIEW_COUNTS",json.dumps({"epoch":epoch+1,"rows":len(f_train),
+                  "spanish_rows":sum(selected),"english_rows":len(selected)-sum(selected),
+                  "spanish_by_label":dict(Counter(LABELS[int(ytr[i])] for i,flag in enumerate(selected) if flag))},sort_keys=True),flush=True)
         perm = torch.randperm(len(f_train), generator=g).tolist()
         total_loss = 0.0
         for s in range(0, len(perm), bs):
             idx = perm[s:s + bs]
-            b = batch(tok, f_train, idx, device)
+            b = batch(tok, train_features, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
             loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))

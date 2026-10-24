@@ -59,7 +59,7 @@ def audit(train_rows, dev_rows, paths):
     assert not (train_pairs & dev_pairs), "pair_id leakage between train and dev"
 
 
-def environment(model_id):
+def environment(model_id,revision=None):
     section("ENVIRONMENT")
     import numpy
     import pandas
@@ -72,7 +72,7 @@ def environment(model_id):
           + (f" gpu={torch.cuda.get_device_name(0)}" if torch.cuda.is_available() else ""))
     try:
         from huggingface_hub import model_info
-        print(f"model_id={model_id} model_revision={model_info(model_id).sha}")
+        print(f"model_id={model_id} model_revision={model_info(model_id,revision=revision).sha}")
     except Exception as exc:  # network/auth hiccups must not block the run
         print(f"model_id={model_id} model_revision=unavailable ({exc.__class__.__name__})")
 
@@ -92,6 +92,7 @@ def train_seeds_parallel(config_path, seeds, paths, out_root):
     print(f"gpus_available={n_gpu} seeds={list(seeds)}", flush=True)
     worker = Path(__file__).resolve().parent / "train_worker.py"
     pending, running, trained = list(seeds), {}, {}
+    progress_lines={}
     free_gpus = list(range(n_gpu))
     while pending or running:
         while pending and free_gpus:
@@ -109,6 +110,11 @@ def train_seeds_parallel(config_path, seeds, paths, out_root):
         time.sleep(5)
         for seed in list(running):
             proc, gpu, log, t0 = running[seed]
+            lines=(out_root/f"seed{seed}"/"train.log").read_text(errors="replace").splitlines()
+            for line in lines[progress_lines.get(seed,0):]:
+                if line.startswith(("TRAIN_VIEW_AUDIT","TRAIN_VIEW_COUNTS","Epoch ")):
+                    print(f"WORKER_PROGRESS seed={seed} {line}",flush=True)
+            progress_lines[seed]=len(lines)
             if proc.poll() is None:
                 continue
             log.close()
@@ -203,7 +209,7 @@ def main():
     train_rows, dev_rows = read_csv(paths["train"]), read_csv(paths["dev"])
     ref_rows = read_csv(paths["dev_reference"])
     audit(train_rows, dev_rows, paths)
-    environment(cfg["model_id"])
+    environment(cfg["model_id"],cfg.get("model_revision"))
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
