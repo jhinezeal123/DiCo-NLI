@@ -80,6 +80,26 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
     return np.concatenate(out).astype(np.float64)
 
 
+class MeanScore(torch.nn.Module):
+    """Classification head over masked mean-pooled hidden states.
+
+    HF *ForSequenceClassification applies `score` per token and then picks the last
+    non-pad position. Returning the same pooled logits at every position makes that pick
+    equal to mean pooling. The attention mask is set once per forward by a pre-hook on the
+    top-level model (class attribute, so PEFT's deep copy of this module still sees it).
+    """
+    mask = None
+
+    def __init__(self, linear):
+        super().__init__()
+        self.linear = linear
+
+    def forward(self, h):
+        m = MeanScore.mask.to(h.dtype).unsqueeze(-1)
+        pooled = (h * m).sum(1) / m.sum(1).clamp(min=1)
+        return self.linear(pooled).unsqueeze(1).expand(-1, h.shape[1], -1)
+
+
 def build_model(cfg, num_labels, device):
     config = AutoConfig.from_pretrained(cfg["model_id"])
     # Dropout handling mirrors the starter kit's Model class.
@@ -93,6 +113,9 @@ def build_model(cfg, num_labels, device):
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
     model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    mean_pool = cfg.get("pooling") == "mean"
+    if mean_pool:
+        model.score = MeanScore(model.score)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
@@ -100,6 +123,10 @@ def build_model(cfg, num_labels, device):
             task_type=TaskType.SEQ_CLS, r=lc["r"], lora_alpha=lc["alpha"], lora_dropout=lc["dropout"],
             target_modules=lc["target_modules"]))
         model.print_trainable_parameters()
+    if mean_pool:
+        def _set_mask(_m, _args, kwargs):
+            MeanScore.mask = kwargs["attention_mask"]
+        model.register_forward_pre_hook(_set_mask, with_kwargs=True)
     return tok, model.to(device)
 
 
