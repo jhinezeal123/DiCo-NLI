@@ -7,3 +7,4 @@ transformers==4.48.3
 sentencepiece>=0.2.1
 tiktoken==0.9.0
 peft==0.14.0
+laya==0.4.14

@@ -185,6 +185,9 @@ def main():
     ap.add_argument("--upstream", required=True)
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
+    if cfg.get("trainer") == "laya":
+        from run_laya import run_experiment
+        return run_experiment(cfg, Path(args.upstream).resolve())
     upstream = Path(args.upstream).resolve()
     t = f"track{cfg['track']}"
     data = upstream / "final_data"
