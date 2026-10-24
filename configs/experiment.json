@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_drop_random5",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_drop_lowconf5",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
