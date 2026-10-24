@@ -109,10 +109,25 @@ def factorized_probs(e_fwd, e_bwd):
                      (1 - e_fwd) * (1 - e_bwd)], axis=1)
 
 
-def run(cfg, seed, train_path, dev_path, device):
-    """Train on train only; return dev probabilities for the original and swapped inputs."""
+def run(cfg, seed, train_path, dev_path, device, fold=None):
+    """Train on train only; return dev probabilities for the original and swapped inputs.
+
+    fold=k (cv mode): train on the train rows outside fold k (folds grouped by pair_id) and also
+    return out-of-fold probabilities for the held-out train rows of fold k.
+    """
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
+    held = None
+    if fold is not None:
+        pids = pd.read_csv(train_path)["pair_id"].tolist()
+        uniq = sorted(set(pids))
+        perm = np.random.RandomState(1234).permutation(len(uniq))  # fixed folds, independent of seed
+        fold_of = {uniq[i]: j % int(cfg["cv_folds"]) for j, i in enumerate(perm)}
+        f = np.array([fold_of[p] for p in pids])
+        hold_idx, keep_idx = np.where(f == fold)[0], np.where(f != fold)[0]
+        held = ([tr_ids[i] for i in hold_idx], [tr1[i] for i in hold_idx], [tr2[i] for i in hold_idx])
+        tr1, tr2, ytr = [tr1[i] for i in keep_idx], [tr2[i] for i in keep_idx], ytr[keep_idx]
+        print(f"cv fold {fold}: train {len(keep_idx)} rows, held-out {len(hold_idx)} rows", flush=True)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
@@ -170,4 +185,10 @@ def run(cfg, seed, train_path, dev_path, device):
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
-    return {"orig": p, "swap": q}
+    out = {"orig": p, "swap": q}
+    if held is not None:
+        h_ids, h1, h2 = held
+        out["oof_ids"] = np.array(h_ids)
+        out["oof_orig"] = predict_probs(model, tok, encode(tok, h1, h2, L, tpl), bs, device, amp)
+        out["oof_swap"] = predict_probs(model, tok, encode(tok, h2, h1, L, tpl), bs, device, amp)
+    return out

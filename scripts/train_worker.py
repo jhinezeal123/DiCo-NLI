@@ -22,13 +22,15 @@ def main():
     ap.add_argument("--train", required=True)
     ap.add_argument("--dev", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--fold", type=int, default=-1)
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"worker seed={args.seed} device={device}"
           + (f" gpu={torch.cuda.get_device_name(0)}" if device.type == "cuda" else ""), flush=True)
-    probs = dt.run(cfg, args.seed, args.train, args.dev, device)
-    np.savez(args.out, orig=probs["orig"], swap=probs["swap"])
+    probs = dt.run(cfg, args.seed, args.train, args.dev, device,
+                    fold=args.fold if args.fold >= 0 else None)
+    np.savez(args.out, **probs)
 
 
 if __name__ == "__main__":

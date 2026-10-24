@@ -85,7 +85,7 @@ def gpu_count():
         return 1
 
 
-def train_seeds_parallel(config_path, seeds, paths, out_root):
+def train_seeds_parallel(config_path, seeds, paths, out_root, folds=None):
     """Train each seed in its own process pinned to one GPU; at most one live job per GPU."""
     import numpy as np
     n_gpu = gpu_count()
@@ -96,12 +96,13 @@ def train_seeds_parallel(config_path, seeds, paths, out_root):
     while pending or running:
         while pending and free_gpus:
             seed, gpu = pending.pop(0), free_gpus.pop(0)
-            out = out_root / f"seed{seed}"
+            out = out_root / (f"fold{seed}" if folds else f"seed{seed}")  # cv: "seeds" are fold ids
             out.mkdir()
             env = {**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu)}
             log = open(out / "train.log", "w")
             proc = subprocess.Popen(
-                [sys.executable, "-u", str(worker), "--config", str(config_path), "--seed", str(seed),
+                [sys.executable, "-u", str(worker), "--config", str(config_path), "--seed", str(folds["seed"] if folds else seed),
+                 *(["--fold", str(seed)] if folds else []),
                  "--train", str(paths["train"]), "--dev", str(paths["dev"]), "--out", str(out / "probs.npz")],
                 stdout=log, stderr=subprocess.STDOUT, env=env)
             running[seed] = (proc, gpu, log, time.time())
@@ -116,11 +117,11 @@ def train_seeds_parallel(config_path, seeds, paths, out_root):
             free_gpus.append(gpu)
             print(f"seed={seed} finished rc={proc.returncode} gpu={gpu} wall={time.time() - t0:.0f}s", flush=True)
             if proc.returncode != 0:
-                print((out_root / f"seed{seed}" / "train.log").read_text(errors="replace")[-3000:])
+                print((out_root / (f"fold{seed}" if folds else f"seed{seed}") / "train.log").read_text(errors="replace")[-3000:])
                 for p2, _, _, _ in running.values():
                     p2.kill()
                 sys.exit(f"worker for seed {seed} failed")
-            trained[seed] = dict(np.load(out_root / f"seed{seed}" / "probs.npz"))
+            trained[seed] = dict(np.load(out_root / (f"fold{seed}" if folds else f"seed{seed}") / "probs.npz"))
     return trained
 
 
@@ -179,6 +180,58 @@ def error_analysis(pred, ref_rows):
               f"consistent_but_wrong={buckets[(kind, 'consistent_but_wrong')]}")
 
 
+def run_cv(cfg, args, paths, dev_rows, upstream, out_root, t):
+    """K-fold grouped CV on train: pooled out-of-fold scores + per-fold dev probabilities."""
+    import numpy as np
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    import dico_trainer as dt
+    K = int(cfg["cv_folds"])
+    trained = train_seeds_parallel(args.config, list(range(K)), paths, out_root, folds={"seed": cfg["seeds"][0]})
+    train_rows = read_csv(paths["train"])
+    ref = paths["train"].parent / f"dico_nli_train_{t}_reference.csv"
+    pos = {r["instance_id"]: i for i, r in enumerate(train_rows)}
+    P = np.zeros((len(train_rows), len(dt.LABELS)))
+    Q = np.zeros_like(P)
+    seen = np.zeros(len(train_rows), bool)
+    for k in range(K):
+        d = trained[k]
+        idx = [pos[i] for i in d["oof_ids"]]
+        P[idx], Q[idx], seen[idx] = d["oof_orig"], d["oof_swap"], True
+        print(f"<<<DEV_PROBS fold={k}")
+        print("instance_id," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
+        for r, pi, qi in zip(dev_rows, d["orig"], d["swap"]):
+            print(r["instance_id"] + "," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
+        print("DEV_PROBS>>>")
+    assert seen.all(), "some train rows were not held out"
+    print("<<<OOF_PROBS")
+    print("instance_id,label," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
+    for r, pi, qi in zip(train_rows, P, Q):
+        print(r["instance_id"] + "," + r["label"] + "," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
+    print("OOF_PROBS>>>")
+    section("CV OUT-OF-FOLD SCORES (pooled over all train rows, official scorer)")
+    for mode, probs in (("standard", P), ("bidir", 0.5 * (P + Q[:, dt.REV]))):
+        path = out_root / f"{t}_train_oof_{mode}.csv"
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f, lineterminator="\n")
+            w.writerow(["instance_id", "label"])
+            for r, pr in zip(train_rows, probs):
+                w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+        sc = official_score(upstream, ref, path.resolve(), (out_root / f"scores_oof_{mode}").resolve())
+        print(f"OOF_METRICS decoding={mode} folds={K} weighted_f1={sc['weighted_f1']:.4f} "
+              f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}", flush=True)
+    section("DEV (mean probabilities of the K fold models)")
+    dp = np.mean([0.5 * (trained[k]["orig"] + trained[k]["swap"][:, dt.REV]) for k in range(K)], axis=0)
+    path = out_root / f"{t}_dev_cvens_bidir.csv"
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["instance_id", "label"])
+        for r, pr in zip(dev_rows, dp):
+            w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+    sc = official_score(upstream, paths["dev_reference"], path.resolve(), (out_root / "scores_dev_cvens").resolve())
+    print(f"CV_DEV_ENSEMBLE_METRICS decoding=bidir folds={K} weighted_f1={sc['weighted_f1']:.4f} "
+          f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -208,6 +261,10 @@ def main():
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
     import numpy as np
+
+    if cfg.get("cv_folds"):
+        section("CROSS-VALIDATION (folds in parallel, one per GPU)")
+        return run_cv(cfg, args, paths, dev_rows, upstream, out_root, t)
 
     section("TRAIN (seeds in parallel, one per GPU)")
     t0 = time.time()
