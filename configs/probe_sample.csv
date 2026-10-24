@@ -1,0 +1,107 @@
+split,instance_id,pair_id,text1,text2,label,category,probe_id
+train,dico_phrasis_0000740__en-en__flipped,dico_phrasis_0000740,are standing,stand,EQUIVALENCE,,p000
+train,dico_phrasis_0000927__en-en__flipped,dico_phrasis_0000927,'s killing,killed,EQUIVALENCE,,p001
+train,dico_phrasis_0000665__en-en__original,dico_phrasis_0000665,benefiting,will benefit,EQUIVALENCE,,p002
+train,dico_phrasis_0000894__en-en__original,dico_phrasis_0000894,Blizzard hammers,Blizzard wallops,EQUIVALENCE,,p003
+train,dico_phrasis_0001251__en-en__flipped,dico_phrasis_0001251,moving through the air,is flying,EQUIVALENCE,,p004
+train,dico_phrasis_0001035__en-en__original,dico_phrasis_0001035,Morsi supporters,Morsi backers,EQUIVALENCE,,p005
+train,dico_phrasis_0000687__en-en__original,dico_phrasis_0000687,for mass march,for mass rally,EQUIVALENCE,,p006
+train,dico_phrasis_0001222__en-en__original,dico_phrasis_0001222,resting asleep,sleeping,EQUIVALENCE,,p007
+train,dico_phrasis_0000695__en-en__flipped,dico_phrasis_0000695,"Australia's premier, Kevin Rudd",Australian PM Kevin Rudd,EQUIVALENCE,,p008
+train,dico_phrasis_0001249__en-en__flipped,dico_phrasis_0001249,entering a transport terminal,into a station,EQUIVALENCE,,p009
+train,dico_phrasis_0001226__en-en__flipped,dico_phrasis_0001226,in the center,within the middle,EQUIVALENCE,,p010
+train,dico_phrasis_0000710__en-en__original,dico_phrasis_0000710,unrest in Egypt,Egypt 's turmoil,EQUIVALENCE,,p011
+train,dico_phrasis_0001152__en-en__flipped,dico_phrasis_0001152,A close up,a tightly cropped image,EQUIVALENCE,,p012
+train,dico_phrasis_0000699__en-en__flipped,dico_phrasis_0000699,for nuclear talks,concerning negotiations over nuclear matters,EQUIVALENCE,,p013
+train,dico_phrasis_0000821__en-en__original,dico_phrasis_0000821,is jumping off,leaping away from,EQUIVALENCE,,p014
+train,dico_phrasis_0002865__en-en__original,dico_phrasis_0002865,to resume,hold,NEGATIVE_OTHER,,p015
+train,dico_phrasis_0003083__en-en__original,dico_phrasis_0003083,on a dirt bike,on a motorbike,NEGATIVE_OTHER,,p016
+train,dico_phrasis_0002422__en-en__original,dico_phrasis_0002422,Powerful 7.6 quake,Powerful 6.9 quake,NEGATIVE_OTHER,,p017
+train,dico_phrasis_0003247__en-en__original,dico_phrasis_0003247,with one person,as one,NEGATIVE_OTHER,,p018
+train,dico_phrasis_0002228__en-en__original,dico_phrasis_0002228,5,3 policemen,NEGATIVE_OTHER,,p019
+train,dico_phrasis_0002053__en-en__original,dico_phrasis_0002053,A child,A dog,NEGATIVE_OTHER,,p020
+train,dico_phrasis_0002609__en-en__original,dico_phrasis_0002609,on the beach,of a beach,NEGATIVE_OTHER,,p021
+train,dico_phrasis_0002285__en-en__original,dico_phrasis_0002285,near two tiny animals,near her children,NEGATIVE_OTHER,,p022
+train,dico_phrasis_0003087__en-en__original,dico_phrasis_0003087,in a rural area,in a field,NEGATIVE_OTHER,,p023
+train,dico_phrasis_0003008__en-en__original,dico_phrasis_0003008,are looking at,looking out,NEGATIVE_OTHER,,p024
+train,dico_phrasis_0002161__en-en__original,dico_phrasis_0002161,with Mandela family,to Mandela,NEGATIVE_OTHER,,p025
+train,dico_phrasis_0002501__en-en__original,dico_phrasis_0002501,Record-setting Southwest heat wave,in Southwest heat wave,NEGATIVE_OTHER,,p026
+train,dico_phrasis_0003098__en-en__original,dico_phrasis_0003098,his dirt bike,on a bike,NEGATIVE_OTHER,,p027
+train,dico_phrasis_0002932__en-en__original,dico_phrasis_0002932,over alleged bribery,with accepting $ 3m bribe,NEGATIVE_OTHER,,p028
+train,dico_phrasis_0003155__en-en__original,dico_phrasis_0003155,on a crowded street,on a city street,NEGATIVE_OTHER,,p029
+dev,dico_phrasis_0001236__en-en__original,dico_phrasis_0001236,at a station,at a transport terminal,EQUIVALENCE,,p030
+dev,dico_phrasis_0001214__en-en__flipped,dico_phrasis_0001214,clings,holding on,EQUIVALENCE,,p031
+dev,dico_phrasis_0000994__en-en__original,dico_phrasis_0000994,Housing in May,May Housing,EQUIVALENCE,,p032
+dev,dico_phrasis_0001131__en-en__original,dico_phrasis_0001131,their tires,the tires belonging to them,EQUIVALENCE,,p033
+dev,dico_phrasis_0001175__en-en__flipped,dico_phrasis_0001175,Pile,a heap,EQUIVALENCE,,p034
+dev,dico_phrasis_0001174__en-en__flipped,dico_phrasis_0001174,of wooden debris,of used wooden building materials,EQUIVALENCE,,p035
+dev,dico_phrasis_0000825__en-en__flipped,dico_phrasis_0000825,through the snow,across snow-covered ground,EQUIVALENCE,,p036
+dev,dico_phrasis_0000726__en-en__original,dico_phrasis_0000726,A youthful male child,A young boy,EQUIVALENCE,,p037
+dev,dico_phrasis_0001131__en-en__flipped,dico_phrasis_0001131,the tires belonging to them,their tires,EQUIVALENCE,,p038
+dev,dico_phrasis_0000896__en-en__original,dico_phrasis_0000896,the U.S.,US,EQUIVALENCE,,p039
+dev,dico_phrasis_0001047__en-en__flipped,dico_phrasis_0001047,Facebook profits,Facebook earnings,EQUIVALENCE,,p040
+dev,dico_phrasis_0000876__en-en__flipped,dico_phrasis_0000876,Two French journalists,2 French Journalists,EQUIVALENCE,,p041
+dev,dico_phrasis_0000833__en-en__original,dico_phrasis_0000833,with a baseball,holding a baseball,EQUIVALENCE,,p042
+dev,dico_phrasis_0000846__en-en__original,dico_phrasis_0000846,about to catch,before catching,EQUIVALENCE,,p043
+dev,dico_phrasis_0000788__en-en__original,dico_phrasis_0000788,inverted,upside-down,EQUIVALENCE,,p044
+dev,dico_phrasis_0002479__en-en__original,dico_phrasis_0002479,to 6.1651,to 6.1696,NEGATIVE_OTHER,,p045
+dev,dico_phrasis_0002937__en-en__original,dico_phrasis_0002937,56 stolen skulls,after 56 human skulls,NEGATIVE_OTHER,,p046
+dev,dico_phrasis_0002898__en-en__original,dico_phrasis_0002898,may be trapped,trapped,NEGATIVE_OTHER,,p047
+dev,dico_phrasis_0002676__en-en__original,dico_phrasis_0002676,A young boy,A young girl,NEGATIVE_OTHER,,p048
+dev,dico_phrasis_0002599__en-en__original,dico_phrasis_0002599,in the waves,on a medium wave,NEGATIVE_OTHER,,p049
+dev,dico_phrasis_0002584__en-en__original,dico_phrasis_0002584,are playing,run,NEGATIVE_OTHER,,p050
+dev,dico_phrasis_0003241__en-en__original,dico_phrasis_0003241,one,as one,NEGATIVE_OTHER,,p051
+dev,dico_phrasis_0002623__en-en__original,dico_phrasis_0002623,as another dog,while another dog,NEGATIVE_OTHER,,p052
+dev,dico_phrasis_0002092__en-en__original,dico_phrasis_0002092,through the water,through the grass,NEGATIVE_OTHER,,p053
+dev,dico_phrasis_0001949__en-en__original,dico_phrasis_0001949,Syria opposition unity,Syria divided opposition,NEGATIVE_OTHER,,p054
+dev,dico_phrasis_0002242__en-en__original,dico_phrasis_0002242,Opens,begins operation,NEGATIVE_OTHER,,p055
+dev,dico_phrasis_0002486__en-en__original,dico_phrasis_0002486,38,to 39,NEGATIVE_OTHER,,p056
+dev,dico_phrasis_0003267__en-en__original,dico_phrasis_0003267,near water and a big ship,with water and a barge,NEGATIVE_OTHER,,p057
+dev,dico_phrasis_0003193__en-en__original,dico_phrasis_0003193,the tracks,on a track,NEGATIVE_OTHER,,p058
+dev,dico_phrasis_0003051__en-en__original,dico_phrasis_0003051,in a fenced area,in a gated yard,NEGATIVE_OTHER,,p059
+trial,dico_phrasis_0001173__en-en__reverse,dico_phrasis_0001173,Black and white picture,A black and white image,EQUIVALENCE,,p060
+trial,dico_phrasis_0000724__en-en__forward,dico_phrasis_0000724,A woman and a man,a man and a woman,EQUIVALENCE,,p061
+trial,dico_phrasis_0001069__en-en__reverse,dico_phrasis_0001069,for granting asylum,for asylum,EQUIVALENCE,,p062
+trial,dico_phrasis_0000720__en-en__reverse,dico_phrasis_0000720,After Indian Girl 6,about 6-year-old Indian girl,EQUIVALENCE,,p063
+trial,dico_phrasis_0001186__en-en__forward,dico_phrasis_0001186,The man,A man,EQUIVALENCE,,p064
+trial,dico_phrasis_0001279__en-en__reverse,dico_phrasis_0001279,Couple,Two people,EQUIVALENCE,,p065
+trial,dico_phrasis_0001306__en-en__forward,dico_phrasis_0001306,with its two remote controls,with two remote controls,EQUIVALENCE,,p066
+trial,dico_phrasis_0000823__en-en__reverse,dico_phrasis_0000823,in the grass,on the grass,EQUIVALENCE,,p067
+trial,dico_phrasis_0001004__en-en__reverse,dico_phrasis_0001004,on protesters,amid protests,EQUIVALENCE,,p068
+trial,dico_phrasis_0000849__en-en__forward,dico_phrasis_0000849,through deep snow pack,through the deep snow,EQUIVALENCE,,p069
+trial,dico_phrasis_0000683__en-en__reverse,dico_phrasis_0000683,Vladimir Putin,Putin,EQUIVALENCE,,p070
+trial,dico_phrasis_0001261__en-en__forward,dico_phrasis_0001261,at a train station,at the train station,EQUIVALENCE,,p071
+trial,dico_phrasis_0001146__en-en__reverse,dico_phrasis_0001146,is perched,perches,EQUIVALENCE,,p072
+trial,dico_phrasis_0000755__en-en__reverse,dico_phrasis_0000755,colored boxes,multi-colored blocks,EQUIVALENCE,,p073
+trial,dico_phrasis_0000877__en-en__forward,dico_phrasis_0000877,ablaze,left burning,EQUIVALENCE,,p074
+trial,dico_phrasis_0005778__en-en__forward,dico_phrasis_0005778,is running,with a yellow ball,NEGATIVE_OTHER,,p075
+trial,dico_phrasis_0007963__en-en__forward,dico_phrasis_0007963,orders,Mubarak 's release request,NEGATIVE_OTHER,,p076
+trial,dico_phrasis_0002310__en-en__forward,dico_phrasis_0002310,rides,comes down,NEGATIVE_OTHER,,p077
+trial,dico_phrasis_0004931__en-en__forward,dico_phrasis_0004931,A black and white dog,across a green field,NEGATIVE_OTHER,,p078
+trial,dico_phrasis_0003938__en-en__forward,dico_phrasis_0003938,to State Duma,to join,NEGATIVE_OTHER,,p079
+trial,dico_phrasis_0009838__en-en__forward,dico_phrasis_0009838,with the word Julia,with water and a barge,NEGATIVE_OTHER,,p080
+trial,dico_phrasis_0006665__en-en__forward,dico_phrasis_0006665,near rail station,crashes,NEGATIVE_OTHER,,p081
+trial,dico_phrasis_0002684__en-en__forward,dico_phrasis_0002684,in a red ball pit,on a pit of blue balls,NEGATIVE_OTHER,,p082
+trial,dico_phrasis_0007964__en-en__forward,dico_phrasis_0007964,Bomb blast,in Pakistan,NEGATIVE_OTHER,,p083
+trial,dico_phrasis_0007026__en-en__forward,dico_phrasis_0007026,as firefighters,officials,NEGATIVE_OTHER,,p084
+trial,dico_phrasis_0003558__en-en__forward,dico_phrasis_0003558,over Syria chemical weapons,used,NEGATIVE_OTHER,,p085
+trial,dico_phrasis_0009404__en-en__forward,dico_phrasis_0009404,in a black bikini top and jeans,is standing,NEGATIVE_OTHER,,p086
+trial,dico_phrasis_0002803__en-en__forward,dico_phrasis_0002803,as US Federal Reserve chief,as next Federal Reserve Chair,NEGATIVE_OTHER,,p087
+trial,dico_phrasis_0008180__en-en__forward,dico_phrasis_0008180,is,Black and white lamb,NEGATIVE_OTHER,,p088
+trial,dico_phrasis_0004743__en-en__forward,dico_phrasis_0004743,in a backyard,of children,NEGATIVE_OTHER,,p089
+dev,dico_phrasis_0000641__en-en__flipped,dico_phrasis_0000641,In Bhutto Death,over Bhutto murder,EQUIVALENCE,B,p090
+dev,dico_phrasis_0000641__en-en__original,dico_phrasis_0000641,over Bhutto murder,In Bhutto Death,EQUIVALENCE,B,p091
+dev,dico_phrasis_0000948__en-en__flipped,dico_phrasis_0000948,over police crackdown,over police violence,EQUIVALENCE,B,p092
+dev,dico_phrasis_0000817__en-en__original,dico_phrasis_0000817,on a rocky seashore,on rocks next to water,EQUIVALENCE,C,p093
+dev,dico_phrasis_0000811__en-en__original,dico_phrasis_0000811,at a shoreline,on a beach,EQUIVALENCE,C,p094
+dev,dico_phrasis_0001103__en-en__original,dico_phrasis_0001103,A orange and white cat,A ginger and white cat,EQUIVALENCE,B,p095
+dev,dico_phrasis_0001136__en-en__original,dico_phrasis_0001136,along a city path,on the street,EQUIVALENCE,C,p096
+dev,dico_phrasis_0000979__en-en__original,dico_phrasis_0000979,to pro-Morsi protests,after pro-Morsi protest,EQUIVALENCE,B,p097
+dev,dico_phrasis_0000811__en-en__flipped,dico_phrasis_0000811,on a beach,at a shoreline,EQUIVALENCE,C,p098
+dev,dico_phrasis_0002188__en-en__original,dico_phrasis_0002188,to Cardinals,Vatican,NEGATIVE_OTHER,B,p099
+dev,dico_phrasis_0002406__en-en__original,dico_phrasis_0002406,in Canada Oil Train Explosion,in Canada train crash,NEGATIVE_OTHER,C,p100
+dev,dico_phrasis_0002933__en-en__original,dico_phrasis_0002933,Nigeria lawmaker,Nigerian MP,NEGATIVE_OTHER,A,p101
+dev,dico_phrasis_0002671__en-en__original,dico_phrasis_0002671,performs,to do,NEGATIVE_OTHER,A,p102
+dev,dico_phrasis_0002792__en-en__original,dico_phrasis_0002792,2 Turkish unions,Unions,NEGATIVE_OTHER,A,p103
+dev,dico_phrasis_0002244__en-en__original,dico_phrasis_0002244,two people,2,NEGATIVE_OTHER,C,p104
+dev,dico_phrasis_0003283__en-en__original,dico_phrasis_0003283,A close-up view,Close up,NEGATIVE_OTHER,A,p105
