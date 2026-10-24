@@ -186,6 +186,10 @@ def main():
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
     upstream = Path(args.upstream).resolve()
+    if cfg.get("calibration_mode"):
+        from run_calibration import run
+        run(cfg, upstream)
+        return
     t = f"track{cfg['track']}"
     data = upstream / "final_data"
     paths = {

@@ -1,0 +1,46 @@
+{
+  "oof_run": "81fc6753-4916-40ae-950d-195e6ba11157",
+  "oof_commit": "807f7fd",
+  "parent_run": "13417727-b568-4efc-8fec-b67f7d0e3c03",
+  "parent_commit": "ccf60d6",
+  "files": {
+    "train_oof.csv": {
+      "rows": 3042,
+      "sha256": "d2870f550930d53145b112e7f951e577fb122684da1d61ce62ff13b768180775"
+    },
+    "dev_seed42.csv": {
+      "rows": 660,
+      "sha256": "cf18148cc8535e0dc737af20edfbcf15467f0609bdb1e2954b902c5929c12f44"
+    },
+    "dev_seed13.csv": {
+      "rows": 660,
+      "sha256": "886afba46b483f45fe845c2d898327082cbabdfa7ce18fee4ae2e907e9bebe3c"
+    },
+    "dev_seed7.csv": {
+      "rows": 660,
+      "sha256": "533f0c742a3eaad771d7897b37875a228f94dd1acd70aba54cb364427ab759c6"
+    },
+    "dev_fold0.csv": {
+      "rows": 660,
+      "sha256": "ff14b260b4a25a3c42c91a55017ec9dc3a09922b1c6028c86419e95a6f02f0d1"
+    },
+    "dev_fold1.csv": {
+      "rows": 660,
+      "sha256": "07fbb54aa0cf850f7ce37584697781462d5fc61c8207e5452f892ebbd98b7707"
+    },
+    "dev_fold2.csv": {
+      "rows": 660,
+      "sha256": "aa01386ff743e3b6b2206ea3fa7ae9b347b89079d60dca7010c346a940a75c9d"
+    },
+    "dev_fold3.csv": {
+      "rows": 660,
+      "sha256": "f2bd415275ffd15ad3dfb474d68a7c0d80070017a144b7546c4b55314a11a52c"
+    },
+    "dev_fold4.csv": {
+      "rows": 660,
+      "sha256": "909cda9ef5ae381496b3148bd53a874fbd49a1a391b99f06a7355891af033c2d"
+    }
+  },
+  "log_sha256_81fc6753-4916-40ae-950d-195e6ba11157": "3970d77fbd2ff0d3fe2e6a739984d47b857cf512446f884aacd696ec007734d3",
+  "log_sha256_13417727-b568-4efc-8fec-b67f7d0e3c03": "41968bd5bedd48d2b4569eb43755e0368ab9878515a01a25773cce873c1672bb"
+}
