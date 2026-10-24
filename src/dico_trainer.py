@@ -52,6 +52,30 @@ def load_split(path):
     return ids, t1, t2, y
 
 
+def trial_eval_rows(train_path, dev_path, track):
+    """Official trial rows overlapping neither train nor dev (by pair_id or unordered text pair), with
+    their PhrasIS source class. Evaluation only: nothing here is trained on."""
+    import json
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(train_path))))
+    tl = pd.read_csv(os.path.join(root, "trial_data", f"dico_nli_trial_track{track}_participant_labeled.csv"))
+    meta = json.load(open(os.path.join(root, "trial_data", "trial_dataset.json"), encoding="utf-8"))
+    cls = {p["pair_id"]: p["metadata"]["source_class_folder"] for p in meta["pairs"]}
+    tr, dv = pd.read_csv(train_path), pd.read_csv(dev_path)
+    clean = lambda s: re.sub(r"\s+", " ", str(s)).strip()
+    key = lambda a, b: frozenset((clean(a).lower(), clean(b).lower()))
+    banned_ids = set(tr["pair_id"]) | set(dv["pair_id"])
+    banned_txt = {key(a, b) for d in (tr, dv) for a, b in zip(d["text1"], d["text2"])}
+    seen, keep = set(), []
+    for r in tl.itertuples():
+        ordered = (clean(r.text1).lower(), clean(r.text2).lower())
+        if r.pair_id in banned_ids or key(r.text1, r.text2) in banned_txt or ordered in seen:
+            continue
+        seen.add(ordered)
+        keep.append(r)
+    return ([r.instance_id for r in keep], [clean(r.text1) for r in keep], [clean(r.text2) for r in keep],
+            np.array([LABEL2ID[r.label] for r in keep]), [cls[r.pair_id] for r in keep])
+
+
 def encode(tok, t1, t2, max_length, template=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
@@ -170,4 +194,13 @@ def run(cfg, seed, train_path, dev_path, device):
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
+    if cfg.get("eval_trial"):
+        t_ids, t1, t2, ty, tc = trial_eval_rows(train_path, dev_path, cfg["track"])
+        tp = predict_probs(model, tok, encode(tok, t1, t2, L, tpl), bs, device, amp)
+        tq = predict_probs(model, tok, encode(tok, t2, t1, L, tpl), bs, device, amp)
+        print(f"<<<TRIAL_PROBS seed={seed}")
+        print("instance_id,src_class,label," + ",".join(f"p_{l}" for l in LABELS) + "," + ",".join(f"q_{l}" for l in LABELS))
+        for i, c, y, pi, qi in zip(t_ids, tc, ty, tp, tq):
+            print(f"{i},{c},{LABELS[y]}," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
+        print("TRIAL_PROBS>>>", flush=True)
     return {"orig": p, "swap": q}
