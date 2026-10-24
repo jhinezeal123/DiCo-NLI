@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen35_4b_base_lora",
+  "name": "track1_qwen35_2b_base_lora",
   "track": 1,
-  "model_id": "Qwen/Qwen3.5-4B-Base",
+  "model_id": "Qwen/Qwen3.5-2B-Base",
   "seeds": [
     42,
     13,
