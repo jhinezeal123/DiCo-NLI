@@ -54,8 +54,47 @@ class GgufChecks(unittest.TestCase):
         argv = pipeline.server_command(Path("llama-server"), Path("model.gguf"), self.cfg, 8123)
         for flag, value in (("--device", "CUDA0,CUDA1"), ("--tensor-split", "1,1"),
                             ("--gpu-layers", "999"), ("--split-mode", "layer"), ("--fit", "off"),
-                            ("--verbosity", "4")):
+                            ("--verbosity", "4"), ("--reasoning", "on"),
+                            ("--reasoning-budget", "256"), ("--reasoning-format", "deepseek")):
             self.assertEqual(argv[argv.index(flag) + 1], value)
+        self.assertNotIn("--chat-template-kwargs", argv)
+
+    def test_thinking_request_and_final_json_are_kept_separate(self):
+        class Response:
+            def __enter__(self):
+                import io
+                return io.StringIO(json.dumps({"choices": [{"finish_reason": "stop", "message": {
+                    "content": '{"label":"FORWARD_ENTAILMENT"}',
+                    "reasoning_content": "Synthetic test reasoning."}}], "usage": {"completion_tokens": 20}}))
+
+            def __exit__(self, *args):
+                return False
+
+        with patch.object(pipeline.urllib.request, "urlopen", return_value=Response()) as mocked:
+            result = pipeline.predict_one("http://localhost", self.cfg,
+                                          {"instance_id": "x", "text1": "a dog", "text2": "an animal"}, [])
+        request = mocked.call_args.args[0]
+        payload = json.loads(request.data)
+        self.assertEqual(payload["reasoning_effort"], "medium")
+        self.assertGreater(payload["max_tokens"], self.cfg["reasoning_budget"] + 32)
+        self.assertEqual(result["label"], "FORWARD_ENTAILMENT")
+        self.assertTrue(result["reasoning_present"])
+        self.assertNotIn("reasoning_content", result)
+
+    def test_empty_thinking_is_rejected(self):
+        class Response:
+            def __enter__(self):
+                import io
+                return io.StringIO(json.dumps({"choices": [{"finish_reason": "stop", "message": {
+                    "content": '{"label":"EQUIVALENCE"}'}}]}))
+
+            def __exit__(self, *args):
+                return False
+
+        with patch.object(pipeline.urllib.request, "urlopen", return_value=Response()):
+            with self.assertRaisesRegex(RuntimeError, "no reasoning_content"):
+                pipeline.predict_one("http://localhost", self.cfg,
+                                     {"instance_id": "x", "text1": "a", "text2": "b"}, [])
 
     def test_truncated_generation_is_not_silently_scored(self):
         class Response:

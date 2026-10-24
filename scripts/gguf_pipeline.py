@@ -147,7 +147,7 @@ def server_command(server, model, cfg, port):
             "--ubatch-size", str(cfg["ubatch_size"]), "--threads", str(cfg["threads"]),
             "--verbosity", str(cfg["log_verbosity"]),
             "--flash-attn", cfg["flash_attention"], "--jinja", "--reasoning", cfg["reasoning"],
-            "--chat-template-kwargs", json.dumps({"enable_thinking": False}),
+            "--reasoning-format", "deepseek", "--reasoning-budget", str(cfg["reasoning_budget"]),
             "--host", "127.0.0.1", "--port", str(port), "--no-webui"]
 
 
@@ -174,7 +174,7 @@ def predict_one(url, cfg, row, examples):
               "required": ["label"], "additionalProperties": False}
     payload = {"messages": messages_for(row, examples), "temperature": cfg["temperature"],
                "seed": cfg["seed"], "max_tokens": cfg["max_tokens"], "stream": False,
-               "reasoning_effort": "none", "cache_prompt": True,
+               "reasoning_effort": cfg["reasoning_effort"], "cache_prompt": True,
                "response_format": {"type": "json_object", "schema": schema}}
     request = urllib.request.Request(url + "/v1/chat/completions",
                                      data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
@@ -189,7 +189,11 @@ def predict_one(url, cfg, row, examples):
     label = json.loads(choice["message"]["content"])["label"]
     if label not in LABELS:
         raise ValueError(f"Invalid generated label {label}")
+    reasoning = choice["message"].get("reasoning_content") or ""
+    if cfg["reasoning"] == "on" and not reasoning.strip():
+        raise RuntimeError(f"Thinking requested but no reasoning_content returned for {row['instance_id']}")
     return {"instance_id": row["instance_id"], "label": label,
+            "reasoning_present": bool(reasoning.strip()), "reasoning_char_count": len(reasoning),
             "usage": result.get("usage", {}), "finish_reason": choice["finish_reason"]}
 
 
@@ -201,6 +205,10 @@ def run(cfg, upstream):
     emit("ENVIRONMENT", python=sys.version, numpy=numpy.__version__, pandas=pandas.__version__, sklearn=sklearn.__version__)
     if cfg["gpu"]["tensor_split"] != [1, 1] or cfg["gpu"]["required_count"] != 2:
         raise ValueError("This experiment requires an equal 1:1 split across two GPUs")
+    if cfg["reasoning"] != "on" or cfg["reasoning_effort"] == "none":
+        raise ValueError("This child requires native thinking at both server and request levels")
+    if not 0 < cfg["reasoning_budget"] < cfg["max_tokens"] - 32:
+        raise ValueError("Reserve more than 32 generated tokens after the thinking budget for final JSON")
     if len(gpu_snapshot("before_load")) != 2:
         raise RuntimeError("Exactly two physical GPUs are required; refusing single-GPU execution")
     track = f"track{cfg['track']}"
@@ -267,18 +275,28 @@ def run(cfg, upstream):
         # Inference sees only texts/IDs, never dev labels or reference metadata.
         inputs = [{key: row[key] for key in ("instance_id", "text1", "text2")} for row in dev_rows]
         predictions = {}
+        reasoning_count, generated_tokens = 0, 0
         with (out / "responses.jsonl").open("w", encoding="utf-8") as responses:
             with concurrent.futures.ThreadPoolExecutor(max_workers=cfg["parallel_requests"]) as pool:
                 futures = [pool.submit(predict_one, url, cfg, row, examples) for row in inputs]
-                for future in concurrent.futures.as_completed(futures):
-                    prediction = future.result()
-                    predictions[prediction["instance_id"]] = prediction["label"]
-                    responses.write(json.dumps(prediction) + "\n")
-                    responses.flush()
-                    emit("PREDICTION", **prediction)
-                    if len(predictions) % 25 == 0 or len(predictions) == len(inputs):
-                        emit("INFERENCE_PROGRESS", completed=len(predictions), total=len(inputs), elapsed_seconds=round(time.monotonic() - start, 1))
-                        gpu_snapshot("inference")
+                try:
+                    for future in concurrent.futures.as_completed(futures):
+                        prediction = future.result()
+                        predictions[prediction["instance_id"]] = prediction["label"]
+                        reasoning_count += prediction["reasoning_present"]
+                        generated_tokens += prediction["usage"].get("completion_tokens", 0)
+                        responses.write(json.dumps(prediction) + "\n")
+                        responses.flush()
+                        emit("PREDICTION", **prediction)
+                        if len(predictions) % 25 == 0 or len(predictions) == len(inputs):
+                            emit("INFERENCE_PROGRESS", completed=len(predictions), total=len(inputs),
+                                 reasoning_observed=reasoning_count, generated_tokens=generated_tokens,
+                                 elapsed_seconds=round(time.monotonic() - start, 1))
+                            gpu_snapshot("inference")
+                except BaseException:
+                    for pending in futures:
+                        pending.cancel()
+                    raise
         pred_path = out / f"{track}_dev_predictions.csv"
         with pred_path.open("w", newline="", encoding="utf-8") as stream:
             writer = csv.writer(stream, lineterminator="\n")
@@ -288,6 +306,7 @@ def run(cfg, upstream):
         scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(), (out / "scores").resolve())
         error_analysis(validated, read_csv(paths["dev_reference"]))
         summary = {"config": cfg, "code_commit": os.environ.get("ORX_COMMIT"), "sharding": sharding,
+                   "reasoning_observed": reasoning_count, "generated_tokens": generated_tokens,
                    "scores": scores, "elapsed_seconds": time.monotonic() - start,
                    "data_sha256": {key: sha256(path) for key, path in paths.items()}}
         (out / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
