@@ -111,6 +111,9 @@ def factorized_probs(e_fwd, e_bwd):
 
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
+    if cfg.get("method") == "prefix_lik":
+        import prefix_lik  # training-free scoring; train split only fits thresholds
+        return prefix_lik.run(cfg, seed, train_path, dev_path, device)
     g = set_seed(seed)
     _, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
