@@ -22,4 +22,9 @@ PY="${PYTHON:-python3}"
 "$PY" --version
 "$PY" -m pip install -q --only-binary=:all: -r requirements-run.txt
 
+# These pilots use FP16 LoRA, not torchao quantization. Some fresh Kaggle images
+# ship torchao with an API incompatible with PEFT 0.14's optional dispatcher.
+# Remove that unused optional backend before preflight and model construction.
+"$PY" -m pip uninstall -y torchao
+
 "$PY" -u scripts/run_pipeline.py --config configs/experiment.json --upstream "$UPSTREAM_DIR"
