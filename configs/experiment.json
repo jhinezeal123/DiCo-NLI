@@ -1,5 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_calibration_probability",
+  "calibration_mode": "probability",
+  "calibration_l2": 0.1,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
