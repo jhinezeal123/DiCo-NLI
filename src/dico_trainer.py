@@ -104,6 +104,18 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
     return np.concatenate(out).astype(np.float64)
 
 
+def _disable_peft_torchao():
+    """The Kaggle image can carry a torchao release newer than peft 0.14 understands; peft then
+    crashes while wrapping every Linear. No run here uses torchao, so turn that dispatch off."""
+    import peft.import_utils
+    peft.import_utils.is_torchao_available = lambda: False
+    try:
+        import peft.tuners.lora.torchao as lora_torchao
+        lora_torchao.is_torchao_available = lambda: False
+    except ImportError:
+        pass
+
+
 def build_model(cfg, num_labels, device):
     config = AutoConfig.from_pretrained(cfg["model_id"])
     # Dropout handling mirrors the starter kit's Model class.
@@ -123,6 +135,7 @@ def build_model(cfg, num_labels, device):
     else:
         model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
     if cfg.get("lora"):
+        _disable_peft_torchao()
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
         model = get_peft_model(model, LoraConfig(
