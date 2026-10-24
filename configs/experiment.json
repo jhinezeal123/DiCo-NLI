@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_b16_ce",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_b16_supcon0p1",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -16,7 +16,9 @@
   "max_length": 128,
   "amp": true,
   "decode": "bidir",
-  "supcon": false,
+  "supcon": true,
+  "supcon_lambda": 0.1,
+  "supcon_temp": 0.1,
   "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
   "lora": {
     "r": 16,
