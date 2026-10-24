@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_3seed",
+  "name": "track1_qwen25_1p5b_lora_lr2e4",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -9,7 +9,7 @@
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
-  "lr": 0.0001,
+  "lr": 0.0002,
   "batch_size": 8,
   "wd": 0.01,
   "num_epochs": 3,
