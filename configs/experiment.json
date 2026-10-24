@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_3seed",
+  "name": "track1_qwen3_1p7b_base_lora",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen3-1.7B-Base",
   "seeds": [
     42,
     13,
