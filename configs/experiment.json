@@ -1,8 +1,9 @@
 {
-  "name": "track1_prefix_lik_qwen25_1p5b",
+  "name": "track1_prefix_lik_qwen25_7b_4bit",
   "track": 1,
   "method": "prefix_lik",
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen2.5-7B",
+  "load_in_4bit": true,
   "seeds": [42],
   "decode": "bidir"
 }
