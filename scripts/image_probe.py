@@ -141,18 +141,22 @@ def text_sim(proc, model, kind, t1, t2):
 
 
 def evaluate(df):
-    from sklearn.metrics import roc_auc_score
-
+    import hashlib
     scores = []
-    for gname in GENERATORS:
-        for ename in EMBEDDERS:
-            proc = model = None
-            try:
-                proc, model, kind = load_embedder(ename)
-            except Exception as e:
-                print(f"EMB_LOAD_FAIL {gname} {ename}: {type(e).__name__}: {e}", flush=True)
-                continue
-            try:
+    for ename in EMBEDDERS:
+        proc = model = None
+        try:
+            proc, model, kind = load_embedder(ename)
+        except Exception as e:
+            print(f"EMB_LOAD_FAIL {ename}: {type(e).__name__}: {e}", flush=True)
+            continue
+        try:
+            first = df.iloc[0]
+            for gname in GENERATORS:
+                p = IMG / gname / f"{first.probe_id}_1.png"
+                if p.exists():
+                    print(f"HASH {ename} {gname} {p.name} {hashlib.md5(p.read_bytes()).hexdigest()}", flush=True)
+            for gname in GENERATORS:
                 for _, r in df.iterrows():
                     p1 = IMG / gname / f"{r.probe_id}_1.png"
                     p2 = IMG / gname / f"{r.probe_id}_2.png"
@@ -170,15 +174,21 @@ def evaluate(df):
                     scores.append(dict(generator=gname, embedder=ename, probe_id=r.probe_id,
                                        split=r.split, label=r.label, is_hard=pd.notna(r.category),
                                        image_sim=isim, text_sim=tsim))
-            finally:
-                try:
-                    del model, proc
-                except Exception:
-                    pass
-                torch.cuda.empty_cache()
+        finally:
+            try:
+                del model, proc
+            except Exception:
+                pass
+            torch.cuda.empty_cache()
     s = pd.DataFrame(scores)
     s.to_csv(OUT / "image-probe-scores.csv", index=False)
     print(f"\nscores rows={len(s)}", flush=True)
+    if len(s):
+        piv = s.pivot_table(index=["embedder", "probe_id"], columns="generator", values="image_sim")
+        if piv.shape[1] == 2:
+            diff = (piv.iloc[:, 0] - piv.iloc[:, 1]).abs()
+            print(f"generator score difference: mean={diff.mean():.6f} max={diff.max():.6f} "
+                  f"identical={int((diff < 1e-12).sum())}/{len(diff)}", flush=True)
     return s
 
 
