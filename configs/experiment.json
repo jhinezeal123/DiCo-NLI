@@ -1,6 +1,6 @@
 {
-  "name": "track1_calibration_probability",
-  "calibration_mode": "probability",
+  "name": "track1_calibration_lexical",
+  "calibration_mode": "lexical",
   "calibration_l2": 0.1,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
