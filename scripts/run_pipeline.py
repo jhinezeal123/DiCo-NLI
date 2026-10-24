@@ -186,6 +186,9 @@ def main():
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
     upstream = Path(args.upstream).resolve()
+    if cfg.get("explore_method"):
+        from explore_pipeline import run_exploration
+        return run_exploration(cfg, upstream)
     t = f"track{cfg['track']}"
     data = upstream / "final_data"
     paths = {
