@@ -24,6 +24,15 @@ LABEL2ID = {l: i for i, l in enumerate(LABELS)}
 REV = [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"], LABEL2ID["BACKWARD_ENTAILMENT"],
        LABEL2ID["NEGATIVE_OTHER"]]
 
+# Reversible-only label space, used by the pair-structured decoder.  The official
+# construction puts every reversible source pair in the evaluation set in both
+# directions and leaves NEGATIVE_OTHER unpaired, so the two decisions can be
+# factorised: pair multiplicity -> reversible vs negative, 3-way head -> relation.
+REV_LABELS = ["BACKWARD_ENTAILMENT", "EQUIVALENCE", "FORWARD_ENTAILMENT"]
+REV_LABEL2ID = {l: i for i, l in enumerate(REV_LABELS)}
+REV3 = [REV_LABEL2ID["FORWARD_ENTAILMENT"], REV_LABEL2ID["EQUIVALENCE"],
+        REV_LABEL2ID["BACKWARD_ENTAILMENT"]]
+
 
 def set_seed(seed):
     transformers.set_seed(seed)
@@ -114,13 +123,24 @@ def run(cfg, seed, train_path, dev_path, device):
     g = set_seed(seed)
     _, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
+    label_space = cfg.get("label_space", "four")
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
+    if label_space == "reversible":
+        reversible = np.isin(ytr, [LABEL2ID[l] for l in REV_LABELS])
+        tr1 = [a for a, keep in zip(tr1, reversible) if keep]
+        tr2 = [b for b, keep in zip(tr2, reversible) if keep]
+        ytr = np.array([REV_LABEL2ID[LABELS[i]] for i in ytr[reversible]])
+        n_labels = len(REV_LABELS)
+        print(f"label_space=reversible rows={len(ytr)} labels={dict(zip(REV_LABELS, np.bincount(ytr)))}",
+              flush=True)
+    else:
+        n_labels = len(LABELS)
     if factorized:
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
 
-    tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    tok, model = build_model(cfg, 2 if factorized else n_labels, device)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
@@ -163,11 +183,20 @@ def run(cfg, seed, train_path, dev_path, device):
             sched.step()
             total_loss += loss.item()
         p, _ = dev_probs()
-        acc = float((p.argmax(1) == ydv).mean())
-        wf1 = f1_score(ydv, p.argmax(1), average="weighted")
+        if label_space == "reversible":
+            keep = np.isin(ydv, [LABEL2ID[l] for l in REV_LABELS])
+            y_eval = np.array([REV_LABEL2ID[LABELS[i]] for i in ydv[keep]])
+            pred = p[keep].argmax(1)
+            acc = float((pred == y_eval).mean())
+            wf1 = f1_score(y_eval, pred, average="weighted")
+            tag = "reversible-dev"
+        else:
+            acc = float((p.argmax(1) == ydv).mean())
+            wf1 = f1_score(ydv, p.argmax(1), average="weighted")
+            tag = "dev"
         # Dev numbers per epoch are diagnostics only; the final epoch is always used.
         print(f"Epoch {epoch + 1} average loss: {total_loss / steps_per_epoch:.4f} "
-              f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
+              f"| {tag} acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
-    return {"orig": p, "swap": q}
+    return {"orig": p, "swap": q, "label_space": label_space}
