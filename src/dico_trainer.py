@@ -15,7 +15,7 @@ import torch
 import torch.nn.functional as F
 import transformers
 from sklearn.metrics import f1_score
-from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AutoConfig, AutoModelForCausalLM, AutoModelForSequenceClassification, AutoTokenizer
 
 # Same order as the kit's sklearn LabelEncoder (alphabetical).
 LABELS = ["BACKWARD_ENTAILMENT", "EQUIVALENCE", "FORWARD_ENTAILMENT", "NEGATIVE_OTHER"]
@@ -67,6 +67,30 @@ def batch(tok, feats, idx, device):
     return tok.pad([feats[i] for i in idx], return_tensors="pt").to(device)
 
 
+def lm_readout_setup(model, tok, label_words):
+    """Token readout: logits of the pretrained LM head at the last prompt position, restricted
+    to the first sub-token of each label word (in LABELS order)."""
+    ids = [tok(label_words[l], add_special_tokens=False)["input_ids"][0] for l in LABELS]
+    assert len(set(ids)) == len(ids), f"label words share a first token: {ids}"
+    print("label_word_tokens: " + ", ".join(f"{l}={label_words[l]!r}->{i}:{tok.decode([i])!r}"
+                                             for l, i in zip(LABELS, ids)), flush=True)
+    model.dico_label_ids = torch.tensor(ids)
+    import inspect
+    fwd = inspect.signature(type(model.get_base_model() if hasattr(model, "get_base_model") else model).forward)
+    model.dico_keep_kw = "logits_to_keep" if "logits_to_keep" in fwd.parameters else "num_logits_to_keep"
+
+
+def class_logits(model, b):
+    """[batch, 4] class logits for either head type."""
+    if not hasattr(model, "dico_label_ids"):
+        return model(**b).logits
+    # Left padding: the last position is the final prompt token for every row.
+    mask = b["attention_mask"]
+    pos = (mask.long().cumsum(-1) - 1).clamp(min=0)
+    out = model(input_ids=b["input_ids"], attention_mask=mask, position_ids=pos, **{model.dico_keep_kw: 1})
+    return out.logits[:, -1, :][:, model.dico_label_ids.to(out.logits.device)]
+
+
 @torch.no_grad()
 def predict_probs(model, tok, feats, bs, device, amp=False):
     bs = max(bs, 64)  # eval-only: larger batches, no effect on training
@@ -75,7 +99,7 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
     for s in range(0, len(feats), bs):
         b = batch(tok, feats, range(s, min(s + bs, len(feats))), device)
         with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-            logits = model(**b).logits
+            logits = class_logits(model, b)
         out.append(torch.softmax(logits.float(), dim=-1).cpu().numpy())
     return np.concatenate(out).astype(np.float64)
 
@@ -92,14 +116,22 @@ def build_model(cfg, num_labels, device):
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    lm_readout = cfg.get("readout") == "lm_tokens"
+    if lm_readout:
+        tok.padding_side = "left"
+        model = AutoModelForCausalLM.from_pretrained(cfg["model_id"])
+    else:
+        model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
         model = get_peft_model(model, LoraConfig(
-            task_type=TaskType.SEQ_CLS, r=lc["r"], lora_alpha=lc["alpha"], lora_dropout=lc["dropout"],
+            task_type=TaskType.CAUSAL_LM if lm_readout else TaskType.SEQ_CLS, r=lc["r"], lora_alpha=lc["alpha"], lora_dropout=lc["dropout"],
             target_modules=lc["target_modules"]))
         model.print_trainable_parameters()
+    if lm_readout:
+        assert num_labels == len(LABELS), "lm_tokens readout supports the 4-label head only"
+        lm_readout_setup(model, tok, cfg["label_words"])
     return tok, model.to(device)
 
 
@@ -152,7 +184,7 @@ def run(cfg, seed, train_path, dev_path, device):
             idx = perm[s:s + bs]
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-                logits = model(**b).logits
+                logits = class_logits(model, b)
             loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
             scaler.scale(loss).backward()

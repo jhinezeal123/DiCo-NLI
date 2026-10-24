@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8",
+  "name": "track1_ens_seqcls_ls0p1_negw0p8",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
