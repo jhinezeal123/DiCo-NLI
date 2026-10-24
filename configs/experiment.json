@@ -1,5 +1,6 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_learned_textual_negative_gate",
+  "negative_gate": true,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [

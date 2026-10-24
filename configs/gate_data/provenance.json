@@ -1,0 +1,30 @@
+{
+  "base_run": "13417727-b568-4efc-8fec-b67f7d0e3c03",
+  "base_commit": "ccf60d6",
+  "oof_run": "81fc6753-4916-40ae-950d-195e6ba11157",
+  "oof_commit": "807f7fd",
+  "teacher_source_run": "fdf5820a-f650-4190-9b3f-9b2795f7de6e",
+  "teacher_revision": "6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
+  "files": {
+    "train_oof.csv": {
+      "rows": 3042,
+      "sha256": "d2870f550930d53145b112e7f951e577fb122684da1d61ce62ff13b768180775"
+    },
+    "dev_seed42.csv": {
+      "rows": 660,
+      "sha256": "cf18148cc8535e0dc737af20edfbcf15467f0609bdb1e2954b902c5929c12f44"
+    },
+    "dev_seed13.csv": {
+      "rows": 660,
+      "sha256": "886afba46b483f45fe845c2d898327082cbabdfa7ce18fee4ae2e907e9bebe3c"
+    },
+    "dev_seed7.csv": {
+      "rows": 660,
+      "sha256": "533f0c742a3eaad771d7897b37875a228f94dd1acd70aba54cb364427ab759c6"
+    },
+    "nli_evidence.csv": {
+      "rows": 3702,
+      "sha256": "a18905cec3cdbb8b868defd8db2fe899b9fa603b991760fc250163ad2f32120b"
+    }
+  }
+}
