@@ -10,3 +10,5 @@ peft>=0.19
 # 4-bit loading for QLoRA nodes.
 bitsandbytes>=0.45.0
 accelerate>=1.2.0
+# Kaggle image ships torchao 0.10.0, which peft>=0.19 rejects at LoRA injection.
+torchao>=0.16.0
