@@ -12,6 +12,7 @@ import re
 import numpy as np
 import pandas as pd
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 import transformers
 from sklearn.metrics import f1_score
@@ -109,6 +110,17 @@ def factorized_probs(e_fwd, e_bwd):
                      (1 - e_fwd) * (1 - e_bwd)], axis=1)
 
 
+def supcon_loss(z, y, temperature=0.1):
+    """Supervised contrastive loss over in-batch positives (same 4-way label)."""
+    sim = z @ z.t() / temperature
+    eye = torch.eye(len(y), dtype=torch.bool, device=z.device)
+    sim = sim.masked_fill(eye, -1e4)
+    log_prob = F.log_softmax(sim, dim=1)
+    pos = (y[:, None] == y[None, :]) & ~eye
+    loss = -(log_prob * pos).sum(1) / pos.sum(1).clamp(min=1)
+    return loss.mean()
+
+
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
@@ -116,6 +128,7 @@ def run(cfg, seed, train_path, dev_path, device):
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
+    supcon = bool(cfg.get("supcon", False))
     if factorized:
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
@@ -129,6 +142,11 @@ def run(cfg, seed, train_path, dev_path, device):
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
+    proj = None
+    if supcon:
+        hidden = model.config.hidden_size
+        proj = nn.Sequential(nn.Linear(hidden, hidden), nn.GELU(), nn.Linear(hidden, 128)).to(device)
+        params = params + list(proj.parameters())
     opt = torch.optim.AdamW(params, lr=float(cfg["lr"]), weight_decay=float(cfg["wd"]),
                             betas=(0.9, 0.999), eps=1e-6)
     steps_per_epoch = (len(f_train) + bs - 1) // bs
@@ -152,8 +170,18 @@ def run(cfg, seed, train_path, dev_path, device):
             idx = perm[s:s + bs]
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-                logits = model(**b).logits
+                if supcon:
+                    out = model(**b, output_hidden_states=True)
+                    logits = out.logits
+                    h = out.hidden_states[-1]
+                    mask = b["attention_mask"].unsqueeze(-1)
+                    h = (h * mask).sum(1) / mask.sum(1).clamp(min=1)
+                    z = F.normalize(proj(h.float()), dim=-1)
+                else:
+                    logits = model(**b).logits
             loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            if supcon:
+                loss = loss + float(cfg["supcon_lambda"]) * supcon_loss(z, ytr_t[idx], float(cfg["supcon_temp"]))
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
