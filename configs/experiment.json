@@ -1,5 +1,5 @@
 {
-  "name": "track1_laya_soft_ce_3seed",
+  "name": "track1_laya_rlcd_3seed",
   "track": 1,
   "trainer": "laya",
   "model_id": "convaiinnovations/laya",
@@ -14,7 +14,7 @@
   "max_length": 256,
   "head_max_length": 192,
   "eval_batch_size": 16,
-  "loss": "soft-ce",
+  "loss": "rlcd",
   "epochs": 4,
   "micro_batch": 8,
   "grad_accum": 4,
