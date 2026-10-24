@@ -112,7 +112,16 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
+    if cfg.get("drop_rows"):
+        drop_ids = set(pd.read_csv(cfg["drop_rows"])["instance_id"].astype(str))
+        keep = np.array([i not in drop_ids for i in tr_ids])
+        tr_ids = [i for i, k in zip(tr_ids, keep) if k]
+        tr1 = [a for a, k in zip(tr1, keep) if k]
+        tr2 = [b for b, k in zip(tr2, keep) if k]
+        ytr = ytr[keep]
+        print(f"drop_rows={len(drop_ids)} dropped={int((~keep).sum())} kept={len(ytr)} "
+              f"labels={dict(zip(*np.unique(ytr, return_counts=True)))}", flush=True)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
