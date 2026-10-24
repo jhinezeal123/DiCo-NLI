@@ -76,6 +76,30 @@ def trial_eval_rows(train_path, dev_path, track):
             np.array([LABEL2ID[r.label] for r in keep]), [cls[r.pair_id] for r in keep])
 
 
+_FUNC = set("a an the of in on at to for with by over after from into about as under near through across behind "
+            "against during before between without along around inside outside onto and or is are was were be been "
+            "being 's has have had will it its his her their this that these those".split())
+
+
+def random_negatives(tr1, tr2, pair_ids, n, seed):
+    """n unrelated pairs: one phrase each from two different train pairs, no shared content word,
+    random orientation. Natural length differences, so length carries no information about the label."""
+    rs = np.random.RandomState(seed + 1000)
+    content = lambda x: {w for w in x.lower().split() if w not in _FUNC}
+    a_out, b_out = [], []
+    while len(a_out) < n:
+        i, j = rs.randint(len(tr1)), rs.randint(len(tr1))
+        if pair_ids[i] == pair_ids[j]:
+            continue
+        a = tr1[i] if rs.rand() < 0.5 else tr2[i]
+        b = tr1[j] if rs.rand() < 0.5 else tr2[j]
+        if content(a) & content(b):
+            continue
+        a_out.append(a)
+        b_out.append(b)
+    return a_out, b_out
+
+
 def encode(tok, t1, t2, max_length, template=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
@@ -137,6 +161,14 @@ def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
     _, tr1, tr2, ytr = load_split(train_path)
+    if cfg.get("aug_rand_neg"):
+        n_aug = int(cfg["aug_rand_neg"])
+        a_new, b_new = random_negatives(tr1, tr2, pd.read_csv(train_path)["pair_id"].tolist(), n_aug, seed)
+        lens = [abs(len(a.split()) - len(b.split())) for a, b in zip(a_new, b_new)]
+        tr1, tr2 = tr1 + a_new, tr2 + b_new
+        ytr = np.concatenate([ytr, np.full(n_aug, LABEL2ID["NEGATIVE_OTHER"])])
+        print(f"aug_rand_neg: +{n_aug} synthetic NEGATIVE_OTHER rows (mean |len diff| {np.mean(lens):.2f}); "
+              f"e.g. {list(zip(a_new[:3], b_new[:3]))}", flush=True)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"

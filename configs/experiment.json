@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_ls_trialeval",
+  "name": "track1_qwen25_1p5b_ls_randneg200",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -32,5 +32,6 @@
     ]
   },
   "label_smoothing": 0.1,
-  "eval_trial": true
+  "eval_trial": true,
+  "aug_rand_neg": 200
 }
