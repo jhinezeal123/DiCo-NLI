@@ -1,35 +1,38 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen38_27b_gsq_rco_iq2_s_dual_t4",
+  "engine": "llama_cpp_gguf",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
-  "seeds": [
-    42,
-    13,
-    7
+  "model_id": "ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF",
+  "model_revision": "d562806dbafae37109975e970aae91b43e73b440",
+  "model_file": "Qwen3.8-27B-GSQ-RCO-IQ2_S.gguf",
+  "model_sha256": "16c9802111aa9ef3acde465188d6d601f8db128ee3d828ad983a5caca4135ecb",
+  "model_size_bytes": 9259510912,
+  "model_license": "Apache-2.0 (model card)",
+  "llama_release": "b11856",
+  "llama_assets": [
+    {"file": "llama-b11856-bin-ubuntu-cuda-12.8-x64.tar.gz", "sha256": "f4bdfc97f091e0b3ed6eb6bdd4db41896f1cc9bf80b924efca7f681404329517"},
+    {"file": "cudart-llama-b11856-bin-ubuntu-cuda-12.8-x64.tar.gz", "sha256": "c556e09d0a4b0be3537de5212cb05416326f8b1f40e8859e55c9169046d1ad55"}
   ],
-  "dropout": 0.1,
-  "warmup_pcrt": 0.1,
-  "lr": 0.0001,
-  "batch_size": 8,
-  "wd": 0.01,
-  "num_epochs": 3,
-  "max_length": 128,
-  "amp": true,
-  "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
-  "lora": {
-    "r": 16,
-    "alpha": 32,
-    "dropout": 0.05,
-    "target_modules": [
-      "q_proj",
-      "k_proj",
-      "v_proj",
-      "o_proj",
-      "gate_proj",
-      "up_proj",
-      "down_proj"
-    ]
+  "gpu": {
+    "visible_devices": "0,1",
+    "devices": "CUDA0,CUDA1",
+    "required_count": 2,
+    "split_mode": "layer",
+    "tensor_split": [1, 1],
+    "gpu_layers": 999,
+    "max_model_buffer_share_deviation": 0.05
   },
-  "label_smoothing": 0.1
+  "context_size": 8192,
+  "parallel_requests": 2,
+  "ubatch_size": 128,
+  "threads": 4,
+  "flash_attention": "on",
+  "reasoning": "off",
+  "max_tokens": 48,
+  "temperature": 0.0,
+  "seed": 42,
+  "examples_per_class": 2,
+  "prompt_version": "phrase_nli_train8_v1",
+  "evaluation": "independent_ordered_rows_official_dev",
+  "batch_size": 512
 }

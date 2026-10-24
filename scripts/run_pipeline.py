@@ -185,6 +185,10 @@ def main():
     ap.add_argument("--upstream", required=True)
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
+    if cfg.get("engine") == "llama_cpp_gguf":
+        from gguf_pipeline import run
+        run(cfg, Path(args.upstream).resolve())
+        return
     upstream = Path(args.upstream).resolve()
     t = f"track{cfg['track']}"
     data = upstream / "final_data"
