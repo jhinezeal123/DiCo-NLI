@@ -1,6 +1,7 @@
 {
-  "name": "track1_qwen25_paired_ce",
-  "bidirectional_objective": "paired_ce",
+  "name": "track1_qwen25_fused_partial",
+  "bidirectional_objective": "fused_partial",
+  "partial_candidates": "configs/partial_candidates.csv",
   "pair_microbatch_size": 4,
   "partial_gold_anchor": 0.25,
   "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",

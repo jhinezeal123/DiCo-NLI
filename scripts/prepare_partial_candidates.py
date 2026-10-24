@@ -63,7 +63,7 @@ def main():
         writer.writerows(sorted(selected, key=lambda r: r["instance_id"]))
     manifest = {"source_oof_run": OOF_RUN, "source_oof_commit": "807f7fd",
                 "source_log_sha256": hashlib.sha256(raw).hexdigest(),
-                "train_sha256": hashlib.sha256(args.train.read_bytes()).hexdigest(),
+                "train_lf_sha256": hashlib.sha256(args.train.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
                 "candidates_sha256": hashlib.sha256(dest.read_bytes()).hexdigest(),
                 "rows": len(selected), "source_pairs": len(target_groups),
                 "gold_counts": dict(Counter(r["gold_label"] for r in selected)),

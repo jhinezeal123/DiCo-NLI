@@ -1,0 +1,20 @@
+{
+  "source_oof_run": "81fc6753-4916-40ae-950d-195e6ba11157",
+  "source_oof_commit": "807f7fd",
+  "source_log_sha256": "3970d77fbd2ff0d3fe2e6a739984d47b857cf512446f884aacd696ec007734d3",
+  "train_lf_sha256": "5e8dd9f3a7e000933fec3c9e64d064f9a25586f141f58d6e6afb47c4fc797211",
+  "candidates_sha256": "10b9de2b541f021a3edab4070e8f3a46d5ee96802ac285c6a3bc732077874385",
+  "rows": 152,
+  "source_pairs": 88,
+  "gold_counts": {
+    "EQUIVALENCE": 40,
+    "BACKWARD_ENTAILMENT": 44,
+    "FORWARD_ENTAILMENT": 44,
+    "NEGATIVE_OTHER": 24
+  },
+  "mean_p_gold": 0.05877148355263157,
+  "all_gold_retained": true,
+  "train_reversal_closed": true,
+  "dev_gold_read": false,
+  "human_adjudicated": false
+}

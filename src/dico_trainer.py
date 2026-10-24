@@ -152,7 +152,8 @@ def run(cfg, seed, train_path, dev_path, device):
         candidate_path = Path(cfg["partial_candidates"])
         provenance = json.loads(candidate_path.with_name("partial_candidates_provenance.json").read_text())
         assert hashlib.sha256(candidate_path.read_bytes()).hexdigest() == provenance["candidates_sha256"]
-        assert hashlib.sha256(Path(train_path).read_bytes()).hexdigest() == provenance["train_sha256"]
+        train_lf = Path(train_path).read_bytes().replace(b"\r\n", b"\n")
+        assert hashlib.sha256(train_lf).hexdigest() == provenance["train_lf_sha256"]
         with candidate_path.open(encoding="utf-8", newline="") as f:
             rows = list(csv.DictReader(f))
         assert len(rows) == len({r["instance_id"] for r in rows}) == provenance["rows"]
