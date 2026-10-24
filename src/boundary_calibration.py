@@ -32,7 +32,7 @@ def lexical(a, b):
             float(ta[:1] == tb[:1]), float(ta[-1:] == tb[-1:])]
 
 
-def feature_matrix(texts, p, mode):
+def feature_matrix(texts, p, mode, evidence=None):
     p = normalize(p)
     lp = np.log(p)
     sorted_p = np.sort(p, axis=1)
@@ -41,6 +41,11 @@ def feature_matrix(texts, p, mode):
     if mode == "lexical":
         lex = np.asarray([lexical(a, b) for a, b in texts])
         blocks += [lex, (lex[:, :, None] * lp[:, None, :]).reshape(len(p), -1)]
+    elif mode == "semantic":
+        evidence = np.asarray(evidence, dtype=np.float64)
+        assert evidence.shape == (len(p), 6) and np.isfinite(evidence).all()
+        ev = np.log(np.clip(evidence, 1e-7, 1.0))
+        blocks += [ev, (ev[:, :, None] * lp[:, None, :]).reshape(len(p), -1)]
     elif mode != "probability":
         raise ValueError(mode)
     return np.concatenate(blocks, axis=1)
@@ -61,11 +66,12 @@ class BoundaryCalibrator:
     def __init__(self, mode, l2=0.1):
         self.mode, self.l2 = mode, l2
 
-    def fit(self, texts, probs, labels):
+    def fit(self, texts, probs, labels, evidence=None):
         p = normalize(probs)
         reverse_texts = [(b, a) for a, b in texts]
-        feats = np.concatenate([feature_matrix(texts, p, self.mode),
-                                feature_matrix(reverse_texts, p[:, REV], self.mode)])
+        rev_evidence = None if evidence is None else evidence[:, [3, 4, 5, 0, 1, 2]]
+        feats = np.concatenate([feature_matrix(texts, p, self.mode, evidence),
+                                feature_matrix(reverse_texts, p[:, REV], self.mode, rev_evidence)])
         self.mean = feats.mean(axis=0)
         self.scale = np.maximum(feats.std(axis=0), 0.01)
         x = np.c_[np.ones(len(feats)), (feats - self.mean) / self.scale]
@@ -83,12 +89,13 @@ class BoundaryCalibrator:
                             "objective": float(result.fun), "features": x.shape[1]}
         return self
 
-    def predict_proba(self, texts, probs):
+    def predict_proba(self, texts, probs, evidence=None):
         p = normalize(probs)
-        def forward(texts_, p_):
-            f = feature_matrix(texts_, p_, self.mode)
+        def forward(texts_, p_, evidence_):
+            f = feature_matrix(texts_, p_, self.mode, evidence_)
             x = np.c_[np.ones(len(f)), (f - self.mean) / self.scale]
             return softmax(np.log(p_) + x @ self.weights, axis=1)
-        q = 0.5 * (forward(texts, p) + forward([(b, a) for a, b in texts], p[:, REV])[:, REV])
+        rev_evidence = None if evidence is None else evidence[:, [3, 4, 5, 0, 1, 2]]
+        q = 0.5 * (forward(texts, p, evidence) + forward([(b, a) for a, b in texts], p[:, REV], rev_evidence)[:, REV])
         assert np.allclose(q.sum(axis=1), 1.0)
         return q

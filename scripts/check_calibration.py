@@ -19,12 +19,17 @@ error = check_grad(lambda z: objective(z, x, offsets, y, penalty)[0],
 assert error < 1e-5, error
 texts = [("a small dog", "an animal"), ("left", "right"), ("runs", "is running"), ("one", "as one")]
 p = normalize(rng.uniform(size=(4, 4)))
-for mode in ("probability", "lexical"):
+evidence = rng.uniform(size=(4, 6))
+evidence[:, :3] /= evidence[:, :3].sum(1, keepdims=True)
+evidence[:, 3:] /= evidence[:, 3:].sum(1, keepdims=True)
+for mode in ("probability", "lexical", "semantic"):
     # Synthetic labels only: exercise the optimizer and the symmetry guarantee.
-    cal = BoundaryCalibrator(mode).fit(texts, p, np.arange(4))
-    q = cal.predict_proba(texts, p)
-    rev = cal.predict_proba([(b, a) for a, b in texts], p[:, REV])[:, REV]
+    ev = evidence if mode == "semantic" else None
+    cal = BoundaryCalibrator(mode).fit(texts, p, np.arange(4), ev)
+    q = cal.predict_proba(texts, p, ev)
+    rev_ev = None if ev is None else ev[:, [3, 4, 5, 0, 1, 2]]
+    rev = cal.predict_proba([(b, a) for a, b in texts], p[:, REV], rev_ev)[:, REV]
     np.testing.assert_allclose(q, rev, atol=1e-12)
     np.testing.assert_allclose(q.sum(axis=1), 1)
-    assert feature_matrix(texts, p, mode).shape[0] == 4
-print(f"Synthetic checks passed: analytic gradient error={error:.2e}; both variants reverse equivariantly.")
+    assert feature_matrix(texts, p, mode, ev).shape[0] == 4
+print(f"Synthetic checks passed: analytic gradient error={error:.2e}; all variants reverse equivariantly.")

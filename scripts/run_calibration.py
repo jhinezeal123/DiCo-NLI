@@ -61,7 +61,19 @@ def run(cfg, upstream):
     p = all_p[[index[r["instance_id"]] for r in retained]]
     texts = [(r["text1"], r["text2"]) for r in retained]
     labels = np.array([LABELS.index(r["label"]) for r in retained])
-    cal = BoundaryCalibrator(cfg["calibration_mode"], cfg["calibration_l2"]).fit(texts, p, labels)
+    train_ev, dev_ev = None, None
+    if cfg["calibration_mode"] == "semantic":
+        from nli_evidence import score_text_pairs
+        all_texts = [(r["text1"], r["text2"]) for r in train + dev]
+        all_ev = score_text_pairs(cfg, all_texts)
+        train_ev = all_ev[[index[r["instance_id"]] for r in retained]]
+        dev_ev = all_ev[len(train):]
+        print("<<<FROZEN_NLI_EVIDENCE")
+        print("instance_id,e_fwd,n_fwd,c_fwd,e_bwd,n_bwd,c_bwd")
+        for row, ev in zip(train + dev, all_ev):
+            print(row["instance_id"] + "," + ",".join(f"{v:.8f}" for v in ev))
+        print("FROZEN_NLI_EVIDENCE>>>", flush=True)
+    cal = BoundaryCalibrator(cfg["calibration_mode"], cfg["calibration_l2"]).fit(texts, p, labels, train_ev)
     print("FROZEN_CALIBRATOR", json.dumps(cal.diagnostics, sort_keys=True), flush=True)
     out = Path("outputs") / cfg["name"]
     out.mkdir(parents=True, exist_ok=False)
@@ -81,8 +93,9 @@ def run(cfg, upstream):
             base = np.mean([probabilities(root / f"dev_fold{j}.csv", dev_ids) for j in range(5)], axis=0)
         else:
             base = probabilities(root / f"dev_{name}.csv", dev_ids)
-        calibrated = cal.predict_proba(dev_texts, base)
-        backwards = cal.predict_proba([(b, a) for a, b in dev_texts], base[:, REV])[:, REV]
+        calibrated = cal.predict_proba(dev_texts, base, dev_ev)
+        reverse_ev = None if dev_ev is None else dev_ev[:, [3, 4, 5, 0, 1, 2]]
+        backwards = cal.predict_proba([(b, a) for a, b in dev_texts], base[:, REV], reverse_ev)[:, REV]
         assert np.allclose(calibrated, backwards, atol=1e-12), "Broken reversal equivariance"
         result[name] = {}
         preds = {}
