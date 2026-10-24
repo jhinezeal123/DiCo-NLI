@@ -157,6 +157,11 @@ def build_model(cfg, num_labels, device):
             if prm.requires_grad:
                 prm.data = prm.data.float()
         model.print_trainable_parameters()
+    if cfg.get("grad_ckpt"):
+        # Recompute activations in backward: same math, less memory (4B base + ~120-token prompts).
+        model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+        model.enable_input_require_grads()
+        print("gradient_checkpointing=on", flush=True)
     if lm_readout:
         assert num_labels == len(LABELS), "lm_tokens readout supports the 4-label head only"
         lm_readout_setup(model, tok, cfg["label_words"])

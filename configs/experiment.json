@@ -39,5 +39,6 @@
     "FORWARD_ENTAILMENT": "forward",
     "NEGATIVE_OTHER": "other"
   },
-  "base_dtype": "float16"
+  "base_dtype": "float16",
+  "grad_ckpt": true
 }
