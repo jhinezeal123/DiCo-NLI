@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_lora_ls_instrprompt",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -16,7 +16,7 @@
   "max_length": 128,
   "amp": true,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "pair_template": "Phrase A: {t1}\nPhrase B: {t2}\nQuestion: does A entail B, does B entail A, do they entail each other (equivalent), or neither (unrelated, contradictory, or only similar)?\nAnswer:",
   "lora": {
     "r": 16,
     "alpha": 32,
