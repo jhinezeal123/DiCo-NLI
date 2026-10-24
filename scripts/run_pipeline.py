@@ -8,6 +8,7 @@ import argparse
 import csv
 import hashlib
 import json
+import math
 import os
 import shutil
 import statistics
@@ -16,6 +17,8 @@ import sys
 import time
 from collections import Counter
 from pathlib import Path
+
+import numpy as np
 
 LABELS = ["EQUIVALENCE", "FORWARD_ENTAILMENT", "BACKWARD_ENTAILMENT", "NEGATIVE_OTHER"]
 REVERSE = {
@@ -46,8 +49,17 @@ def audit(train_rows, dev_rows, paths):
         ids = [r["instance_id"] for r in rows]
         dist = Counter(r["label"] for r in rows)
         bad = set(dist) - set(LABELS)
-        print(f"{split}: rows={len(rows)} unique_ids={len(set(ids))} pairs={len({r['pair_id'] for r in rows})} "
+        pair_count = Counter(r["pair_id"] for r in rows)
+        print(f"{split}: rows={len(rows)} unique_ids={len(set(ids))} pairs={len(pair_count)} "
               f"labels={dict(sorted(dist.items()))}")
+        # The official construction pairs both directions of every reversible source
+        # pair and leaves NEGATIVE_OTHER unpaired.  Verify that invariant on the
+        # public splits and refuse to rely on it silently if it changes.
+        paired_no = sum(1 for r in rows if pair_count[r["pair_id"]] > 1 and r["label"] == "NEGATIVE_OTHER")
+        single_rev = sum(1 for r in rows if pair_count[r["pair_id"]] == 1 and r["label"] != "NEGATIVE_OTHER")
+        print(f"{split} structure: paired_NO={paired_no} singleton_reversible={single_rev} "
+              f"pair_sizes={dict(sorted(Counter(pair_count.values()).items()))}")
+        assert paired_no == 0 and single_rev == 0, f"{split} violates the pairing invariant"
         assert len(ids) == len(set(ids)), f"duplicate instance_id in {split}"
         assert not bad, f"unknown labels in {split}: {bad}"
     train_pairs = {r["pair_id"] for r in train_rows}
@@ -179,6 +191,76 @@ def error_analysis(pred, ref_rows):
               f"consistent_but_wrong={buckets[(kind, 'consistent_but_wrong')]}")
 
 
+def pair_groups(rows):
+    groups = {}
+    for i, r in enumerate(rows):
+        groups.setdefault(r["pair_id"], []).append(i)
+    return list(groups.values())
+
+
+def direction_of(instance_id):
+    """0 = source order, 1 = reversed order, None = unknown suffix."""
+    if instance_id.endswith("__original") or instance_id.endswith("__forward"):
+        return 0
+    if instance_id.endswith("__flipped") or instance_id.endswith("__reverse"):
+        return 1
+    return None
+
+
+def decode_structure(fused, rows, groups, names, rev):
+    """Structure-aware decoder.
+
+    The official construction pairs both directions of every reversible source
+    pair and leaves NEGATIVE_OTHER unpaired.  A singleton group is therefore a
+    negative/noise item; a multi-row group is decoded jointly over the reversible
+    labels under the official reversal mapping.  ``fused`` is the bidirectional
+    probability (p(x) + p(swap(x)) mapped through ``rev``).
+    """
+    pred = ["NEGATIVE_OTHER"] * len(rows)
+    for group in groups:
+        if len(group) == 1:
+            continue
+        best = None
+        if len(group) == 2:
+            # Try both directions: any consistent assignment is enumerated by
+            # root label r on one row and rev[r] on the other.
+            for root in range(3):
+                for first, second in ((root, rev[root]), (rev[root], root)):
+                    score = (math.log(fused[group[0], first] + 1e-12)
+                             + math.log(fused[group[1], second] + 1e-12))
+                    if best is None or score > best[0]:
+                        best = (score, [first, second])
+        else:
+            dirs = [direction_of(rows[k]["instance_id"]) for k in group]
+            if all(d is not None for d in dirs):
+                for root in range(3):
+                    assign = [root if d == 0 else rev[root] for d in dirs]
+                    score = sum(math.log(fused[k, lab] + 1e-12) for k, lab in zip(group, assign))
+                    if best is None or score > best[0]:
+                        best = (score, assign)
+        if best is None:
+            # Unknown layout: keep the reversible subset per row.
+            for k in group:
+                pred[k] = names[int(np.argmax(fused[k, :3]))]
+        else:
+            for k, lab in zip(group, best[1]):
+                pred[k] = names[lab]
+    return pred
+
+
+def decode_all(p, q, dev_rows, groups, label_space, dt):
+    if label_space == "reversible":
+        fused = 0.5 * (p + q[:, dt.REV3])
+        names, rev = dt.REV_LABELS, dt.REV3
+    else:
+        fused = 0.5 * (p + q[:, dt.REV])
+        names, rev = dt.LABELS, dt.REV
+    raw = [names[int(np.argmax(p[k]))] for k in range(len(dev_rows))]
+    bidir = [names[int(np.argmax(fused[k]))] for k in range(len(dev_rows))]
+    struct = decode_structure(fused, dev_rows, groups, names, rev)
+    return {"standard": raw, "bidir": bidir, "struct": struct}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -214,21 +296,25 @@ def main():
     trained = train_seeds_parallel(args.config, cfg["seeds"], paths, out_root)
     print(f"train_wall_seconds_all_seeds={time.time() - t0:.1f}")
 
-    headline = cfg.get("decode", "standard")
-    modes = ["standard", "bidir"]
+    label_space = cfg.get("label_space", "four")
+    headline = cfg.get("decode", "struct")
+    modes = ["standard", "bidir", "struct"]
+    groups = pair_groups(dev_rows)
     results = {m: {} for m in modes}
-    ens_sum = {}
+    ens_p = ens_q = None
     for seed in cfg["seeds"]:
         section(f"SEED {seed}")
         out = out_root / f"seed{seed}"
         print((out / "train.log").read_text(errors="replace"), end="")
         p, q = trained[seed]["orig"], trained[seed]["swap"]
-        # q is the prediction for the swapped input; map it back through the reversal.
-        final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
-        for mode in final:
-            ens_sum[mode] = ens_sum.get(mode, 0) + final[mode]
-        print(f"<<<DEV_PROBS seed={seed}")
-        print("instance_id," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
+        if ens_p is None:
+            ens_p, ens_q = p.copy(), q.copy()
+        else:
+            ens_p, ens_q = ens_p + p, ens_q + q
+        final = decode_all(p, q, dev_rows, groups, label_space, dt)
+        names = dt.REV_LABELS if label_space == "reversible" else dt.LABELS
+        print(f"<<<DEV_PROBS seed={seed} label_space={label_space}")
+        print("instance_id," + ",".join(f"p_{l}" for l in names) + "," + ",".join(f"q_{l}" for l in names))
         for r, pi, qi in zip(dev_rows, p, q):
             print(r["instance_id"] + "," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
         print("DEV_PROBS>>>")
@@ -237,8 +323,8 @@ def main():
             with open(pred_path, "w", newline="", encoding="utf-8") as f:
                 w = csv.writer(f, lineterminator="\n")
                 w.writerow(["instance_id", "label"])
-                for r, pr in zip(dev_rows, final[mode]):
-                    w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+                for r, lab in zip(dev_rows, final[mode]):
+                    w.writerow([r["instance_id"], lab])
             section(f"seed {seed} decoding={mode}")
             pred = validate(pred_path, dev_rows)
             scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
@@ -253,14 +339,16 @@ def main():
                   f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
 
     section("SEED ENSEMBLE (diagnostic: mean probabilities over seeds)")
+    ens_p, ens_q = ens_p / len(cfg["seeds"]), ens_q / len(cfg["seeds"])
+    final_ens = decode_all(ens_p, ens_q, dev_rows, groups, label_space, dt)
     ens_scores = {}
     for mode in modes:
         pred_path = out_root / f"{t}_dev_predictions_ensemble_{mode}.csv"
         with open(pred_path, "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f, lineterminator="\n")
             w.writerow(["instance_id", "label"])
-            for r, pr in zip(dev_rows, ens_sum[mode]):
-                w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+            for r, lab in zip(dev_rows, final_ens[mode]):
+                w.writerow([r["instance_id"], lab])
         validate(pred_path, dev_rows)
         ens_scores[mode] = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
                                           (out_root / f"scores_ensemble_{mode}").resolve())
