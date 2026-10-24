@@ -153,7 +153,7 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx])
+            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
