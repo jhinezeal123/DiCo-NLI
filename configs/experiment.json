@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen3_embedding_4b_lora_ls0p1",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen3-Embedding-4B",
   "seeds": [
     42,
     13,
@@ -31,5 +31,6 @@
       "down_proj"
     ]
   },
-  "label_smoothing": 0.1
+  "label_smoothing": 0.1,
+  "base_dtype": "float16"
 }
