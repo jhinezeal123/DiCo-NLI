@@ -19,8 +19,7 @@
     "required_count": 2,
     "split_mode": "layer",
     "tensor_split": [1, 1],
-    "gpu_layers": 999,
-    "max_model_buffer_share_deviation": 0.05
+    "gpu_layers": 999
   },
   "context_size": 8192,
   "parallel_requests": 2,

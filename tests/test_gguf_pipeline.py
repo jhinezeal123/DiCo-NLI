@@ -20,8 +20,11 @@ class GgufChecks(unittest.TestCase):
     def test_both_devices_and_full_offload_required(self):
         result = pipeline.verify_sharding(self.log, self.cfg)
         self.assertEqual(set(result["model_buffer_MiB"]), {0, 1})
+        # User clarified that using both GPUs for throughput takes priority over
+        # equal memory use; unequal mixed-precision layers must remain valid.
+        pipeline.verify_sharding(self.log.replace("4300.00", "8000.00"), self.cfg)
         for bad in (self.log.replace("CUDA1", "CPU"),
-                    self.log.replace("4300.00", "8000.00"),
+                    self.log.replace("4300.00", "0.00"),
                     self.log.replace("65/65", "64/65")):
             with self.subTest(log=bad), self.assertRaises(RuntimeError):
                 pipeline.verify_sharding(bad, self.cfg)
