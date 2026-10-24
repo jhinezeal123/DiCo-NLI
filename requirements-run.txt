@@ -2,8 +2,11 @@
 # do not build on the current Kaggle image, so those come from the host's
 # preinstalled stack (versions are logged by the pipeline). transformers is pinned
 # to the kit's version, the first release with ModernBERT support.
-transformers==4.48.3
+transformers==4.51.3
 # Tokenizer/adapters for non-ModernBERT encoders (DeBERTa-v3) and LoRA runs.
 sentencepiece>=0.2.1
 tiktoken==0.9.0
 peft==0.14.0
+# 4-bit loading for QLoRA nodes.
+bitsandbytes>=0.45.0
+accelerate>=1.2.0

@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_lmtokens",
+  "name": "track1_qwen3_reranker_4b_lmtokens_ls0p1",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen3-Reranker-4B",
   "seeds": [
     42,
     13,
@@ -13,10 +13,10 @@
   "batch_size": 8,
   "wd": 0.01,
   "num_epochs": 3,
-  "max_length": 128,
+  "max_length": 320,
   "amp": true,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "pair_template": "<|im_start|>system\nJudge the relation between the Query and the Document based on the Instruct provided. Answer with one word: equivalent, forward, backward, or other.<|im_end|>\n<|im_start|>user\n<Instruct>: Query and Document are short phrases. equivalent: each entails the other. forward: the Query entails the Document but not conversely. backward: the Document entails the Query but not conversely. other: none of these.\n<Query>: {t1}\n<Document>: {t2}<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
   "lora": {
     "r": 16,
     "alpha": 32,
@@ -34,9 +34,10 @@
   "label_smoothing": 0.1,
   "readout": "lm_tokens",
   "label_words": {
-    "BACKWARD_ENTAILMENT": " backward",
-    "EQUIVALENCE": " equivalent",
-    "FORWARD_ENTAILMENT": " forward",
-    "NEGATIVE_OTHER": " other"
-  }
+    "BACKWARD_ENTAILMENT": "backward",
+    "EQUIVALENCE": "equivalent",
+    "FORWARD_ENTAILMENT": "forward",
+    "NEGATIVE_OTHER": "other"
+  },
+  "base_dtype": "float16"
 }
