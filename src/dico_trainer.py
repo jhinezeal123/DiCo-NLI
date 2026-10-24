@@ -81,18 +81,18 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
 
 
 def build_model(cfg, num_labels, device):
-    config = AutoConfig.from_pretrained(cfg["model_id"])
+    config = AutoConfig.from_pretrained(cfg["model_id"], revision=cfg.get("model_revision"))
     # Dropout handling mirrors the starter kit's Model class.
     if hasattr(config, "classifier_dropout"):
         config.classifier_dropout = float(cfg["dropout"])
     elif hasattr(config, "pooler_dropout") and not hasattr(config, "cls_dropout"):
         config.cls_dropout = float(cfg["dropout"])
     config.num_labels = num_labels
-    tok = AutoTokenizer.from_pretrained(cfg["model_id"])
+    tok = AutoTokenizer.from_pretrained(cfg["model_id"], revision=cfg.get("model_revision"))
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], revision=cfg.get("model_revision"), config=config)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]

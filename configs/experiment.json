@@ -1,11 +1,11 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_joint_readout_seed42",
+  "joint_head_pilot": true,
+  "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
-    42,
-    13,
-    7
+    42
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
