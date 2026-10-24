@@ -1,5 +1,13 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_explore_a_counterfactual_3seed",
+  "explore_method": "counterfactual",
+  "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "arms": ["baseline", "resample", "counterfactual"],
+  "comparisons": [["counterfactual", "resample"], ["counterfactual", "baseline"]],
+  "head_lr": 0.001,
+  "eval_batch_size": 24,
+  "max_workers": 2,
+  "counterfactual_max_families": 120,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
