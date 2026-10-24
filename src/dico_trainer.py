@@ -52,6 +52,32 @@ def load_split(path):
     return ids, t1, t2, y
 
 
+def trial_extra(train_path, dev_path, track):
+    """Official trial rows not overlapping train or dev (README overlap policy).
+
+    A trial row is dropped if its pair_id occurs in train/dev, or its unordered normalized
+    text pair occurs in train/dev, or the same ordered pair already occurred earlier in trial.
+    """
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(train_path))))
+    tl = pd.read_csv(os.path.join(root, "trial_data", f"dico_nli_trial_track{track}_participant_labeled.csv"))
+    tr, dv = pd.read_csv(train_path), pd.read_csv(dev_path)
+    clean = lambda s: re.sub(r"\s+", " ", str(s)).strip()
+    key = lambda a, b: frozenset((clean(a).lower(), clean(b).lower()))
+    banned_ids = set(tr["pair_id"]) | set(dv["pair_id"])
+    banned_txt = {key(a, b) for d in (tr, dv) for a, b in zip(d["text1"], d["text2"])}
+    seen, keep = set(), []
+    for r in tl.itertuples():
+        k, ordered = key(r.text1, r.text2), (clean(r.text1).lower(), clean(r.text2).lower())
+        if r.pair_id in banned_ids or k in banned_txt or ordered in seen:
+            continue
+        seen.add(ordered)
+        keep.append(r)
+    print(f"trial_extra: {len(tl)} trial rows -> {len(keep)} kept "
+          f"(removed {len(tl) - len(keep)} overlapping train/dev or duplicated)", flush=True)
+    return ([clean(r.text1) for r in keep], [clean(r.text2) for r in keep],
+            np.array([LABEL2ID[r.label] for r in keep]))
+
+
 def encode(tok, t1, t2, max_length, template=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
@@ -113,6 +139,10 @@ def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
     _, tr1, tr2, ytr = load_split(train_path)
+    if cfg.get("add_trial"):
+        x1, x2, xy = trial_extra(train_path, dev_path, cfg["track"])
+        tr1, tr2, ytr = tr1 + x1, tr2 + x2, np.concatenate([ytr, xy])
+        print(f"train rows with trial: {len(ytr)} label counts: {np.bincount(ytr).tolist()}", flush=True)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
