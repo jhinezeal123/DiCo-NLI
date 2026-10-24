@@ -145,6 +145,7 @@ def server_command(server, model, cfg, port):
             "--fit", "off", "--ctx-size", str(cfg["context_size"]),
             "--parallel", str(cfg["parallel_requests"]), "--batch-size", str(cfg["batch_size"]),
             "--ubatch-size", str(cfg["ubatch_size"]), "--threads", str(cfg["threads"]),
+            "--verbosity", str(cfg["log_verbosity"]),
             "--flash-attn", cfg["flash_attention"], "--jinja", "--reasoning", cfg["reasoning"],
             "--chat-template-kwargs", json.dumps({"enable_thinking": False}),
             "--host", "127.0.0.1", "--port", str(port), "--no-webui"]

@@ -26,6 +26,7 @@
   "parallel_requests": 2,
   "ubatch_size": 128,
   "threads": 4,
+  "log_verbosity": 4,
   "flash_attention": "on",
   "reasoning": "off",
   "max_tokens": 48,

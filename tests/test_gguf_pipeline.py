@@ -50,7 +50,8 @@ class GgufChecks(unittest.TestCase):
     def test_launch_pins_both_gpus_and_equal_split(self):
         argv = pipeline.server_command(Path("llama-server"), Path("model.gguf"), self.cfg, 8123)
         for flag, value in (("--device", "CUDA0,CUDA1"), ("--tensor-split", "1,1"),
-                            ("--gpu-layers", "999"), ("--split-mode", "layer"), ("--fit", "off")):
+                            ("--gpu-layers", "999"), ("--split-mode", "layer"), ("--fit", "off"),
+                            ("--verbosity", "4")):
             self.assertEqual(argv[argv.index(flag) + 1], value)
 
     def test_truncated_generation_is_not_silently_scored(self):
