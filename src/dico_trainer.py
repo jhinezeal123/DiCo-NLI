@@ -5,9 +5,13 @@ classifier_dropout from config, CE loss, deterministic seeding, truncation="only
 Difference: per-batch dynamic padding instead of padding to max_length (identical
 under the attention mask, much faster).
 """
+import csv
+import hashlib
+import json
 import os
 import random
 import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -81,18 +85,19 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
 
 
 def build_model(cfg, num_labels, device):
-    config = AutoConfig.from_pretrained(cfg["model_id"])
+    revision = cfg.get("model_revision")
+    config = AutoConfig.from_pretrained(cfg["model_id"], revision=revision)
     # Dropout handling mirrors the starter kit's Model class.
     if hasattr(config, "classifier_dropout"):
         config.classifier_dropout = float(cfg["dropout"])
     elif hasattr(config, "pooler_dropout") and not hasattr(config, "cls_dropout"):
         config.cls_dropout = float(cfg["dropout"])
     config.num_labels = num_labels
-    tok = AutoTokenizer.from_pretrained(cfg["model_id"])
+    tok = AutoTokenizer.from_pretrained(cfg["model_id"], revision=revision)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], revision=revision, config=config)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
@@ -112,7 +117,7 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    train_ids, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
@@ -125,6 +130,11 @@ def run(cfg, seed, train_path, dev_path, device):
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
     f_train = encode(tok, tr1, tr2, L, tpl)
+    objective_mode = cfg.get("bidirectional_objective")
+    if objective_mode:
+        assert not factorized
+        from bidirectional_objectives import objective
+        f_train_swap = encode(tok, tr2, tr1, L, tpl)
     f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
@@ -136,6 +146,27 @@ def run(cfg, seed, train_path, dev_path, device):
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     ytr_t = torch.tensor(ytr, device=device)
+    candidate_masks = torch.nn.functional.one_hot(ytr_t, num_classes=len(LABELS)).bool()
+    if cfg.get("partial_candidates"):
+        assert objective_mode == "fused_partial"
+        candidate_path = Path(cfg["partial_candidates"])
+        provenance = json.loads(candidate_path.with_name("partial_candidates_provenance.json").read_text())
+        assert hashlib.sha256(candidate_path.read_bytes()).hexdigest() == provenance["candidates_sha256"]
+        assert hashlib.sha256(Path(train_path).read_bytes()).hexdigest() == provenance["train_sha256"]
+        with candidate_path.open(encoding="utf-8", newline="") as f:
+            rows = list(csv.DictReader(f))
+        assert len(rows) == len({r["instance_id"] for r in rows}) == provenance["rows"]
+        indices = {iid: i for i, iid in enumerate(train_ids)}
+        for row in rows:
+            i = indices[row["instance_id"]]
+            assert LABELS[ytr[i]] == row["gold_label"]
+            candidate_masks[i, LABEL2ID[row["alternative_label"]]] = True
+        assert int((candidate_masks.sum(1) > 1).sum()) == provenance["rows"]
+        print("PARTIAL_CANDIDATES", json.dumps(provenance, sort_keys=True), flush=True)
+    print(f"TRAIN_SETUP objective={objective_mode or 'single_ce'} pair_batch={bs} "
+          f"microbatch={cfg.get('pair_microbatch_size', bs)} epochs={epochs} "
+          f"steps_per_epoch={steps_per_epoch} total_optimizer_steps={total} "
+          f"train_rows={len(f_train)} ambiguous_rows={int((candidate_masks.sum(1)>1).sum())}", flush=True)
 
     def dev_probs():
         p = predict_probs(model, tok, f_dev, bs, device, amp)
@@ -150,18 +181,41 @@ def run(cfg, seed, train_path, dev_path, device):
         total_loss = 0.0
         for s in range(0, len(perm), bs):
             idx = perm[s:s + bs]
-            b = batch(tok, f_train, idx, device)
-            with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-                logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
-            scaler.scale(loss).backward()
+            if objective_mode:
+                microbatch = int(cfg.get("pair_microbatch_size", bs))
+                loss_value = 0.0
+                for first in range(0, len(idx), microbatch):
+                    sub = idx[first:first + microbatch]
+                    b = batch(tok, f_train, sub, device)
+                    reverse_b = batch(tok, f_train_swap, sub, device)
+                    with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
+                        logits = model(**b).logits
+                        reverse_logits = model(**reverse_b).logits
+                    loss = objective(logits, reverse_logits, ytr_t[sub], objective_mode,
+                                     smoothing=float(cfg.get("label_smoothing", 0.0)),
+                                     candidates=candidate_masks[sub],
+                                     gold_anchor=float(cfg.get("partial_gold_anchor", 0.25)))
+                    weight = len(sub) / len(idx)
+                    scaler.scale(loss * weight).backward()
+                    loss_value += loss.item() * weight
+            else:
+                b = batch(tok, f_train, idx, device)
+                with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
+                    logits = model(**b).logits
+                loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+                scaler.scale(loss).backward()
+                loss_value = loss.item()
             scaler.unscale_(opt)
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             scaler.step(opt)
             scaler.update()
             sched.step()
-            total_loss += loss.item()
+            total_loss += loss_value
+            if (s // bs + 1) % 100 == 0:
+                peak = torch.cuda.max_memory_allocated(device) / 2 ** 20 if device.type == "cuda" else 0
+                print(f"TRAIN_PROGRESS epoch={epoch+1} step={s//bs+1}/{steps_per_epoch} "
+                      f"mean_loss={total_loss/(s//bs+1):.5f} peak_gpu_mb={peak:.0f}", flush=True)
         p, _ = dev_probs()
         acc = float((p.argmax(1) == ydv).mean())
         wf1 = f1_score(ydv, p.argmax(1), average="weighted")
