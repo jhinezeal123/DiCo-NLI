@@ -305,8 +305,9 @@ def student(cfg, config_path, upstream, paths, out_root, rp):
     print(f"student_wall_seconds_all_seeds={time.time() - t0:.0f}")
 
     headline = cfg.get("decode", "bidir")
-    modes = ["standard", "bidir"]
+    modes = ["standard", "bidir", "head", "fused"]
     results = {m: {} for m in modes}
+    lab_order = ["BACKWARD_ENTAILMENT", "EQUIVALENCE", "FORWARD_ENTAILMENT", "NEGATIVE_OTHER"]
     for sd in seeds:
         section(f"SEED {sd}")
         print((out_root / f"seed{sd}.log").read_text(errors="replace"), end="")
@@ -328,12 +329,31 @@ def student(cfg, config_path, upstream, paths, out_root, rp):
             print("\t".join([ids[i], str(rec[i][3]), str(rec[i][4]), f"{gen['orig'][i][1]:.4f}",
                              f"{gen['swap'][i][1]:.4f}", gen["orig"][i][0], gen["swap"][i][0]]))
         print("DEV_TRACES>>>")
-        for mode, k in (("standard", 0), ("bidir", 1)):
+
+        pred_labels = {"standard": [rec[i][3] for i in range(n)],
+                       "bidir": [rec[i][1] for i in range(n)]}
+        if "head_orig" in gen and gen["head_orig"]:
+            rev = [lab_order.index(vuar.LABEL_REV[l]) for l in lab_order]
+            head_fused, fused = [], []
+            for i in range(n):
+                hp = gen["head_orig"][i]
+                hq = [gen["head_swap"][i][j] for j in rev]
+                pf = [0.5 * (a + b) for a, b in zip(hp, hq)]
+                head_fused.append(pf)
+                tr = [0.0] * 4
+                tr[lab_order.index(rec[i][1])] = 1.0
+                fused.append([0.5 * a + 0.5 * b for a, b in zip(pf, tr)])
+            pred_labels["head"] = [lab_order[max(range(4), key=lambda k: p[k])] for p in head_fused]
+            pred_labels["fused"] = [lab_order[max(range(4), key=lambda k: p[k])] for p in fused]
+        else:
+            modes = [m for m in modes if m not in ("head", "fused")]
+
+        for mode in modes:
             pred_path = out_root / f"seed{sd}_{mode}_predictions.csv"
             with open(pred_path, "w", encoding="utf-8", newline="") as f:
                 f.write("instance_id,label\n")
                 for i in range(n):
-                    f.write(f"{ids[i]},{rec[i][k]}\n")
+                    f.write(f"{ids[i]},{pred_labels[mode][i]}\n")
             rp.validate(pred_path, dev_rows)
             sc = rp.official_score(upstream, paths["dev_reference"], pred_path.resolve(),
                                    (out_root / f"seed{sd}_scores_{mode}").resolve())
