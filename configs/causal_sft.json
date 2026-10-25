@@ -22,7 +22,7 @@
   ],
   "pilot_only": true,
   "split_plan_path": "configs/causal_native_split.json",
-  "split_plan_sha256": "2c81a69a44a0f375f9f9998ecb5da6fcb9b904549a15178152ee9b6cb3b4a4fc",
+  "split_plan_sha256": "2921a2a1955d43a9d4432e81fcc2100b1e083a9153d419b38bde16a0b9603b53",
   "training_questions": 150,
   "seed": 42,
   "max_steps": 150,
