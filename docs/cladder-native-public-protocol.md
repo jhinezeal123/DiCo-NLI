@@ -54,3 +54,23 @@ mechanisms and explicit abduction/intervention/prediction examples generated
 from the same four development worlds. This improves supervision parity;
 its performance remains an empirical question. The original direct protocol
 is also rerun. This is still development, not a fresh held-out confirmation.
+
+## Shared state-glossary child
+
+The grounded native pilot reached 33.33% answer accuracy with 100% valid
+programs; direct remained 75%, and structured_program_demos reached 61.11%.
+One suspected failure mode is incompatible implicit 0/1 meanings across
+subtasks. The author's state ONE can mean low cholesterol, for example; an
+implicit high/positive convention is insufficient. Raw agreement with author
+bit labels is not semantic agreement unless state encodings are aligned.
+
+This child first asks the model to predict one/zero state descriptions for
+every public named variable, using only the same three public text fields.
+It shares that predicted glossary in every CPT/evidence/query request and
+explicitly overrides default high/positive conventions. Development requests
+use development state meanings. No hidden evaluation mapping is supplied.
+Malformed/missing glossaries count as failures in the full denominator, with
+no fallback to gold or post-hoc repair. All glossary outputs and generation
+costs are logged. The original direct control is rerun; it was the strongest
+observed control on this public development pilot. All other inference logic,
+case selection, checkpoint and four development worlds remain fixed.

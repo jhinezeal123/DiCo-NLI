@@ -64,11 +64,15 @@ SYSTEMS = {
 }
 
 
-def request_specs(text):
+def request_specs(text, glossary=None):
     graph = public_graph(text)
     names = list(graph["parents"])
-    question = text.rsplit("\n\n", 1)[-1]
     premise = text.rsplit("\n\n", 1)[0]
+    if glossary is not None:
+        from causal_state_glossary import validate_glossary, glossary_context
+        context = glossary_context(validate_glossary(glossary, names))
+        text += context
+        premise += context
     specs = []
     for name, parents in graph["parents"].items():
         if parents:
@@ -113,10 +117,12 @@ def format_options(spec):
     return spec["prompt"] + "\nOptions:\n" + "\n".join(f"{'ABCDEFGH'[i]}. {v}" for i, v in enumerate(spec["options"]))
 
 
-def build_public_grounded_requests(rows, demonstrations):
+def build_public_grounded_requests(rows, demonstrations, glossaries=None):
+    from causal_state_glossary import gold_development_glossary
     examples = {stage: [] for stage in SYSTEMS}
     for demo in demonstrations:
-        _, specs = request_specs(demo["text"])
+        glossary = gold_development_glossary(demo["program"]) if glossaries is not None else None
+        _, specs = request_specs(demo["text"], glossary)
         for spec in specs:
             examples[spec["stage"]].append((format_options(spec), development_label(spec, demo["program"])))
     # Balance available development option labels, bounded to keep context modest.
@@ -130,10 +136,15 @@ def build_public_grounded_requests(rows, demonstrations):
         selected[stage] = chosen
     requests, plans = {}, {}
     for row in rows:
-        graph, specs = request_specs(row["text"])
+        graph, specs = request_specs(row["text"], glossaries[row["question_id"]] if glossaries is not None else None)
         for spec in specs:
             stage = spec["stage"]
-            conversation = [{"role": "system", "content": SYSTEMS[stage]}]
+            system = SYSTEMS[stage]
+            if glossaries is not None:
+                if stage == "polarity":
+                    system = "Does the final question ask whether the named outcome's state ONE or state ZERO from the explicit glossary holds? Reply with one option letter."
+                system += " The explicit state glossary overrides ALL default positive/high conventions. Use its exact one/zero meanings consistently."
+            conversation = [{"role": "system", "content": system}]
             for prompt, answer in selected[stage]:
                 conversation.extend([{"role": "user", "content": prompt},
                                      {"role": "assistant", "content": "ABCDEFGH"[answer]}])
@@ -176,12 +187,23 @@ def assemble_public(plan, decisions):
 
 def run_public_grounded(model, tokenizer, dataset, cfg, emit):
     from causal_choice import decide
-    requests, plans = build_public_grounded_requests(dataset["rows"], dataset["demonstrations"])
     started = time.monotonic()
+    glossaries, failures, glossary_usage = None, {}, {"elapsed_seconds": 0, "input_tokens": 0, "output_tokens": 0}
+    if cfg.get("state_glossary"):
+        from causal_state_glossary import run_glossaries
+        glossaries, failures, glossary_usage = run_glossaries(model, tokenizer, dataset, cfg, emit)
+    eligible = [row for row in dataset["rows"] if row["question_id"] not in failures]
+    requests, plans = build_public_grounded_requests(eligible, dataset["demonstrations"], glossaries)
     decisions = decide(model, tokenizer, requests, cfg["batch_size"], emit)
     uses = Counter(spec["request_id"] for plan in plans.values() for spec in plan["specs"])
     records = []
     for row in dataset["rows"]:
+        if row["question_id"] in failures:
+            record = {k: row[k] for k in ("question_id", "model_id", "graph", "answer")}
+            record.update({"method": "native_grounded_solver", "correct": False, "valid": False,
+                           "prediction": "invalid", "error": "glossary: " + failures[row["question_id"]]})
+            records.append(record); emit("PUBLIC_CASE", record)
+            continue
         plan = plans[row["question_id"]]
         program = assemble_public(plan, decisions)
         raw = json.dumps(program, separators=(",", ":"))
@@ -196,4 +218,5 @@ def run_public_grounded(model, tokenizer, dataset, cfg, emit):
             "literal_public_graph": True, "new_lm_calls": len(keys)})
         records.append(record); emit("PUBLIC_CASE", record)
     return records, {"subcalls": len(requests), "elapsed_seconds": time.monotonic()-started,
-                     "input_tokens": sum(r["input_tokens"] for r in decisions.values()), "output_tokens": len(requests)}
+                     "input_tokens": sum(r["input_tokens"] for r in decisions.values()) + glossary_usage["input_tokens"],
+                     "output_tokens": len(requests) + glossary_usage["output_tokens"], "glossary_usage": glossary_usage}
