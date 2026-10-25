@@ -1,0 +1,8 @@
+{
+  "name": "cladder_deterministic_native_oracle_audit_v1",
+  "revision": "3d2d1169b4b939a09048a6a75956c8972a93cc38",
+  "files": [
+    {"name": "cladder-v1-questions.json", "sha256": "59ecdc5ac2a6b4583b798b1aaf7bab3744316762769325adea69317ac1b4ae40"},
+    {"name": "cladder-v1-meta-models.json", "sha256": "f288ed9046a1ef5e39c0dbf6b971b8a3a485887130b7831dc5da4fe2af5d64b5"}
+  ]
+}
