@@ -31,13 +31,15 @@ before renaming variables. The topology frequencies may differ after outcome
 stratification; report this limitation, rather than claiming a pure causal
 effect of one OOD factor.
 
-All protocols share checkpoint/revision, dataset, two demonstration families,
+All protocols share checkpoint/revision, dataset, four demonstration families,
 greedy decoding, and a 512-token output ceiling. Demonstration outputs differ:
 answers for direct, oracle traces for structured, JSON for parsing. This is a
 comparison of full protocols, not a clean architecture-only ablation. Report
 actual input/output tokens and wall time; the same ceiling does not imply
 equal realized compute. Add compute-matched sampling controls before a final
-efficiency claim.
+efficiency claim. The initial pilot used indices 0 and 3, whose counterfactual
+answers were both 0; that node remains frozen. This child uses all four original
+outcome-by-causal-change strata, giving two demonstration answers per class.
 
 ## Acceptance criteria, fixed before the first run
 

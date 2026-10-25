@@ -106,6 +106,14 @@ class DatasetProtocolTest(unittest.TestCase):
             self.assertEqual(prompt[-1]["content"], row["text"])
             self.assertNotIn("sentinel", json.dumps(prompt))
 
+    def test_four_demonstrations_balance_answers_and_change(self):
+        demos = self.dataset["demonstrations"]
+        self.assertEqual(sorted(d["answer"] for d in demos), ["0", "0", "1", "1"])
+        self.assertEqual(sum(d["changed"] for d in demos), 2)
+        for method in ("direct", "structured", "parser_solver"):
+            prompt = messages(self.dataset["rows"][0], method, demos, shots=4)
+            self.assertEqual(sum(m["role"] == "assistant" for m in prompt), 4)
+
     def test_constant_answer_can_be_consistent_and_still_fail_joint(self):
         records = [{**r, "prediction": "0", "valid": True, "correct": r["answer"] == "0"}
                    for r in self.dataset["rows"]]

@@ -43,8 +43,9 @@ def messages(row, method, demonstrations, shots=2):
     else:
         raise ValueError(method)
     conversation = [{"role": "system", "content": system}]
-    # Same two factual cases for every protocol; the supervision format differs and is logged.
-    for demo in [demonstrations[i] for i in (0, 3)][:shots]:
+    # All four strata balance original outcome, causal change and final answers.
+    # Each protocol receives the same cases; only supervision format differs.
+    for demo in demonstrations[:shots]:
         answer = (json.dumps(demo["scm"], separators=(",", ":")) if method == "parser_solver" else
                   trace(demo) if method == "structured" else f"<answer>{demo['answer']}</answer>")
         conversation.extend([{"role": "user", "content": demo["text"]},
