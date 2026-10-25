@@ -12,13 +12,13 @@
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
   "lr": 0.0001,
-  "batch_size": 8,
+  "batch_size": 4,
   "wd": 0.01,
   "num_epochs": 3,
   "amp": true,
   "decode": "bidir",
   "max_new_tokens": 110,
-  "decode_batch_size": 16,
+  "decode_batch_size": 8,
   "traces_file": "data/vuar_train_traces.jsonl",
   "lora": {
     "r": 16,
@@ -33,6 +33,6 @@
       "up_proj",
       "down_proj"
     ]
-  }
+  },
+  "load_in_4bit": true
 }
-
