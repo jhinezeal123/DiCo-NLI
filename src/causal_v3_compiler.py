@@ -53,7 +53,12 @@ def active_prompt_v3(doc, name):
     proposals = ", ".join(f"{key}={value}" for key, value in doc["proposed"].items())
     return (f"Specified variable: {name}.\nThe two proposed overrides: {proposals}.\n"
             f"Instructions and readout: {doc['question']}\n"
-            f"At the final readout, is {name}'s proposed override active?")
+            f"Which rule computes {name} at the final readout?")
+
+
+def equation_options_v3(doc, name):
+    return [f"Use {name}'s original structural equation",
+            f"Replace {name}'s equation by the constant {doc['proposed'][name]}"]
 
 
 def build_grounded_v3(rows, demonstrations):
@@ -61,7 +66,7 @@ def build_grounded_v3(rows, demonstrations):
         "binary": "Choose the base operation of TWO endogenous parents, ignoring the separate private-noise XOR. Reply with one option letter.",
         "ternary": "Choose the base operation of THREE endogenous parents: majority vote or odd parity. Ignore private output-noise XOR. Reply with one option letter.",
         "target": "Which variable does the FINAL question ask a value for? Reply with one option letter.",
-        "active": "Determine the final override state of the SPECIFIED variable. A clamp is an override: it replaces that variable's equation. Both refers to the two publicly listed proposals. Unused or undone clamps are inactive; enforced clamps remain active until removed. Restoring one variable does not restore the other. Read every instruction in order, then reply with one option letter.",
+        "active": "Choose the RULE that computes the SPECIFIED variable at the final readout. A clamp replaces its structural equation with the publicly proposed constant, either 0 or 1. Forcing zero is still an equation replacement. Both refers to the two listed proposals. Unused or undone clamps use the original equation; enforced clamps use the constant until removed. Restoring one variable does not restore the other. Read all instructions in order. Choose the equation, not a bit value; reply with one option letter.",
     }
     options = {"binary": ["AND / conjunction", "OR / inclusive disjunction", "XOR / exclusive disjunction of the TWO parents"],
                "ternary": ["majority3: at least two true parents", "parity3: odd number of true parents"]}
@@ -77,7 +82,7 @@ def build_grounded_v3(rows, demonstrations):
         examples["target"].append((with_options(doc["final_question"], doc["names"]), doc["names"].index(demo["scm"]["target"])))
         for name in doc["proposed"]:
             prompt = active_prompt_v3(doc, name)
-            examples["active"].append((with_options(prompt, ["No active override", "Its proposed override is active"]), int(name in demo["scm"]["intervene"])))
+            examples["active"].append((with_options(prompt, equation_options_v3(doc,name)), int(name in demo["scm"]["intervene"])))
     requests, plans = {}, {}
     def add(stage, prompt, choices):
         messages = [{"role":"system", "content":systems[stage]}]
@@ -95,7 +100,7 @@ def build_grounded_v3(rows, demonstrations):
                 node["stage"] = stage; node["request_id"] = add(stage, node["rule"], options[stage])
         doc["target_request"] = add("target", doc["final_question"], doc["names"])
         doc["active_requests"] = {name:add("active",active_prompt_v3(doc,name),
-                                         ["No active override", "Its proposed override is active"]) for name in doc["proposed"]}
+                                         equation_options_v3(doc,name)) for name in doc["proposed"]}
         plans[row["case_id"]] = doc
     return list(requests.values()), plans
 
