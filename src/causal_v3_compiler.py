@@ -48,12 +48,20 @@ def with_options(text, options):
     return text+"\nOptions:\n"+"\n".join(f"{LETTERS[i]}. {value}" for i,value in enumerate(options))
 
 
+def active_prompt_v3(doc, name):
+    """Resolve plural action references using only public proposal context."""
+    proposals = ", ".join(f"{key}={value}" for key, value in doc["proposed"].items())
+    return (f"Specified variable: {name}.\nThe two proposed overrides: {proposals}.\n"
+            f"Instructions and readout: {doc['question']}\n"
+            f"At the final readout, is {name}'s proposed override active?")
+
+
 def build_grounded_v3(rows, demonstrations):
     systems = {
         "binary": "Choose the base operation of TWO endogenous parents, ignoring the separate private-noise XOR. Reply with one option letter.",
         "ternary": "Choose the base operation of THREE endogenous parents: majority vote or odd parity. Ignore private output-noise XOR. Reply with one option letter.",
         "target": "Which variable does the FINAL question ask a value for? Reply with one option letter.",
-        "active": "After ALL instructions, does the proposed override for the SPECIFIED variable remain active? Removing another variable's override does not remove this one. Reply with one option letter.",
+        "active": "Determine the final override state of the SPECIFIED variable. A clamp is an override: it replaces that variable's equation. Both refers to the two publicly listed proposals. Unused or undone clamps are inactive; enforced clamps remain active until removed. Restoring one variable does not restore the other. Read every instruction in order, then reply with one option letter.",
     }
     options = {"binary": ["AND / conjunction", "OR / inclusive disjunction", "XOR / exclusive disjunction of the TWO parents"],
                "ternary": ["majority3: at least two true parents", "parity3: odd number of true parents"]}
@@ -68,7 +76,7 @@ def build_grounded_v3(rows, demonstrations):
                 examples["binary"].append((with_options(node["rule"], options["binary"]), ["and","or","xor"].index(op)))
         examples["target"].append((with_options(doc["final_question"], doc["names"]), doc["names"].index(demo["scm"]["target"])))
         for name in doc["proposed"]:
-            prompt = doc["question"]+f"\nSpecified variable: {name}."
+            prompt = active_prompt_v3(doc, name)
             examples["active"].append((with_options(prompt, ["No active override", "Its proposed override is active"]), int(name in demo["scm"]["intervene"])))
     requests, plans = {}, {}
     def add(stage, prompt, choices):
@@ -86,7 +94,7 @@ def build_grounded_v3(rows, demonstrations):
                 stage = "binary" if len(node["parents"]) == 2 else "ternary"
                 node["stage"] = stage; node["request_id"] = add(stage, node["rule"], options[stage])
         doc["target_request"] = add("target", doc["final_question"], doc["names"])
-        doc["active_requests"] = {name:add("active",doc["question"]+f"\nSpecified variable: {name}.",
+        doc["active_requests"] = {name:add("active",active_prompt_v3(doc,name),
                                          ["No active override", "Its proposed override is active"]) for name in doc["proposed"]}
         plans[row["case_id"]] = doc
     return list(requests.values()), plans

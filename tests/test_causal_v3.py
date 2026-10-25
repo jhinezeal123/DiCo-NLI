@@ -72,6 +72,17 @@ class HarderCausalTests(unittest.TestCase):
             self.assertEqual(expected,builder(poisoned,self.data["demonstrations"]))
             self.assertNotIn("SECRET",json.dumps(expected))
 
+    def test_active_choices_include_both_public_proposals_before_instructions(self):
+        requests, plans = build_grounded_v3(self.data["rows"], self.data["demonstrations"])
+        bykey = {r["request_id"]:r for r in requests}
+        for plan in plans.values():
+            for name,key in plan["active_requests"].items():
+                prompt = bykey[key]["messages"][-1]["content"]
+                self.assertTrue(prompt.startswith(f"Specified variable: {name}."))
+                for proposed,value in plan["proposed"].items():
+                    self.assertIn(f"{proposed}={value}",prompt.split("Instructions and readout:")[0])
+                self.assertIn(plan["question"],prompt)
+
     def test_four_view_gate_rejects_missing_view_and_constant_unknown(self):
         records=[{**r,"prediction":"unknown","valid":True,"correct":r["answer"] == "unknown"} for r in self.data["rows"]]
         self.assertTrue(all(v["joint_accuracy"] == 0 for v in metrics_v3(records).values()))

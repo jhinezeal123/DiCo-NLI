@@ -1,5 +1,5 @@
 {
-  "name": "causal_partial_multi_v3_qwen7b_pilot",
+  "name": "causal_partial_multi_v3_public_action_context",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "dataset_seed": 20261027,
@@ -7,8 +7,40 @@
   "batch_size": 4,
   "max_new_tokens": 512,
   "primary_method": "grounded_solver",
-  "methods": ["direct", "structured", "parser_solver", "parser_solver_normalized", "decomposed_solver", "decomposed_solver_normalized", "grounded_solver", "grounded_operator_blind"],
+  "methods": [
+    "direct",
+    "structured",
+    "parser_solver",
+    "parser_solver_normalized",
+    "decomposed_solver",
+    "decomposed_solver_normalized",
+    "grounded_solver",
+    "grounded_operator_blind"
+  ],
   "shots": 6,
   "pilot_only": true,
-  "reserved_confirmation_seeds": [390001, 390002, 390003]
+  "reserved_confirmation_seeds": [
+    390001,
+    390002,
+    390003
+  ],
+  "control_replay": {
+    "path": "configs/causal_v3_control_predictions.jsonl",
+    "sha256": "fddfcf6bd856c45d96527a33c54ad5af906e0504c593e4e53058fb031ad24d1e",
+    "source_run": "d2dcf4ce-379c-486a-8a53-6ad2b6dab89c",
+    "source_commit": "f52f5844d79cb34f049e6909f64dcb4a486e49c7",
+    "dataset_sha256": "9db48daf42be9109ef4049ee9f6875ce2c76e246519e79710d03727e14bdd717",
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "shots": 6,
+    "max_new_tokens": 512,
+    "methods": [
+      "direct",
+      "structured",
+      "parser_solver",
+      "parser_solver_normalized",
+      "decomposed_solver",
+      "decomposed_solver_normalized"
+    ]
+  }
 }

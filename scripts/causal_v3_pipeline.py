@@ -22,6 +22,35 @@ def request(messages, stage, cap):
     return {"request_id":key,"stage":stage,"messages":messages,"max_new_tokens":cap}
 
 
+def load_control_replay(cfg, dataset):
+    spec = cfg.get("control_replay")
+    if not spec:
+        return {}
+    for key in ("model_id", "model_revision", "shots", "max_new_tokens"):
+        if spec[key] != cfg[key]:
+            raise ValueError(f"control replay configuration mismatch: {key}")
+    if dataset["audit"]["dataset_sha256"] != spec["dataset_sha256"]:
+        raise ValueError("control replay dataset mismatch")
+    raw = Path(spec["path"]).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != spec["sha256"]:
+        raise ValueError("control replay checksum mismatch")
+    expected = {row["case_id"]:row for row in dataset["rows"]}
+    grouped = {method:{} for method in spec["methods"]}
+    for line in raw.decode().splitlines():
+        row = json.loads(line)
+        method, case = row["method"], row["case_id"]
+        if method not in grouped or case not in expected or case in grouped[method]:
+            raise ValueError("unexpected or duplicate control record")
+        if any(row[key] != expected[case][key] for key in ("family_id","split","view","answer","changed")):
+            raise ValueError("control record metadata mismatch")
+        if row["correct"] != (row["prediction"] == row["answer"]):
+            raise ValueError("control correctness mismatch")
+        grouped[method][case] = row
+    if any(set(rows) != set(expected) for rows in grouped.values()):
+        raise ValueError("incomplete control predictions")
+    return {method:[rows[row["case_id"]] for row in dataset["rows"]] for method,rows in grouped.items()}
+
+
 def generate(model,tokenizer,requests,cfg,log_subcalls=False):
     import torch
     grouped=defaultdict(list); outputs={}
@@ -57,6 +86,7 @@ def main():
     cfg=json.loads(Path("configs/causal_v3.json").read_text())
     emit("CAUSAL_CONFIG",{**cfg,"commit":os.environ.get("ORX_COMMIT"),"run_id":os.environ.get("ORX_RUN_ID")})
     dataset=build_dataset_v3(cfg["dataset_seed"],cfg["families_per_split"])
+    replay = load_control_replay(cfg, dataset)
     emit("DATASET_AUDIT",dataset["audit"])
     assert all(solve_conditioned(r["scm"])["answer"]==r["answer"] for r in dataset["rows"])
     emit("ORACLE_CONTROL",{"accuracy":1.,"cases":len(dataset["rows"]),"note":"by-construction oracle, not LM performance; independent brute-noise unit tests verify the kernel"})
@@ -75,6 +105,12 @@ def main():
     emit("ENVIRONMENT",{"python":sys.version.split()[0],"torch":torch.__version__,"transformers":transformers.__version__,
                          "gpu_count":torch.cuda.device_count(),"gpu":torch.cuda.get_device_name(0)})
     all_records={}
+    for method, records in replay.items():
+        all_records[method] = records
+        for row in records:
+            emit("CAUSAL_CASE", {**row,"source_run":cfg["control_replay"]["source_run"],"new_lm_calls":0})
+        emit("CAUSAL_METHOD_SUMMARY", {"method":method,"metrics":metrics_v3(records),
+             "source_run":cfg["control_replay"]["source_run"],"new_lm_calls":0})
 
     def score(method,raw_by_case,usage_by_case=None,usage=None,normalized=False,kind="parser_solver",derived=None):
         records=[]
@@ -91,7 +127,7 @@ def main():
              **({"generation_reused_from":derived,"new_lm_calls":0} if derived else {})})
         (output/(method+"-predictions.json")).write_text(json.dumps(records,indent=2))
 
-    for method in ("direct","structured","parser_solver"):
+    for method in (() if replay else ("direct","structured","parser_solver")):
         started=time.monotonic(); requests=[]; keys={}
         for row in dataset["rows"]:
             item=request(messages_v3(row,method,dataset["demonstrations"]),method,cfg["max_new_tokens"])
@@ -106,19 +142,20 @@ def main():
         if method=="parser_solver":
             score(method+"_normalized",raw,costs,normalized=True,derived=method)
 
-    requests,plans=build_local_v3(dataset["rows"],dataset["demonstrations"])
-    started=time.monotonic(); outputs=generate(model,tokenizer,requests,cfg,True)
-    uses=Counter(key for keys in plans.values() for key in keys); raw={}; costs={}
-    for case,keys in plans.items():
-        try: raw[case]=assemble_local_v3(keys,outputs)
-        except (ValueError,TypeError,KeyError) as exc: raw[case]="LOCAL_COMPILATION_ERROR: "+str(exc)
-        costs[case]={"input_tokens":sum(outputs[k]["input_tokens"]/uses[k] for k in keys),
-                     "output_tokens":sum(outputs[k]["output_tokens"]/uses[k] for k in keys),
-                     "batch_seconds_per_case":sum(outputs[k]["seconds"]/uses[k] for k in keys),"subcall_ids":keys}
-    usage={"subcalls":len(requests),"elapsed_seconds":time.monotonic()-started,
-           "input_tokens":sum(r["input_tokens"] for r in outputs.values()),"output_tokens":sum(r["output_tokens"] for r in outputs.values())}
-    score("decomposed_solver",raw,costs,usage)
-    score("decomposed_solver_normalized",raw,costs,normalized=True,derived="decomposed_solver")
+    if not replay:
+        requests,plans=build_local_v3(dataset["rows"],dataset["demonstrations"])
+        started=time.monotonic(); outputs=generate(model,tokenizer,requests,cfg,True)
+        uses=Counter(key for keys in plans.values() for key in keys); raw={}; costs={}
+        for case,keys in plans.items():
+            try: raw[case]=assemble_local_v3(keys,outputs)
+            except (ValueError,TypeError,KeyError) as exc: raw[case]="LOCAL_COMPILATION_ERROR: "+str(exc)
+            costs[case]={"input_tokens":sum(outputs[k]["input_tokens"]/uses[k] for k in keys),
+                         "output_tokens":sum(outputs[k]["output_tokens"]/uses[k] for k in keys),
+                         "batch_seconds_per_case":sum(outputs[k]["seconds"]/uses[k] for k in keys),"subcall_ids":keys}
+        usage={"subcalls":len(requests),"elapsed_seconds":time.monotonic()-started,
+               "input_tokens":sum(r["input_tokens"] for r in outputs.values()),"output_tokens":sum(r["output_tokens"] for r in outputs.values())}
+        score("decomposed_solver",raw,costs,usage)
+        score("decomposed_solver_normalized",raw,costs,normalized=True,derived="decomposed_solver")
 
     from causal_choice import decide
     requests,plans=build_grounded_v3(dataset["rows"],dataset["demonstrations"])
