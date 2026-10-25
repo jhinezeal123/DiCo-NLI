@@ -20,6 +20,30 @@ def two_node(observed=None, intervene=None):
 
 
 class CausalSemanticsTest(unittest.TestCase):
+    def test_singleton_boolean_reductions_preserve_counterfactuals(self):
+        for op, reduced in [("and", "copy"), ("or", "copy"), ("xor", "copy"),
+                            ("nand", "not"), ("nor", "not")]:
+            for x in (0, 1):
+                for y in (0, 1):
+                    scm = two_node(observed={"x": x, "y": y}, intervene={"x": 1-x})
+                    scm["variables"][1]["op"] = op
+                    reference = copy.deepcopy(scm)
+                    reference["variables"][1]["op"] = reduced
+                    normalized = normalize_scm(scm, reduce_unary=True)
+                    self.assertEqual(solve(normalized), solve(reference))
+                    with self.assertRaises(ValueError):
+                        normalize_scm(scm)
+
+    def test_normalization_keeps_binary_xor_and_rejects_missing_names(self):
+        scm = {"variables": [{"name": "a", "op": "root", "parents": []},
+                              {"name": "b", "op": "root", "parents": []},
+                              {"name": "c", "op": "xor", "parents": ["a", "b"]}],
+               "observed": {"a": 0, "b": 1, "c": 1}, "intervene": {}, "target": "c"}
+        self.assertEqual(normalize_scm(scm, reduce_unary=True)["variables"][2]["op"], "xor")
+        scm["variables"][2]["parents"] = ["missing"]
+        with self.assertRaises(ValueError):
+            normalize_scm(scm, reduce_unary=True)
+
     def test_abduction_preserves_noise_in_counterfactual(self):
         # X=1,Y=0 implies Ux=1,Uy=1; setting X=0 makes Y=1.
         result = solve(two_node(intervene={"x": 0}))

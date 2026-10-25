@@ -6,6 +6,10 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
+if [ -f configs/causal_replay.json ]; then
+  exec "${PYTHON:-python3}" -u scripts/replay_causal_normalization.py --config configs/causal_replay.json
+fi
+
 # Causal research uses the same fixed command and an independent committed recipe.
 if [ -f configs/causal_experiment.json ]; then
   PY="${PYTHON:-python3}"

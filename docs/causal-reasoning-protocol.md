@@ -62,6 +62,14 @@ generation has a 96-token ceiling and query generation 192; actual total cost
 must be reported before claiming compute efficiency. Invalid extraction is a
 failed prediction, with no gold-based fallback or automatic correction.
 
+The unary-normalization child replays the exact persisted 3B outputs in a
+CPU-only tracked run. It introduces only exact variadic Boolean identities:
+AND(x)=OR(x)=XOR(x)=x, NAND(x)=NOR(x)=NOT(x). Missing/unknown parent names,
+wrong observations, and unsupported arities remain errors. No label influences
+normalization. Strict results are retained; mathematical equivalence is checked
+on factual/interventional analytic fixtures. Source predictions and their hash
+are committed, with LF-only normalization of exported JSONL line endings.
+
 - Exact solver passes analytic same-individual intervention regression tests
   and matches generator labels for every case (agreement by construction).
 - On each OOD stratum: joint accuracy at least 90%; at least 5 percentage point
