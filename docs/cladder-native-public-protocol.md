@@ -54,3 +54,17 @@ mechanisms and explicit abduction/intervention/prediction examples generated
 from the same four development worlds. This improves supervision parity;
 its performance remains an empirical question. The original direct protocol
 is also rerun. This is still development, not a fresh held-out confirmation.
+
+## CausalCoT-style baseline
+
+A co-equal control adapts the original CLadder six-stage CausalCoT scaffold:
+graph extraction, query classification, formalization, data collection, causal
+derivation and calculation. Source: the author's run_gpt_v1.5.py at commit
+3d2d1169b4b939a09048a6a75956c8972a93cc38. This is an adaptation, not an exact
+reproduction: prompts are paraphrased, aliases A/B/... are derived solely from
+the public graph names, and no hidden variable_mapping or gold intermediate
+step is supplied. The model receives zero demonstration answers for this
+protocol, while the unchanged direct control retains its original four.
+The same 36 cases, checkpoint, greedy generation and 768-token cap are used.
+The answer parser and all-case denominator are unchanged. This establishes a
+literature-grounded stronger control before committing to supervised training.

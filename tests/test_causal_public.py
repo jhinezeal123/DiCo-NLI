@@ -42,7 +42,9 @@ class PublicProtocolTests(unittest.TestCase):
         m.update({"params": "SECRET_CPT", "variable_mapping": "SECRET_MAP", "structure": "SECRET_GRAPH"})
         self.assertEqual(original, public_text(q, m))
         row = {"text": original, "answer": "SECRET_TEST_LABEL", "program": "SECRET_TEST_PROGRAM"}
-        for method in ("direct", "structured", "native_parser_solver"):
+        # CausalCoT aliases also come exclusively from the public background.
+        row["text"] = "Imagine a world: A has a direct effect on B.\n\n" + original
+        for method in ("direct", "structured", "native_parser_solver", "native_causal_cot"):
             self.assertNotIn("SECRET", json.dumps(native_messages(row, method, [])))
 
     def test_train_program_preserves_native_semantics_and_no_xor_noise(self):

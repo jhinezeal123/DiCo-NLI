@@ -1,5 +1,5 @@
 {
-  "name": "cladder_native_grounded_qwen7b_public_pilot_v1",
+  "name": "cladder_native_causal_cot_qwen7b_public_pilot_v1",
   "revision": "3d2d1169b4b939a09048a6a75956c8972a93cc38",
   "files": [
     {"name": "cladder-v1-questions.json", "sha256": "59ecdc5ac2a6b4583b798b1aaf7bab3744316762769325adea69317ac1b4ae40"},
@@ -10,8 +10,8 @@
   "models_per_graph": 4,
   "batch_size": 4,
   "max_new_tokens": 768,
-  "methods": ["direct", "structured_program_demos"],
-  "native_grounded_solver": true,
-  "primary_method": "native_grounded_solver",
+  "methods": ["direct", "native_causal_cot"],
+  "native_grounded_solver": false,
+  "primary_method": "native_causal_cot",
   "pilot_only": true
 }

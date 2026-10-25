@@ -5,6 +5,7 @@ import random
 import re
 
 from causal_native import native_counterfactual, parse_native_params
+from causal_public_graph import public_graph
 
 
 def stable_rank(value):
@@ -93,6 +94,22 @@ SYSTEMS = {
 
 
 def native_messages(row, method, demonstrations):
+    if method == "native_causal_cot":
+        names = list(public_graph(row["text"])["parents"])
+        aliases = {chr(65+i): name for i, name in enumerate(names)}
+        instruction = (
+            "Reason through the stated hypothetical causal world in six concise stages. "
+            "1. List the variables, their binary-state meanings, and directed causal edges. "
+            "2. Decide whether the question is observational, interventional or counterfactual. "
+            "3. Express the quantity the question asks for, using do-notation or counterfactual notation as appropriate. "
+            "4. Separate the given mechanisms/probabilities from factual evidence and the hypothetical action. "
+            "5. Derive the answer from the graph. For a counterfactual, first condition on original evidence, "
+            "then replace the treatment equation while retaining other mechanisms and compatible root states. "
+            "6. Carry out the calculation and interpret the requested positive or negative outcome. "
+            "Use only the stated world. Finish with exactly one <answer>yes</answer> or <answer>no</answer>."
+        )
+        return [{"role": "system", "content": instruction},
+                {"role": "user", "content": row["text"] + "\n\nOptional aliases derived from public variable names: " + json.dumps(aliases)}]
     system = SYSTEMS["structured"] if method == "structured_program_demos" else SYSTEMS[method]
     conversation = [{"role": "system", "content": system}]
     for demo in demonstrations:
