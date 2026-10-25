@@ -89,6 +89,31 @@ protocol has no benefit over structured reasoning, do not infer improvement.
 
 ## Local checks and tracked execution
 
+The grounded compiler assumes the explicit output-first Rules/Observed
+interface. It copies entity mentions and original bit assignments literally;
+it does not infer them from hidden metadata. Root/unary rules are represented
+in the private-XOR-noise quotient (unary NOT and COPY are contextually
+equivalent after abduction). The LM makes closed next-token choices for binary
+AND/OR/XOR class, target variable and whether a proposed override remains
+active. Token choices are constrained to valid option letters; validity is
+therefore by construction, not evidence of language understanding.
+
+An operator-blind ablation uses AND at every binary node while reusing target
+and query-intent decisions. This separates semantic mechanism selection from
+literal grounding. Direct, structured and free-JSON local controls receive
+the same v2.1 cases; the previously weak monolithic protocol is omitted to
+save generation cost. Report actual tokens/time and exact-public-text caching.
+These results do not establish unrestricted text parsing or intrinsic causal
+reasoning in the LM.
+
+The additional causal_program_exact diagnostic compares effective structural
+equations after abduction from full observations. Equality implies the same
+endogenous responses to every intervention in that individual's context, not
+global population-level SCM identification. It accepts NOT/COPY and analogous
+private-noise reparameterizations that literal JSON equality rejects. This is
+an explanatory diagnostic added during development; the primary joint-accuracy
+acceptance gate stays unchanged.
+
 The v2 validation child replaces the five-variable suite with six variables
 on a backbone chain. ID has one binary merge; held-out topology has two or
 three. AND/OR occur in ID; binary XOR is withheld as a genuine new mechanism

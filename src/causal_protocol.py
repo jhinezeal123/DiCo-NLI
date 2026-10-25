@@ -2,7 +2,7 @@
 import json
 import re
 
-from causal_scm import canonical, parse_scm, solve
+from causal_scm import canonical, contextual_equation_signature, parse_scm, solve
 
 
 SCHEMA = (
@@ -77,15 +77,23 @@ def decode_output(text, method, gold_scm=None, reduce_unary=False):
             parsed = parse_scm(text, reduce_unary=reduce_unary)
             result = solve(parsed)
         except (ValueError, TypeError, KeyError) as exc:
-            return {"prediction": "invalid", "valid": False, "error": str(exc), "schema_exact": False}
+            return {"prediction": "invalid", "valid": False, "error": str(exc), "schema_exact": False,
+                    "causal_program_exact": False, "query_exact": False}
         fields_wrong = []
+        diagnostics = {}
         if gold_scm is not None:
             gold = json.loads(canonical(gold_scm))
             current = json.loads(canonical(parsed))
             fields_wrong = [k for k in gold if gold[k] != current[k]]
+            try:
+                diagnostics["causal_program_exact"] = (contextual_equation_signature(parsed) ==
+                                                         contextual_equation_signature(gold_scm))
+            except ValueError:
+                diagnostics["causal_program_exact"] = False
+            diagnostics["query_exact"] = all(current[k] == gold[k] for k in ("observed", "intervene", "target"))
         return {"prediction": result["answer"], "valid": True,
                 "schema_exact": not fields_wrong, "fields_wrong": fields_wrong,
-                "parsed_scm": parsed, "compatible_worlds": result["compatible_worlds"]}
+                "parsed_scm": parsed, "compatible_worlds": result["compatible_worlds"], **diagnostics}
     answers = re.findall(r"<answer>\s*(0|1|unknown)\s*</answer>", text, flags=re.I)
     if answers:
         return {"prediction": answers[-1].lower(), "valid": True}
@@ -112,6 +120,10 @@ def metrics(records):
             "intervention_accuracy": sum(v["intervention"]["correct"] for v in families.values()) / len(families),
             "schema_exact": (sum(r.get("schema_exact", False) for r in group) / len(group)
                              if any("schema_exact" in r for r in group) else None),
+            "causal_program_exact": (sum(r.get("causal_program_exact", False) for r in group) / len(group)
+                                      if any("causal_program_exact" in r for r in group) else None),
+            "query_exact": (sum(r.get("query_exact", False) for r in group) / len(group)
+                            if any("query_exact" in r for r in group) else None),
         }
     return result
 

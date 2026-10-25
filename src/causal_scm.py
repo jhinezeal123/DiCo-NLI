@@ -110,6 +110,29 @@ def canonical(value):
     return json.dumps(normalize_scm(value), sort_keys=True, separators=(",", ":"))
 
 
+def contextual_equation_signature(value):
+    """Effective structural equations after abduction from complete observations.
+
+    Equal signatures imply equal endogenous responses to every intervention in
+    this observed individual's context. This is not global SCM identification.
+    """
+    scm = normalize_scm(value)
+    names = sorted(n["name"] for n in scm["variables"])
+    if set(scm["observed"]) != set(names):
+        raise ValueError("contextual equation comparison requires complete observations")
+    result = {}
+    for node in scm["variables"]:
+        noise = scm["observed"][node["name"]] ^ mechanism(
+            node["op"], [scm["observed"][p] for p in node["parents"]])
+        others = [name for name in names if name != node["name"]]
+        table = []
+        for bits in itertools.product((0, 1), repeat=len(others)):
+            assignment = dict(zip(others, bits))
+            table.append(mechanism(node["op"], [assignment[p] for p in node["parents"]]) ^ noise)
+        result[node["name"]] = tuple(table)
+    return result
+
+
 def parse_scm(text, reduce_unary=False):
     decoder = json.JSONDecoder()
     for position, token in enumerate(text):

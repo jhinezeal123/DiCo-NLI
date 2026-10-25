@@ -67,7 +67,7 @@ def main():
                          "device_map": {k: str(v) for k, v in getattr(model, "hf_device_map", {}).items()}})
     all_records = {}
     for method in cfg["methods"]:
-        if method == "decomposed_solver":
+        if method in ("decomposed_solver", "grounded_solver", "grounded_operator_blind"):
             continue
         records, started = [], time.monotonic()
         for offset in range(0, len(dataset["rows"]), cfg["batch_size"]):
@@ -113,6 +113,14 @@ def main():
         all_records["decomposed_solver"] = records
         emit("CAUSAL_METHOD_SUMMARY", {"method": "decomposed_solver", "metrics": metrics(records), **usage})
         (output / "decomposed_solver-predictions.json").write_text(json.dumps(records, indent=2))
+    if cfg.get("grounded_solver"):
+        from causal_grounding import run_grounded
+        grounded_records, usage = run_grounded(model, tokenizer, dataset, cfg, emit)
+        for method, records in grounded_records.items():
+            all_records[method] = records
+            emit("CAUSAL_METHOD_SUMMARY", {"method": method, "metrics": metrics(records), **usage,
+                                           "cost_scope": "grounded system including shared decisions; ablation reuses query decisions"})
+            (output / f"{method}-predictions.json").write_text(json.dumps(records, indent=2))
     normalized_methods = []
     if cfg.get("unary_normalization"):
         case_lookup = {row["case_id"]: row for row in dataset["rows"]}
@@ -137,8 +145,9 @@ def main():
                  "new_lm_calls": 0, "generation_reused_from": original_method,
                  "source_generation_input_tokens": sum(r["input_tokens"] for r in normalized),
                  "source_generation_output_tokens": sum(r["output_tokens"] for r in normalized)})
-    comparisons = {method: paired_bootstrap(all_records["parser_solver"], all_records[method])
-                   for method in cfg["methods"] if method != "parser_solver"}
+    comparisons = ({method: paired_bootstrap(all_records["parser_solver"], all_records[method])
+                    for method in cfg["methods"] if method != "parser_solver"}
+                   if "parser_solver" in all_records else {})
     final = {"config": cfg, "audit": dataset["audit"], "metrics": {m: metrics(v) for m, v in all_records.items()},
              "parser_solver_vs": comparisons, "oracle_agreement": 1.0,
              "pilot_only": cfg["pilot_only"], "gate": {"joint_minimum": .9, "delta_minimum": .05,
@@ -152,6 +161,10 @@ def main():
         final["normalization_vs"] = {candidate: {m: paired_bootstrap(all_records[candidate], rows)
                                                 for m, rows in all_records.items() if m not in normalized_methods}
                                      for candidate in normalized_methods}
+    if cfg.get("primary_method") in all_records:
+        final["primary_method"] = cfg["primary_method"]
+        final["primary_vs"] = {m: paired_bootstrap(all_records[cfg["primary_method"]], rows)
+                               for m, rows in all_records.items() if m != cfg["primary_method"]}
     (output / "summary.json").write_text(json.dumps(final, indent=2))
     emit("CAUSAL_FINAL_SUMMARY", final)
 

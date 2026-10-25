@@ -6,11 +6,12 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from causal_scm import canonical, normalize_scm, parse_scm, solve
+from causal_scm import canonical, contextual_equation_signature, normalize_scm, parse_scm, solve
 from causal_dataset import build_dataset, TOPOLOGIES
 from causal_protocol import covered_demonstrations, decode_output, messages, metrics, paired_bootstrap
 from causal_decomposition import build_requests, demonstrations as local_demonstrations, split_document
 from causal_dataset_v2 import build_dataset_v2, family_signature
+from causal_grounding import assemble_grounded, build_grounded_requests, literal_document, OP_CODES
 
 
 def two_node(observed=None, intervene=None):
@@ -21,6 +22,12 @@ def two_node(observed=None, intervene=None):
 
 
 class CausalSemanticsTest(unittest.TestCase):
+    def test_contextual_equations_recognize_noise_reparameterization(self):
+        original = two_node()
+        reparameterized = copy.deepcopy(original)
+        reparameterized["variables"][1]["op"] = "not"
+        self.assertEqual(contextual_equation_signature(original), contextual_equation_signature(reparameterized))
+
     def test_singleton_boolean_reductions_preserve_counterfactuals(self):
         for op, reduced in [("and", "copy"), ("or", "copy"), ("xor", "copy"),
                             ("nand", "not"), ("nor", "not")]:
@@ -213,6 +220,39 @@ class SixVariableValidationTest(unittest.TestCase):
         second = build_dataset_v2(271828, 4, seen)
         self.assertEqual(len(seen), 40)
         self.assertFalse({r["family_id"] for r in first["rows"]} & {r["family_id"] for r in second["rows"]})
+
+    def test_grounded_requests_only_read_public_evaluation_text(self):
+        rows = copy.deepcopy(self.dataset["rows"])
+        expected = build_grounded_requests(rows, self.dataset["demonstrations"])
+        for row in rows:
+            row["scm"] = {"hidden": "gold-sentinel"}
+            row["view"] = "hidden-view"
+            row["answer"] = "hidden-answer"
+        actual = build_grounded_requests(rows, self.dataset["demonstrations"])
+        self.assertEqual(expected, actual)
+        self.assertNotIn("gold-sentinel", json.dumps(actual))
+
+    def test_grounded_oracle_choices_compile_equivalent_contextual_models(self):
+        requests, plans = build_grounded_requests(self.dataset["rows"], self.dataset["demonstrations"])
+        for row in self.dataset["rows"]:
+            plan, decisions = plans[row["case_id"]], {}
+            by_name = {n["name"]: n for n in row["scm"]["variables"]}
+            for node in plan["nodes"]:
+                if "request_id" in node:
+                    decisions[node["request_id"]] = {"choice_index": OP_CODES.index(by_name[node["name"]]["op"])}
+            decisions[plan["target_request"]] = {"choice_index": plan["names"].index(row["scm"]["target"])}
+            if plan["active_request"]:
+                decisions[plan["active_request"]] = {"choice_index": int(bool(row["scm"]["intervene"]))}
+            compiled = assemble_grounded(plan, decisions)
+            self.assertEqual(solve(compiled)["answer"], row["answer"])
+            self.assertEqual(contextual_equation_signature(compiled), contextual_equation_signature(row["scm"]))
+
+    def test_literal_grounding_rejects_undeclared_or_unsupported_layout(self):
+        text = self.dataset["rows"][0]["text"]
+        public = literal_document(text)
+        self.assertEqual(len(public["names"]), 6)
+        with self.assertRaises(ValueError):
+            literal_document(text.replace("Observed in the original world:", "Missing observations:"))
 
     def test_control_and_local_parser_share_query_demonstrations(self):
         views = ["factual", "intervention", "restored", "intervention"]
