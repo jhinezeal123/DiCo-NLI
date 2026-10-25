@@ -1,5 +1,5 @@
 {
-  "name": "causal_v3_confirmation_seed390001_shard0",
+  "name": "causal_v3_confirmation_seed390001_shard3",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "dataset_seed": 390001,
@@ -24,7 +24,7 @@
     390002,
     390003
   ],
-  "shard_index": 0,
+  "shard_index": 3,
   "confirmation_plan": "configs/causal_v3_confirmation_plan.json",
   "confirmation_plan_sha256": "17f3434787db4fcd2745c599f9955840e143682df171d1e705113d598b78dfc3"
 }
