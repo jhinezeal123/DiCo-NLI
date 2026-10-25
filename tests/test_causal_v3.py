@@ -3,6 +3,7 @@ import itertools
 import json
 from pathlib import Path
 import random
+import re
 import sys
 import unittest
 
@@ -72,7 +73,7 @@ class HarderCausalTests(unittest.TestCase):
             self.assertEqual(expected,builder(poisoned,self.data["demonstrations"]))
             self.assertNotIn("SECRET",json.dumps(expected))
 
-    def test_active_choices_include_both_public_proposals_before_instructions(self):
+    def test_active_choices_include_both_public_variable_names_without_values(self):
         requests, plans = build_grounded_v3(self.data["rows"], self.data["demonstrations"])
         bykey = {r["request_id"]:r for r in requests}
         for plan in plans.values():
@@ -80,8 +81,23 @@ class HarderCausalTests(unittest.TestCase):
                 prompt = bykey[key]["messages"][-1]["content"]
                 self.assertTrue(prompt.startswith(f"Specified variable: {name}."))
                 for proposed,value in plan["proposed"].items():
-                    self.assertIn(f"{proposed}={value}",prompt.split("Instructions and readout:")[0])
+                    self.assertIn(proposed,prompt.split("Instructions and readout:")[0])
+                self.assertNotIn("=",prompt.split("Instructions and readout:")[0])
                 self.assertIn(plan["question"],prompt)
+
+    def test_flipping_proposal_values_preserves_lm_requests_but_not_solver_constants(self):
+        requests,plans=build_grounded_v3(self.data["rows"],self.data["demonstrations"])
+        flipped=copy.deepcopy(self.data["rows"])
+        for row in flipped:
+            lines=row["text"].splitlines()
+            for i,line in enumerate(lines):
+                if line.startswith("Proposed overrides:"):
+                    lines[i]=re.sub(r"=([01])",lambda m:"="+str(1-int(m.group(1))),line)
+            row["text"]="\n".join(lines)
+        new_requests,new_plans=build_grounded_v3(flipped,self.data["demonstrations"])
+        self.assertEqual(requests,new_requests)
+        for case,plan in plans.items():
+            self.assertEqual(new_plans[case]["proposed"],{name:1-value for name,value in plan["proposed"].items()})
 
     def test_four_view_gate_rejects_missing_view_and_constant_unknown(self):
         records=[{**r,"prediction":"unknown","valid":True,"correct":r["answer"] == "unknown"} for r in self.data["rows"]]

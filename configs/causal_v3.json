@@ -1,5 +1,5 @@
 {
-  "name": "causal_v3_equation_choice_opened_seed390002",
+  "name": "causal_v3_value_masked_equation_choice_opened_seed390002",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "dataset_seed": 390002,
@@ -53,5 +53,6 @@
   "development_input": {
     "path": "configs/causal_v3_opened_development.json",
     "sha256": "5f75502a0be1411405a905380ba589e0820bde722b741ab030837ddb8d42463f"
-  }
+  },
+  "controller_variant": "value_masked_equation_choice"
 }

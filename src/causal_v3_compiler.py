@@ -50,7 +50,7 @@ def with_options(text, options):
 
 def active_prompt_v3(doc, name):
     """Resolve plural action references using only public proposal context."""
-    proposals = ", ".join(f"{key}={value}" for key, value in doc["proposed"].items())
+    proposals = ", ".join(doc["proposed"])
     return (f"Specified variable: {name}.\nThe two proposed overrides: {proposals}.\n"
             f"Instructions and readout: {doc['question']}\n"
             f"Which rule computes {name} at the final readout?")
@@ -58,7 +58,7 @@ def active_prompt_v3(doc, name):
 
 def equation_options_v3(doc, name):
     return [f"Use {name}'s original structural equation",
-            f"Replace {name}'s equation by the constant {doc['proposed'][name]}"]
+            f"Replace {name}'s equation by its proposed constant"]
 
 
 def build_grounded_v3(rows, demonstrations):
