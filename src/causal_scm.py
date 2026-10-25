@@ -14,7 +14,7 @@ ARITIES = {"root": 0, "copy": 1, "not": 1, "and": 2, "or": 2,
            "xor": 2, "nand": 2, "nor": 2}
 
 
-def normalize_scm(value):
+def normalize_scm(value, reduce_unary=False):
     if not isinstance(value, dict) or set(value) != {"variables", "observed", "intervene", "target"}:
         raise ValueError("SCM must have exactly variables, observed, intervene, target")
     variables = value["variables"]
@@ -25,6 +25,13 @@ def normalize_scm(value):
         if not isinstance(node, dict) or set(node) != {"name", "op", "parents"}:
             raise ValueError("invalid variable schema")
         name, op, parents = node["name"], node["op"], node["parents"]
+        # Exact variadic Boolean identities, never guessed missing operands.
+        # AND(x)=OR(x)=XOR(x)=x; NAND(x)=NOR(x)=NOT(x).
+        if reduce_unary and isinstance(parents, list) and len(parents) == 1:
+            if op in ("and", "or", "xor"):
+                op = "copy"
+            elif op in ("nand", "nor"):
+                op = "not"
         if not isinstance(name, str) or not name or name in by_name:
             raise ValueError("variable names must be unique nonempty strings")
         if op not in ARITIES or not isinstance(parents, list) or len(parents) != ARITIES[op]:
@@ -103,7 +110,7 @@ def canonical(value):
     return json.dumps(normalize_scm(value), sort_keys=True, separators=(",", ":"))
 
 
-def parse_scm(text):
+def parse_scm(text, reduce_unary=False):
     decoder = json.JSONDecoder()
     for position, token in enumerate(text):
         if token != "{":
@@ -113,5 +120,5 @@ def parse_scm(text):
         except json.JSONDecodeError:
             continue
         if isinstance(parsed, dict):
-            return normalize_scm(parsed)
+            return normalize_scm(parsed, reduce_unary=reduce_unary)
     raise ValueError("no decodable JSON object")

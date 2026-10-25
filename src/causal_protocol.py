@@ -71,10 +71,10 @@ def messages(row, method, demonstrations, shots=2, demo_views=None):
     return conversation
 
 
-def decode_output(text, method, gold_scm=None):
+def decode_output(text, method, gold_scm=None, reduce_unary=False):
     if method == "parser_solver":
         try:
-            parsed = parse_scm(text)
+            parsed = parse_scm(text, reduce_unary=reduce_unary)
             result = solve(parsed)
         except (ValueError, TypeError, KeyError) as exc:
             return {"prediction": "invalid", "valid": False, "error": str(exc), "schema_exact": False}

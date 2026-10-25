@@ -62,6 +62,14 @@ generation has a 96-token ceiling and query generation 192; actual total cost
 must be reported before claiming compute efficiency. Invalid extraction is a
 failed prediction, with no gold-based fallback or automatic correction.
 
+The unary-normalization child replays the exact persisted 3B outputs in a
+CPU-only tracked run. It introduces only exact variadic Boolean identities:
+AND(x)=OR(x)=XOR(x)=x, NAND(x)=NOR(x)=NOT(x). Missing/unknown parent names,
+wrong observations, and unsupported arities remain errors. No label influences
+normalization. Strict results are retained; mathematical equivalence is checked
+on factual/interventional analytic fixtures. Source predictions and their hash
+are committed, with LF-only normalization of exported JSONL line endings.
+
 - Exact solver passes analytic same-individual intervention regression tests
   and matches generator labels for every case (agreement by construction).
 - On each OOD stratum: joint accuracy at least 90%; at least 5 percentage point
@@ -80,6 +88,27 @@ answers are wrong, treat it as an oracle implementation bug. If the solver
 protocol has no benefit over structured reasoning, do not infer improvement.
 
 ## Local checks and tracked execution
+
+The v2 validation child replaces the five-variable suite with six variables
+on a backbone chain. ID has one binary merge; held-out topology has two or
+three. AND/OR occur in ID; binary XOR is withheld as a genuine new mechanism
+class. Demonstrations contain both AND and OR. The wording holdout remains
+one narrow template shift. Family signatures are invariant to names because
+the backbone gives a unique topological order, and collapse output-negation
+equivalences induced by private XOR noise. A shared exclusion set can prevent
+overlap across pre-generated seed sets. Development seed is 20261026; the
+reserved confirmation seeds remain 271828, 314159 and 161803.
+
+The v2.1 compiler branch additionally excludes the chosen intervention from
+the world-group signature, so identical SCM/observations cannot leak across
+splits by being asked about a different cause. An input-only audit of the
+earlier v2 development pilot found 52 distinct worlds among its 52 families;
+its results remain usable, but future training/confirmation uses world groups.
+
+Both strict and exact-unary-normalized parser candidates are scored from the
+same generated text, with source generation costs retained. The v2 primary
+candidate is monolithic parser plus unary normalization. This is still a
+development pilot, not final confirmation.
 
 ```powershell
 python -m unittest discover -s tests -p test_causal_reasoning.py -v

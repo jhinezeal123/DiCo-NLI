@@ -10,6 +10,7 @@ from causal_scm import canonical, normalize_scm, parse_scm, solve
 from causal_dataset import build_dataset, TOPOLOGIES
 from causal_protocol import covered_demonstrations, decode_output, messages, metrics, paired_bootstrap
 from causal_decomposition import build_requests, demonstrations as local_demonstrations, split_document
+from causal_dataset_v2 import build_dataset_v2, family_signature
 
 
 def two_node(observed=None, intervene=None):
@@ -20,6 +21,30 @@ def two_node(observed=None, intervene=None):
 
 
 class CausalSemanticsTest(unittest.TestCase):
+    def test_singleton_boolean_reductions_preserve_counterfactuals(self):
+        for op, reduced in [("and", "copy"), ("or", "copy"), ("xor", "copy"),
+                            ("nand", "not"), ("nor", "not")]:
+            for x in (0, 1):
+                for y in (0, 1):
+                    scm = two_node(observed={"x": x, "y": y}, intervene={"x": 1-x})
+                    scm["variables"][1]["op"] = op
+                    reference = copy.deepcopy(scm)
+                    reference["variables"][1]["op"] = reduced
+                    normalized = normalize_scm(scm, reduce_unary=True)
+                    self.assertEqual(solve(normalized), solve(reference))
+                    with self.assertRaises(ValueError):
+                        normalize_scm(scm)
+
+    def test_normalization_keeps_binary_xor_and_rejects_missing_names(self):
+        scm = {"variables": [{"name": "a", "op": "root", "parents": []},
+                              {"name": "b", "op": "root", "parents": []},
+                              {"name": "c", "op": "xor", "parents": ["a", "b"]}],
+               "observed": {"a": 0, "b": 1, "c": 1}, "intervene": {}, "target": "c"}
+        self.assertEqual(normalize_scm(scm, reduce_unary=True)["variables"][2]["op"], "xor")
+        scm["variables"][2]["parents"] = ["missing"]
+        with self.assertRaises(ValueError):
+            normalize_scm(scm, reduce_unary=True)
+
     def test_abduction_preserves_noise_in_counterfactual(self):
         # X=1,Y=0 implies Ux=1,Uy=1; setting X=0 makes Y=1.
         result = solve(two_node(intervene={"x": 0}))
@@ -148,6 +173,46 @@ class DatasetProtocolTest(unittest.TestCase):
         actual = build_requests(rows, self.dataset["demonstrations"])
         self.assertEqual(actual, expected)
         self.assertNotIn("sentinel", json.dumps(actual))
+
+
+class SixVariableValidationTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.dataset = build_dataset_v2(20261026, 4)
+
+    def test_true_operator_and_topology_holdouts(self):
+        data = build_dataset_v2(20261026, 4)
+        for row in data["rows"]:
+            nodes = row["scm"]["variables"]
+            self.assertEqual(len(nodes), 6)
+            self.assertEqual(sum(len(n["parents"]) == 2 for n in nodes) >= 2,
+                             row["split"] == "ood_topology")
+            self.assertEqual(any(n["op"] == "xor" for n in nodes), row["split"] == "ood_mechanism")
+        demo_ops = {n["op"] for r in data["demonstrations"] for n in r["scm"]["variables"]}
+        self.assertTrue({"and", "or"} <= demo_ops)
+        self.assertNotIn("xor", demo_ops)
+        for audit in data["audit"]["splits"].values():
+            self.assertEqual(audit["labels"], {"0": 6, "1": 6})
+            self.assertEqual(audit["changed_families"], 2)
+
+    def test_family_signatures_group_noise_equivalent_mechanisms(self):
+        parents = [[], [0], [1]]
+        first = family_signature(parents, ["root", "copy", "not"], [1, 0, 1], 0, 0)
+        second = family_signature(parents, ["root", "not", "copy"], [1, 0, 1], 0, 0)
+        self.assertEqual(first, second)
+
+    def test_world_group_does_not_depend_on_query_intervention(self):
+        parents = [[], [0], [1]]
+        first = family_signature(parents, ["root", "copy", "not"], [1, 0, 1], 0, 0)
+        second = family_signature(parents, ["root", "copy", "not"], [1, 0, 1], 1, 1)
+        self.assertEqual(first, second)
+
+    def test_shared_exclusion_set_prevents_cross_seed_overlap(self):
+        seen = set()
+        first = build_dataset_v2(20261026, 4, seen)
+        second = build_dataset_v2(271828, 4, seen)
+        self.assertEqual(len(seen), 40)
+        self.assertFalse({r["family_id"] for r in first["rows"]} & {r["family_id"] for r in second["rows"]})
 
     def test_control_and_local_parser_share_query_demonstrations(self):
         views = ["factual", "intervention", "restored", "intervention"]
