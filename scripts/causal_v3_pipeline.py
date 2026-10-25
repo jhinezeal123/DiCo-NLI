@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"src"))
 from causal_dataset_v3 import build_dataset_v3, solve_conditioned
 from causal_v3_protocol import messages_v3, decode_v3, metrics_v3, paired_v3
 from causal_v3_compiler import build_local_v3, assemble_local_v3, build_grounded_v3, assemble_grounded_v3
+from causal_v3_confirmation import prepare_dataset
 
 
 def emit(tag, value):
@@ -85,7 +86,7 @@ def generate(model,tokenizer,requests,cfg,log_subcalls=False):
 def main():
     cfg=json.loads(Path("configs/causal_v3.json").read_text())
     emit("CAUSAL_CONFIG",{**cfg,"commit":os.environ.get("ORX_COMMIT"),"run_id":os.environ.get("ORX_RUN_ID")})
-    dataset=build_dataset_v3(cfg["dataset_seed"],cfg["families_per_split"])
+    dataset=prepare_dataset(cfg)
     replay = load_control_replay(cfg, dataset)
     emit("DATASET_AUDIT",dataset["audit"])
     assert all(solve_conditioned(r["scm"])["answer"]==r["answer"] for r in dataset["rows"])
@@ -178,7 +179,7 @@ def main():
     final={"config":cfg,"audit":dataset["audit"],"metrics":{m:metrics_v3(rows) for m,rows in all_records.items()},
            "primary_method":"grounded_solver","primary_vs":{m:paired_v3(all_records["grounded_solver"],rows)
                 for m,rows in all_records.items() if m!="grounded_solver"},"parser_solver_vs":{},
-           "pilot_only":True,"gate":{"status":"development_only","joint_minimum":.9,"delta_minimum":.05,
+           "pilot_only":cfg["pilot_only"],"gate":{"status":"confirmation_shard_pending_aggregation" if "confirmation_plan" in cfg else "development_only","joint_minimum":.9,"delta_minimum":.05,
                 "requires_positive_ci_lower":True,"confirm_dataset_seeds":[390001,390002,390003],"required_views":4}}
     (output/"summary.json").write_text(json.dumps(final,indent=2))
     emit("CAUSAL_FINAL_SUMMARY",final)
