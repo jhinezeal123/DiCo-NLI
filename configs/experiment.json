@@ -1,7 +1,7 @@
 {
-  "name": "track1_vuar_hybrid_head",
+  "name": "track1_vuar_hybrid_3b",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen2.5-3B",
   "max_length": 128,
   "aux_ce_weight": 1.0,
   "mode": "vuar_student",
@@ -19,7 +19,7 @@
   "amp": true,
   "decode": "head",
   "max_new_tokens": 110,
-  "decode_batch_size": 48,
+  "decode_batch_size": 8,
   "traces_file": "data/vuar_train_traces.jsonl",
   "lora": {
     "r": 16,
@@ -34,6 +34,6 @@
       "up_proj",
       "down_proj"
     ]
-  }
+  },
+  "load_in_4bit": true
 }
-
