@@ -1,25 +1,8 @@
 {
-  "name": "causal_v5_compositional_intervention_pilot",
+  "batch_size": 4,
   "benchmark_version": "v5",
-  "model_id": "Qwen/Qwen2.5-7B-Instruct",
-  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "dataset_seed": 20261030,
   "families_per_split": 6,
-  "batch_size": 4,
-  "max_new_tokens": 512,
-  "primary_method": "grounded_solver",
-  "methods": [
-    "direct",
-    "structured",
-    "parser_solver",
-    "parser_solver_normalized",
-    "decomposed_solver",
-    "decomposed_solver_normalized",
-    "grounded_solver",
-    "grounded_state_choice",
-    "grounded_operator_blind",
-    "grounded_action_blind"
-  ],
   "gate_controls": [
     "direct",
     "structured",
@@ -29,11 +12,64 @@
     "decomposed_solver_normalized",
     "grounded_state_choice"
   ],
-  "shots": 6,
+  "max_new_tokens": 512,
+  "methods": [
+    "direct",
+    "structured",
+    "parser_solver",
+    "parser_solver_normalized",
+    "decomposed_solver",
+    "decomposed_solver_normalized",
+    "grounded_state_choice",
+    "grounded_previous",
+    "grounded_solver",
+    "grounded_operator_blind",
+    "grounded_action_blind"
+  ],
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "name": "causal_v5_effect_guard_development",
   "pilot_only": true,
+  "primary_method": "grounded_solver",
   "reserved_confirmation_seeds": [
     690001,
     690002,
     690003
-  ]
+  ],
+  "shots": 6,
+  "sequence_strategy": "slots",
+  "control_replay": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "shots": 6,
+    "batch_size": 4,
+    "max_new_tokens": 512,
+    "dataset_sha256": "503c7bd7450c04b904d3e359ffcbb658650848b14f3e53aa2e75121aed499745",
+    "source_run": "96d90d20-8897-4065-93ba-2211b4b278d3",
+    "source_commit": "6e497254d8976d702e4fcead417fa7bfa042b89c",
+    "path": "configs/causal_v5_frozen_controls.jsonl",
+    "sha256": "03dfb44e72731f15e1854e2ba2b9595bc0292c6f061917358d9c217557e077e7",
+    "methods": [
+      "direct",
+      "structured",
+      "parser_solver",
+      "parser_solver_normalized",
+      "decomposed_solver",
+      "decomposed_solver_normalized",
+      "grounded_state_choice",
+      "grounded_previous"
+    ]
+  },
+  "operator_replay": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "shots": 6,
+    "batch_size": 4,
+    "max_new_tokens": 512,
+    "dataset_sha256": "503c7bd7450c04b904d3e359ffcbb658650848b14f3e53aa2e75121aed499745",
+    "source_run": "96d90d20-8897-4065-93ba-2211b4b278d3",
+    "source_commit": "6e497254d8976d702e4fcead417fa7bfa042b89c",
+    "path": "configs/causal_v5_frozen_operators.jsonl",
+    "sha256": "aacb78dc83b83d500bd5799c83e7241505195e183966a3e354c52c0f5571ca68"
+  }
 }
