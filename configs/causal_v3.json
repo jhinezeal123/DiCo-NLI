@@ -1,5 +1,5 @@
 {
-  "name": "causal_v3_equation_choice_fresh490001_shard0",
+  "name": "causal_v3_equation_choice_fresh490002_shard0",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "batch_size": 4,
@@ -23,7 +23,7 @@
     490002,
     490003
   ],
-  "dataset_seed": 490001,
+  "dataset_seed": 490002,
   "shard_index": 0,
   "confirmation_plan": "configs/causal_v3_fresh490_plan.json",
   "confirmation_plan_sha256": "65c9ce90bef19e6c1d7097ba5a8cf10f1dced4aadc7375e5561e1961aef9faf6"
