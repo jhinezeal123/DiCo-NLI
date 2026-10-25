@@ -109,12 +109,14 @@ def run_decomposed(model, tokenizer, dataset, cfg, emit):
             prompts = [tokenizer.apply_chat_template(r["messages"], tokenize=False, add_generation_prompt=True)
                        for r in batch]
             encoded = tokenizer(prompts, return_tensors="pt", padding=True, truncation=False).to(model.device)
-            torch.cuda.synchronize()
+            for device_index in range(torch.cuda.device_count()):
+                torch.cuda.synchronize(device_index)
             batch_start = time.monotonic()
             with torch.inference_mode():
                 generated = model.generate(**encoded, do_sample=False, max_new_tokens=cap,
                                            pad_token_id=tokenizer.pad_token_id, eos_token_id=tokenizer.eos_token_id)
-            torch.cuda.synchronize()
+            for device_index in range(torch.cuda.device_count()):
+                torch.cuda.synchronize(device_index)
             elapsed = time.monotonic() - batch_start
             continuation = generated[:, encoded["input_ids"].shape[1]:]
             for i, (request, text) in enumerate(zip(batch, tokenizer.batch_decode(continuation, skip_special_tokens=True))):
