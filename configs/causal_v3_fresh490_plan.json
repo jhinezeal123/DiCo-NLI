@@ -1,0 +1,486 @@
+{
+  "status": "frozen before any fresh model outputs",
+  "seeds": [
+    490001,
+    490002,
+    490003
+  ],
+  "families_per_split": 48,
+  "views": 4,
+  "total_test_cases": 2304,
+  "excluded_inputs": [
+    {
+      "seed": 20261027,
+      "families_per_split": 12,
+      "dataset_sha256": "9db48daf42be9109ef4049ee9f6875ce2c76e246519e79710d03727e14bdd717"
+    },
+    {
+      "seed": 390001,
+      "families_per_split": 48,
+      "dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee"
+    },
+    {
+      "seed": 390002,
+      "families_per_split": 48,
+      "dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767"
+    },
+    {
+      "seed": 390003,
+      "families_per_split": 48,
+      "dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65"
+    }
+  ],
+  "excluded_worlds_including_demonstrations": 648,
+  "total_worlds_after_future_sampling": 1242,
+  "datasets": {
+    "490001": {
+      "dataset_sha256": "85fc19c87db7b61cf2d57d1da7129fb640c1da48a384e6aa3cbe1caf0abc99d8",
+      "demonstrations_sha256": "ab428f92f92f19297aa6f6732a159d69b5f2dbdcd3ff73c73e00333d54151bb7",
+      "audit": {
+        "generator_version": "partial-multi-intervention-v3",
+        "dataset_sha256": "85fc19c87db7b61cf2d57d1da7129fb640c1da48a384e6aa3cbe1caf0abc99d8",
+        "splits": {
+          "id": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 14,
+              "1": 15,
+              "unknown": 19
+            },
+            "observed_counts": {
+              "5": 19,
+              "4": 15,
+              "6": 14
+            }
+          },
+          "ood_topology": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 16,
+              "1": 15,
+              "unknown": 17
+            },
+            "observed_counts": {
+              "5": 23,
+              "6": 18,
+              "4": 7
+            }
+          },
+          "ood_mechanism": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 15,
+              "unknown": 19,
+              "1": 14
+            },
+            "observed_counts": {
+              "5": 14,
+              "6": 22,
+              "4": 12
+            }
+          },
+          "ood_language": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "unknown": 17,
+              "1": 18,
+              "0": 13
+            },
+            "observed_counts": {
+              "6": 16,
+              "5": 21,
+              "4": 11
+            }
+          }
+        },
+        "prior_excluded_families": 648,
+        "new_distinct_worlds": 198,
+        "signature_overlap": 0,
+        "views": [
+          "factual",
+          "intervention",
+          "partial_release",
+          "restored"
+        ],
+        "reserved_confirmation_seeds": [
+          390001,
+          390002,
+          390003
+        ]
+      },
+      "shards": {
+        "0": {
+          "dataset_sha256": "0123702d03e430d8e5c357cdca6081c1f53230a1efe80c679fcf5d3a3ed4aad0",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "1": {
+          "dataset_sha256": "cb456d8c34a113f0f69613c9ee0dab0aabc156014b76bb5c028d948677b0d8a8",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "2": {
+          "dataset_sha256": "abde44a9f707f7963a73c5fdc37b63bc2a75a25535d365c4040abf0b25e0ce41",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "3": {
+          "dataset_sha256": "16d714de45a0779a74061c0ef4fa1b59012ececf1a9d97a87929cad7073c00a6",
+          "cases": 192,
+          "families_per_split": 12
+        }
+      }
+    },
+    "490002": {
+      "dataset_sha256": "11fbf79f7b1bd27b1eb52d0edbc08166b6c38076ad1fb5c898dd6d8ab2238cfe",
+      "demonstrations_sha256": "b06e6d9cd6daee2591edcf39e8c9d9ad8a994ae22f453b370ce3bc8b1e9927cb",
+      "audit": {
+        "generator_version": "partial-multi-intervention-v3",
+        "dataset_sha256": "11fbf79f7b1bd27b1eb52d0edbc08166b6c38076ad1fb5c898dd6d8ab2238cfe",
+        "splits": {
+          "id": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 19,
+              "1": 13,
+              "unknown": 16
+            },
+            "observed_counts": {
+              "6": 14,
+              "5": 22,
+              "4": 12
+            }
+          },
+          "ood_topology": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "unknown": 18,
+              "1": 19,
+              "0": 11
+            },
+            "observed_counts": {
+              "4": 12,
+              "5": 13,
+              "6": 23
+            }
+          },
+          "ood_mechanism": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 16,
+              "unknown": 18,
+              "1": 14
+            },
+            "observed_counts": {
+              "6": 16,
+              "5": 19,
+              "4": 13
+            }
+          },
+          "ood_language": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 19,
+              "1": 15,
+              "unknown": 14
+            },
+            "observed_counts": {
+              "5": 18,
+              "6": 17,
+              "4": 13
+            }
+          }
+        },
+        "prior_excluded_families": 846,
+        "new_distinct_worlds": 198,
+        "signature_overlap": 0,
+        "views": [
+          "factual",
+          "intervention",
+          "partial_release",
+          "restored"
+        ],
+        "reserved_confirmation_seeds": [
+          390001,
+          390002,
+          390003
+        ]
+      },
+      "shards": {
+        "0": {
+          "dataset_sha256": "57954fb49a42680fbf80fa1a0f974145ad1196bbf735a61c35e75727cac0c1e8",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "1": {
+          "dataset_sha256": "87effad6457f68116d96b9654164f575711d2c00d430c64d43c88cedc4232749",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "2": {
+          "dataset_sha256": "e30d7811cbd2eb2bb06b6f24559d119754cfcd72da0ac5cf4dbaaa55543f70a1",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "3": {
+          "dataset_sha256": "718a51afe4d3dc48c02f170f21cc54b9ff484692c071942644090d73ba27fa4e",
+          "cases": 192,
+          "families_per_split": 12
+        }
+      }
+    },
+    "490003": {
+      "dataset_sha256": "3ab97a38b8399e61b68e0cbce8415db9635430d475ad89d361ae5816f2fe0482",
+      "demonstrations_sha256": "67da77e5a3ed0a69bf013204bc508fd699aa148e260e05ead1485988d5ae65a7",
+      "audit": {
+        "generator_version": "partial-multi-intervention-v3",
+        "dataset_sha256": "3ab97a38b8399e61b68e0cbce8415db9635430d475ad89d361ae5816f2fe0482",
+        "splits": {
+          "id": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 16,
+              "unknown": 13,
+              "1": 19
+            },
+            "observed_counts": {
+              "4": 15,
+              "5": 23,
+              "6": 10
+            }
+          },
+          "ood_topology": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 14,
+              "1": 19,
+              "unknown": 15
+            },
+            "observed_counts": {
+              "5": 20,
+              "4": 13,
+              "6": 15
+            }
+          },
+          "ood_mechanism": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 17,
+              "unknown": 17,
+              "1": 14
+            },
+            "observed_counts": {
+              "4": 19,
+              "5": 19,
+              "6": 10
+            }
+          },
+          "ood_language": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 18,
+              "1": 11,
+              "unknown": 19
+            },
+            "observed_counts": {
+              "6": 20,
+              "4": 14,
+              "5": 14
+            }
+          }
+        },
+        "prior_excluded_families": 1044,
+        "new_distinct_worlds": 198,
+        "signature_overlap": 0,
+        "views": [
+          "factual",
+          "intervention",
+          "partial_release",
+          "restored"
+        ],
+        "reserved_confirmation_seeds": [
+          390001,
+          390002,
+          390003
+        ]
+      },
+      "shards": {
+        "0": {
+          "dataset_sha256": "5d9312725b64cb006b71bb8c86eb6ad2fb9df6a84538b37150b25b5c29ad0f4d",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "1": {
+          "dataset_sha256": "ffd278c5a68169dffb76da8179ca6ec6a2c2155d6ea06659d7bade60c2abbc99",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "2": {
+          "dataset_sha256": "54d0abec99b81a3c9638dae99ad557b2b9784705252fae76f208119961583852",
+          "cases": 192,
+          "families_per_split": 12
+        },
+        "3": {
+          "dataset_sha256": "f51f891f33eff54c507d1ea3b59786ed642c2060020dd010d4656cb48ed81329",
+          "cases": 192,
+          "families_per_split": 12
+        }
+      }
+    }
+  },
+  "criteria": {
+    "minimum_each_ood_joint": 0.9,
+    "minimum_delta_over_strongest_registered_reasoning_control": 0.05,
+    "paired_family_ci95_lower_positive": true,
+    "all_three_seeds_required": true
+  },
+  "must_freeze_selected_inference_before_launch": true,
+  "scope": "same harder-v3 generator/holdouts; six fresh matched reasoning controls; 12computational shards with all4parts required perseed",
+  "selected_controller": {
+    "variant": "shown_value_equation_choice",
+    "experiment_id": "b62a3b17-602d-4a10-bfe2-0fa9dbd375ab",
+    "source_commit": "d4ffc9e513d182b1ade0db635a26aa67727faeb4",
+    "development_run": "f51ab7ca-8ff7-4b2a-9765-aafd573bca4b",
+    "coequal_rejected_run": "078a0a93-9184-444b-a1c3-b866ca3720d1",
+    "selection_evidence_sha256": "936240c4823f08b037e4c286ca0dd0266bba276ddf82ea160ce6909b1636ed3a",
+    "selection_is_not_confirmed_superiority": true
+  },
+  "frozen_config": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "batch_size": 4,
+    "max_new_tokens": 512,
+    "shots": 6,
+    "families_per_split": 48,
+    "methods": [
+      "direct",
+      "structured",
+      "parser_solver",
+      "parser_solver_normalized",
+      "decomposed_solver",
+      "decomposed_solver_normalized",
+      "grounded_solver",
+      "grounded_operator_blind"
+    ],
+    "primary_method": "grounded_solver",
+    "pilot_only": false,
+    "reserved_confirmation_seeds": [
+      490001,
+      490002,
+      490003
+    ]
+  },
+  "frozen_inference_file_sha256": {
+    "run.sh": "bb31a966c90ff1ee6bf8383fee4fb83e450312ed90b75a972dbc6b6210e81f44",
+    "requirements-causal.txt": "bc9940b72832eb24f3351648047ed916d47d018b7f120e746242dec85a5961de",
+    "scripts/causal_v3_pipeline.py": "3097a6ccb3949ca20c493485329ab3ecc9b76b2c0e7fbde893ed729fb5b2c47d",
+    "src/causal_v3_confirmation.py": "4c3b8e77f5f40f82ff626c75764126a38b8ea8dcd0595fbc194d3ba366d8a0cc",
+    "src/causal_v3_compiler.py": "cb46fb11e68e81c661fc7574fa6cd502c2cc11d41f84a39bca15d2bc3c622bb4",
+    "src/causal_v3_protocol.py": "4ea6cf7dadd683d64e660830544ba720395aee174d4edea6bad231e7088c5561",
+    "src/causal_dataset_v3.py": "b79fbf469cee5997846c1f40c09c6ef8fa51befb7de95c97df67f0f112f797cc",
+    "src/causal_dataset.py": "d7446c4bb6ddbc240c7fea5bcb6f838bece35c9f89bc301aacd83ae46074afce",
+    "src/causal_scm.py": "eba4dd1ad9b4daa141a694e2fc369d52c880c1ecfb044f33d86e81e30e27ed84",
+    "src/causal_protocol.py": "8d00cfc6b106b391be1425d85939299f72dedd83596af25dad3b989b7ab342c7",
+    "src/causal_decomposition.py": "e804cf31fadb6ee8ca3b0ff3d3e06832ab8d98a4aa2c4a571a281a65701e56f5",
+    "src/causal_choice.py": "9e251f9453d5c186f1a99d8a016e8642458946021e7042c637a2a997d449fb19"
+  },
+  "gate": {
+    "joint_minimum": 0.9,
+    "delta_minimum": 0.05,
+    "ci95_lower_strictly_positive": true,
+    "all_three_seeds_required": true,
+    "required_views": 4,
+    "ood_splits": [
+      "ood_topology",
+      "ood_mechanism",
+      "ood_language"
+    ],
+    "controls": [
+      "direct",
+      "structured",
+      "parser_solver",
+      "parser_solver_normalized",
+      "decomposed_solver",
+      "decomposed_solver_normalized"
+    ],
+    "operator_blind_is_semantic_ablation_not_gate_control": true
+  },
+  "stopping_rule": {
+    "failure_only": "After a completed shard, stop remaining runs if any OOD group of any seed has at least5wrong four-view families, because max43of48 is below90percent. Verify provenance first.",
+    "positive_early_stopping": false,
+    "on_stop": "Keep negative result, mark matrix incomplete, consume all three seeds including cancelled parts. Never relax threshold or relabel opened inputs as fresh."
+  },
+  "legacy_generator_audit_note": "Full dataset audit reserved_confirmation_seeds is historical generator metadata390001/2/3; actual fresh plan/config/shard audit use490001/2/3."
+}
