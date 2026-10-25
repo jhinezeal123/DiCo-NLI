@@ -6,6 +6,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
+if [ -f configs/causal_native_confirmation.json ]; then
+  PY="${PYTHON:-python3}"
+  "$PY" -m pip install -q --only-binary=:all: -r requirements-causal-sft.txt
+  exec "$PY" -u scripts/confirm_causal_native.py
+fi
+
 if [ -f configs/causal_sft.json ]; then
   PY="${PYTHON:-python3}"
   "$PY" -m pip install -q --only-binary=:all: -r requirements-causal-sft.txt
