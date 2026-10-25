@@ -2,7 +2,7 @@
 from collections import defaultdict
 import time
 
-LETTERS = "ABCDEFGHIJKL"
+LETTERS = "ABCDEFGHIJKLMNOP"
 
 
 def decide(model, tokenizer, requests, batch_size, emit):
@@ -14,7 +14,7 @@ def decide(model, tokenizer, requests, batch_size, emit):
     for (stage, count), group in sorted(groups.items()):
         candidates = [tokenizer.encode(letter, add_special_tokens=False) for letter in LETTERS[:count]]
         if not 1 <= count <= len(LETTERS) or any(len(token) != 1 for token in candidates):
-            raise ValueError("closed options require 1..12 single-token letters")
+            raise ValueError("closed options require 1..16 single-token letters")
         for offset in range(0, len(group), batch_size):
             batch = group[offset:offset+batch_size]
             prompts = [tokenizer.apply_chat_template(r["messages"], tokenize=False, add_generation_prompt=True) for r in batch]

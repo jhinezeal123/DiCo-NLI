@@ -1,9 +1,9 @@
 {
-  "name": "causal_v4_twelve_variable_stress_pilot",
-  "benchmark_version": "v4",
+  "name": "causal_v5_compositional_intervention_pilot",
+  "benchmark_version": "v5",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
-  "dataset_seed": 20261029,
+  "dataset_seed": 20261030,
   "families_per_split": 6,
   "batch_size": 4,
   "max_new_tokens": 512,
@@ -16,13 +16,24 @@
     "decomposed_solver",
     "decomposed_solver_normalized",
     "grounded_solver",
-    "grounded_operator_blind"
+    "grounded_state_choice",
+    "grounded_operator_blind",
+    "grounded_action_blind"
+  ],
+  "gate_controls": [
+    "direct",
+    "structured",
+    "parser_solver",
+    "parser_solver_normalized",
+    "decomposed_solver",
+    "decomposed_solver_normalized",
+    "grounded_state_choice"
   ],
   "shots": 6,
   "pilot_only": true,
   "reserved_confirmation_seeds": [
-    590001,
-    590002,
-    590003
+    690001,
+    690002,
+    690003
   ]
 }

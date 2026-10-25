@@ -10,6 +10,7 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"src"))
 from causal_dataset_v3 import build_dataset_v3, solve_conditioned
 from causal_dataset_v4 import build_dataset_v4
+from causal_dataset_v5 import build_dataset_v5
 from causal_dataset import digest
 from causal_v3_protocol import messages_v3, decode_v3, metrics_v3, paired_v3
 from causal_v3_compiler import build_local_v3, assemble_local_v3, build_grounded_v3, assemble_grounded_v3
@@ -87,7 +88,11 @@ def generate(model,tokenizer,requests,cfg,log_subcalls=False):
 def main():
     cfg=json.loads(Path("configs/causal_v3.json").read_text())
     emit("CAUSAL_CONFIG",{**cfg,"commit":os.environ.get("ORX_COMMIT"),"run_id":os.environ.get("ORX_RUN_ID")})
-    if cfg.get("benchmark_version") == "v4":
+    if cfg.get("benchmark_version") == "v5":
+        if not cfg["pilot_only"] or cfg.get("control_replay") or cfg.get("development_input"):
+            raise ValueError("sequence pilot requires fresh development inputs and all controls")
+        dataset=build_dataset_v5(cfg["dataset_seed"],cfg["families_per_split"])
+    elif cfg.get("benchmark_version") == "v4":
         if not cfg["pilot_only"] or cfg.get("control_replay") or cfg.get("development_input"):
             raise ValueError("v4 stress pilot requires fresh development inputs and all controls")
         dataset=build_dataset_v4(cfg["dataset_seed"],cfg["families_per_split"])
@@ -112,6 +117,11 @@ def main():
     torch.manual_seed(42)
     tokenizer=AutoTokenizer.from_pretrained(cfg["model_id"],revision=cfg["model_revision"],padding_side="left")
     tokenizer.pad_token=tokenizer.eos_token
+    if cfg.get("benchmark_version") == "v5":
+        from causal_choice import LETTERS
+        if any(len(tokenizer.encode(letter,add_special_tokens=False)) != 1 for letter in LETTERS):
+            raise ValueError("sixteen action choices must be single tokenizer tokens")
+        emit("CHOICE_TOKEN_AUDIT",{"letters":LETTERS,"single_token_choices":True,"count":len(LETTERS)})
     model=AutoModelForCausalLM.from_pretrained(cfg["model_id"],revision=cfg["model_revision"],
         torch_dtype=torch.float16,attn_implementation="sdpa",device_map="balanced",low_cpu_mem_usage=True,
         max_memory={i:"13GiB" for i in range(torch.cuda.device_count())})
@@ -126,7 +136,7 @@ def main():
         emit("CAUSAL_METHOD_SUMMARY", {"method":method,"metrics":metrics_v3(records),
              "source_run":cfg["control_replay"]["source_run"],"new_lm_calls":0})
 
-    def score(method,raw_by_case,usage_by_case=None,usage=None,normalized=False,kind="parser_solver",derived=None):
+    def score(method,raw_by_case,usage_by_case=None,usage=None,normalized=False,kind="parser_solver",derived=None,diagnostics_by_case=None):
         records=[]
         for row in dataset["rows"]:
             raw=raw_by_case[row["case_id"]]
@@ -134,6 +144,7 @@ def main():
             record={k:row[k] for k in ("case_id","family_id","split","view","answer","changed")}
             record.update({**decoded,"method":method,"raw_output":raw,"correct":decoded["prediction"]==row["answer"]})
             if usage_by_case: record.update(usage_by_case[row["case_id"]])
+            if diagnostics_by_case: record.update(diagnostics_by_case[row["case_id"]])
             if derived: record.update({"generation_reused_from":derived,"new_lm_calls":0})
             records.append(record); emit("CAUSAL_CASE",record)
         all_records[method]=records
@@ -171,29 +182,34 @@ def main():
         score("decomposed_solver",raw,costs,usage)
         score("decomposed_solver_normalized",raw,costs,normalized=True,derived="decomposed_solver")
 
-    from causal_choice import decide
-    requests,plans=build_grounded_v3(dataset["rows"],dataset["demonstrations"])
-    started=time.monotonic()
-    decisions=decide(model,tokenizer,requests,cfg["batch_size"],lambda tag,value:emit(tag.replace("PUBLIC_","CAUSAL_"),value))
-    uses=Counter(key for plan in plans.values() for key in
-                 [plan["target_request"],*plan["active_requests"].values(),*[n["request_id"] for n in plan["nodes"] if "request_id" in n]])
-    costs={}
-    for case,plan in plans.items():
-        keys=[plan["target_request"],*plan["active_requests"].values(),*[n["request_id"] for n in plan["nodes"] if "request_id" in n]]
-        costs[case]={"input_tokens":sum(decisions[k]["input_tokens"]/uses[k] for k in keys),
-                     "output_tokens":sum(1/uses[k] for k in keys),
-                     "batch_seconds_per_case":sum(decisions[k]["seconds"]/uses[k] for k in keys),"subcall_ids":keys}
-    usage={"subcalls":len(requests),"elapsed_seconds":time.monotonic()-started,
-           "input_tokens":sum(v["input_tokens"] for v in decisions.values()),"output_tokens":len(requests),
-           "cost_scope":"grounded system; operator-blind variant reuses query decisions"}
-    for method,blind in (("grounded_solver",False),("grounded_operator_blind",True)):
-        raw={case:json.dumps(assemble_grounded_v3(plan,decisions,blind),separators=(",",":")) for case,plan in plans.items()}
-        score(method,raw,costs,usage,derived="grounded_solver" if blind else None)
+    if cfg.get("benchmark_version") == "v5":
+        from causal_sequence_methods import run_sequence_methods
+        run_sequence_methods(model,tokenizer,dataset,cfg,emit,score)
+    else:
+        from causal_choice import decide
+        requests,plans=build_grounded_v3(dataset["rows"],dataset["demonstrations"])
+        started=time.monotonic()
+        decisions=decide(model,tokenizer,requests,cfg["batch_size"],lambda tag,value:emit(tag.replace("PUBLIC_","CAUSAL_"),value))
+        uses=Counter(key for plan in plans.values() for key in
+                     [plan["target_request"],*plan["active_requests"].values(),*[n["request_id"] for n in plan["nodes"] if "request_id" in n]])
+        costs={}
+        for case,plan in plans.items():
+            keys=[plan["target_request"],*plan["active_requests"].values(),*[n["request_id"] for n in plan["nodes"] if "request_id" in n]]
+            costs[case]={"input_tokens":sum(decisions[k]["input_tokens"]/uses[k] for k in keys),
+                         "output_tokens":sum(1/uses[k] for k in keys),
+                         "batch_seconds_per_case":sum(decisions[k]["seconds"]/uses[k] for k in keys),"subcall_ids":keys}
+        usage={"subcalls":len(requests),"elapsed_seconds":time.monotonic()-started,
+               "input_tokens":sum(v["input_tokens"] for v in decisions.values()),"output_tokens":len(requests),
+               "cost_scope":"grounded system; operator-blind variant reuses query decisions"}
+        for method,blind in (("grounded_solver",False),("grounded_operator_blind",True)):
+            raw={case:json.dumps(assemble_grounded_v3(plan,decisions,blind),separators=(",",":")) for case,plan in plans.items()}
+            score(method,raw,costs,usage,derived="grounded_solver" if blind else None)
     final={"config":cfg,"audit":dataset["audit"],"metrics":{m:metrics_v3(rows) for m,rows in all_records.items()},
            "primary_method":"grounded_solver","primary_vs":{m:paired_v3(all_records["grounded_solver"],rows)
                 for m,rows in all_records.items() if m!="grounded_solver"},"parser_solver_vs":{},
            "pilot_only":True,"gate":{"status":"development_only","joint_minimum":.9,"delta_minimum":.05,
-                "requires_positive_ci_lower":True,"confirm_dataset_seeds":cfg["reserved_confirmation_seeds"],"required_views":4}}
+                "requires_positive_ci_lower":True,"confirm_dataset_seeds":cfg["reserved_confirmation_seeds"],"required_views":4,
+                "controls":cfg.get("gate_controls",["direct","structured","parser_solver","parser_solver_normalized","decomposed_solver","decomposed_solver_normalized"])}}
     (output/"summary.json").write_text(json.dumps(final,indent=2))
     emit("CAUSAL_FINAL_SUMMARY",final)
 
