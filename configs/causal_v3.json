@@ -1,12 +1,11 @@
 {
-  "name": "causal_v3_equation_choice_opened_seed390002",
+  "name": "causal_v3_equation_choice_fresh490001_shard0",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
-  "dataset_seed": 390002,
-  "families_per_split": 36,
   "batch_size": 4,
   "max_new_tokens": 512,
-  "primary_method": "grounded_solver",
+  "shots": 6,
+  "families_per_split": 48,
   "methods": [
     "direct",
     "structured",
@@ -14,44 +13,18 @@
     "parser_solver_normalized",
     "decomposed_solver",
     "decomposed_solver_normalized",
-    "grounded_previous",
     "grounded_solver",
     "grounded_operator_blind"
   ],
-  "shots": 6,
-  "pilot_only": true,
+  "primary_method": "grounded_solver",
+  "pilot_only": false,
   "reserved_confirmation_seeds": [
-    390001,
-    390002,
-    390003
+    490001,
+    490002,
+    490003
   ],
-  "control_replay": {
-    "path": "configs/causal_v3_control_predictions.jsonl",
-    "sha256": "7c37107807457d1f4dd2a3ad05478b21bbf6dc3fbf9f0cf33c715ad0ab119e1d",
-    "source_run": "746bb29b-252c-4ba7-9f51-290fc722101a",
-    "source_commit": "multiple frozen confirmation shards from inference e798019",
-    "dataset_sha256": "6e80bab735f79b1aed2296b680cbd8341119ac7b47c7c088ff3a4aef28360eb5",
-    "model_id": "Qwen/Qwen2.5-7B-Instruct",
-    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
-    "shots": 6,
-    "max_new_tokens": 512,
-    "methods": [
-      "direct",
-      "structured",
-      "parser_solver",
-      "parser_solver_normalized",
-      "decomposed_solver",
-      "decomposed_solver_normalized",
-      "grounded_previous"
-    ],
-    "source_runs": [
-      "746bb29b-252c-4ba7-9f51-290fc722101a",
-      "15cb024d-a55b-4ce8-9f9a-5e06e96b2f96",
-      "9a04276e-4ce0-4281-8b0f-b6778e15e662"
-    ]
-  },
-  "development_input": {
-    "path": "configs/causal_v3_opened_development.json",
-    "sha256": "5f75502a0be1411405a905380ba589e0820bde722b741ab030837ddb8d42463f"
-  }
+  "dataset_seed": 490001,
+  "shard_index": 0,
+  "confirmation_plan": "configs/causal_v3_fresh490_plan.json",
+  "confirmation_plan_sha256": "65c9ce90bef19e6c1d7097ba5a8cf10f1dced4aadc7375e5561e1961aef9faf6"
 }
