@@ -93,10 +93,19 @@ SYSTEMS = {
 
 
 def native_messages(row, method, demonstrations):
-    conversation = [{"role": "system", "content": SYSTEMS[method]}]
+    system = SYSTEMS["structured"] if method == "structured_program_demos" else SYSTEMS[method]
+    conversation = [{"role": "system", "content": system}]
     for demo in demonstrations:
         response = (json.dumps(demo["program"], separators=(",", ":")) if method == "native_parser_solver"
                     else "<answer>" + demo["answer"] + "</answer>")
+        if method == "structured_program_demos":
+            program = demo["program"]
+            result = native_counterfactual(program["params"], program["observed"], program["intervene"], program["outcome"])
+            response = ("Mechanisms and state meanings: " + json.dumps({k: program[k] for k in ("meaning", "params")}) +
+                ". Abduction: keep only original root worlds compatible with evidence " + json.dumps(program["observed"]) +
+                f'; {result["compatible_worlds"]} worlds remain. Intervention: replace ONLY ' + json.dumps(program["intervene"]) +
+                f'. Prediction: with other equations unchanged, {program["outcome"]}={result["value"]} in every compatible world. ' +
+                f'The question asks polarity {program["polarity"]}. <answer>' + demo["answer"] + "</answer>")
         conversation.extend([{"role": "user", "content": demo["text"]},
                              {"role": "assistant", "content": response}])
     conversation.append({"role": "user", "content": row["text"]})

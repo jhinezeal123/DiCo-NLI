@@ -29,3 +29,28 @@ model. No class balancing or post-hoc exclusions use evaluation answers.
 The committed configuration pins source hashes, model revision, generation
 budget and batch size. All raw outputs and prompt hashes enter the run log.
 Leakage-isolation, model grouping and analytic CPT tests run before launch.
+
+## Grounded native child
+
+The free JSON pilot obtained 36.11% accuracy (valid rate 61.11%), below direct
+75%. This child keeps the exact kernel and all 36 pilot cases. It copies edges
+from the original public background's explicit `has a direct effect on`
+sentences and recognizes public `is unobserved` declarations. An input-only
+audit matched 544/544 source graphs; maximum parent count is three and all root
+probabilities have full support. This grammar constraint is explicit and does
+not constitute unrestricted graph extraction.
+
+The LM makes constrained next-token semantic decisions for every deterministic
+CPT cell, observed state (unspecified/0/1), treatment, treatment bit, outcome
+and question polarity. Original test annotations never enter these requests.
+The mechanism requests see the public premises and parent assignment, while
+the query/evidence requests see all three public fields. Root support is fixed
+to {0,1}, sufficient for the audited point queries. No output probabilities
+are rounded or repaired. Inconsistent evidence or unidentified outcomes still
+count as failures. Conditional option probabilities and every decision are logged.
+
+The structured_program_demos control now receives complete development
+mechanisms and explicit abduction/intervention/prediction examples generated
+from the same four development worlds. This improves supervision parity;
+its performance remains an empirical question. The original direct protocol
+is also rerun. This is still development, not a fresh held-out confirmation.

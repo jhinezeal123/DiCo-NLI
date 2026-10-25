@@ -73,9 +73,16 @@ def main():
         emit("PUBLIC_METHOD_SUMMARY", {"method": method, "metrics": public_metrics(records),
              "elapsed_seconds": time.monotonic() - started, "input_tokens": sum(r["input_tokens"] for r in records),
              "output_tokens": sum(r["output_tokens"] for r in records)})
+    if cfg.get("native_grounded_solver"):
+        from causal_public_grounding import run_public_grounded
+        records, usage = run_public_grounded(model, tokenizer, dataset, cfg, emit)
+        all_records["native_grounded_solver"] = records
+        emit("PUBLIC_METHOD_SUMMARY", {"method": "native_grounded_solver", "metrics": public_metrics(records), **usage})
+    primary = cfg.get("primary_method", "native_parser_solver")
     final = {"config": cfg, "audit": dataset["audit"], "metrics": {m: public_metrics(rs) for m, rs in all_records.items()},
-             "parser_vs": {m: public_bootstrap(all_records["native_parser_solver"], rs)
-                           for m, rs in all_records.items() if m != "native_parser_solver"},
+             "primary_method": primary,
+             "parser_vs": {m: public_bootstrap(all_records[primary], rs)
+                           for m, rs in all_records.items() if m != primary},
              "pilot_only": True, "scope": "native public text, deterministic-counterfactual subset only; no fine-tuning"}
     (output / "results.json").write_text(json.dumps({"summary": final, "records": all_records}, indent=2))
     emit("PUBLIC_FINAL_SUMMARY", final)
