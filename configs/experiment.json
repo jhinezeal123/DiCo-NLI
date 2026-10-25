@@ -1,10 +1,10 @@
 {
-  "name": "track1_vuar_hybrid_head",
+  "name": "track1_vuar_two_stage",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "max_length": 128,
   "aux_ce_weight": 1.0,
-  "mode": "vuar_student",
+  "mode": "vuar_two_stage",
   "seeds": [
     42,
     13,
@@ -17,7 +17,7 @@
   "wd": 0.01,
   "num_epochs": 3,
   "amp": true,
-  "decode": "head",
+  "decode": "bidir",
   "max_new_tokens": 110,
   "decode_batch_size": 48,
   "traces_file": "data/vuar_train_traces.jsonl",
@@ -34,6 +34,7 @@
       "up_proj",
       "down_proj"
     ]
-  }
+  },
+  "load_in_4bit": false,
+  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:"
 }
-

@@ -99,6 +99,8 @@ def main():
     ap.add_argument("--train", required=True)
     ap.add_argument("--dev", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--dump-train", default=None,
+                    help="CSV whose rows are also decoded, storing traces as train_traces in --out")
     args = ap.parse_args()
     cfg = json.loads(Path(args.config).read_text())
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -182,12 +184,18 @@ def main():
     t1o, l1o, p1o = decode_and_classify(model, head, tok, d1, d2, dec_bs, max_new, device, amp)
     t2o, l2o, p2o = decode_and_classify(model, head, tok, d2, d1, dec_bs, max_new, device, amp)
     print(f"decode_wall_seconds={time.time() - t0:.0f}", flush=True)
-    Path(args.out).write_text(json.dumps({
+    out = {
         "orig": [[a, b] for a, b in zip(t1o, l1o)],
         "swap": [[a, b] for a, b in zip(t2o, l2o)],
         "head_orig": p1o,
         "head_swap": p2o,
-    }, ensure_ascii=False), encoding="utf-8")
+    }
+    if args.dump_train:
+        ids, r1, r2, _ = dt.load_split(args.dump_train)
+        tr1, _, _ = decode_and_classify(model, head, tok, r1, r2, dec_bs, max_new, device, amp)
+        out["train_traces"] = dict(zip(ids, tr1))
+        print(f"train_traces={len(ids)}", flush=True)
+    Path(args.out).write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 
 
 if __name__ == "__main__":

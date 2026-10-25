@@ -374,11 +374,105 @@ def student(cfg, config_path, upstream, paths, out_root, rp):
               + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
 
 
+def two_stage(cfg, config_path, upstream, paths, out_root, rp):
+    """Trace-as-input: generate traces with the hybrid student, then classify (text + trace)."""
+    import csv
+    import statistics
+
+    import numpy as np
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    import dico_trainer as dt
+
+    section = rp.section
+    repo = Path(__file__).resolve().parents[1]
+    student_worker = Path(__file__).resolve().parent / "student_worker.py"
+    train_worker = Path(__file__).resolve().parent / "train_worker.py"
+    dev_rows = rp.read_csv(paths["dev"])
+    train_rows = rp.read_csv(paths["train"])
+    id2dev = [r["instance_id"] for r in dev_rows]
+
+    # 1) one trace student, also dumping traces for the train set
+    section("TRACE STUDENT (seed 42) + TRAIN TRACE DUMP")
+    t0 = time.time()
+    run_workers([("trace", [sys.executable, "-u", str(student_worker), "--config", str(config_path),
+                            "--seed", "42", "--traces", str(repo / cfg["traces_file"]),
+                            "--train", str(paths["train"]), "--dev", str(paths["dev"]),
+                            "--out", str(out_root / "trace42.json"),
+                            "--dump-train", str(paths["train"])], out_root / "trace42.log")],
+                rp.gpu_count())
+    print(f"trace_wall_seconds={time.time() - t0:.0f}")
+    print((out_root / "trace42.log").read_text(errors="replace"), end="")
+    gen = json.loads((out_root / "trace42.json").read_text(encoding="utf-8"))
+    dev_traces = {i: gen["orig"][k][0] for k, i in enumerate(id2dev)}
+    train_traces = gen.get("train_traces", {})
+    print(f"dev_traces={len(dev_traces)} train_traces={len(train_traces)}")
+
+    # 2) augment the text2 field with the trace
+    def write_aug(path, rows, traces):
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f, lineterminator="\n")
+            w.writerow(["instance_id", "text1", "text2", "label"])
+            for r in rows:
+                tr = traces.get(r["instance_id"])
+                t2 = r["text2"] + (f"\nUnits: {tr}" if tr else "")
+                w.writerow([r["instance_id"], r["text1"], t2, r["label"]])
+
+    train_aug, dev_aug = out_root / "train_aug.csv", out_root / "dev_aug.csv"
+    write_aug(train_aug, train_rows, train_traces)
+    write_aug(dev_aug, dev_rows, dev_traces)
+
+    # 3) classify (text + trace), one seed per GPU
+    section("TRACE-AWARE CLASSIFIER (seeds in parallel)")
+    t0 = time.time()
+    seeds = cfg["seeds"]
+    run_workers([(f"cls{sd}", [sys.executable, "-u", str(train_worker), "--config", str(config_path),
+                               "--seed", str(sd), "--train", str(train_aug), "--dev", str(dev_aug),
+                               "--out", str(out_root / f"cls{sd}.npz")], out_root / f"cls{sd}.log")
+                 for sd in seeds], rp.gpu_count())
+    print(f"classifier_wall_seconds={time.time() - t0:.0f}")
+
+    # 4) decode and score
+    modes = ["standard", "bidir"]
+    results = {m: {} for m in modes}
+    for sd in seeds:
+        section(f"SEED {sd}")
+        print((out_root / f"cls{sd}.log").read_text(errors="replace"), end="")
+        d = np.load(out_root / f"cls{sd}.npz")
+        p, q = d["orig"], d["swap"]
+        final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
+        for mode in modes:
+            pred_path = out_root / f"cls{sd}_{mode}_predictions.csv"
+            with open(pred_path, "w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f, lineterminator="\n")
+                w.writerow(["instance_id", "label"])
+                for r, pr in zip(dev_rows, final[mode]):
+                    w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+            rp.validate(pred_path, dev_rows)
+            sc = rp.official_score(upstream, paths["dev_reference"], pred_path.resolve(),
+                                   (out_root / f"cls{sd}_scores_{mode}").resolve())
+            results[mode][sd] = sc
+            print(f"SEED_METRICS decoding={mode} seed={sd} weighted_f1={sc['weighted_f1']:.4f} "
+                  f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}", flush=True)
+    section("SUMMARY")
+    headline = cfg.get("decode", "bidir")
+    for mode in modes:
+        tag = "FINAL_METRICS" if mode == headline else "DIAG_METRICS"
+        agg = {}
+        for m in ("weighted_f1", "soft_cons", "hard_cons"):
+            vals = [r[m] for r in results[mode].values()]
+            agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
+        print(f"{tag} decoding={mode} split=dev track={cfg['track']} seeds={list(results[mode])} "
+              + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
+
+
 def run(mode, cfg, config_path, upstream, paths, out_root, rp):
     if mode == "vuar_spans":
         return spans(cfg, config_path, upstream, paths, out_root, rp)
     if mode == "vuar_student":
         return student(cfg, config_path, upstream, paths, out_root, rp)
+    if mode == "vuar_two_stage":
+        return two_stage(cfg, config_path, upstream, paths, out_root, rp)
     if mode == "vuar_teacher":
         return teacher(cfg, config_path, upstream, paths, out_root, rp)
     raise SystemExit(f"unknown mode {mode}")
