@@ -147,10 +147,13 @@ def main():
     sched = transformers.get_linear_schedule_with_warmup(opt, int(steps * epochs * float(cfg["warmup_pcrt"])),
                                                          steps * epochs)
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
+    warm = int(cfg.get("warmup_classifier_epochs", 0))
+    print(f"warmup_classifier_epochs={warm} total_epochs={epochs}", flush=True)
     t0 = time.time()
     for epoch in range(epochs):
         model.train()
         head.train()
+        trace_w = 0.0 if epoch < warm else 1.0
         perm = torch.randperm(len(items), generator=g).tolist()
         tot_t = tot_c = 0.0
         for s in range(0, len(perm), bs):
@@ -162,7 +165,7 @@ def main():
                 loss_t = out.loss
                 h = out.hidden_states[-1][torch.arange(ids.size(0), device=ids.device), plen - 1]
                 loss_c = F.cross_entropy(head(h.float()), ys)
-                loss = loss_t + aux_w * loss_c
+                loss = trace_w * loss_t + aux_w * loss_c
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
