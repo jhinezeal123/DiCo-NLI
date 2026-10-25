@@ -1,5 +1,5 @@
 {
-  "name": "track1_vuar_hybrid_head",
+  "name": "track1_vuar_hybrid_head_ep2",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "max_length": 128,
@@ -15,7 +15,7 @@
   "lr": 0.0001,
   "batch_size": 8,
   "wd": 0.01,
-  "num_epochs": 3,
+  "num_epochs": 2,
   "amp": true,
   "decode": "head",
   "max_new_tokens": 110,
@@ -36,4 +36,3 @@
     ]
   }
 }
-
