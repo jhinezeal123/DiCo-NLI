@@ -1,5 +1,5 @@
 {
-  "name": "native_causal_qwen3b_lora_full1046",
+  "name": "native_causal_qwen3b_lora_full1046_steps3138",
   "revision": "3d2d1169b4b939a09048a6a75956c8972a93cc38",
   "files": [
     {
@@ -25,7 +25,7 @@
   "split_plan_sha256": "2921a2a1955d43a9d4432e81fcc2100b1e083a9153d419b38bde16a0b9603b53",
   "training_questions": 1046,
   "seed": 42,
-  "max_steps": 1046,
+  "max_steps": 3138,
   "max_length": 1536,
   "learning_rate": 0.0002,
   "lora_rank": 8,
