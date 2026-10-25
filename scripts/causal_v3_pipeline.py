@@ -9,6 +9,7 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"src"))
 from causal_dataset_v3 import build_dataset_v3, solve_conditioned
+from causal_dataset_v4 import build_dataset_v4
 from causal_dataset import digest
 from causal_v3_protocol import messages_v3, decode_v3, metrics_v3, paired_v3
 from causal_v3_compiler import build_local_v3, assemble_local_v3, build_grounded_v3, assemble_grounded_v3
@@ -86,7 +87,11 @@ def generate(model,tokenizer,requests,cfg,log_subcalls=False):
 def main():
     cfg=json.loads(Path("configs/causal_v3.json").read_text())
     emit("CAUSAL_CONFIG",{**cfg,"commit":os.environ.get("ORX_COMMIT"),"run_id":os.environ.get("ORX_RUN_ID")})
-    if "development_input" in cfg:
+    if cfg.get("benchmark_version") == "v4":
+        if not cfg["pilot_only"] or cfg.get("control_replay") or cfg.get("development_input"):
+            raise ValueError("v4 stress pilot requires fresh development inputs and all controls")
+        dataset=build_dataset_v4(cfg["dataset_seed"],cfg["families_per_split"])
+    elif "development_input" in cfg:
         raw=Path(cfg["development_input"]["path"]).read_bytes()
         if not cfg["pilot_only"] or hashlib.sha256(raw).hexdigest()!=cfg["development_input"]["sha256"]:
             raise ValueError("invalid opened-development dataset")
@@ -188,7 +193,7 @@ def main():
            "primary_method":"grounded_solver","primary_vs":{m:paired_v3(all_records["grounded_solver"],rows)
                 for m,rows in all_records.items() if m!="grounded_solver"},"parser_solver_vs":{},
            "pilot_only":True,"gate":{"status":"development_only","joint_minimum":.9,"delta_minimum":.05,
-                "requires_positive_ci_lower":True,"confirm_dataset_seeds":[390001,390002,390003],"required_views":4}}
+                "requires_positive_ci_lower":True,"confirm_dataset_seeds":cfg["reserved_confirmation_seeds"],"required_views":4}}
     (output/"summary.json").write_text(json.dumps(final,indent=2))
     emit("CAUSAL_FINAL_SUMMARY",final)
 

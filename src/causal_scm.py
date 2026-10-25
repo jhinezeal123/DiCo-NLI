@@ -18,8 +18,8 @@ def normalize_scm(value, reduce_unary=False):
     if not isinstance(value, dict) or set(value) != {"variables", "observed", "intervene", "target"}:
         raise ValueError("SCM must have exactly variables, observed, intervene, target")
     variables = value["variables"]
-    if not isinstance(variables, list) or not 1 <= len(variables) <= 8:
-        raise ValueError("one to eight variables required")
+    if not isinstance(variables, list) or not 1 <= len(variables) <= 12:
+        raise ValueError("one to twelve variables required")
     by_name = {}
     for node in variables:
         if not isinstance(node, dict) or set(node) != {"name", "op", "parents"}:

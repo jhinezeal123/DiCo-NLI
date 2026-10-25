@@ -6,8 +6,7 @@ import re
 
 from causal_decomposition import split_document
 from causal_v3_protocol import SCHEMA_V3, decode_v3
-
-LETTERS = "ABCDEFGH"
+from causal_choice import LETTERS
 
 
 def document_v3(text):
@@ -15,8 +14,8 @@ def document_v3(text):
     if not match:
         raise ValueError("v3 requires an explicit public variable declaration")
     names = sorted(n.strip() for n in match.group(1).split(","))
-    if len(names) != 8 or len(set(names)) != 8:
-        raise ValueError("v3 requires eight unique declared variables")
+    if len(names) not in (8, 12) or len(set(names)) != len(names):
+        raise ValueError("v3/v4 requires eight or twelve unique declared variables")
     rules, query = split_document(text)
     lines = query.splitlines()
     assignments = lambda line: {n: int(v) for n, v in re.findall(r"\b([A-Za-z]\w*)\s*=\s*([01])\b", line)}
@@ -34,7 +33,7 @@ def document_v3(text):
             raise ValueError("unsupported v3 parent count")
         nodes.append({"name": name, "parents": parents, "rule": rule,
                       "op": "root" if not parents else "copy" if len(parents) == 1 else None})
-    if len(nodes) != 8 or {n["name"] for n in nodes} != set(names):
+    if len(nodes) != len(names) or {n["name"] for n in nodes} != set(names):
         raise ValueError("every declared variable needs one output-first rule")
     question = " ".join(line for line in lines[2:] if not line.startswith("Answer:"))
     final = [s for s in re.split(r"(?<=[.!?])\s+", question) if "?" in s]

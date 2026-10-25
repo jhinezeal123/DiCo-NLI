@@ -2,6 +2,8 @@
 from collections import defaultdict
 import time
 
+LETTERS = "ABCDEFGHIJKL"
+
 
 def decide(model, tokenizer, requests, batch_size, emit):
     import torch
@@ -10,9 +12,9 @@ def decide(model, tokenizer, requests, batch_size, emit):
         groups[(request["stage"], request["choice_count"])].append(request)
     decisions = {}
     for (stage, count), group in sorted(groups.items()):
-        candidates = [tokenizer.encode(letter, add_special_tokens=False) for letter in "ABCDEFGH"[:count]]
-        if count > 8 or any(len(token) != 1 for token in candidates):
-            raise ValueError("closed options require <=8 single-token letters")
+        candidates = [tokenizer.encode(letter, add_special_tokens=False) for letter in LETTERS[:count]]
+        if not 1 <= count <= len(LETTERS) or any(len(token) != 1 for token in candidates):
+            raise ValueError("closed options require 1..12 single-token letters")
         for offset in range(0, len(group), batch_size):
             batch = group[offset:offset+batch_size]
             prompts = [tokenizer.apply_chat_template(r["messages"], tokenize=False, add_generation_prompt=True) for r in batch]
@@ -31,7 +33,7 @@ def decide(model, tokenizer, requests, batch_size, emit):
             for i, request in enumerate(batch):
                 choice = max(range(count), key=lambda j: probabilities[i][j])
                 value = {"request_id": request["request_id"], "stage": stage, "choice_index": choice,
-                         "raw_output": "ABCDEFGH"[choice], "conditional_choice_probs": probabilities[i],
+                         "raw_output": LETTERS[choice], "conditional_choice_probs": probabilities[i],
                          "input_tokens": int(encoded["attention_mask"][i].sum()), "output_tokens": 1,
                          "seconds": elapsed/len(batch)}
                 decisions[request["request_id"]] = value
