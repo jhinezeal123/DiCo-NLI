@@ -89,8 +89,8 @@ def main():
     cfg=json.loads(Path("configs/causal_v3.json").read_text())
     emit("CAUSAL_CONFIG",{**cfg,"commit":os.environ.get("ORX_COMMIT"),"run_id":os.environ.get("ORX_RUN_ID")})
     if cfg.get("benchmark_version") == "v5":
-        if not cfg["pilot_only"] or cfg.get("control_replay") or cfg.get("development_input"):
-            raise ValueError("sequence pilot requires fresh development inputs and all controls")
+        if not cfg["pilot_only"] or cfg.get("development_input"):
+            raise ValueError("sequence development requires reproducible inputs and no fresh-confirmation replay")
         dataset=build_dataset_v5(cfg["dataset_seed"],cfg["families_per_split"])
     elif cfg.get("benchmark_version") == "v4":
         if not cfg["pilot_only"] or cfg.get("control_replay") or cfg.get("development_input"):
@@ -183,8 +183,12 @@ def main():
         score("decomposed_solver_normalized",raw,costs,normalized=True,derived="decomposed_solver")
 
     if cfg.get("benchmark_version") == "v5":
-        from causal_sequence_methods import run_sequence_methods
-        run_sequence_methods(model,tokenizer,dataset,cfg,emit,score)
+        if cfg.get("sequence_strategy"):
+            from causal_semantic_methods import run_semantic_methods
+            run_semantic_methods(model,tokenizer,dataset,cfg,emit,score,generate)
+        else:
+            from causal_sequence_methods import run_sequence_methods
+            run_sequence_methods(model,tokenizer,dataset,cfg,emit,score)
     else:
         from causal_choice import decide
         requests,plans=build_grounded_v3(dataset["rows"],dataset["demonstrations"])

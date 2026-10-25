@@ -73,14 +73,21 @@ def build_sequence_requests(rows, demonstrations):
     return list(requests.values()), plans
 
 
-def assemble_sequence(plan, decisions, variant="sequence"):
+def scm_for_mask(plan, decisions, mask, operator_blind=False):
+    if type(mask) is not int or mask not in range(4):
+        raise ValueError("invalid final clamp state")
     nodes = []
     for node in plan["nodes"]:
         op = node["op"]
         if op is None:
             choices = ["and", "or", "xor"] if node["stage"] == "binary" else ["majority3", "parity3"]
-            op = choices[0 if variant == "operator_blind" else decisions[node["request_id"]]["choice_index"]]
+            op = choices[0 if operator_blind else decisions[node["request_id"]]["choice_index"]]
         nodes.append({"name": node["name"], "parents": node["parents"], "op": op})
+    return {"variables": nodes, "observed": plan["observed"], "target": plan["target"],
+            "intervene": {name: value for i, (name, value) in enumerate(plan["proposed"].items()) if mask & (1 << i)}}
+
+
+def assemble_sequence(plan, decisions, variant="sequence"):
     actions = []
     if variant == "state_choice":
         mask = decisions[plan["state_request"]]["choice_index"]
@@ -91,8 +98,7 @@ def assemble_sequence(plan, decisions, variant="sequence"):
         mask = fold_actions(actions)[-1]
     else:
         raise ValueError("unknown sequence compiler variant")
-    scm = {"variables": nodes, "observed": plan["observed"], "target": plan["target"],
-           "intervene": {name: value for i, (name, value) in enumerate(plan["proposed"].items()) if mask & (1 << i)}}
+    scm = scm_for_mask(plan, decisions, mask, variant == "operator_blind")
     return scm, {"predicted_action_choices": actions, "predicted_clamp_states": fold_actions(actions) if actions else [],
                  "final_intervention_mask": mask, "target_binding": "unique declared identifier in public final question"}
 
