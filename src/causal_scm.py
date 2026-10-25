@@ -11,7 +11,7 @@ import json
 
 
 ARITIES = {"root": 0, "copy": 1, "not": 1, "and": 2, "or": 2,
-           "xor": 2, "nand": 2, "nor": 2}
+           "xor": 2, "nand": 2, "nor": 2, "majority3": 3, "parity3": 3}
 
 
 def normalize_scm(value, reduce_unary=False):
@@ -77,6 +77,10 @@ def mechanism(op, values):
         return 1 - (values[0] & values[1])
     if op == "nor":
         return 1 - (values[0] | values[1])
+    if op == "majority3":
+        return int(sum(values) >= 2)
+    if op == "parity3":
+        return sum(values) % 2
     raise ValueError(op)
 
 
