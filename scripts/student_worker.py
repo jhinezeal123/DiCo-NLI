@@ -80,8 +80,9 @@ def decode_and_classify(model, head, tok, t1s, t2s, bs, max_new, device, amp):
         is_eos = (gen == eos).long()
         keep = ((is_eos.cumsum(1) - is_eos) == 0).float()
         mean_lp = ((lp * keep).sum(1) / keep.sum(1).clamp(min=1)).cpu().tolist()
-        # left padding: the last position is the end of the prompt
-        plen = enc["attention_mask"].sum(1)
+        # left padding: the last position (index -1) is the end of the prompt for every row
+        plen = torch.full((enc["input_ids"].size(0),), enc["input_ids"].size(1),
+                          dtype=torch.long, device=enc["input_ids"].device)
         p = torch.softmax(head_logits(model, head, enc["input_ids"], enc["attention_mask"], plen).float(), -1)
         for k, i in enumerate(idx):
             texts[i] = tok.decode(gen[k], skip_special_tokens=True).strip().split("\n")[0]
