@@ -1,0 +1,1689 @@
+{
+  "selected_inference_commit": "e798019f8c5e5026d9a1175ed6b083b68309e790",
+  "selection_run": "3e2d3e4c-291c-49ef-8827-8727bb06683e",
+  "development_dataset_sha256": "9db48daf42be9109ef4049ee9f6875ce2c76e246519e79710d03727e14bdd717",
+  "frozen_config": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "batch_size": 4,
+    "max_new_tokens": 512,
+    "shots": 6,
+    "methods": [
+      "direct",
+      "structured",
+      "parser_solver",
+      "parser_solver_normalized",
+      "decomposed_solver",
+      "decomposed_solver_normalized",
+      "grounded_solver",
+      "grounded_operator_blind"
+    ],
+    "primary_method": "grounded_solver"
+  },
+  "frozen_inference_file_sha256": {
+    "src/causal_v3_compiler.py": "32925f9a7194845bc5af2ea0f0cc9494a6d6a2a3a943f3623c512f4010000854",
+    "src/causal_choice.py": "9e251f9453d5c186f1a99d8a016e8642458946021e7042c637a2a997d449fb19",
+    "src/causal_v3_protocol.py": "4ea6cf7dadd683d64e660830544ba720395aee174d4edea6bad231e7088c5561",
+    "src/causal_dataset_v3.py": "b79fbf469cee5997846c1f40c09c6ef8fa51befb7de95c97df67f0f112f797cc",
+    "src/causal_scm.py": "eba4dd1ad9b4daa141a694e2fc369d52c880c1ecfb044f33d86e81e30e27ed84",
+    "src/causal_dataset.py": "d7446c4bb6ddbc240c7fea5bcb6f838bece35c9f89bc301aacd83ae46074afce",
+    "src/causal_decomposition.py": "e804cf31fadb6ee8ca3b0ff3d3e06832ab8d98a4aa2c4a571a281a65701e56f5"
+  },
+  "gate": {
+    "minimum_each_ood_joint": 0.9,
+    "minimum_delta_strongest_reasoning_control": 0.05,
+    "ci95_lower_positive": true,
+    "all_three_seeds_required": true,
+    "aggregate_all_four_shards_before_testing": true,
+    "controls": [
+      "direct",
+      "structured",
+      "parser_solver",
+      "parser_solver_normalized",
+      "decomposed_solver",
+      "decomposed_solver_normalized"
+    ],
+    "operator_blind": "separate semantic ablation; report independently"
+  },
+  "datasets": {
+    "390001": {
+      "full_dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+      "demonstrations_sha256": "94c76202b1347fe133bd14465e7f4a9ad7a70b844c1a51ad7a126cff8d71f57e",
+      "audit": {
+        "generator_version": "partial-multi-intervention-v3",
+        "dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+        "splits": {
+          "id": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 20,
+              "1": 18,
+              "unknown": 10
+            },
+            "observed_counts": {
+              "5": 18,
+              "6": 18,
+              "4": 12
+            }
+          },
+          "ood_topology": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 13,
+              "unknown": 16,
+              "1": 19
+            },
+            "observed_counts": {
+              "5": 14,
+              "6": 20,
+              "4": 14
+            }
+          },
+          "ood_mechanism": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 21,
+              "unknown": 11,
+              "1": 16
+            },
+            "observed_counts": {
+              "6": 22,
+              "5": 15,
+              "4": 11
+            }
+          },
+          "ood_language": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "unknown": 17,
+              "0": 16,
+              "1": 15
+            },
+            "observed_counts": {
+              "5": 17,
+              "6": 22,
+              "4": 9
+            }
+          }
+        },
+        "prior_excluded_families": 54,
+        "new_distinct_worlds": 198,
+        "signature_overlap": 0,
+        "views": [
+          "factual",
+          "intervention",
+          "partial_release",
+          "restored"
+        ],
+        "reserved_confirmation_seeds": [
+          390001,
+          390002,
+          390003
+        ]
+      },
+      "shards": {
+        "0": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 20,
+                  "1": 18,
+                  "unknown": 10
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 18,
+                  "4": 12
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 13,
+                  "unknown": 16,
+                  "1": 19
+                },
+                "observed_counts": {
+                  "5": 14,
+                  "6": 20,
+                  "4": 14
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 11,
+                  "1": 16
+                },
+                "observed_counts": {
+                  "6": 22,
+                  "5": 15,
+                  "4": 11
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "unknown": 17,
+                  "0": 16,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "6": 22,
+                  "4": 9
+                }
+              }
+            },
+            "prior_excluded_families": 54,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+          "dataset_sha256": "7087db05fd2df692ab32335279d1302ba51d99d9482ed40226416c78fad346a5",
+          "shard_index": 0,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "1": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 20,
+                  "1": 18,
+                  "unknown": 10
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 18,
+                  "4": 12
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 13,
+                  "unknown": 16,
+                  "1": 19
+                },
+                "observed_counts": {
+                  "5": 14,
+                  "6": 20,
+                  "4": 14
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 11,
+                  "1": 16
+                },
+                "observed_counts": {
+                  "6": 22,
+                  "5": 15,
+                  "4": 11
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "unknown": 17,
+                  "0": 16,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "6": 22,
+                  "4": 9
+                }
+              }
+            },
+            "prior_excluded_families": 54,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+          "dataset_sha256": "6389ab33b3c8b9b3b1644b0fc416a7c0d0463b2e05c2041999c2290a11eb3ebf",
+          "shard_index": 1,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "2": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 20,
+                  "1": 18,
+                  "unknown": 10
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 18,
+                  "4": 12
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 13,
+                  "unknown": 16,
+                  "1": 19
+                },
+                "observed_counts": {
+                  "5": 14,
+                  "6": 20,
+                  "4": 14
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 11,
+                  "1": 16
+                },
+                "observed_counts": {
+                  "6": 22,
+                  "5": 15,
+                  "4": 11
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "unknown": 17,
+                  "0": 16,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "6": 22,
+                  "4": 9
+                }
+              }
+            },
+            "prior_excluded_families": 54,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+          "dataset_sha256": "fa14edd0a30f6683a2bb6a2a1747cce94710f97042c4729259c8ac1a0e4a36b5",
+          "shard_index": 2,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "3": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 20,
+                  "1": 18,
+                  "unknown": 10
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 18,
+                  "4": 12
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 13,
+                  "unknown": 16,
+                  "1": 19
+                },
+                "observed_counts": {
+                  "5": 14,
+                  "6": 20,
+                  "4": 14
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 11,
+                  "1": 16
+                },
+                "observed_counts": {
+                  "6": 22,
+                  "5": 15,
+                  "4": 11
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "unknown": 17,
+                  "0": 16,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "6": 22,
+                  "4": 9
+                }
+              }
+            },
+            "prior_excluded_families": 54,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "84e2d64abfa37a958dadf655e6263dc56122e25ed097562dffbb14c6b070efee",
+          "dataset_sha256": "6e3cf94a9ad1367ca0eb1341f68e0c4ff67a5e077028de518141e18d445ca6b9",
+          "shard_index": 3,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        }
+      }
+    },
+    "390002": {
+      "full_dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+      "demonstrations_sha256": "d45ceba049b75c170e022bbdc6444678bd6f8d243fccaf1b8a09f6beb2fe0444",
+      "audit": {
+        "generator_version": "partial-multi-intervention-v3",
+        "dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+        "splits": {
+          "id": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 16,
+              "1": 14,
+              "unknown": 18
+            },
+            "observed_counts": {
+              "6": 15,
+              "5": 20,
+              "4": 13
+            }
+          },
+          "ood_topology": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 18,
+              "unknown": 12,
+              "1": 18
+            },
+            "observed_counts": {
+              "4": 13,
+              "5": 18,
+              "6": 17
+            }
+          },
+          "ood_mechanism": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 21,
+              "unknown": 14,
+              "1": 13
+            },
+            "observed_counts": {
+              "6": 16,
+              "5": 18,
+              "4": 14
+            }
+          },
+          "ood_language": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 15,
+              "unknown": 22,
+              "1": 11
+            },
+            "observed_counts": {
+              "4": 14,
+              "6": 18,
+              "5": 16
+            }
+          }
+        },
+        "prior_excluded_families": 252,
+        "new_distinct_worlds": 198,
+        "signature_overlap": 0,
+        "views": [
+          "factual",
+          "intervention",
+          "partial_release",
+          "restored"
+        ],
+        "reserved_confirmation_seeds": [
+          390001,
+          390002,
+          390003
+        ]
+      },
+      "shards": {
+        "0": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 16,
+                  "1": 14,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "6": 15,
+                  "5": 20,
+                  "4": 13
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 18,
+                  "unknown": 12,
+                  "1": 18
+                },
+                "observed_counts": {
+                  "4": 13,
+                  "5": 18,
+                  "6": 17
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 14,
+                  "1": 13
+                },
+                "observed_counts": {
+                  "6": 16,
+                  "5": 18,
+                  "4": 14
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 22,
+                  "1": 11
+                },
+                "observed_counts": {
+                  "4": 14,
+                  "6": 18,
+                  "5": 16
+                }
+              }
+            },
+            "prior_excluded_families": 252,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+          "dataset_sha256": "baf5e28254fe2f65ec43942b77eb1336b790e91ec4457eb237d4a71982c00126",
+          "shard_index": 0,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "1": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 16,
+                  "1": 14,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "6": 15,
+                  "5": 20,
+                  "4": 13
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 18,
+                  "unknown": 12,
+                  "1": 18
+                },
+                "observed_counts": {
+                  "4": 13,
+                  "5": 18,
+                  "6": 17
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 14,
+                  "1": 13
+                },
+                "observed_counts": {
+                  "6": 16,
+                  "5": 18,
+                  "4": 14
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 22,
+                  "1": 11
+                },
+                "observed_counts": {
+                  "4": 14,
+                  "6": 18,
+                  "5": 16
+                }
+              }
+            },
+            "prior_excluded_families": 252,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+          "dataset_sha256": "4861908fa218b097a5eb2a4588287f5ab3b0dd527207e7030a9d48ae4feb9079",
+          "shard_index": 1,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "2": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 16,
+                  "1": 14,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "6": 15,
+                  "5": 20,
+                  "4": 13
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 18,
+                  "unknown": 12,
+                  "1": 18
+                },
+                "observed_counts": {
+                  "4": 13,
+                  "5": 18,
+                  "6": 17
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 14,
+                  "1": 13
+                },
+                "observed_counts": {
+                  "6": 16,
+                  "5": 18,
+                  "4": 14
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 22,
+                  "1": 11
+                },
+                "observed_counts": {
+                  "4": 14,
+                  "6": 18,
+                  "5": 16
+                }
+              }
+            },
+            "prior_excluded_families": 252,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+          "dataset_sha256": "d5f28113569cab170c4c9c9bd321429941aaadaadbfaa1f37d4e36c062836895",
+          "shard_index": 2,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "3": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 16,
+                  "1": 14,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "6": 15,
+                  "5": 20,
+                  "4": 13
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 18,
+                  "unknown": 12,
+                  "1": 18
+                },
+                "observed_counts": {
+                  "4": 13,
+                  "5": 18,
+                  "6": 17
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 21,
+                  "unknown": 14,
+                  "1": 13
+                },
+                "observed_counts": {
+                  "6": 16,
+                  "5": 18,
+                  "4": 14
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 22,
+                  "1": 11
+                },
+                "observed_counts": {
+                  "4": 14,
+                  "6": 18,
+                  "5": 16
+                }
+              }
+            },
+            "prior_excluded_families": 252,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "7db103ab564c56c0608fd85c673ac56200d77ccab74dc68f5c21b004f11a8767",
+          "dataset_sha256": "c538d66d48d1e1bc69a48f2ecff1fb025ad65653dbe9c16733d7145def27e077",
+          "shard_index": 3,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        }
+      }
+    },
+    "390003": {
+      "full_dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+      "demonstrations_sha256": "deef7d177458d6b397ee2c8983a62fc464fe17aa5901174a88a4bc3c46614fce",
+      "audit": {
+        "generator_version": "partial-multi-intervention-v3",
+        "dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+        "splits": {
+          "id": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 15,
+              "unknown": 18,
+              "1": 15
+            },
+            "observed_counts": {
+              "5": 17,
+              "4": 13,
+              "6": 18
+            }
+          },
+          "ood_topology": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 17,
+              "1": 16,
+              "unknown": 15
+            },
+            "observed_counts": {
+              "5": 13,
+              "4": 13,
+              "6": 22
+            }
+          },
+          "ood_mechanism": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 17,
+              "1": 16,
+              "unknown": 15
+            },
+            "observed_counts": {
+              "5": 18,
+              "6": 17,
+              "4": 13
+            }
+          },
+          "ood_language": {
+            "families": 48,
+            "cases": 192,
+            "intervention_labels": {
+              "0": 16,
+              "1": 16,
+              "unknown": 16
+            },
+            "partial_release_labels": {
+              "0": 15,
+              "1": 15,
+              "unknown": 18
+            },
+            "observed_counts": {
+              "4": 12,
+              "6": 25,
+              "5": 11
+            }
+          }
+        },
+        "prior_excluded_families": 450,
+        "new_distinct_worlds": 198,
+        "signature_overlap": 0,
+        "views": [
+          "factual",
+          "intervention",
+          "partial_release",
+          "restored"
+        ],
+        "reserved_confirmation_seeds": [
+          390001,
+          390002,
+          390003
+        ]
+      },
+      "shards": {
+        "0": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 18,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "4": 13,
+                  "6": 18
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 13,
+                  "4": 13,
+                  "6": 22
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 17,
+                  "4": 13
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "1": 15,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "4": 12,
+                  "6": 25,
+                  "5": 11
+                }
+              }
+            },
+            "prior_excluded_families": 450,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+          "dataset_sha256": "08f003480abdde45d89299b0a9ce6d9c14e82bd463614afce44c45acb52b0989",
+          "shard_index": 0,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "1": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 18,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "4": 13,
+                  "6": 18
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 13,
+                  "4": 13,
+                  "6": 22
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 17,
+                  "4": 13
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "1": 15,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "4": 12,
+                  "6": 25,
+                  "5": 11
+                }
+              }
+            },
+            "prior_excluded_families": 450,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+          "dataset_sha256": "a757f7d61b06a38469bca531c4bd66cac885304b177c2a80247989bd366eff46",
+          "shard_index": 1,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "2": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 18,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "4": 13,
+                  "6": 18
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 13,
+                  "4": 13,
+                  "6": 22
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 17,
+                  "4": 13
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "1": 15,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "4": 12,
+                  "6": 25,
+                  "5": 11
+                }
+              }
+            },
+            "prior_excluded_families": 450,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+          "dataset_sha256": "f4f155393fde19ac8c0cf97072b0ea723de0b57c9cc59438edf042ee3c3995b1",
+          "shard_index": 2,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        },
+        "3": {
+          "full_dataset_audit": {
+            "generator_version": "partial-multi-intervention-v3",
+            "dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+            "splits": {
+              "id": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "unknown": 18,
+                  "1": 15
+                },
+                "observed_counts": {
+                  "5": 17,
+                  "4": 13,
+                  "6": 18
+                }
+              },
+              "ood_topology": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 13,
+                  "4": 13,
+                  "6": 22
+                }
+              },
+              "ood_mechanism": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 17,
+                  "1": 16,
+                  "unknown": 15
+                },
+                "observed_counts": {
+                  "5": 18,
+                  "6": 17,
+                  "4": 13
+                }
+              },
+              "ood_language": {
+                "families": 48,
+                "cases": 192,
+                "intervention_labels": {
+                  "0": 16,
+                  "1": 16,
+                  "unknown": 16
+                },
+                "partial_release_labels": {
+                  "0": 15,
+                  "1": 15,
+                  "unknown": 18
+                },
+                "observed_counts": {
+                  "4": 12,
+                  "6": 25,
+                  "5": 11
+                }
+              }
+            },
+            "prior_excluded_families": 450,
+            "new_distinct_worlds": 198,
+            "signature_overlap": 0,
+            "views": [
+              "factual",
+              "intervention",
+              "partial_release",
+              "restored"
+            ],
+            "reserved_confirmation_seeds": [
+              390001,
+              390002,
+              390003
+            ]
+          },
+          "full_dataset_sha256": "b38a7a187b59e1c8cbf7ce1a45588575d96d5b0c0178769d2e69dcbd9d397a65",
+          "dataset_sha256": "3cc5ce61ae2dc06f3c202604768b10ee482a7432e8b9392b7bf1c1c020aaa9ee",
+          "shard_index": 3,
+          "shard_count": 4,
+          "cases": 192,
+          "families_per_split": 12,
+          "views": [
+            "factual",
+            "intervention",
+            "partial_release",
+            "restored"
+          ],
+          "scope": "computational shard; per-seed gate requires all four shards"
+        }
+      }
+    }
+  },
+  "status": "locked before first confirmation model output"
+}
