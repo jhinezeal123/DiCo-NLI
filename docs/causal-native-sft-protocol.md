@@ -38,3 +38,10 @@ Save only the adapter, configuration and model card. A size-limited checksummed
 ZIP is chunked into the persisted log so it can be recovered to durable project
 artifacts without using GitHub as compute transport. Full base weights and
 optimizer state are not exported. All evaluation outputs remain in the log.
+
+The zero-shot alignment child keeps the original 150 training questions,
+150 updates, seed and optimizer settings. It removes evaluation demonstrations
+for BOTH the base model and trained adapter. Training was already zero-shot.
+The source model-group exclusions stay fixed. Compare the recovered adapter's
+tensor-file checksum to the parent to check whether training reproduced exactly;
+the question is evaluation context, not more training data.

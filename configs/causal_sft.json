@@ -1,5 +1,5 @@
 {
-  "name": "native_causal_qwen3b_lora150_multiformat",
+  "name": "native_causal_qwen3b_lora150_zero_shot",
   "revision": "3d2d1169b4b939a09048a6a75956c8972a93cc38",
   "files": [
     {
@@ -30,5 +30,6 @@
   "learning_rate": 0.0002,
   "lora_rank": 8,
   "lora_alpha": 16,
-  "eval_batch_size": 4
+  "eval_batch_size": 4,
+  "eval_shots": 0
 }

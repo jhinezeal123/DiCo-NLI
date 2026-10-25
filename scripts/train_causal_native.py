@@ -75,11 +75,12 @@ def main():
     def evaluate(phase):
         model.eval()
         model.config.use_cache = True
+        eval_demonstrations = dataset["demonstrations"][:cfg.get("eval_shots", 4)]
         for method in ("direct", "native_parser_solver"):
             records, started = [], time.monotonic()
             for offset in range(0, len(dataset["rows"]), cfg["eval_batch_size"]):
                 batch = dataset["rows"][offset:offset+cfg["eval_batch_size"]]
-                prompts = [tokenizer.apply_chat_template(native_messages(row, method, dataset["demonstrations"]),
+                prompts = [tokenizer.apply_chat_template(native_messages(row, method, eval_demonstrations),
                            tokenize=False, add_generation_prompt=True) for row in batch]
                 encoded = tokenizer(prompts, padding=True, truncation=False, return_tensors="pt").to("cuda:0")
                 torch.cuda.synchronize(); batch_started = time.monotonic()
