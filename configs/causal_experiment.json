@@ -1,11 +1,11 @@
 {
-  "name": "causal_scm_qwen7b_confirmation_271828",
+  "name": "causal_scm_qwen7b_confirmation_314159",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "device_map": "balanced",
   "max_memory_per_gpu": "13GiB",
   "generator_version": "v2",
-  "dataset_seed": 271828,
+  "dataset_seed": 314159,
   "unary_normalization": true,
   "primary_method": "grounded_solver",
   "grounded_solver": true,
