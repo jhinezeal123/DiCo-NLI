@@ -89,6 +89,31 @@ protocol has no benefit over structured reasoning, do not infer improvement.
 
 ## Local checks and tracked execution
 
+### Frozen three-seed confirmation
+
+After selecting target focus on development, freeze the model revision and all
+grounded operator/target/override prompts. Confirmation uses seeds 271828,
+314159, 161803, each with 48 families per split (576 questions per seed).
+Generate these sets in this fixed order with one shared world-exclusion set,
+starting by excluding all 52 development worlds (including demonstrations).
+Every confirmation run reconstructs the same full plan and logs its manifest.
+The four demonstration worlds are independently sampled by each seed's fixed
+generator; none belongs to any other evaluation/development set.
+
+Controls selected before final outputs are direct and the free local JSON
+parser, including its exact-unary-normalized candidate. These cover the
+strongest observed development control across strata. The operator-blind
+ablation is also retained and reported. Structured free reasoning was weaker
+in this development round and is omitted to bound generation cost. No cached
+development predictions are used for fresh confirmation.
+
+For each of the three seeds, require joint accuracy >=90% in every OOD group,
+>=5 percentage-point improvement against the strongest matched control, and
+paired family-bootstrap 95% lower bound >0. Report comparisons to the blind
+ablation separately as well. If confirmation fails, opened seeds become
+development; any method revision requires new reserved confirmation seeds.
+Public-text validation is still required before broad causal-reasoning claims.
+
 The target-focus child changes only the target request: it takes the final
 explicit interrogative sentence from the public query for demonstrations and
 evaluation. The LM still chooses the target from all named variables. Binary

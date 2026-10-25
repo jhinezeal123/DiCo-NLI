@@ -40,7 +40,12 @@ def main():
                           "transformers": transformers.__version__, "gpu": torch.cuda.get_device_name(0),
                           "gpu_count": torch.cuda.device_count(),
                           "packages": {p: importlib.metadata.version(p) for p in ("huggingface-hub", "tokenizers")}})
-    if cfg.get("generator_version") == "v2":
+    if cfg.get("confirmation_plan"):
+        from causal_confirmation import build_confirmation_sets
+        datasets, manifest = build_confirmation_sets(cfg["confirmation_plan"])
+        dataset = datasets[cfg["dataset_seed"]]
+        emit("CONFIRMATION_DATA_MANIFEST", manifest)
+    elif cfg.get("generator_version") == "v2":
         from causal_dataset_v2 import build_dataset_v2
         dataset = build_dataset_v2(cfg["dataset_seed"], cfg["families_per_split"])
     else:
