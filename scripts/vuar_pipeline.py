@@ -330,7 +330,7 @@ def student(cfg, config_path, upstream, paths, out_root, rp):
                              f"{gen['swap'][i][1]:.4f}", gen["orig"][i][0], gen["swap"][i][0]]))
         print("DEV_TRACES>>>")
 
-        pred_labels = {"standard": [rec[i][3] for i in range(n)],
+        pred_labels = {"standard": [rec[i][0] for i in range(n)],
                        "bidir": [rec[i][1] for i in range(n)]}
         if "head_orig" in gen and gen["head_orig"]:
             rev = [lab_order.index(vuar.LABEL_REV[l]) for l in lab_order]
