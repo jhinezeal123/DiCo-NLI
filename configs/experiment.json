@@ -1,9 +1,9 @@
 {
-  "name": "track1_vuar_hybrid_head",
+  "name": "track1_vuar_hybrid_head_aux3",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "max_length": 128,
-  "aux_ce_weight": 1.0,
+  "aux_ce_weight": 3.0,
   "mode": "vuar_student",
   "seeds": [
     42,
@@ -36,4 +36,3 @@
     ]
   }
 }
-
