@@ -1,0 +1,34 @@
+{
+  "name": "native_causal_qwen3b_lora150_multiformat",
+  "revision": "3d2d1169b4b939a09048a6a75956c8972a93cc38",
+  "files": [
+    {
+      "name": "cladder-v1-questions.json",
+      "sha256": "59ecdc5ac2a6b4583b798b1aaf7bab3744316762769325adea69317ac1b4ae40"
+    },
+    {
+      "name": "cladder-v1-meta-models.json",
+      "sha256": "f288ed9046a1ef5e39c0dbf6b971b8a3a485887130b7831dc5da4fe2af5d64b5"
+    }
+  ],
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "models_per_graph": 4,
+  "batch_size": 4,
+  "max_new_tokens": 768,
+  "methods": [
+    "direct",
+    "native_parser_solver"
+  ],
+  "pilot_only": true,
+  "split_plan_path": "configs/causal_native_split.json",
+  "split_plan_sha256": "2c81a69a44a0f375f9f9998ecb5da6fcb9b904549a15178152ee9b6cb3b4a4fc",
+  "training_questions": 150,
+  "seed": 42,
+  "max_steps": 150,
+  "max_length": 1536,
+  "learning_rate": 0.0002,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "eval_batch_size": 4
+}

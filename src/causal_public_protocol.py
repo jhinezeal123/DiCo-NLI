@@ -88,7 +88,8 @@ SYSTEMS = {
         "Unary tables are [f(0),f(1)]. Child cells must be 0 or 1. Roots without specified probability may use 0.5. "
         "Use ONLY explicitly given factual evidence in observed; do not insert the proposed intervention there. "
         "intervene replaces the treatment equation with its proposed constant. outcome is the variable asked about. "
-        "polarity is 1 when asking whether its positive state holds, 0 when asking its negative state. "
+        "polarity is 1 when asking whether the outcome's state one in your meaning holds, 0 for its state zero. "
+        "Use explicit case-specific factual evidence even if generic background calls a variable unobserved. "
         "There is no extra private XOR noise. Output JSON only.")}
 
 
