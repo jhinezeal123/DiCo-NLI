@@ -61,7 +61,15 @@ def options_text(question, options):
     return question + "\nOptions:\n" + "\n".join(f"{LETTERS[i]}. {v}" for i, v in enumerate(options))
 
 
-def build_grounded_requests(rows, training_rows):
+def final_interrogative(question):
+    sentences = re.split(r"(?<=[.!?])\s+", question.strip())
+    questions = [sentence for sentence in sentences if "?" in sentence]
+    if not questions:
+        raise ValueError("target focus requires an explicit final question")
+    return questions[-1]
+
+
+def build_grounded_requests(rows, training_rows, focus_target=False):
     covered = covered_demonstrations(training_rows, ["factual", "intervention", "restored", "intervention"])
     op_examples, query_examples = {}, {"target": [], "active": []}
     for row in covered:
@@ -72,7 +80,8 @@ def build_grounded_requests(rows, training_rows):
                 op = gold_nodes[node["name"]]["op"]
                 code = 0 if op in ("and", "nand") else 1 if op in ("or", "nor") else 2
                 op_examples.setdefault(code, (node["public_rule"], LETTERS[code]))
-        query_examples["target"].append((options_text(document["question"], document["names"]),
+        target_text = final_interrogative(document["question"]) if focus_target else document["question"]
+        query_examples["target"].append((options_text(target_text, document["names"]),
                                          LETTERS[document["names"].index(row["scm"]["target"])]))
         query_examples["active"].append((options_text(document["question"], ["No override remains active", "An override remains active"]),
                                          "B" if row["scm"]["intervene"] else "A"))
@@ -106,7 +115,8 @@ def build_grounded_requests(rows, training_rows):
         for node in document["nodes"]:
             if node["op"] is None:
                 node["request_id"] = add("op", node["public_rule"], OP_OPTIONS)
-        document["target_request"] = add("target", document["question"], document["names"])
+        target_text = final_interrogative(document["question"]) if focus_target else document["question"]
+        document["target_request"] = add("target", target_text, document["names"])
         document["active_request"] = (add("active", document["question"],
                                            ["No override remains active", "An override remains active"])
                                       if document["proposed_override"] else None)
@@ -129,7 +139,8 @@ def assemble_grounded(plan, decisions, operator_blind=False):
 
 def run_grounded(model, tokenizer, dataset, cfg, emit):
     import torch
-    requests, plans = build_grounded_requests(dataset["rows"], dataset["demonstrations"])
+    requests, plans = build_grounded_requests(dataset["rows"], dataset["demonstrations"],
+                                              cfg.get("focus_target", False))
     decisions, started = {}, time.monotonic()
     for stage in ("op", "target", "active"):
         stage_requests = [r for r in requests if r["stage"] == stage]

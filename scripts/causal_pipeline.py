@@ -145,6 +145,20 @@ def main():
                  "new_lm_calls": 0, "generation_reused_from": original_method,
                  "source_generation_input_tokens": sum(r["input_tokens"] for r in normalized),
                  "source_generation_output_tokens": sum(r["output_tokens"] for r in normalized)})
+    if cfg.get("reference_predictions"):
+        from causal_reference import load_reference
+        references = load_reference(cfg["reference_predictions"], dataset)
+        for method, records in references.items():
+            if method in all_records:
+                raise ValueError("reused method would overwrite new predictions: " + method)
+            all_records[method] = records
+            for record in records:
+                emit("CAUSAL_CASE", record)
+            emit("CAUSAL_METHOD_SUMMARY", {"method": method, "metrics": metrics(records),
+                 "new_lm_calls": 0, "generation_reused_from_run": cfg["reference_predictions"]["run_id"],
+                 "cost_scope": "prior immutable generation; no model calls in this run",
+                 "source_input_tokens": sum(r["input_tokens"] for r in records),
+                 "source_output_tokens": sum(r["output_tokens"] for r in records)})
     comparisons = ({method: paired_bootstrap(all_records["parser_solver"], all_records[method])
                     for method in cfg["methods"] if method != "parser_solver"}
                    if "parser_solver" in all_records else {})

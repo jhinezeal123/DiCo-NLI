@@ -89,6 +89,20 @@ protocol has no benefit over structured reasoning, do not infer improvement.
 
 ## Local checks and tracked execution
 
+The target-focus child changes only the target request: it takes the final
+explicit interrogative sentence from the public query for demonstrations and
+evaluation. The LM still chooses the target from all named variables. Binary
+operator and override-status prompts remain byte-identical to the parent.
+This addresses observed development errors that selected an earlier treatment
+name. It is a development prompt change, not fresh confirmation.
+
+The parent's matched predictions are reused only for scoring, from a committed
+JSONL with SHA-256, dataset fingerprint and run/commit provenance. Reuse must
+cover every case exactly once; it cannot overwrite newly generated methods.
+No parent predictions enter model prompts. Generation costs for reused controls
+are labeled as source costs, with zero new LM calls. The previous grounded
+candidate is included as grounded_solver_previous for paired comparison.
+
 The grounded compiler assumes the explicit output-first Rules/Observed
 interface. It copies entity mentions and original bit assignments literally;
 it does not infer them from hidden metadata. Root/unary rules are represented

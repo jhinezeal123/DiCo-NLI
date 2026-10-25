@@ -1,19 +1,32 @@
 {
-  "name": "causal_scm_qwen7b_grounded_compiler_v2",
+  "name": "causal_scm_qwen7b_target_focus_v2",
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
   "device_map": "balanced",
   "max_memory_per_gpu": "13GiB",
   "generator_version": "v2",
   "dataset_seed": 20261026,
-  "unary_normalization": true,
+  "unary_normalization": false,
   "primary_method": "grounded_solver",
   "grounded_solver": true,
   "families_per_split": 12,
-  "methods": ["direct", "structured", "decomposed_solver"],
+  "methods": [],
   "shots": 4,
-  "demonstration_query_views": ["factual", "intervention", "restored", "intervention"],
+  "demonstration_query_views": [
+    "factual",
+    "intervention",
+    "restored",
+    "intervention"
+  ],
   "batch_size": 8,
   "max_new_tokens": 512,
-  "pilot_only": true
+  "pilot_only": true,
+  "focus_target": true,
+  "reference_predictions": {
+    "path": "data/causal_replay/qwen7b-v2-grounded-parent.jsonl",
+    "sha256": "c72072cb7040227a44d8c3c6ba074ac5bfb941757f69dab819c7d3caa53eab1a",
+    "dataset_sha256": "4844a20ebbdba3e729b8653cd3a45f94912d27b74cf5a97d6324f60a276e7982",
+    "run_id": "e66cb3ad-12c9-4d43-95fa-9f353d216a33",
+    "commit": "0ef4402"
+  }
 }
