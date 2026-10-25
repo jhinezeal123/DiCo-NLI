@@ -6,6 +6,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
+if [ -f configs/causal_public.json ]; then
+  PY="${PYTHON:-python3}"
+  "$PY" -m pip install -q --only-binary=:all: -r requirements-causal.txt
+  exec "$PY" -u scripts/evaluate_cladder_native.py --config configs/causal_public.json
+fi
+
 if [ -f configs/causal_native_audit.json ]; then
   exec "${PYTHON:-python3}" -u scripts/audit_cladder_native.py --config configs/causal_native_audit.json
 fi

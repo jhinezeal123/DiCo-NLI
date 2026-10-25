@@ -1,0 +1,15 @@
+{
+  "name": "cladder_native_text_qwen7b_public_pilot_v1",
+  "revision": "3d2d1169b4b939a09048a6a75956c8972a93cc38",
+  "files": [
+    {"name": "cladder-v1-questions.json", "sha256": "59ecdc5ac2a6b4583b798b1aaf7bab3744316762769325adea69317ac1b4ae40"},
+    {"name": "cladder-v1-meta-models.json", "sha256": "f288ed9046a1ef5e39c0dbf6b971b8a3a485887130b7831dc5da4fe2af5d64b5"}
+  ],
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "models_per_graph": 4,
+  "batch_size": 4,
+  "max_new_tokens": 768,
+  "methods": ["direct", "structured", "native_parser_solver"],
+  "pilot_only": true
+}
