@@ -1,7 +1,7 @@
-{
-  "name": "track1_vuar_stage2_student",
+﻿{
+  "name": "track1_vuar_stage2_student_t3b",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen2.5-3B",
   "max_length": 128,
   "mode": "vuar_student",
   "seeds": [
@@ -18,7 +18,7 @@
   "amp": true,
   "decode": "bidir",
   "max_new_tokens": 110,
-  "decode_batch_size": 48,
+  "decode_batch_size": 16,
   "traces_file": "data/vuar_train_traces.jsonl",
   "lora": {
     "r": 16,
@@ -35,3 +35,4 @@
     ]
   }
 }
+
