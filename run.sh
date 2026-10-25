@@ -11,6 +11,12 @@ if [ -f configs/causal_replay.json ]; then
 fi
 
 # Causal research uses the same fixed command and an independent committed recipe.
+if [ -f configs/causal_v3.json ]; then
+  PY="${PYTHON:-python3}"
+  "$PY" -m pip install -q --only-binary=:all: -r requirements-causal.txt
+  exec "$PY" -u scripts/causal_v3_pipeline.py
+fi
+
 if [ -f configs/causal_experiment.json ]; then
   PY="${PYTHON:-python3}"
   "$PY" --version

@@ -1,0 +1,14 @@
+{
+  "name": "causal_partial_multi_v3_qwen7b_pilot",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "dataset_seed": 20261027,
+  "families_per_split": 12,
+  "batch_size": 4,
+  "max_new_tokens": 512,
+  "primary_method": "grounded_solver",
+  "methods": ["direct", "structured", "parser_solver", "parser_solver_normalized", "decomposed_solver", "decomposed_solver_normalized", "grounded_solver", "grounded_operator_blind"],
+  "shots": 6,
+  "pilot_only": true,
+  "reserved_confirmation_seeds": [390001, 390002, 390003]
+}
