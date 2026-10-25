@@ -115,13 +115,20 @@ def main():
     tok = AutoTokenizer.from_pretrained(name)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(name)
+    if cfg.get("load_in_4bit"):
+        from transformers import BitsAndBytesConfig
+        model = AutoModelForCausalLM.from_pretrained(name, device_map={"": 0}, quantization_config=BitsAndBytesConfig(
+            load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_use_double_quant=True,
+            bnb_4bit_compute_dtype=torch.float16))
+    else:
+        model = AutoModelForCausalLM.from_pretrained(name)
     from peft import LoraConfig, TaskType, get_peft_model
     lc = cfg["lora"]
     model = get_peft_model(model, LoraConfig(task_type=TaskType.CAUSAL_LM, r=lc["r"], lora_alpha=lc["alpha"],
                                              lora_dropout=lc["dropout"], target_modules=lc["target_modules"]))
     model.print_trainable_parameters()
-    model.to(device)
+    if not cfg.get("load_in_4bit"):
+        model.to(device)
     head = torch.nn.Linear(model.config.hidden_size, len(LABELS)).to(device)
 
     items = []
