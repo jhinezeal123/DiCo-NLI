@@ -38,3 +38,10 @@ Save only the adapter, configuration and model card. A size-limited checksummed
 ZIP is chunked into the persisted log so it can be recovered to durable project
 artifacts without using GitHub as compute transport. Full base weights and
 optimizer state are not exported. All evaluation outputs remain in the log.
+
+The full-coverage child expands the pilot to all 1,046 allowed training questions
+from 391 model instances, with 1,046 successful optimizer updates. It keeps
+rank, checkpoint, seed, per-update two-style weighting, learning-rate schedule
+rule and original four-shot base/adapter evaluation. Thus it tests increased
+training coverage and compute, not the isolated effect of one supervision
+format. It uses the same strict exclusions for all reserved final worlds.
