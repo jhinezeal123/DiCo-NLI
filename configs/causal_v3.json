@@ -28,7 +28,7 @@
   ],
   "model_id": "Qwen/Qwen2.5-7B-Instruct",
   "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
-  "name": "causal_v5_effect_guard_development",
+  "name": "causal_v5_denotational_probe_development",
   "pilot_only": true,
   "primary_method": "grounded_solver",
   "reserved_confirmation_seeds": [
@@ -37,7 +37,7 @@
     690003
   ],
   "shots": 6,
-  "sequence_strategy": "slots",
+  "sequence_strategy": "probes",
   "control_replay": {
     "model_id": "Qwen/Qwen2.5-7B-Instruct",
     "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
