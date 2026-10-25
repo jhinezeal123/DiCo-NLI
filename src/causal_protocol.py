@@ -30,7 +30,23 @@ def trace(row):
             f"<answer>{row['answer']}</answer>")
 
 
-def messages(row, method, demonstrations, shots=2):
+def covered_demonstrations(demonstrations, views):
+    import copy
+    from causal_dataset import render
+    examples = []
+    for demo, view in zip(demonstrations, views):
+        example = copy.deepcopy(demo)
+        cause, value = next(iter(example["scm"]["intervene"].items()))
+        if view != "intervention":
+            example["scm"]["intervene"] = {}
+        example["view"] = view
+        example["text"] = render(example["scm"], view, cause, value)
+        example["answer"] = solve(example["scm"])["answer"]
+        examples.append(example)
+    return examples
+
+
+def messages(row, method, demonstrations, shots=2, demo_views=None):
     if method == "parser_solver":
         system = "Translate a described binary structural causal model into JSON. " + SCHEMA
     elif method == "structured":
@@ -45,7 +61,8 @@ def messages(row, method, demonstrations, shots=2):
     conversation = [{"role": "system", "content": system}]
     # All four strata balance original outcome, causal change and final answers.
     # Each protocol receives the same cases; only supervision format differs.
-    for demo in demonstrations[:shots]:
+    examples = covered_demonstrations(demonstrations, demo_views) if demo_views else demonstrations
+    for demo in examples[:shots]:
         answer = (json.dumps(demo["scm"], separators=(",", ":")) if method == "parser_solver" else
                   trace(demo) if method == "structured" else f"<answer>{demo['answer']}</answer>")
         conversation.extend([{"role": "user", "content": demo["text"]},

@@ -43,6 +43,25 @@ outcome-by-causal-change strata, giving two demonstration answers per class.
 
 ## Acceptance criteria, fixed before the first run
 
+The local-parser child reads one public rule per subcall and separately parses
+original observations/current question. All extraction still uses the LLM;
+the document splitter recognizes only explicit Rules/Observed section markers.
+Rule examples cover operations found in the same four ID demonstration
+families; query examples cover factual, intervention and restored requests.
+In this child's run, all direct/structured/monolithic controls receive the
+same four query views (factual, intervention, restored, intervention), with
+balanced answers. Comparisons within this run therefore match query coverage;
+do not attribute cross-run changes in the old controls to decomposition.
+Neither held-out language nor NAND/NOR rules enter the demonstration set.
+Output supervision format still differs across protocols, so results measure
+full-protocol utility rather than a change to the model architecture alone.
+
+Identical public rule text is cached across the family's three query views.
+Token/time costs are logged at subcall level and amortized across uses. Rule
+generation has a 96-token ceiling and query generation 192; actual total cost
+must be reported before claiming compute efficiency. Invalid extraction is a
+failed prediction, with no gold-based fallback or automatic correction.
+
 - Exact solver passes analytic same-individual intervention regression tests
   and matches generator labels for every case (agreement by construction).
 - On each OOD stratum: joint accuracy at least 90%; at least 5 percentage point

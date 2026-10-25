@@ -8,7 +8,8 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from causal_scm import canonical, normalize_scm, parse_scm, solve
 from causal_dataset import build_dataset, TOPOLOGIES
-from causal_protocol import decode_output, messages, metrics, paired_bootstrap
+from causal_protocol import covered_demonstrations, decode_output, messages, metrics, paired_bootstrap
+from causal_decomposition import build_requests, demonstrations as local_demonstrations, split_document
 
 
 def two_node(observed=None, intervene=None):
@@ -128,6 +129,34 @@ class DatasetProtocolTest(unittest.TestCase):
         decoded = decode_output("I cannot parse the model", "parser_solver", row["scm"])
         self.assertEqual(decoded["prediction"], "invalid")
         self.assertFalse(decoded["valid"])
+
+    def test_local_parser_reuses_only_identical_public_rules(self):
+        rows = self.dataset["rows"][:3]
+        requests, cases = build_requests(rows, self.dataset["demonstrations"])
+        self.assertEqual(sum(r["stage"] == "rule" for r in requests), 5)
+        self.assertEqual(sum(r["stage"] == "query" for r in requests), 3)
+        self.assertEqual(cases[rows[0]["case_id"]]["rules"], cases[rows[1]["case_id"]]["rules"])
+        self.assertNotEqual(cases[rows[0]["case_id"]]["query"], cases[rows[1]["case_id"]]["query"])
+
+    def test_local_parser_requests_cannot_access_evaluation_gold(self):
+        rows = copy.deepcopy(self.dataset["rows"][:3])
+        expected = build_requests(rows, self.dataset["demonstrations"])
+        for row in rows:
+            row["answer"] = "hidden-answer-sentinel"
+            row["scm"] = {"hidden": "gold-schema-sentinel"}
+            row["view"] = "hidden-view-sentinel"
+        actual = build_requests(rows, self.dataset["demonstrations"])
+        self.assertEqual(actual, expected)
+        self.assertNotIn("sentinel", json.dumps(actual))
+
+    def test_control_and_local_parser_share_query_demonstrations(self):
+        views = ["factual", "intervention", "restored", "intervention"]
+        examples = covered_demonstrations(self.dataset["demonstrations"], views)
+        self.assertEqual(sorted(r["answer"] for r in examples), ["0", "0", "1", "1"])
+        _, local_queries = local_demonstrations(self.dataset["demonstrations"])
+        for row, (query, answer) in zip(examples, local_queries):
+            self.assertEqual(split_document(row["text"])[1], query)
+            self.assertEqual({k: row["scm"][k] for k in ("observed", "intervene", "target")}, answer)
 
 
 if __name__ == "__main__":

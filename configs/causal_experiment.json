@@ -1,11 +1,12 @@
 {
-  "name": "causal_scm_balanced_demonstrations_v1",
+  "name": "causal_scm_decomposed_parser_v1",
   "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
   "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
   "dataset_seed": 20261025,
   "families_per_split": 12,
-  "methods": ["direct", "structured", "parser_solver"],
+  "methods": ["direct", "structured", "parser_solver", "decomposed_solver"],
   "shots": 4,
+  "demonstration_query_views": ["factual", "intervention", "restored", "intervention"],
   "batch_size": 8,
   "max_new_tokens": 512,
   "pilot_only": true

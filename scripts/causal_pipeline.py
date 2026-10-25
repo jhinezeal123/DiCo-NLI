@@ -55,10 +55,13 @@ def main():
                          "parameters": model.num_parameters(), "dtype": str(model.dtype)})
     all_records = {}
     for method in cfg["methods"]:
+        if method == "decomposed_solver":
+            continue
         records, started = [], time.monotonic()
         for offset in range(0, len(dataset["rows"]), cfg["batch_size"]):
             batch = dataset["rows"][offset:offset + cfg["batch_size"]]
-            prompts = [tokenizer.apply_chat_template(messages(r, method, dataset["demonstrations"], cfg["shots"]),
+            prompts = [tokenizer.apply_chat_template(messages(r, method, dataset["demonstrations"], cfg["shots"],
+                                                           cfg.get("demonstration_query_views")),
                        tokenize=False, add_generation_prompt=True) for r in batch]
             encoded = tokenizer(prompts, return_tensors="pt", padding=True, truncation=False).to(model.device)
             torch.cuda.synchronize()
@@ -90,6 +93,12 @@ def main():
                    "elapsed_seconds": time.monotonic() - started}
         emit("CAUSAL_METHOD_SUMMARY", summary)
         (output / f"{method}-predictions.json").write_text(json.dumps(records, indent=2))
+    if "decomposed_solver" in cfg["methods"]:
+        from causal_decomposition import run_decomposed
+        records, usage = run_decomposed(model, tokenizer, dataset, cfg, emit)
+        all_records["decomposed_solver"] = records
+        emit("CAUSAL_METHOD_SUMMARY", {"method": "decomposed_solver", "metrics": metrics(records), **usage})
+        (output / "decomposed_solver-predictions.json").write_text(json.dumps(records, indent=2))
     comparisons = {method: paired_bootstrap(all_records["parser_solver"], all_records[method])
                    for method in cfg["methods"] if method != "parser_solver"}
     final = {"config": cfg, "audit": dataset["audit"], "metrics": {m: metrics(v) for m, v in all_records.items()},
@@ -97,6 +106,9 @@ def main():
              "pilot_only": cfg["pilot_only"], "gate": {"joint_minimum": .9, "delta_minimum": .05,
                  "requires_positive_ci_lower": True, "confirm_dataset_seeds": 3,
                  "status": "not_evaluated_on_small_pilot" if cfg["pilot_only"] else "requires_three_seed_confirmation"}}
+    if "decomposed_solver" in all_records:
+        final["decomposed_solver_vs"] = {m: paired_bootstrap(all_records["decomposed_solver"], rows)
+                                         for m, rows in all_records.items() if m != "decomposed_solver"}
     (output / "summary.json").write_text(json.dumps(final, indent=2))
     emit("CAUSAL_FINAL_SUMMARY", final)
 
