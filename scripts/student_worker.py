@@ -148,11 +148,12 @@ def main():
         for s in range(0, len(perm), bs):
             ids, mask, labels, plen, ys = collate(tok, [items[i] for i in perm[s:s + bs]], device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-                cl = head_logits(model, head, ids, mask, plen)
-                logits = model(input_ids=ids, attention_mask=mask).logits
-                loss_t = F.cross_entropy(logits[:, :-1].float().reshape(-1, logits.size(-1)),
-                                         labels[:, 1:].reshape(-1), ignore_index=-100)
-                loss_c = F.cross_entropy(cl.float(), ys)
+                # one forward pass: HF shifts labels internally, -100 masks the prompt
+                out = model(input_ids=ids, attention_mask=mask, labels=labels,
+                            output_hidden_states=True)
+                loss_t = out.loss
+                h = out.hidden_states[-1][torch.arange(ids.size(0), device=ids.device), plen - 1]
+                loss_c = F.cross_entropy(head(h.float()), ys)
                 loss = loss_t + aux_w * loss_c
             opt.zero_grad()
             scaler.scale(loss).backward()
