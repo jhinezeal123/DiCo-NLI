@@ -40,7 +40,11 @@ def main():
                           "transformers": transformers.__version__, "gpu": torch.cuda.get_device_name(0),
                           "gpu_count": torch.cuda.device_count(),
                           "packages": {p: importlib.metadata.version(p) for p in ("huggingface-hub", "tokenizers")}})
-    dataset = build_dataset(cfg["dataset_seed"], cfg["families_per_split"])
+    if cfg.get("generator_version") == "v2":
+        from causal_dataset_v2 import build_dataset_v2
+        dataset = build_dataset_v2(cfg["dataset_seed"], cfg["families_per_split"])
+    else:
+        dataset = build_dataset(cfg["dataset_seed"], cfg["families_per_split"])
     emit("DATASET_AUDIT", dataset["audit"])
     (output / "dataset.json").write_text(json.dumps(dataset, indent=2))
     oracle = [solve(r["scm"])["answer"] == r["answer"] for r in dataset["rows"]]
@@ -99,6 +103,30 @@ def main():
         all_records["decomposed_solver"] = records
         emit("CAUSAL_METHOD_SUMMARY", {"method": "decomposed_solver", "metrics": metrics(records), **usage})
         (output / "decomposed_solver-predictions.json").write_text(json.dumps(records, indent=2))
+    normalized_methods = []
+    if cfg.get("unary_normalization"):
+        case_lookup = {row["case_id"]: row for row in dataset["rows"]}
+        for original_method in ("parser_solver", "decomposed_solver"):
+            if original_method not in all_records:
+                continue
+            new_method = original_method + "_normalized"
+            normalized = []
+            excluded = {"prediction", "valid", "error", "schema_exact", "fields_wrong",
+                        "parsed_scm", "compatible_worlds", "correct"}
+            for original in all_records[original_method]:
+                case = case_lookup[original["case_id"]]
+                decoded = decode_output(original["raw_output"], "parser_solver", case["scm"], reduce_unary=True)
+                record = {**{k: v for k, v in original.items() if k not in excluded}, **decoded,
+                          "method": new_method, "correct": decoded["prediction"] == case["answer"],
+                          "generation_reused_from": original_method}
+                normalized.append(record)
+                emit("CAUSAL_CASE", record)
+            all_records[new_method] = normalized
+            normalized_methods.append(new_method)
+            emit("CAUSAL_METHOD_SUMMARY", {"method": new_method, "metrics": metrics(normalized),
+                 "new_lm_calls": 0, "generation_reused_from": original_method,
+                 "source_generation_input_tokens": sum(r["input_tokens"] for r in normalized),
+                 "source_generation_output_tokens": sum(r["output_tokens"] for r in normalized)})
     comparisons = {method: paired_bootstrap(all_records["parser_solver"], all_records[method])
                    for method in cfg["methods"] if method != "parser_solver"}
     final = {"config": cfg, "audit": dataset["audit"], "metrics": {m: metrics(v) for m, v in all_records.items()},
@@ -109,6 +137,11 @@ def main():
     if "decomposed_solver" in all_records:
         final["decomposed_solver_vs"] = {m: paired_bootstrap(all_records["decomposed_solver"], rows)
                                          for m, rows in all_records.items() if m != "decomposed_solver"}
+    if normalized_methods:
+        final["primary_method"] = cfg["primary_method"]
+        final["normalization_vs"] = {candidate: {m: paired_bootstrap(all_records[candidate], rows)
+                                                for m, rows in all_records.items() if m not in normalized_methods}
+                                     for candidate in normalized_methods}
     (output / "summary.json").write_text(json.dumps(final, indent=2))
     emit("CAUSAL_FINAL_SUMMARY", final)
 

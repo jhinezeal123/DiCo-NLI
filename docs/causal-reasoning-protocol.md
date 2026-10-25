@@ -89,6 +89,21 @@ protocol has no benefit over structured reasoning, do not infer improvement.
 
 ## Local checks and tracked execution
 
+The v2 validation child replaces the five-variable suite with six variables
+on a backbone chain. ID has one binary merge; held-out topology has two or
+three. AND/OR occur in ID; binary XOR is withheld as a genuine new mechanism
+class. Demonstrations contain both AND and OR. The wording holdout remains
+one narrow template shift. Family signatures are invariant to names because
+the backbone gives a unique topological order, and collapse output-negation
+equivalences induced by private XOR noise. A shared exclusion set can prevent
+overlap across pre-generated seed sets. Development seed is 20261026; the
+reserved confirmation seeds remain 271828, 314159 and 161803.
+
+Both strict and exact-unary-normalized parser candidates are scored from the
+same generated text, with source generation costs retained. The v2 primary
+candidate is monolithic parser plus unary normalization. This is still a
+development pilot, not final confirmation.
+
 ```powershell
 python -m unittest discover -s tests -p test_causal_reasoning.py -v
 ```

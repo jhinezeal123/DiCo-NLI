@@ -10,6 +10,7 @@ from causal_scm import canonical, normalize_scm, parse_scm, solve
 from causal_dataset import build_dataset, TOPOLOGIES
 from causal_protocol import covered_demonstrations, decode_output, messages, metrics, paired_bootstrap
 from causal_decomposition import build_requests, demonstrations as local_demonstrations, split_document
+from causal_dataset_v2 import build_dataset_v2, family_signature
 
 
 def two_node(observed=None, intervene=None):
@@ -172,6 +173,40 @@ class DatasetProtocolTest(unittest.TestCase):
         actual = build_requests(rows, self.dataset["demonstrations"])
         self.assertEqual(actual, expected)
         self.assertNotIn("sentinel", json.dumps(actual))
+
+
+class SixVariableValidationTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.dataset = build_dataset_v2(20261026, 4)
+
+    def test_true_operator_and_topology_holdouts(self):
+        data = build_dataset_v2(20261026, 4)
+        for row in data["rows"]:
+            nodes = row["scm"]["variables"]
+            self.assertEqual(len(nodes), 6)
+            self.assertEqual(sum(len(n["parents"]) == 2 for n in nodes) >= 2,
+                             row["split"] == "ood_topology")
+            self.assertEqual(any(n["op"] == "xor" for n in nodes), row["split"] == "ood_mechanism")
+        demo_ops = {n["op"] for r in data["demonstrations"] for n in r["scm"]["variables"]}
+        self.assertTrue({"and", "or"} <= demo_ops)
+        self.assertNotIn("xor", demo_ops)
+        for audit in data["audit"]["splits"].values():
+            self.assertEqual(audit["labels"], {"0": 6, "1": 6})
+            self.assertEqual(audit["changed_families"], 2)
+
+    def test_family_signatures_group_noise_equivalent_mechanisms(self):
+        parents = [[], [0], [1]]
+        first = family_signature(parents, ["root", "copy", "not"], [1, 0, 1], 0, 0)
+        second = family_signature(parents, ["root", "not", "copy"], [1, 0, 1], 0, 0)
+        self.assertEqual(first, second)
+
+    def test_shared_exclusion_set_prevents_cross_seed_overlap(self):
+        seen = set()
+        first = build_dataset_v2(20261026, 4, seen)
+        second = build_dataset_v2(271828, 4, seen)
+        self.assertEqual(len(seen), 40)
+        self.assertFalse({r["family_id"] for r in first["rows"]} & {r["family_id"] for r in second["rows"]})
 
     def test_control_and_local_parser_share_query_demonstrations(self):
         views = ["factual", "intervention", "restored", "intervention"]
