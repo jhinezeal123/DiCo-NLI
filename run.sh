@@ -6,6 +6,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
+if [ -f configs/causal_dico_transfer.json ]; then
+  PY="${PYTHON:-python3}"
+  "$PY" -m pip install -q --only-binary=:all: -r requirements-causal-sft.txt
+  exec "$PY" -u scripts/evaluate_causal_dico_transfer.py
+fi
+
 if [ -f configs/causal_replay.json ]; then
   exec "${PYTHON:-python3}" -u scripts/replay_causal_normalization.py --config configs/causal_replay.json
 fi

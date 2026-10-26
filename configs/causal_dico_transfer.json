@@ -1,0 +1,171 @@
+{
+  "name": "causal_checkpoints_dico_track1_transfer",
+  "data_revision": "588968e610197ddc4c440314701cbc587afc4c1b",
+  "source_files": [
+    {
+      "path": "LICENSE",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    {
+      "path": "README.md",
+      "sha256": "e263bca7772e005b811e44ada4f77711e8157ee541bbce7ec80c2f4f9b81220b",
+      "bytes": 25761
+    },
+    {
+      "path": "evaluation_functions/README.md",
+      "sha256": "39901ba138b27d5d0ae3af739e3314915a6db51d1b9ce04dc06dd9e49ad7b23d",
+      "bytes": 3289
+    },
+    {
+      "path": "evaluation_functions/__init__.py",
+      "sha256": "5e5ff6d6fd58b01638a8fd7ee7f482431bff837d134a0e79e5bfe0a5705baa15",
+      "bytes": 894
+    },
+    {
+      "path": "evaluation_functions/__main__.py",
+      "sha256": "f27cadcf05f172d2b853cb371ab3f99b098287f0ddbe0e19179df8a1143962fa",
+      "bytes": 149
+    },
+    {
+      "path": "evaluation_functions/aggregation.py",
+      "sha256": "a8ab594ca319c5c1eeeaa7307e427d028614cb65e37d5e95f2efaf60dfac4fc0",
+      "bytes": 2926
+    },
+    {
+      "path": "evaluation_functions/cli.py",
+      "sha256": "00062311915e28170b71b4a524cf270381c6b8256660c45f3d182d603cb95540",
+      "bytes": 2282
+    },
+    {
+      "path": "evaluation_functions/errors.py",
+      "sha256": "00173f95a00c80e8190a8e73f2b452856c11a8eaaee72608a03cffb47f2cb128",
+      "bytes": 267
+    },
+    {
+      "path": "evaluation_functions/io.py",
+      "sha256": "a87e368e154c4cd7350142d1af5a4c83041a81f68d18dbbc9b5f5bc2297c4cd1",
+      "bytes": 7321
+    },
+    {
+      "path": "evaluation_functions/labels.py",
+      "sha256": "d500de7a8ef68460322516e4cbf431e19387e7555e9a4c2b2673dd727b17a98f",
+      "bytes": 2202
+    },
+    {
+      "path": "evaluation_functions/metrics.py",
+      "sha256": "448c0fd72b149b091216b9a65bfbf88b3744aa124f20e5c241c51ff33f7efd7e",
+      "bytes": 8131
+    },
+    {
+      "path": "evaluation_functions/schemas.py",
+      "sha256": "3a8cbca1ae93ba547d23bcf9c8eec0de2cf803f5fdc63166e7ad3fbb243c3193",
+      "bytes": 1386
+    },
+    {
+      "path": "evaluation_functions/scorer.py",
+      "sha256": "076c5956e82fffe6234f1cecb3351f555c92f3d61798eab30f68e0116a7c038f",
+      "bytes": 2957
+    },
+    {
+      "path": "evaluation_functions/templates.py",
+      "sha256": "ded61fc53ddbdebd25f27ed01730012693f742dd210654d61392603ce4892c27",
+      "bytes": 1099
+    },
+    {
+      "path": "evaluation_functions/validation.py",
+      "sha256": "bb6258b41b1312fc88e5851bf9bb8615694c3600b0ef73643bc1cdff7720b9ea",
+      "bytes": 5687
+    },
+    {
+      "path": "final_data/dev/dico_nli_dev_track1_participant_labeled.csv",
+      "sha256": "80b7152f7ccf0d349d42ad2f098988106689b918b36337e5756b121d17513511",
+      "bytes": 75857
+    },
+    {
+      "path": "final_data/dev/dico_nli_dev_track1_reference.csv",
+      "sha256": "8d5cd11c1c60df3c9b59254d12a60fb2cf43e91dde01b46c8a8f296b806134bc",
+      "bytes": 96754
+    },
+    {
+      "path": "final_data/train/dico_nli_train_track1_participant_labeled.csv",
+      "sha256": "5e8dd9f3a7e000933fec3c9e64d064f9a25586f141f58d6e6afb47c4fc797211",
+      "bytes": 350172
+    }
+  ],
+  "data_paths": {
+    "train": "final_data/train/dico_nli_train_track1_participant_labeled.csv",
+    "dev": "final_data/dev/dico_nli_dev_track1_participant_labeled.csv",
+    "reference": "final_data/dev/dico_nli_dev_track1_reference.csv"
+  },
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "checkpoints": [
+    "base3b",
+    "native_causal3b",
+    "semantic_causal3b"
+  ],
+  "batch_size": 4,
+  "seed": 42,
+  "bootstrap_samples": 2000,
+  "adapters": {
+    "native_causal3b": {
+      "path": "inputs/causal_transfer/native_adapter.zip",
+      "sha256": "9d120a1abc45e392986b857b211e91aad03537a29d717910dfc3080fb2cc3211",
+      "source_run": "6f73ebc5-d2cb-4df4-9cbd-256bb359b4d0",
+      "training_domain": "CLadder native deterministic counterfactual training,1046questions,3138updates"
+    },
+    "semantic_causal3b": {
+      "path": "inputs/causal_transfer/semantic_adapter.zip",
+      "sha256": "73ed7348d2ad460939d150d9e3cad946b99b7b85499c324f8719b060dabb7798",
+      "source_run": "6750161c-3cb1-4443-afa2-a80ceb23674a",
+      "training_domain": "independent intervention semantics,1792examples,3584updates"
+    }
+  },
+  "expected_data_audit": {
+    "train_rows": 3042,
+    "dev_rows": 660,
+    "clean_rows": 645,
+    "train_dev_id_overlap": 0,
+    "train_dev_pair_id_overlap": 0,
+    "train_dev_unordered_text_overlap_rows": 15,
+    "removed_source_pairs": 8,
+    "demonstration_ids": [
+      "dico_phrasis_0000448__en-en__original",
+      "dico_phrasis_0001509__en-en__original",
+      "dico_phrasis_0000924__en-en__original",
+      "dico_phrasis_0001779__en-en__original",
+      "dico_phrasis_0000287__en-en__original",
+      "dico_phrasis_0000937__en-en__original",
+      "dico_phrasis_0002565__en-en__original",
+      "dico_phrasis_0002904__en-en__original"
+    ],
+    "demonstration_labels": {
+      "BACKWARD_ENTAILMENT": 2,
+      "FORWARD_ENTAILMENT": 2,
+      "EQUIVALENCE": 2,
+      "NEGATIVE_OTHER": 2
+    },
+    "demonstration_text_overlap_with_dev": 0,
+    "dev_label_distribution": {
+      "FORWARD_ENTAILMENT": 190,
+      "BACKWARD_ENTAILMENT": 190,
+      "EQUIVALENCE": 174,
+      "NEGATIVE_OTHER": 106
+    },
+    "clean_ids_sha256": "549f74cfc69f52473947005fcdcc3cb7caf88c38d41a27221cbc0bee777b8a71"
+  },
+  "requests_sha256": "d267ab2f43e5b024401e039e6ba8a0db148ef39fa51fa4c7d2f813d178679f14",
+  "demonstrations_per_label": 2,
+  "nli_parameter_training": false,
+  "hidden_test_used": false,
+  "decoder": "four independent next-token option letters; no forced reversal consistency",
+  "primary_metrics": [
+    "weighted_f1",
+    "soft_cons",
+    "hard_cons"
+  ],
+  "primary_split": "official_dev",
+  "secondary_split": "clean_dev preserves complete pair_id groups",
+  "scope": "Direct eight-shot transfer only; no dev-label prompt selection and no SCM solver on NLI inputs"
+}
