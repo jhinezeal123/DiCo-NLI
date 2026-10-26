@@ -10,6 +10,12 @@ if [ -f configs/causal_replay.json ]; then
   exec "${PYTHON:-python3}" -u scripts/replay_causal_normalization.py --config configs/causal_replay.json
 fi
 
+if [ -f configs/causal_semantic_sft.json ]; then
+  PY="${PYTHON:-python3}"
+  "$PY" -m pip install -q --only-binary=:all: -r requirements-causal-sft.txt
+  exec "$PY" -u scripts/train_intervention_semantics.py
+fi
+
 # Causal research uses the same fixed command and an independent committed recipe.
 if [ -f configs/causal_v3.json ]; then
   PY="${PYTHON:-python3}"

@@ -1,0 +1,88 @@
+{
+  "name": "causal_v5_short_semantics_sft3b_pilot",
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "benchmark_version": "v5",
+  "dataset_seed": 20261030,
+  "families_per_split": 6,
+  "dataset_sha256": "503c7bd7450c04b904d3e359ffcbb658650848b14f3e53aa2e75121aed499745",
+  "seed": 42,
+  "batch_size": 4,
+  "max_new_tokens": 512,
+  "max_length": 1536,
+  "learning_rate": 0.0002,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "epochs": 2,
+  "expected_updates": 3584,
+  "pilot_only": true,
+  "primary_method": "adapter3b:action",
+  "methods": [
+    "direct",
+    "structured",
+    "parser_solver",
+    "parser_solver_normalized",
+    "decomposed_solver",
+    "decomposed_solver_normalized",
+    "grounded_state_choice",
+    "grounded_previous",
+    "base3b:action",
+    "base3b:program_state",
+    "base3b:program_cot",
+    "adapter3b:action",
+    "adapter3b:program_state",
+    "adapter3b:program_cot",
+    "adapter3b:operator_blind",
+    "adapter3b:action_blind"
+  ],
+  "gate_controls": [
+    "direct",
+    "structured",
+    "parser_solver",
+    "parser_solver_normalized",
+    "decomposed_solver",
+    "decomposed_solver_normalized",
+    "grounded_state_choice",
+    "grounded_previous",
+    "base3b:action",
+    "base3b:program_state",
+    "base3b:program_cot",
+    "adapter3b:program_state",
+    "adapter3b:program_cot"
+  ],
+  "reserved_confirmation_seeds": [
+    690001,
+    690002,
+    690003
+  ],
+  "reference_config": {
+    "path": "configs/causal_v3.json",
+    "sha256": "bb0b891b124331d7aa186868751faa96276cf8913cbab72d8a8d723ad358e522"
+  },
+  "reference_methods": [
+    "direct",
+    "structured",
+    "parser_solver",
+    "parser_solver_normalized",
+    "decomposed_solver",
+    "decomposed_solver_normalized",
+    "grounded_state_choice",
+    "grounded_previous"
+  ],
+  "reference_model": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "source_run": "96d90d20-8897-4065-93ba-2211b4b278d3",
+    "scope": "frozen learned operators and eight comparison methods, not gold"
+  },
+  "query_model_demonstrations": 0,
+  "operator_demonstrations": 6,
+  "checkpoint_selection": "fixed final checkpoint after two epochs; no evaluation-based early stopping or checkpoint selection",
+  "training_data": {
+    "seed": 20261032,
+    "contexts_per_action": 16,
+    "programs_per_length_final": 16
+  },
+  "training_sha256": "e8c18da092e68849e8290234c579e5faf60d4426809f50c3dbdee930e267b67b",
+  "scope": "3B semantic query model with frozen actual 7B operator predictions and exact solver; opened development only"
+}
