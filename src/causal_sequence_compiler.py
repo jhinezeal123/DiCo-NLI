@@ -33,6 +33,17 @@ def state_options(doc):
             "Both proposed clamps are active"]
 
 
+def action_question(proposed, instruction):
+    """One public action prompt shared by inference and independent supervision."""
+    first, second = proposed
+    prompt = (f"First proposal: {first}={proposed[first]}. "
+              f"Second proposal: {second}={proposed[second]}.\n"
+              f"One instruction: {instruction}\nChoose its state-transition meaning, not a final state or a bit value.")
+    return (ACTION_SEMANTICS + " Classify ONE instruction as a function on clamp statuses. "
+            "Do not execute the whole program. Reply with one option letter.",
+            prompt, action_descriptions(first, second))
+
+
 def build_sequence_requests(rows, demonstrations):
     # Existing six-world operator examples; discard unused target/status requests.
     old_requests, old_plans = build_grounded_v3(rows, demonstrations)
@@ -55,16 +66,10 @@ def build_sequence_requests(rows, demonstrations):
     plans = {}
     for row in rows:
         doc = program_document(row["text"])
-        first, second = doc["proposed"]
         plan = {**doc, "nodes": old_plans[row["case_id"]]["nodes"]}
         plan["action_requests"] = []
         for instruction in doc["instructions"]:
-            prompt = (f"First proposal: {first}={doc['proposed'][first]}. "
-                      f"Second proposal: {second}={doc['proposed'][second]}.\n"
-                      f"One instruction: {instruction}\nChoose its state-transition meaning, not a final state or a bit value.")
-            key = add("action", ACTION_SEMANTICS + " Classify ONE instruction as a function on clamp statuses. "
-                      "Do not execute the whole program. Reply with one option letter.",
-                      prompt, action_descriptions(first, second))
+            key = add("action", *action_question(doc["proposed"], instruction))
             plan["action_requests"].append(key)
         plan["state_request"] = add("program_state", PROGRAM_SEMANTICS +
             " Determine which clamps remain active after the ENTIRE program. Do not solve the causal target. Reply with one option letter.",
