@@ -52,10 +52,17 @@ def load_split(path):
     return ids, t1, t2, y
 
 
-def encode(tok, t1, t2, max_length, template=None):
+def load_units(path):
+    """Per-row unit traces for the (t1,t2) and (t2,t1) views (VUAR trace-as-input)."""
+    df = pd.read_csv(path, sep=",", header=0, keep_default_na=False)
+    return df["units"].astype(str).tolist(), df["units_swap"].astype(str).tolist()
+
+
+def encode(tok, t1, t2, max_length, template=None, units=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
-        enc = tok([template.format(t1=a, t2=b) for a, b in zip(t1, t2)], truncation=True,
+        us = units if units is not None else [""] * len(t1)
+        enc = tok([template.format(t1=a, t2=b, u=c) for a, b, c in zip(t1, t2, us)], truncation=True,
                   max_length=max_length)
     else:
         enc = tok(t1, t2, truncation="only_second", max_length=max_length)
@@ -124,8 +131,17 @@ def run(cfg, seed, train_path, dev_path, device):
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
-    f_train = encode(tok, tr1, tr2, L, tpl)
-    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
+    if tpl and "{u}" in tpl:
+        # Each view carries its own direction's trace; train uses the (t1,t2) view only.
+        tr_u, _ = load_units(train_path)
+        dv_u, dv_u_swap = load_units(dev_path)
+    else:
+        tr_u = dv_u = dv_u_swap = None
+    f_train = encode(tok, tr1, tr2, L, tpl, tr_u)
+    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl, dv_u), encode(tok, dv2, dv1, L, tpl, dv_u_swap)
+    n_trunc = sum(len(f["input_ids"]) >= L for f in f_train + f_dev + f_dev_swap)
+    print(f"max_encoded_len={max(len(f['input_ids']) for f in f_train + f_dev + f_dev_swap)} "
+          f"truncated_rows={n_trunc} (max_length={L})", flush=True)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
@@ -153,7 +169,7 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx])
+            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)

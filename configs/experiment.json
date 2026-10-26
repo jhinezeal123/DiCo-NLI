@@ -1,10 +1,10 @@
 {
-  "name": "track1_vuar_two_stage",
+  "name": "track1_vuar_two_stage_oof",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
-  "max_length": 128,
+  "max_length": 256,
   "aux_ce_weight": 1.0,
-  "mode": "vuar_two_stage",
+  "mode": "vuar_two_stage_oof",
   "seeds": [
     42,
     13,
@@ -36,5 +36,7 @@
     ]
   },
   "load_in_4bit": false,
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:"
+  "pair_template": "Text 1: {t1}\nText 2: {t2}\nUnits: {u}\nRelation:",
+  "cv_folds": 5,
+  "label_smoothing": 0.1
 }

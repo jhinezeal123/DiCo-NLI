@@ -466,6 +466,135 @@ def two_stage(cfg, config_path, upstream, paths, out_root, rp):
               + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
 
 
+def two_stage_oof(cfg, config_path, upstream, paths, out_root, rp):
+    """Trace-as-input without leakage: out-of-fold train traces, one trace per input direction.
+
+    Fold k's student never sees fold k's pairs, so train traces are as noisy as dev traces;
+    every view (t1,t2) / (t2,t1) is paired with the trace decoded for that same direction.
+    """
+    import csv
+    import statistics
+
+    import numpy as np
+    import pandas as pd
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    import dico_trainer as dt
+
+    section = rp.section
+    repo = Path(__file__).resolve().parents[1]
+    student_worker = Path(__file__).resolve().parent / "student_worker.py"
+    train_worker = Path(__file__).resolve().parent / "train_worker.py"
+    dev_rows = rp.read_csv(paths["dev"])
+    train_df = pd.read_csv(paths["train"], keep_default_na=False)
+    traces = [json.loads(line) for line in (repo / cfg["traces_file"]).read_text(encoding="utf-8").splitlines()
+              if line.strip()]
+    k_folds = int(cfg.get("cv_folds", 5))
+
+    # 1) folds by pair_id, so a pair's original and flipped rows never straddle train/holdout
+    pairs = sorted(train_df["pair_id"].unique())
+    random.Random(0).shuffle(pairs)
+    fold_of = {pid: i % k_folds for i, pid in enumerate(pairs)}
+    tasks = []
+    for k in range(k_folds):
+        tr_file = out_root / f"traces_fold{k}.jsonl"
+        tr_file.write_text("".join(json.dumps(t, ensure_ascii=False) + "\n" for t in traces
+                                   if fold_of.get(t["id"].split("__")[0]) != k), encoding="utf-8")
+        hold = out_root / f"holdout_fold{k}.csv"
+        train_df[train_df["pair_id"].map(fold_of) == k].to_csv(hold, index=False)
+        tasks.append((f"fold{k}", [sys.executable, "-u", str(student_worker), "--config", str(config_path),
+                                   "--seed", "42", "--traces", str(tr_file), "--train", str(paths["train"]),
+                                   "--dev", str(hold), "--out", str(out_root / f"fold{k}.json")],
+                      out_root / f"fold{k}.log"))
+    tasks.append(("full", [sys.executable, "-u", str(student_worker), "--config", str(config_path),
+                           "--seed", "42", "--traces", str(repo / cfg["traces_file"]), "--train",
+                           str(paths["train"]), "--dev", str(paths["dev"]), "--out", str(out_root / "full.json")],
+                  out_root / "full.log"))
+    section(f"TRACE STUDENTS: {k_folds} out-of-fold + 1 full-train (seed 42)")
+    t0 = time.time()
+    run_workers(tasks, rp.gpu_count())
+    print(f"trace_wall_seconds={time.time() - t0:.0f}")
+    for name, _, log_path in tasks:
+        print(f"--- {name}: " + " ".join(l for l in Path(log_path).read_text(errors="replace").splitlines()
+                                       if l.startswith(("seed=", "Epoch", "decode_wall"))))
+
+    # 2) collect traces per instance and per direction
+    units, units_swap = {}, {}
+    for k in range(k_folds):
+        gen = json.loads((out_root / f"fold{k}.json").read_text(encoding="utf-8"))
+        ids = train_df[train_df["pair_id"].map(fold_of) == k]["instance_id"].tolist()
+        for i, o, sw in zip(ids, gen["orig"], gen["swap"]):
+            units[i], units_swap[i] = o[0], sw[0]
+    gen = json.loads((out_root / "full.json").read_text(encoding="utf-8"))
+    for r, o, sw in zip(dev_rows, gen["orig"], gen["swap"]):
+        units[r["instance_id"]], units_swap[r["instance_id"]] = o[0], sw[0]
+
+    # trace quality on both sides: OOF train traces should look like dev traces
+    section("TRACE QUALITY (composed label accuracy, original direction)")
+    for split, rows in (("train_oof", train_df.to_dict("records")), ("dev", dev_rows)):
+        lab = [vuar.compose(vuar.parse(units[r["instance_id"]])) or "NEGATIVE_OTHER" for r in rows]
+        acc = sum(a == r["label"] for a, r in zip(lab, rows)) / len(rows)
+        print(f"TRACE_ACC split={split} n={len(rows)} acc={acc:.4f}")
+
+    def write_aug(path, rows):
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f, lineterminator="\n")
+            w.writerow(["instance_id", "text1", "text2", "label", "units", "units_swap"])
+            for r in rows:
+                i = r["instance_id"]
+                w.writerow([i, r["text1"], r["text2"], r["label"], units[i], units_swap[i]])
+
+    train_aug, dev_aug = out_root / "train_aug.csv", out_root / "dev_aug.csv"
+    write_aug(train_aug, train_df.to_dict("records"))
+    write_aug(dev_aug, dev_rows)
+
+    # 3) trace-aware classifier, one seed per GPU
+    section("TRACE-AWARE CLASSIFIER (seeds in parallel)")
+    t0 = time.time()
+    seeds = cfg["seeds"]
+    run_workers([(f"cls{sd}", [sys.executable, "-u", str(train_worker), "--config", str(config_path),
+                               "--seed", str(sd), "--train", str(train_aug), "--dev", str(dev_aug),
+                               "--out", str(out_root / f"cls{sd}.npz")], out_root / f"cls{sd}.log")
+                 for sd in seeds], rp.gpu_count())
+    print(f"classifier_wall_seconds={time.time() - t0:.0f}")
+
+    # 4) decode and score
+    modes = ["standard", "bidir"]
+    results = {m: {} for m in modes}
+    for sd in seeds:
+        section(f"SEED {sd}")
+        print((out_root / f"cls{sd}.log").read_text(errors="replace"), end="")
+        d = np.load(out_root / f"cls{sd}.npz")
+        p, q = d["orig"], d["swap"]
+        final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
+        for mode in modes:
+            pred_path = out_root / f"cls{sd}_{mode}_predictions.csv"
+            with open(pred_path, "w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f, lineterminator="\n")
+                w.writerow(["instance_id", "label"])
+                for r, pr in zip(dev_rows, final[mode]):
+                    w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+            rp.validate(pred_path, dev_rows)
+            sc = rp.official_score(upstream, paths["dev_reference"], pred_path.resolve(),
+                                   (out_root / f"cls{sd}_scores_{mode}").resolve())
+            results[mode][sd] = sc
+            print(f"SEED_METRICS decoding={mode} seed={sd} weighted_f1={sc['weighted_f1']:.4f} "
+                  f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}", flush=True)
+            # per-row labels (dev order) for offline McNemar against the plain classifier
+            print(f"PRED_ROWS decoding={mode} seed={sd} "
+                  + ",".join(str(int(np.argmax(pr))) for pr in final[mode]), flush=True)
+    section("SUMMARY")
+    headline = cfg.get("decode", "bidir")
+    for mode in modes:
+        tag = "FINAL_METRICS" if mode == headline else "DIAG_METRICS"
+        agg = {}
+        for m in ("weighted_f1", "soft_cons", "hard_cons"):
+            vals = [r[m] for r in results[mode].values()]
+            agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
+        print(f"{tag} decoding={mode} split=dev track={cfg['track']} seeds={list(results[mode])} "
+              + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
+
+
 def run(mode, cfg, config_path, upstream, paths, out_root, rp):
     if mode == "vuar_spans":
         return spans(cfg, config_path, upstream, paths, out_root, rp)
@@ -473,6 +602,8 @@ def run(mode, cfg, config_path, upstream, paths, out_root, rp):
         return student(cfg, config_path, upstream, paths, out_root, rp)
     if mode == "vuar_two_stage":
         return two_stage(cfg, config_path, upstream, paths, out_root, rp)
+    if mode == "vuar_two_stage_oof":
+        return two_stage_oof(cfg, config_path, upstream, paths, out_root, rp)
     if mode == "vuar_teacher":
         return teacher(cfg, config_path, upstream, paths, out_root, rp)
     raise SystemExit(f"unknown mode {mode}")
