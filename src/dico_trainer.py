@@ -25,6 +25,21 @@ REV = [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"], LABEL2ID["BACKWA
        LABEL2ID["NEGATIVE_OTHER"]]
 
 
+# PhrasIS source subtypes of NEGATIVE_OTHER, recovered from the organizers' pair_id numbering
+# (class-ordered inventory). Used only to build TRAIN targets, never as a model input.
+NEG_SUBTYPES = ["OPPO", "REL", "SIMI"]
+SUBTYPE_RANGES = {"OPPO": (1947, 1965), "REL": (1966, 2376), "SIMI": (2377, 3321)}
+
+
+def neg_subtype(pair_id):
+    n = int(str(pair_id).split("_")[-1])
+    for i, name in enumerate(NEG_SUBTYPES):
+        lo, hi = SUBTYPE_RANGES[name]
+        if lo <= n <= hi:
+            return i
+    return -1
+
+
 def set_seed(seed):
     transformers.set_seed(seed)
     random.seed(seed)
@@ -49,7 +64,8 @@ def load_split(path):
     t1 = [clean(s) for s in df["text1"]]
     t2 = [clean(s) for s in df["text2"]]
     y = np.array([LABEL2ID[l] for l in df["label"]]) if "label" in df.columns else None
-    return ids, t1, t2, y
+    sub = np.array([neg_subtype(p) for p in df["pair_id"]]) if "pair_id" in df.columns else None
+    return ids, t1, t2, y, sub
 
 
 def encode(tok, t1, t2, max_length, template=None):
@@ -68,7 +84,7 @@ def batch(tok, feats, idx, device):
 
 
 @torch.no_grad()
-def predict_probs(model, tok, feats, bs, device, amp=False):
+def predict_probs(model, tok, feats, bs, device, amp=False, fine_neg=None):
     bs = max(bs, 64)  # eval-only: larger batches, no effect on training
     model.eval()
     out = []
@@ -76,8 +92,18 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
         b = batch(tok, feats, range(s, min(s + bs, len(feats))), device)
         with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
             logits = model(**b).logits
-        out.append(torch.softmax(logits.float(), dim=-1).cpu().numpy())
+        out.append(to_probs4(logits.float(), fine_neg).cpu().numpy())
     return np.concatenate(out).astype(np.float64)
+
+
+def to_probs4(logits, fine_neg):
+    """Map head logits to the 4 official labels (LABELS order)."""
+    if fine_neg == "flat6":
+        p = torch.softmax(logits, dim=-1)
+        return torch.cat([p[:, :3], p[:, 3:].sum(1, keepdim=True)], dim=1)
+    if fine_neg == "aux":
+        return torch.softmax(logits[:, :4], dim=-1)
+    return torch.softmax(logits, dim=-1)
 
 
 def build_model(cfg, num_labels, device):
@@ -112,15 +138,25 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
-    _, dv1, dv2, ydv = load_split(dev_path)
+    _, tr1, tr2, ytr, sub_tr = load_split(train_path)
+    _, dv1, dv2, ydv, _ = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
+    fine_neg = cfg.get("fine_neg")
+    aux_w = float(cfg.get("aux_weight", 0.5))
+    if fine_neg:
+        is_neg = ytr == LABEL2ID["NEGATIVE_OTHER"]
+        assert (sub_tr[is_neg] >= 0).all() and (sub_tr[~is_neg] == -1).all(), "subtype/label mismatch"
+        print("train NEG subtypes:", {n: int((sub_tr == i).sum()) for i, n in enumerate(NEG_SUBTYPES)}, flush=True)
+    if fine_neg == "flat6":
+        # 6-way target: BE, EQ, FE, NEG/OPPO, NEG/REL, NEG/SIMI
+        ytr = np.where(ytr == LABEL2ID["NEGATIVE_OTHER"], 3 + sub_tr, ytr)
+    n_out = 2 if factorized else {"flat6": 6, "aux": 7}.get(fine_neg, len(LABELS))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
     if factorized:
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
 
-    tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    tok, model = build_model(cfg, n_out, device)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
@@ -136,10 +172,11 @@ def run(cfg, seed, train_path, dev_path, device):
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     ytr_t = torch.tensor(ytr, device=device)
+    sub_t = torch.tensor(sub_tr, device=device)
 
     def dev_probs():
-        p = predict_probs(model, tok, f_dev, bs, device, amp)
-        q = predict_probs(model, tok, f_dev_swap, bs, device, amp)
+        p = predict_probs(model, tok, f_dev, bs, device, amp, fine_neg)
+        q = predict_probs(model, tok, f_dev_swap, bs, device, amp, fine_neg)
         if factorized:
             p, q = factorized_probs(p[:, 1], q[:, 1]), factorized_probs(q[:, 1], p[:, 1])
         return p, q
@@ -153,7 +190,17 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            ls = float(cfg.get("label_smoothing", 0.0))
+            logits = logits.float()
+            if fine_neg == "aux":
+                loss = F.cross_entropy(logits[:, :4], ytr_t[idx], label_smoothing=ls)
+                st = sub_t[idx]
+                m = st >= 0
+                if m.any():  # subtype CE on NEG rows, averaged over the batch
+                    aux = F.cross_entropy(logits[m][:, 4:], st[m], label_smoothing=ls, reduction="sum")
+                    loss = loss + aux_w * aux / len(idx)
+            else:
+                loss = F.cross_entropy(logits, ytr_t[idx], label_smoothing=ls)
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
@@ -163,7 +210,7 @@ def run(cfg, seed, train_path, dev_path, device):
             sched.step()
             total_loss += loss.item()
         p, _ = dev_probs()
-        acc = float((p.argmax(1) == ydv).mean())
+        acc = float((p.argmax(1) == ydv).mean())  # p is always 4-way
         wf1 = f1_score(ydv, p.argmax(1), average="weighted")
         # Dev numbers per epoch are diagnostics only; the final epoch is always used.
         print(f"Epoch {epoch + 1} average loss: {total_loss / steps_per_epoch:.4f} "
