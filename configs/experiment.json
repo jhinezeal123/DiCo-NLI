@@ -1,6 +1,6 @@
 {
-  "name": "hypothesis_h1_specificity",
-  "hypothesis_id": "h1",
+  "name": "hypothesis_h4_context",
+  "hypothesis_id": "h4",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
