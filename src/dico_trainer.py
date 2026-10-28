@@ -81,18 +81,20 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
 
 
 def build_model(cfg, num_labels, device):
-    config = AutoConfig.from_pretrained(cfg["model_id"])
+    revision = cfg.get("model_revision")
+    model_args = {"revision": revision} if revision else {}
+    config = AutoConfig.from_pretrained(cfg["model_id"], **model_args)
     # Dropout handling mirrors the starter kit's Model class.
     if hasattr(config, "classifier_dropout"):
         config.classifier_dropout = float(cfg["dropout"])
     elif hasattr(config, "pooler_dropout") and not hasattr(config, "cls_dropout"):
         config.cls_dropout = float(cfg["dropout"])
     config.num_labels = num_labels
-    tok = AutoTokenizer.from_pretrained(cfg["model_id"])
+    tok = AutoTokenizer.from_pretrained(cfg["model_id"], **model_args)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config, **model_args)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
@@ -126,6 +128,15 @@ def run(cfg, seed, train_path, dev_path, device):
     tpl = cfg.get("pair_template")
     f_train = encode(tok, tr1, tr2, L, tpl)
     f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
+    probe_rows = None
+    if cfg.get("hypothesis_id") in ("h1", "h2", "h3", "h4"):
+        from diagnostic_probes import build
+        probe_rows, probe_audit = build(cfg["hypothesis_id"], train_path, dev_path)
+        print("PROBE_INPUT_AUDIT", probe_audit, flush=True)
+        pa = [r["text1"] for r in probe_rows]
+        pb = [r["text2"] for r in probe_rows]
+        f_probe = encode(tok, pa, pb, L, tpl)
+        f_probe_swap = encode(tok, pb, pa, L, tpl)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
@@ -170,4 +181,8 @@ def run(cfg, seed, train_path, dev_path, device):
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
-    return {"orig": p, "swap": q}
+    out = {"orig": p, "swap": q}
+    if probe_rows is not None:
+        out["probe_orig"] = predict_probs(model, tok, f_probe, bs, device, amp)
+        out["probe_swap"] = predict_probs(model, tok, f_probe_swap, bs, device, amp)
+    return out
