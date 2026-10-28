@@ -205,14 +205,25 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    hypothesis = cfg.get("hypothesis_id")
+    if hypothesis == "h5":
+        from h5_label_audit import run as run_label_audit
+        run_label_audit(cfg, paths, train_rows, dev_rows)
+        return
+
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
     import numpy as np
+    from diagnostic_probes import build as build_probe
+    from probe_summary import summarize as summarize_probe
+    probe_rows, probe_audit = build_probe(hypothesis, paths["train"], paths["dev"])
+    print("PROBE_DATA_AUDIT " + json.dumps(probe_audit, sort_keys=True), flush=True)
 
     section("TRAIN (seeds in parallel, one per GPU)")
     t0 = time.time()
     trained = train_seeds_parallel(args.config, cfg["seeds"], paths, out_root)
     print(f"train_wall_seconds_all_seeds={time.time() - t0:.1f}")
+    summarize_probe(hypothesis, probe_rows, trained, cfg["seeds"], dt.LABELS, dt.REV)
 
     headline = cfg.get("decode", "standard")
     modes = ["standard", "bidir"]
