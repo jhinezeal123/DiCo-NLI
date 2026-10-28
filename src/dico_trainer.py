@@ -116,9 +116,52 @@ def factorized_probs(e_fwd, e_bwd):
                      (1 - e_fwd) * (1 - e_bwd)], axis=1)
 
 
+def hard_labels(e_fwd, e_bwd, t):
+    """4 labels from thresholded directional entailment decisions."""
+    f, b = e_fwd >= t, e_bwd >= t
+    out = np.full(len(f), LABEL2ID["NEGATIVE_OTHER"])
+    out[f & b] = LABEL2ID["EQUIVALENCE"]
+    out[f & ~b] = LABEL2ID["FORWARD_ENTAILMENT"]
+    out[~f & b] = LABEL2ID["BACKWARD_ENTAILMENT"]
+    return out
+
+
+def zero_shot_nli(cfg, train_path, dev_path, device):
+    """No training: score both directions with the pretrained 3-way NLI head and compose 4 labels.
+
+    The returned 4-label probabilities are the factorized product of P(entail) in each
+    direction, so argmax equals thresholding both directions at 0.5. A threshold tuned on
+    train only is printed as a diagnostic; dev never selects anything.
+    """
+    _, tr1, tr2, ytr = load_split(train_path)
+    _, dv1, dv2, ydv = load_split(dev_path)
+    tok, model = build_model(cfg, 3, device)  # keep the pretrained NLI head
+    ent = int({k.lower(): v for k, v in model.config.label2id.items()}["entailment"])
+    L, bs = cfg["max_length"], int(cfg["batch_size"])
+    amp = bool(cfg.get("amp", False)) and device.type == "cuda"
+    e = lambda a, b: predict_probs(model, tok, encode(tok, a, b, L), bs, device, amp)[:, ent]
+    dv_f, dv_b, tr_f, tr_b = e(dv1, dv2), e(dv2, dv1), e(tr1, tr2), e(tr2, tr1)
+
+    for name, f, b, y in (("train", tr_f, tr_b, ytr), ("dev", dv_f, dv_b, ydv)):
+        print(f"[{name}] mean P(entail) fwd/bwd by gold label: " + " ".join(
+            f"{LABELS[k][:5]}={f[y == k].mean():.3f}/{b[y == k].mean():.3f}" for k in range(len(LABELS))))
+    grid = np.round(np.arange(0.05, 0.96, 0.05), 2)
+    tr_f1 = [f1_score(ytr, hard_labels(tr_f, tr_b, t), average="weighted") for t in grid]
+    t_best = float(grid[int(np.argmax(tr_f1))])
+    for t in sorted({0.5, t_best}):
+        pd_ = hard_labels(dv_f, dv_b, t)
+        print(f"ZS_THRESHOLD t={t:.2f}{' (train-tuned)' if t == t_best else ' (default)'} "
+              f"train_weighted_f1={tr_f1[int(np.argmin(np.abs(grid - t)))]:.4f} "
+              f"dev_acc={(pd_ == ydv).mean():.4f} dev_weighted_f1={f1_score(ydv, pd_, average='weighted'):.4f}",
+              flush=True)
+    return {"orig": factorized_probs(dv_f, dv_b), "swap": factorized_probs(dv_b, dv_f)}
+
+
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
+    if cfg.get("zero_shot_nli"):
+        return zero_shot_nli(cfg, train_path, dev_path, device)
     _, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))

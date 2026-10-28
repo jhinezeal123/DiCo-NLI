@@ -1,22 +1,16 @@
 {
-  "name": "track1_finecat_ultra_l_ft_ls0p1",
+  "name": "track1_finecat_ultra_l_zero_shot",
   "track": 1,
   "model_id": "dleemiller/finecat-nli-ultra-l",
   "seeds": [
-    42,
-    13,
-    7
+    42
   ],
   "dropout": 0.1,
-  "warmup_pcrt": 0.1,
-  "lr": 2e-05,
-  "batch_size": 8,
-  "wd": 1e-05,
-  "num_epochs": 5,
+  "batch_size": 64,
   "max_length": 128,
   "amp": false,
   "decode": "bidir",
-  "label_smoothing": 0.1,
   "model_revision": "0de53e89ded7417a0ecbdf58f5394b537a9281ff",
-  "trust_remote_code": true
+  "trust_remote_code": true,
+  "zero_shot_nli": true
 }
