@@ -1,9 +1,8 @@
 # Starter kit (upstream 588968e) pins numpy/pandas/scikit-learn/torch versions that
 # do not build on the current Kaggle image, so those come from the host's
-# preinstalled stack (versions are logged by the pipeline). transformers is pinned
-# to the kit's version, the first release with ModernBERT support.
-transformers==4.48.3
-# Tokenizer/adapters for non-ModernBERT encoders (DeBERTa-v3) and LoRA runs.
+# preinstalled stack (versions are logged by the pipeline).
+# transformers 5.x: UltraBERT custom code (finecat-nli-ultra-l) targets transformers>=5.17.
+transformers==5.20.2
 sentencepiece>=0.2.1
 tiktoken==0.9.0
-peft==0.14.0
+peft>=0.19

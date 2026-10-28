@@ -81,18 +81,25 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
 
 
 def build_model(cfg, num_labels, device):
-    config = AutoConfig.from_pretrained(cfg["model_id"])
+    # Custom-code backbones (e.g. UltraBERT) need trust_remote_code and a pinned revision.
+    hub = {"trust_remote_code": bool(cfg.get("trust_remote_code", False))}
+    if cfg.get("model_revision"):
+        hub["revision"] = cfg["model_revision"]
+    config = AutoConfig.from_pretrained(cfg["model_id"], **hub)
     # Dropout handling mirrors the starter kit's Model class.
     if hasattr(config, "classifier_dropout"):
         config.classifier_dropout = float(cfg["dropout"])
     elif hasattr(config, "pooler_dropout") and not hasattr(config, "cls_dropout"):
         config.cls_dropout = float(cfg["dropout"])
+    # A pretrained head with a different label count (e.g. 3-way NLI) is replaced by a fresh one.
+    replace_head = config.num_labels != num_labels
     config.num_labels = num_labels
-    tok = AutoTokenizer.from_pretrained(cfg["model_id"])
+    tok = AutoTokenizer.from_pretrained(cfg["model_id"], **hub)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    model = AutoModelForSequenceClassification.from_pretrained(
+        cfg["model_id"], config=config, ignore_mismatched_sizes=replace_head, **hub)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
