@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_finecat_ultra_l_ft_ls0p1",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "dleemiller/finecat-nli-ultra-l",
   "seeds": [
     42,
     13,
@@ -9,27 +9,14 @@
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
-  "lr": 0.0001,
+  "lr": 2e-05,
   "batch_size": 8,
-  "wd": 0.01,
-  "num_epochs": 3,
+  "wd": 1e-05,
+  "num_epochs": 5,
   "max_length": 128,
-  "amp": true,
+  "amp": false,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
-  "lora": {
-    "r": 16,
-    "alpha": 32,
-    "dropout": 0.05,
-    "target_modules": [
-      "q_proj",
-      "k_proj",
-      "v_proj",
-      "o_proj",
-      "gate_proj",
-      "up_proj",
-      "down_proj"
-    ]
-  },
-  "label_smoothing": 0.1
+  "label_smoothing": 0.1,
+  "model_revision": "0de53e89ded7417a0ecbdf58f5394b537a9281ff",
+  "trust_remote_code": true
 }
