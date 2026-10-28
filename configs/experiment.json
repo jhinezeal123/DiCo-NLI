@@ -1,6 +1,6 @@
 {
-  "name": "hypothesis_h5_label_audit",
-  "hypothesis_id": "h5",
+  "name": "h2_contrast_curation_development_screen",
+  "hypothesis_id": "h2_screen",
   "track": 1,
   "model_id": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
   "model_revision": "6f5cf0a2b59cabb106aca4c287eed12e357e90eb",

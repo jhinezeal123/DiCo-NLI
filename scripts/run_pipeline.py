@@ -206,6 +206,10 @@ def main():
     environment(cfg["model_id"])
 
     hypothesis = cfg.get("hypothesis_id")
+    if hypothesis == "h2_screen":
+        from h2_machine_screen import run as run_h2_screen
+        run_h2_screen(cfg)
+        return
     if hypothesis == "h5":
         from h5_label_audit import run as run_label_audit
         run_label_audit(cfg, paths, train_rows, dev_rows)
