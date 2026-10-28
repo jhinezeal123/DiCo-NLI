@@ -157,6 +157,33 @@ def zero_shot_nli(cfg, train_path, dev_path, device):
     return {"orig": factorized_probs(dv_f, dv_b), "swap": factorized_probs(dv_b, dv_f)}
 
 
+def neg_gate_probs(e_fwd, e_bwd, g_neg):
+    """4-label probs: P(NEG) from the trained gate, rest split over EQ/FE/BE by frozen entailment."""
+    d = factorized_probs(e_fwd, e_bwd) + 1e-9
+    d[:, LABEL2ID["NEGATIVE_OTHER"]] = 0.0
+    d = d / d.sum(1, keepdims=True) * (1.0 - g_neg)[:, None]
+    d[:, LABEL2ID["NEGATIVE_OTHER"]] = g_neg
+    return d
+
+
+def frozen_entailment(cfg, t1, t2, y, device):
+    """P(entail) in both directions from the pretrained NLI head (no training), plus zero-shot diagnostics."""
+    tok, model = build_model({**cfg, "lora": None}, 3, device)  # keep the pretrained NLI head
+    ent = int({k.lower(): v for k, v in model.config.label2id.items()}["entailment"])
+    amp = bool(cfg.get("amp", False)) and device.type == "cuda"
+    e = lambda a, b: predict_probs(model, tok, encode(tok, a, b, cfg["max_length"]), int(cfg["batch_size"]),
+                                   device, amp)[:, ent]
+    e_fwd, e_bwd = e(t1, t2), e(t2, t1)
+    zs = hard_labels(e_fwd, e_bwd, 0.5)
+    print("[dev] frozen mean P(entail) fwd/bwd by gold label: " + " ".join(
+        f"{LABELS[k][:5]}={e_fwd[y == k].mean():.3f}/{e_bwd[y == k].mean():.3f}" for k in range(len(LABELS))))
+    print(f"ZERO_SHOT dev_acc={(zs == y).mean():.4f} dev_weighted_f1={f1_score(y, zs, average='weighted'):.4f}",
+          flush=True)
+    del model
+    torch.cuda.empty_cache()
+    return e_fwd, e_bwd
+
+
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
@@ -169,8 +196,13 @@ def run(cfg, seed, train_path, dev_path, device):
     if factorized:
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
+    neg_gate = bool(cfg.get("neg_gate", False))
+    if neg_gate:
+        # EQ/FE/BE come from the frozen NLI model; only NEGATIVE_OTHER vs rest is trained.
+        e_fwd, e_bwd = frozen_entailment(cfg, dv1, dv2, ydv, device)
+        ytr = (ytr == LABEL2ID["NEGATIVE_OTHER"]).astype(int)
 
-    tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    tok, model = build_model(cfg, 2 if (factorized or neg_gate) else len(LABELS), device)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
@@ -192,6 +224,8 @@ def run(cfg, seed, train_path, dev_path, device):
         q = predict_probs(model, tok, f_dev_swap, bs, device, amp)
         if factorized:
             p, q = factorized_probs(p[:, 1], q[:, 1]), factorized_probs(q[:, 1], p[:, 1])
+        if neg_gate:
+            p, q = neg_gate_probs(e_fwd, e_bwd, p[:, 1]), neg_gate_probs(e_bwd, e_fwd, q[:, 1])
         return p, q
 
     for epoch in range(epochs):
@@ -217,7 +251,9 @@ def run(cfg, seed, train_path, dev_path, device):
         wf1 = f1_score(ydv, p.argmax(1), average="weighted")
         # Dev numbers per epoch are diagnostics only; the final epoch is always used.
         print(f"Epoch {epoch + 1} average loss: {total_loss / steps_per_epoch:.4f} "
-              f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
+              f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}"
+              + (f" | gate NEG f1 {f1_score(ydv == LABEL2ID['NEGATIVE_OTHER'], p.argmax(1) == LABEL2ID['NEGATIVE_OTHER']):.4f}"
+                 if neg_gate else ""), flush=True)
 
     p, q = dev_probs()
     return {"orig": p, "swap": q}

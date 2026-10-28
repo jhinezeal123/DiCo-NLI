@@ -6,3 +6,5 @@ transformers==5.20.2
 sentencepiece>=0.2.1
 tiktoken==0.9.0
 peft>=0.19
+# Kaggle image ships torchao 0.10.0, which peft>=0.19 rejects at LoRA injection.
+torchao>=0.16.0

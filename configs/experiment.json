@@ -1,16 +1,33 @@
 {
-  "name": "track1_finecat_ultra_l_zero_shot",
+  "name": "track1_finecat_v2_xl_neg_gate",
   "track": 1,
-  "model_id": "dleemiller/finecat-nli-ultra-l",
+  "model_id": "dleemiller/finecat-nli-v2-xl",
   "seeds": [
-    42
+    42,
+    13,
+    7
   ],
   "dropout": 0.1,
-  "batch_size": 64,
+  "batch_size": 8,
   "max_length": 128,
   "amp": false,
   "decode": "bidir",
-  "model_revision": "0de53e89ded7417a0ecbdf58f5394b537a9281ff",
-  "trust_remote_code": true,
-  "zero_shot_nli": true
+  "model_revision": "ffba8fcee4aa081df3184163dc89c1542993c6d2",
+  "trust_remote_code": false,
+  "neg_gate": true,
+  "lr": 0.0002,
+  "wd": 0.01,
+  "num_epochs": 5,
+  "warmup_pcrt": 0.1,
+  "label_smoothing": 0.1,
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "Wqkv",
+      "Wo",
+      "Wi"
+    ]
+  }
 }
