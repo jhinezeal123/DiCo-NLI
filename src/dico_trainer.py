@@ -170,4 +170,8 @@ def run(cfg, seed, train_path, dev_path, device):
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
+    if cfg.get("interpret"):
+        import interpret
+        interpret.interpret(cfg, seed, model, tok, load_split(train_path), load_split(dev_path),
+                            device, amp, LABELS)
     return {"orig": p, "swap": q}
