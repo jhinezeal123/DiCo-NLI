@@ -165,7 +165,12 @@ def interpret(cfg, seed, model, tok, train, dev, device, amp, labels):
     """train/dev: (ids, t1, t2, y). Prints INTERP_* lines."""
     import time
     t0 = time.time()
+    global IG_STEPS
     tpl, L = cfg["pair_template"], cfg["max_length"]
+    # fp16 autocast overflowed eager attention (NaN) and made IG paths noisy; analysis can run in fp32.
+    amp = bool(cfg.get("interpret_amp", amp))
+    IG_STEPS = int(cfg.get("ig_steps", IG_STEPS))
+    print(f"INTERP_CONFIG amp={amp} ig_steps={IG_STEPS}", flush=True)
     model.eval()
     for p in model.parameters():
         p.requires_grad_(False)
@@ -191,6 +196,7 @@ def interpret(cfg, seed, model, tok, train, dev, device, amp, labels):
     # Attention needs the eager implementation; switch only for that pass.
     cfg_obj = base_model.config
     attn_ok = True
+    comp = []
 
     for i, ly in enumerate(lays):
         ids, roles = ly["ids"], ly["roles"]
@@ -203,6 +209,7 @@ def interpret(cfg, seed, model, tok, train, dev, device, amp, labels):
                                          lambda lo: F.log_softmax(lo, -1)[:, p_], amp, device)
         ig_c, d_c = integrated_gradients(model, emb_layer, ids, roles, pad_id,
                                          lambda lo: lo[:, c1] - lo[:, c2], amp, device)
+        comp.append((float(ig_p.sum()), d_p, float(ig_c.sum()), d_c))
         cam, gxa = gradcam(model, emb_layer, ids, p_, amp, device)
 
         # Logit lens with the trained head on the last-token state of every layer.
@@ -266,6 +273,12 @@ def interpret(cfg, seed, model, tok, train, dev, device, amp, labels):
         print("INTERP_ROW " + json.dumps(row), flush=True)
         if i % 100 == 0:
             print(f"INTERP_PROGRESS seed={seed} row={i} elapsed={time.time() - t0:.0f}s", flush=True)
+
+    c = np.array(comp)
+    print(f"INTERP_IG_COMPLETENESS seed={seed} corr_pred={np.corrcoef(c[:, 0], c[:, 1])[0, 1]:.4f} "
+          f"corr_con={np.corrcoef(c[:, 2], c[:, 3])[0, 1]:.4f} "
+          f"median_abs_err_pred={np.median(np.abs(c[:, 0] - c[:, 1])):.4f} "
+          f"median_abs_err_con={np.median(np.abs(c[:, 2] - c[:, 3])):.4f}", flush=True)
 
     # Linear probes per layer: fine-tuned vs adapter-disabled base.
     from dico_trainer import encode
