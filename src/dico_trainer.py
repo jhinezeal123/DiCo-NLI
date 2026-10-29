@@ -8,6 +8,7 @@ under the attention mask, much faster).
 import os
 import random
 import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -109,10 +110,22 @@ def factorized_probs(e_fwd, e_bwd):
                      (1 - e_fwd) * (1 - e_bwd)], axis=1)
 
 
+def teacher_targets(path, ids):
+    """Bidir-fused out-of-fold teacher probabilities (LABELS order) aligned to train ids.
+
+    p_* is the teacher on (t1, t2); q_* on (t2, t1), mapped back through REV.
+    """
+    df = pd.read_csv(path).set_index("instance_id").loc[ids]
+    p = df[[f"p_{l}" for l in LABELS]].to_numpy(np.float64)
+    q = df[[f"q_{l}" for l in LABELS]].to_numpy(np.float64)[:, REV]
+    t = (p + q) / 2
+    return t / t.sum(1, keepdims=True), df["label"].tolist()
+
+
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
@@ -136,6 +149,19 @@ def run(cfg, seed, train_path, dev_path, device):
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     ytr_t = torch.tensor(ytr, device=device)
+    ls = float(cfg.get("label_smoothing", 0.0))
+    soft_t = None
+    if cfg.get("soft_targets"):
+        st = cfg["soft_targets"]
+        teacher, tlabels = teacher_targets(Path(__file__).resolve().parents[1] / st["path"], tr_ids)
+        assert [LABELS[i] for i in ytr] == tlabels, "teacher file labels do not match train"
+        hard = np.full((len(ytr), len(LABELS)), ls / len(LABELS))
+        hard[np.arange(len(ytr)), ytr] += 1 - ls
+        a = float(st["alpha"])
+        soft_t = torch.tensor((1 - a) * hard + a * teacher, dtype=torch.float32, device=device)
+        print(f"soft_targets path={st['path']} alpha={a} rows={len(ytr)} "
+              f"teacher_argmax_acc={(teacher.argmax(1) == ytr).mean():.4f} "
+              f"mean_target_on_gold={soft_t[torch.arange(len(ytr)), ytr_t].mean().item():.4f}", flush=True)
 
     def dev_probs():
         p = predict_probs(model, tok, f_dev, bs, device, amp)
@@ -153,7 +179,10 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            if soft_t is not None:
+                loss = -(soft_t[idx] * F.log_softmax(logits.float(), dim=-1)).sum(-1).mean()
+            else:
+                loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=ls)
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
