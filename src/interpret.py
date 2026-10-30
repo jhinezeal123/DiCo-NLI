@@ -161,9 +161,76 @@ def run_probes(seed, Htr, ytr, Hdv, ydv, err_mask, tag):
         }), flush=True)
 
 
+def interpret_fidelity(cfg, seed, model, tok, dev, device, amp, labels):
+    """fp32 decision-token attention on every dev row and fp32 IG on head errors plus an equal
+    random sample of correct rows. Predictions use the training precision (amp) as in the pipeline."""
+    import time
+    global IG_STEPS
+    t0 = time.time()
+    tpl, L = cfg["pair_template"], cfg["max_length"]
+    IG_STEPS = int(cfg.get("ig_steps", IG_STEPS))
+    model.eval()
+    for p in model.parameters():
+        p.requires_grad_(False)
+    base_model = model.get_base_model()
+    emb_layer = model.get_input_embeddings()
+    _, d1, d2, ydv = dev
+    lays = [layout(tok, tpl, a, b, L) for a, b in zip(d1, d2)]
+    with torch.no_grad():
+        probs = np.array([torch.softmax(_logits(model, amp, input_ids=torch.tensor([ly["ids"]], device=device))
+                                        .logits.float(), -1)[0].cpu().numpy() for ly in lays])
+    pred = probs.argmax(1)
+    err = np.where(pred != ydv)[0]
+    ok = np.where(pred == ydv)[0]
+    rng = np.random.default_rng(seed)
+    ig_rows = set(err.tolist()) | set(rng.choice(ok, size=min(len(err), len(ok)), replace=False).tolist())
+    print(f"INTERP_FID_START seed={seed} rows={len(lays)} errors={len(err)} ig_rows={len(ig_rows)} "
+          f"ig_steps={IG_STEPS} precision=fp32", flush=True)
+    cfg_obj = base_model.config
+    comp = []
+    for i, ly in enumerate(lays):
+        ids, roles = ly["ids"], ly["roles"]
+        g, p_ = int(ydv[i]), int(pred[i])
+        order = np.argsort(-probs[i])
+        c1, c2 = (p_, g) if p_ != g else (g, int(order[1]))
+        shared_tok = np.array([(r == 1 and w >= 0 and ly["shared1"][w]) or (r == 2 and w >= 0 and ly["shared2"][w])
+                               for r, w in zip(roles, ly["widx"])])
+        prev = cfg_obj._attn_implementation
+        cfg_obj._attn_implementation = "eager"
+        with torch.no_grad():
+            att = model(input_ids=torch.tensor([ids], device=device), output_attentions=True).attentions
+        cfg_obj._attn_implementation = prev
+        tok_att = [a[0, :, -1, :].float().mean(0).cpu().numpy() for a in att]
+        row = {"seed": seed, "i": i, "id": dev[0][i], "gold": labels[g], "pred": labels[p_],
+               "probs": _r(probs[i]), "c1": labels[c1], "c2": labels[c2], "roles": roles, "widx": ly["widx"],
+               "words1": ly["words1"], "words2": ly["words2"], "shared1": ly["shared1"], "shared2": ly["shared2"],
+               "attn_roles": [_r(_role_mass(a, roles, shared_tok)) for a in tok_att],
+               # token-level attention of the decision token, mean over heads, layers 7/14/21/27
+               "attn_tok": {str(l): _r(tok_att[l], 5) for l in (7, 14, 21, 27) if l < len(tok_att)}}
+        if i in ig_rows:
+            ig_p, d_p = integrated_gradients(model, emb_layer, ids, roles, tok.pad_token_id,
+                                             lambda lo: F.log_softmax(lo, -1)[:, p_], False, device)
+            ig_c, d_c = integrated_gradients(model, emb_layer, ids, roles, tok.pad_token_id,
+                                             lambda lo: lo[:, c1] - lo[:, c2], False, device)
+            comp.append((float(ig_p.sum()), d_p, float(ig_c.sum()), d_c))
+            row.update({"ig_pred": _r(ig_p, 5), "ig_pred_delta": round(d_p, 5),
+                        "ig_con": _r(ig_c, 5), "ig_con_delta": round(d_c, 5)})
+        print("INTERP_FID_ROW " + json.dumps(row), flush=True)
+    c = np.array(comp)
+    print(f"INTERP_IG_COMPLETENESS seed={seed} n={len(c)} corr_pred={np.corrcoef(c[:, 0], c[:, 1])[0, 1]:.4f} "
+          f"corr_con={np.corrcoef(c[:, 2], c[:, 3])[0, 1]:.4f} "
+          f"median_abs_err_pred={np.median(np.abs(c[:, 0] - c[:, 1])):.4f} "
+          f"median_abs_delta_pred={np.median(np.abs(c[:, 1])):.4f} "
+          f"median_abs_err_con={np.median(np.abs(c[:, 2] - c[:, 3])):.4f} "
+          f"median_abs_delta_con={np.median(np.abs(c[:, 3])):.4f}", flush=True)
+    print(f"INTERP_DONE seed={seed} wall={time.time() - t0:.0f}s", flush=True)
+
+
 def interpret(cfg, seed, model, tok, train, dev, device, amp, labels):
     """train/dev: (ids, t1, t2, y). Prints INTERP_* lines."""
     import time
+    if cfg.get("interpret_mode") == "fidelity":
+        return interpret_fidelity(cfg, seed, model, tok, dev, device, amp, labels)
     t0 = time.time()
     global IG_STEPS
     tpl, L = cfg["pair_template"], cfg["max_length"]

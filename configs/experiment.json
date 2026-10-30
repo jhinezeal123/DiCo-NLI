@@ -1,11 +1,9 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_interp",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_interp_fidelity",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
-    42,
-    13,
-    7
+    42
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
@@ -33,6 +31,6 @@
   },
   "label_smoothing": 0.1,
   "interpret": true,
-  "interpret_amp": false,
+  "interpret_mode": "fidelity",
   "ig_steps": 48
 }
