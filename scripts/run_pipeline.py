@@ -179,6 +179,22 @@ def error_analysis(pred, ref_rows):
               f"consistent_but_wrong={buckets[(kind, 'consistent_but_wrong')]}")
 
 
+def class_metrics(pred, ref_rows):
+    """Per-class F1 on the official label order, for matched pilot comparisons."""
+    from sklearn.metrics import f1_score
+    gold = {r["instance_id"]: r["label"] for r in ref_rows}
+    ids = list(gold)
+    y = [gold[i] for i in ids]
+    p = [pred[i] for i in ids]
+    f1 = f1_score(y, p, labels=LABELS, average=None, zero_division=0)
+    out = {lab: round(float(v), 4) for lab, v in zip(LABELS, f1)}
+    out["macro"] = round(float(f1_score(y, p, labels=LABELS, average="macro", zero_division=0)), 4)
+    out["weighted"] = round(float(f1_score(y, p, labels=LABELS, average="weighted", zero_division=0)), 4)
+    out["accuracy"] = round(float(sum(a == b for a, b in zip(y, p)) / len(y)), 4)
+    print("CLASS_METRICS " + json.dumps(out, sort_keys=True), flush=True)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -193,6 +209,9 @@ def main():
         "dev": data / "dev" / f"dico_nli_dev_{t}_participant_labeled.csv",
         "dev_reference": data / "dev" / f"dico_nli_dev_{t}_reference.csv",
     }
+    if cfg.get("train_csv"):
+        paths["train"] = Path(cfg["train_csv"]).resolve()
+        print(f"TRAIN_CSV_OVERRIDE {paths['train']}", flush=True)
     out_root = Path("outputs") / cfg["name"]
     if out_root.exists():
         shutil.rmtree(out_root)
@@ -241,6 +260,7 @@ def main():
                     w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
             section(f"seed {seed} decoding={mode}")
             pred = validate(pred_path, dev_rows)
+            class_metrics(pred, ref_rows)
             scores = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
                                     (out / f"scores_{mode}").resolve())
             if mode == headline:
@@ -261,7 +281,8 @@ def main():
             w.writerow(["instance_id", "label"])
             for r, pr in zip(dev_rows, ens_sum[mode]):
                 w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
-        validate(pred_path, dev_rows)
+        pred = validate(pred_path, dev_rows)
+        class_metrics(pred, ref_rows)
         ens_scores[mode] = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
                                           (out_root / f"scores_ensemble_{mode}").resolve())
 

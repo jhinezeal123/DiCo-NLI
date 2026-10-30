@@ -1,5 +1,8 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_ls0p1_boundaryup_pilot",
+  "pilot": "boundary_upweight",
+  "train_csv": "data/train_boundaryup.csv",
+  "max_steps": 1143,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
