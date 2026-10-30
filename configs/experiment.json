@@ -1,5 +1,8 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_ls0p1_consdrop_pilot",
+  "pilot": "neighbor_consistency_pruning",
+  "train_csv": "data/train_consdrop.csv",
+  "max_steps": 1143,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
