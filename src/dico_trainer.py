@@ -132,7 +132,10 @@ def run(cfg, seed, train_path, dev_path, device):
     opt = torch.optim.AdamW(params, lr=float(cfg["lr"]), weight_decay=float(cfg["wd"]),
                             betas=(0.9, 0.999), eps=1e-6)
     steps_per_epoch = (len(f_train) + bs - 1) // bs
-    total = steps_per_epoch * epochs
+    max_steps = int(cfg.get("max_steps") or 0)
+    total = max_steps if max_steps > 0 else steps_per_epoch * epochs
+    print(f"OPTIMIZER_STEPS total={total} steps_per_epoch={steps_per_epoch} epochs={epochs} "
+          f"train_rows={len(f_train)}", flush=True)
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     ytr_t = torch.tensor(ytr, device=device)
@@ -144,11 +147,15 @@ def run(cfg, seed, train_path, dev_path, device):
             p, q = factorized_probs(p[:, 1], q[:, 1]), factorized_probs(q[:, 1], p[:, 1])
         return p, q
 
+    step = 0
     for epoch in range(epochs):
         model.train()
         perm = torch.randperm(len(f_train), generator=g).tolist()
         total_loss = 0.0
+        n_steps = 0
         for s in range(0, len(perm), bs):
+            if step >= total:
+                break
             idx = perm[s:s + bs]
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
@@ -162,12 +169,16 @@ def run(cfg, seed, train_path, dev_path, device):
             scaler.update()
             sched.step()
             total_loss += loss.item()
+            step += 1
+            n_steps += 1
         p, _ = dev_probs()
         acc = float((p.argmax(1) == ydv).mean())
         wf1 = f1_score(ydv, p.argmax(1), average="weighted")
         # Dev numbers per epoch are diagnostics only; the final epoch is always used.
-        print(f"Epoch {epoch + 1} average loss: {total_loss / steps_per_epoch:.4f} "
-              f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
+        print(f"Epoch {epoch + 1} average loss: {total_loss / max(n_steps, 1):.4f} "
+              f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f} | steps={n_steps} total_steps={step}", flush=True)
+        if step >= total:
+            break
 
     p, q = dev_probs()
     return {"orig": p, "swap": q}
