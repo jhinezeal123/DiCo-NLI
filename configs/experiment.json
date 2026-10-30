@@ -1,5 +1,8 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_ls0p1_randdrop_pilot",
+  "pilot": "random_drop_control",
+  "train_csv": "data/train_randdrop.csv",
+  "max_steps": 1143,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
