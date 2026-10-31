@@ -52,11 +52,14 @@ def load_split(path):
     return ids, t1, t2, y
 
 
-def encode(tok, t1, t2, max_length, template=None):
+def encode(tok, t1, t2, max_length, template=None, precedents=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
-        enc = tok([template.format(t1=a, t2=b) for a, b in zip(t1, t2)], truncation=True,
-                  max_length=max_length)
+        precedents = precedents or [""] * len(t1)
+        texts = [template.format(t1=a, t2=b, p=c) for a, b, c in zip(t1, t2, precedents)]
+        if precedents[0]:  # keep the query intact: truncate precedents from the left
+            tok.truncation_side = "left"
+        enc = tok(texts, truncation=True, max_length=max_length)
     else:
         enc = tok(t1, t2, truncation="only_second", max_length=max_length)
     keys = [k for k in ("input_ids", "attention_mask", "token_type_ids") if k in enc]
@@ -112,8 +115,18 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
-    _, dv1, dv2, ydv = load_split(dev_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
+    dv_ids, dv1, dv2, ydv = load_split(dev_path)
+    p_tr = p_dv = p_dv_sw = None
+    if cfg.get("precedents"):
+        import precedents as pr
+        pc = cfg["precedents"]
+        trl = [LABELS[i] for i in ytr]
+        flip = lambda i: i.rsplit("__", 1)[0] + "__" + ("original" if i.endswith("flipped") else "flipped")
+        p_tr = pr.build(tr_ids, tr1, tr2, trl, tr_ids, tr1, tr2, k=pc["k"], mode=pc["mode"])
+        p_dv = pr.build(tr_ids, tr1, tr2, trl, dv_ids, dv1, dv2, k=pc["k"], mode=pc["mode"])
+        p_dv_sw = pr.build(tr_ids, tr1, tr2, trl, [flip(i) for i in dv_ids], dv2, dv1, k=pc["k"], mode=pc["mode"])
+        print(f"precedent example (dev 0):\n{p_dv[0]}\n-- query: {dv1[0]} => {dv2[0]}", flush=True)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
     if factorized:
@@ -124,8 +137,8 @@ def run(cfg, seed, train_path, dev_path, device):
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
-    f_train = encode(tok, tr1, tr2, L, tpl)
-    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
+    f_train = encode(tok, tr1, tr2, L, tpl, p_tr)
+    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl, p_dv), encode(tok, dv2, dv1, L, tpl, p_dv_sw)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
