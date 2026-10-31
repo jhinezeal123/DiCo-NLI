@@ -227,3 +227,28 @@ def run(cfg, upstream, emit):
     for i, k in enumerate(dv_ids):
         emit(f"{k},{dt.LABELS[ydv[i]]}," + ",".join(f"{v:.4f}" for v in list(r_dv[i]) + list(pz_t[i])))
     emit("TABLE>>>")
+
+
+def write_convention_targets(cfg, upstream, out_path, emit):
+    """Train-only convention-deviation probability d_i = P(gold != identity(z) | teachers, gold) (4-teacher DS)."""
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    data = upstream / "final_data"
+    tr_ids, tr1, tr2, ytr = dt.load_split(data / "train" / "dico_nli_train_track1_participant_labeled.csv")
+    dom_pred = lcf.domain_model(tr_ids, tr1, tr2)
+    c_tr = cp.cue_features(tr1, tr2, dom_pred)
+    Q_tr = []
+    for teacher in cfg["probe"]["teachers"]:
+        name, _, rev = teacher.partition("@")
+        Q_tr.append(lcf.teacher_q({"lcf": {"teacher": name, "teacher_revision": rev or None}}, tr1, tr2, device))
+    t_tr = np.stack([q.argmax(1) for q in Q_tr], 1)
+    ds = DS(len(Q_tr))
+    r = ds.fit(np.mean(Q_tr, 0), t_tr, ytr, c_tr, emit=emit)
+    ident = np.array([1, 2, 0, 3, 3])  # Z -> label index (LABELS order BE, EQ, FE, NO)
+    d = 1 - (r * (ident[None, :] == ytr[:, None])).sum(1)
+    emit(f"METRIC conv_target/train_mean={d.mean():.4f} conv_target/train_frac_gt_0.5={np.mean(d > 0.5):.4f}")
+    for k, lab in enumerate(dt.LABELS):
+        emit(f"conv_target gold={lab} n={int((ytr == k).sum())} mean_d={d[ytr == k].mean():.4f}")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("instance_id,d\n")
+        for k, v in zip(tr_ids, d):
+            f.write(f"{k},{v:.5f}\n")
