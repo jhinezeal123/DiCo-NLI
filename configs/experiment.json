@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_logic_hint_ds",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_logic_hint_shuffled",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -41,5 +41,5 @@
     ],
     "bootstrap": 300
   },
-  "logic_hint": "ds"
+  "logic_hint": "shuffled"
 }
