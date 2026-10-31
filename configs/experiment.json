@@ -1,11 +1,9 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_lora_noisy_channel_screen",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
-    42,
-    13,
-    7
+    42
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
@@ -16,7 +14,6 @@
   "max_length": 128,
   "amp": true,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
   "lora": {
     "r": 16,
     "alpha": 32,
@@ -31,5 +28,14 @@
       "down_proj"
     ]
   },
-  "label_smoothing": 0.1
+  "objective": "channel",
+  "fusion": {
+    "reference_probs": "data/fusion/en_parent_dev_bidir_probs.csv",
+    "reference_track": 1,
+    "reference_run": "13417727-b568-4efc-8fec-b67f7d0e3c03",
+    "id_map": [
+      "",
+      ""
+    ]
+  }
 }
