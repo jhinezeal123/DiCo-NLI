@@ -19,6 +19,8 @@
 
 **Do not treat this repository as a finished implementation.** At the time this README was written, this participant repository contained only a minimal README. Code, scripts, trained models, and results described below are **planned deliverables, not existing files**, unless subsequently created and verified.
 
+> **Current best Track 1 method:** see [`BEST_METHOD.md`](BEST_METHOD.md) (dev F1 0.8715 / SoftCons 0.9639 / HardCons 0.9170, milestone 2026-10-31). Start new experiments from that recipe and update the file when a run beats it.
+
 ### Mandatory operating rules
 
 1. **Check official sources before consequential decisions.** Organizer GitHub, the task website, and CodaBench override this README if dates, data policy, phases, file schemas, or evaluation procedures change.
