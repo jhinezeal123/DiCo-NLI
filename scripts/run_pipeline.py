@@ -278,6 +278,13 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    if cfg.get("mode") == "convention_probe":
+        sys.path.insert(0, str(REPO / "src"))
+        import convention_probe
+        section("CONVENTION_PROBE")
+        convention_probe.run(cfg, upstream, lambda s: print(s, flush=True))
+        return
+
     if cfg.get("extra_train"):
         paths["train"] = extra_train(cfg, train_rows, out_root)
 
