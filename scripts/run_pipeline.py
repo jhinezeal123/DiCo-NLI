@@ -179,6 +179,79 @@ def error_analysis(pred, ref_rows):
               f"consistent_but_wrong={buckets[(kind, 'consistent_but_wrong')]}")
 
 
+REVERSE_ALL = {**REVERSE, "NEGATIVE_OTHER": "NEGATIVE_OTHER"}
+REPO = Path(__file__).resolve().parents[1]
+
+
+def extra_train(cfg, train_rows, out_root):
+    """H3: append adjudicated headline pairs ('annotated') or a count/label-matched repeat control.
+
+    Reversible items (EQ/FE/BE) enter in both orders with the reversed label; NO items enter once,
+    mirroring DiCo construction. SKIP items are dropped. The control repeats random existing train
+    source pairs with the same per-label item counts, so both arms add the same rows and steps.
+    """
+    import random
+    ec = cfg["extra_train"]
+    path = REPO / ec["path"]
+    if not path.exists():
+        sys.exit(f"extra_train labels missing: {path} (H3 is blocked until adjudicated labels are committed)")
+    section(f"EXTRA TRAIN ({ec['mode']})")
+    items = [r for r in read_csv(path) if r["label"] != "SKIP"]
+    bad = {r["label"] for r in items} - set(LABELS)
+    assert not bad, f"invalid labels in {path}: {bad}"
+    print(f"labels_file={ec['path']} sha256={sha256(path)} items_kept={len(items)} "
+          f"label_counts={dict(sorted(Counter(r['label'] for r in items).items()))}")
+    added = []
+    if ec["mode"] == "annotated":
+        for r in items:
+            base = {"pair_id": f"h3_{r['item_id']}", "text1_lang": "en", "text2_lang": "en"}
+            added.append({**base, "instance_id": f"{base['pair_id']}__en-en__a", "text1": r["text1"],
+                          "text2": r["text2"], "label": r["label"]})
+            if r["label"] != "NEGATIVE_OTHER":
+                added.append({**base, "instance_id": f"{base['pair_id']}__en-en__b", "text1": r["text2"],
+                              "text2": r["text1"], "label": REVERSE_ALL[r["label"]]})
+    elif ec["mode"] == "repeat_control":
+        rng = random.Random(int(ec.get("control_seed", 20261031)))
+        by_pair = {}
+        for r in train_rows:
+            by_pair.setdefault(r["pair_id"], []).append(r)
+        pools = {l: [] for l in LABELS}
+        for pid, rs in by_pair.items():
+            # file order decides which row of a reversible pair counts as "first"; label taken from it
+            pools[rs[0]["label"]].append(pid)
+        for l, n in Counter(r["label"] for r in items).items():
+            for k, pid in enumerate(rng.sample(pools[l], n)):
+                for j, r in enumerate(by_pair[pid]):
+                    added.append({**r, "instance_id": f"rep{k}_{l[:2]}_{j}__{r['instance_id']}",
+                                  "pair_id": f"rep{k}_{l[:2]}__{r['pair_id']}"})
+    else:
+        sys.exit(f"unknown extra_train mode {ec['mode']}")
+    rows = train_rows + added
+    out = out_root / "train_augmented.csv"
+    with open(out, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(train_rows[0].keys()), lineterminator="\n")
+        w.writeheader()
+        w.writerows({k: r[k] for k in train_rows[0].keys()} for r in rows)
+    print(f"added_rows={len(added)} added_label_counts={dict(sorted(Counter(r['label'] for r in added).items()))} "
+          f"train_rows_total={len(rows)} augmented_sha256={sha256(out)}")
+    return out
+
+
+def domain_metrics(tag, pred, dev_rows):
+    """Per-PhrasIS-domain NO/EQ F1 on dev (domain map from exact PhrasIS text match; reporting only)."""
+    from sklearn.metrics import f1_score
+    dom = {r["instance_id"]: r["domain"] for r in read_csv(REPO / "data/eval/dev_domain_track1.csv")}
+    gold = {r["instance_id"]: r["label"] for r in dev_rows}
+    parts = []
+    for d in ("headlines", "images", "unmatched"):
+        ids = [i for i in gold if dom.get(i) == d]
+        g, p = [gold[i] for i in ids], [pred[i] for i in ids]
+        f = f1_score(g, p, labels=LABELS, average=None, zero_division=0)
+        parts.append(f"{d}_n={len(ids)} {d}_acc={sum(a == b for a, b in zip(g, p)) / len(ids):.4f} "
+                     f"{d}_NO_F1={f[3]:.4f} {d}_EQ_F1={f[0]:.4f}")
+    print(f"DOMAIN_METRICS {tag} " + " ".join(parts))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -204,6 +277,9 @@ def main():
     ref_rows = read_csv(paths["dev_reference"])
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
+
+    if cfg.get("extra_train"):
+        paths["train"] = extra_train(cfg, train_rows, out_root)
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
@@ -245,6 +321,7 @@ def main():
                                     (out / f"scores_{mode}").resolve())
             if mode == headline:
                 error_analysis(pred, ref_rows)
+                domain_metrics(f"seed={seed} decoding={mode}", pred, dev_rows)
             print(f"<<<PREDICTIONS_CSV seed={seed} decoding={mode}")
             print(pred_path.read_text(), end="")
             print("PREDICTIONS_CSV>>>")
@@ -261,7 +338,8 @@ def main():
             w.writerow(["instance_id", "label"])
             for r, pr in zip(dev_rows, ens_sum[mode]):
                 w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
-        validate(pred_path, dev_rows)
+        ens_pred = validate(pred_path, dev_rows)
+        domain_metrics(f"ensemble decoding={mode}", ens_pred, dev_rows)
         ens_scores[mode] = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
                                           (out_root / f"scores_ensemble_{mode}").resolve())
 

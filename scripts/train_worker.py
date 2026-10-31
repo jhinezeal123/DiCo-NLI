@@ -27,7 +27,11 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"worker seed={args.seed} device={device}"
           + (f" gpu={torch.cuda.get_device_name(0)}" if device.type == "cuda" else ""), flush=True)
-    probs = dt.run(cfg, args.seed, args.train, args.dev, device)
+    if cfg.get("objective") == "lcf":
+        import lcf_trainer
+        probs = lcf_trainer.run(cfg, args.seed, args.train, args.dev, device)
+    else:
+        probs = dt.run(cfg, args.seed, args.train, args.dev, device)
     np.savez(args.out, orig=probs["orig"], swap=probs["swap"])
 
 
