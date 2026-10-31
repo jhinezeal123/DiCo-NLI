@@ -292,6 +292,12 @@ def main():
         convention_probe.run(cfg, upstream, lambda s: print(s, flush=True))
         return
 
+    if cfg.get("convention_aux"):
+        sys.path.insert(0, str(REPO / "src"))
+        import ds_probe
+        section("CONVENTION TARGETS (4-teacher Dawid-Skene posterior, train only)")
+        ds_probe.write_convention_targets(cfg, upstream, out_root / "convention_targets.csv", lambda s: print(s, flush=True))
+
     if cfg.get("extra_train"):
         paths["train"] = extra_train(cfg, train_rows, out_root)
 
