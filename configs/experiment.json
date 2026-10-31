@@ -1,5 +1,5 @@
 {
-  "name": "track1_m1b_ds_multiview_convention",
+  "name": "track1_s1_crossfit_parent_oof",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -32,7 +32,7 @@
     ]
   },
   "label_smoothing": 0.1,
-  "mode": "ds_probe",
+  "mode": "crossfit",
   "probe": {
     "teachers": [
       "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
@@ -41,5 +41,9 @@
       "FacebookAI/roberta-large-mnli@2a8f12d27941090092df78e4ba6f0928eb5eac98"
     ],
     "bootstrap": 300
+  },
+  "crossfit": {
+    "folds": 5,
+    "seed": 42
   }
 }

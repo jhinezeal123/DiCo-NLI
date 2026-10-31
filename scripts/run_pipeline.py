@@ -278,6 +278,13 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    if cfg.get("mode") == "crossfit":
+        sys.path.insert(0, str(REPO / "src"))
+        import crossfit
+        section("CROSSFIT")
+        crossfit.run(cfg, upstream, lambda s: print(s, flush=True), Path(args.config).resolve(), out_root.resolve())
+        return
+
     if cfg.get("mode") == "ds_probe":
         sys.path.insert(0, str(REPO / "src"))
         import ds_probe
