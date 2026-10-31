@@ -1,5 +1,9 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_ai_reviewed_duplicate",
+  "augmentation_mode": "duplicate",
+  "reviewed_manifest": "data/cb-ai-reviewed-selected.csv",
+  "expected_augmented_rows": 189,
+  "max_steps": 1143,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
