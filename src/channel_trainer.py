@@ -118,31 +118,49 @@ def run(cfg, seed, train_path, dev_path, device):
         total_loss = total_lm = total_rank = 0.0
         for s in range(0, len(perm), bs):
             batch_idx = perm[s:s + bs]
-            ids, att, lab = collate(f_train, batch_idx, tok.pad_token_id, device)
-            lp, ntok = seq_logprob(model, ids, att, lab, amp)
-            assert bool((ntok > 0).all()), "target truncated entirely"
-            lm_loss = -(lp.sum() / ntok.sum())  # token-averaged LM loss on text2 only
-            rank_loss = lp.new_zeros(())
+            opt.zero_grad()
             if contrast_weight:
                 offsets = torch.randint(1, len(dt.LABELS), (len(batch_idx),), generator=neg_gen).tolist()
                 neg_labels = [(int(ytr[i]) + offset) % len(dt.LABELS)
                               for i, offset in zip(batch_idx, offsets)]
-                neg_feats = [f_by_label[label][i] for i, label in zip(batch_idx, neg_labels)]
-                neg_ids, neg_att, neg_lab = collate(neg_feats, range(len(neg_feats)), tok.pad_token_id, device)
-                lp_neg, neg_ntok = seq_logprob(model, neg_ids, neg_att, neg_lab, amp)
-                assert bool((ntok == neg_ntok).all()), "relation prompt changed target truncation"
-                rank_loss = F.softplus(lp_neg - lp).mean()
-            loss = lm_loss + contrast_weight * rank_loss
-            opt.zero_grad()
-            scaler.scale(loss).backward()
+                # Accumulate exact per-batch loss contributions to keep both LM graphs small.
+                # Denominators span the effective batch, so one optimizer/scheduler step still
+                # represents the same token-average LM + example-average ranking objective.
+                micro_bs = int(cfg.get("channel_micro_batch_size", bs))
+                assert 0 < micro_bs <= bs
+                target_tokens = sum(sum(token != -100 for token in f_train[i][1][1:]) for i in batch_idx)
+                assert target_tokens > 0
+                lm_value = rank_value = 0.0
+                for start in range(0, len(batch_idx), micro_bs):
+                    chunk = batch_idx[start:start + micro_bs]
+                    ids, att, lab = collate(f_train, chunk, tok.pad_token_id, device)
+                    lp, ntok = seq_logprob(model, ids, att, lab, amp)
+                    assert bool((ntok > 0).all()), "target truncated entirely"
+                    neg_feats = [f_by_label[label][i] for i, label in
+                                 zip(chunk, neg_labels[start:start + micro_bs])]
+                    neg_ids, neg_att, neg_lab = collate(neg_feats, range(len(neg_feats)), tok.pad_token_id, device)
+                    lp_neg, neg_ntok = seq_logprob(model, neg_ids, neg_att, neg_lab, amp)
+                    assert bool((ntok == neg_ntok).all()), "relation prompt changed target truncation"
+                    lm_part = -lp.sum() / target_tokens
+                    rank_part = F.softplus(lp_neg - lp).sum() / len(batch_idx)
+                    scaler.scale(lm_part + contrast_weight * rank_part).backward()
+                    lm_value += lm_part.item()
+                    rank_value += rank_part.item()
+            else:
+                ids, att, lab = collate(f_train, batch_idx, tok.pad_token_id, device)
+                lp, ntok = seq_logprob(model, ids, att, lab, amp)
+                assert bool((ntok > 0).all()), "target truncated entirely"
+                lm_loss = -(lp.sum() / ntok.sum())
+                scaler.scale(lm_loss).backward()
+                lm_value, rank_value = lm_loss.item(), 0.0
             scaler.unscale_(opt)
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             scaler.step(opt)
             scaler.update()
             sched.step()
-            total_loss += loss.item()
-            total_lm += lm_loss.item()
-            total_rank += rank_loss.item()
+            total_loss += lm_value + contrast_weight * rank_value
+            total_lm += lm_value
+            total_rank += rank_value
         p = relation_probs(model, tok, dv1, dv2, log_prior, L, device, amp)
         print(f"Epoch {epoch + 1} average loss: {total_loss / steps_per_epoch:.4f} "
               f"lm_loss={total_lm / steps_per_epoch:.4f} rank_loss={total_rank / steps_per_epoch:.4f} | dev acc "

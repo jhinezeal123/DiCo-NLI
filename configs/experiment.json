@@ -42,5 +42,6 @@
     "seed": 42,
     "channel_fusion_weight": 0.5,
     "note": "fixed-weight fusion computed from logged probabilities after all runs complete"
-  }
+  },
+  "channel_micro_batch_size": 2
 }
