@@ -1,0 +1,100 @@
+{"x": "on a brown chair", "neg": "on a brown sofa", "spec": "on a brown leather chair", "para": "on a chair that is brown"}
+{"x": "directing its gaze", "neg": "turning its head", "spec": "directing its gaze upward", "para": "aiming its gaze"}
+{"x": "a small airplane", "neg": "a small helicopter", "spec": "a small white propeller airplane", "para": "a little aeroplane"}
+{"x": "Red grapes , blueberries", "neg": "Green grapes , strawberries", "spec": "Red seedless grapes , fresh blueberries", "para": "Blueberries , red grapes"}
+{"x": "doing a trick", "neg": "falling off", "spec": "doing a kickflip trick", "para": "performing a trick"}
+{"x": "in Central African Republic fighting", "neg": "in Central African Republic elections", "spec": "in deadly Central African Republic fighting", "para": "in fighting in Central African Republic"}
+{"x": "across the grass", "neg": "across the sand", "spec": "across the green grass", "para": "over the grass"}
+{"x": "frees", "neg": "arrests", "spec": "frees two hostages", "para": "releases"}
+{"x": "as Egypt police", "neg": "as Egypt army", "spec": "as Egypt riot police", "para": "while Egypt police"}
+{"x": "Two football players", "neg": "Three football players", "spec": "Two young football players in uniform", "para": "A pair of football players"}
+{"x": "with a black and white dog", "neg": "with a brown and white dog", "spec": "with a small black and white dog", "para": "with a dog that is black and white"}
+{"x": "of a very full yellow van", "neg": "of a very empty yellow van", "spec": "of a very full yellow delivery van", "para": "of a yellow van packed full"}
+{"x": "nine tourists", "neg": "ten tourists", "spec": "nine foreign tourists", "para": "9 tourists"}
+{"x": "toward the camera", "neg": "away from the camera", "spec": "directly toward the camera", "para": "towards the camera"}
+{"x": "drives down", "neg": "drives up", "spec": "drives down a dirt road", "para": "is driving down"}
+{"x": "in a red canoe", "neg": "in a red kayak", "spec": "in a red canoe on a lake", "para": "in a canoe that is red"}
+{"x": "midday Friday", "neg": "midday Thursday", "spec": "midday Friday local time", "para": "noon Friday"}
+{"x": "competing in a race", "neg": "watching a race", "spec": "competing in a bicycle race", "para": "taking part in a race"}
+{"x": "to 6.2767", "neg": "to 6.2677", "spec": "to 6.2767 yuan", "para": "reaching 6.2767"}
+{"x": "for every new settler homes", "neg": "for every new settler outpost", "spec": "for every new Israeli settler homes", "para": "for each new settler homes"}
+{"x": "Mandela", "neg": "De Klerk", "spec": "Nelson Mandela", "para": "Madiba"}
+{"x": "In Cairo Camps Protesters", "neg": "In Cairo Camps Police", "spec": "In Cairo Camps Pro-Morsi Protesters", "para": "Protesters In Cairo Camps"}
+{"x": "at a dinner table", "neg": "at a coffee table", "spec": "at a wooden dinner table", "para": "at a dining table"}
+{"x": "of a white sheep", "neg": "of a black sheep", "spec": "of a fluffy white sheep", "para": "of a sheep that is white"}
+{"x": "the adult male", "neg": "the adult female", "spec": "the tall adult male", "para": "the grown man"}
+{"x": "Air strike", "neg": "Ground assault", "spec": "Israeli air strike", "para": "Airstrike"}
+{"x": "A double-decker bus", "neg": "A single-decker bus", "spec": "A red double-decker bus", "para": "A bus with two decks"}
+{"x": "Kenya SC", "neg": "Kenya MPs", "spec": "Kenya SC in Nairobi", "para": "Kenya Supreme Court"}
+{"x": "in Mumbai rape gang case", "neg": "in Mumbai bomb blast case", "spec": "in Mumbai photojournalist rape gang case", "para": "in Mumbai gang rape case"}
+{"x": "revokes", "neg": "approves", "spec": "revokes licence", "para": "cancels"}
+{"x": "atop a rock carving", "neg": "beside a rock carving", "spec": "atop a large rock carving", "para": "on top of a rock carving"}
+{"x": "Fresh rain", "neg": "Fresh snow", "spec": "Fresh heavy rain", "para": "New rain"}
+{"x": "in the backgroud", "neg": "in the foreground", "spec": "in the far backgroud", "para": "in the background"}
+{"x": "India Trophy win", "neg": "India Trophy loss", "spec": "India Champions Trophy win", "para": "India wins Trophy"}
+{"x": "of grass", "neg": "of dirt", "spec": "of tall green grass", "para": "of the grass"}
+{"x": "dead", "neg": "injured", "spec": "found dead", "para": "deceased"}
+{"x": "for plan", "neg": "against plan", "spec": "for peace plan", "para": "for proposal"}
+{"x": "The white sheep", "neg": "The black sheep", "spec": "The fluffy white sheep", "para": "The sheep that is white"}
+{"x": "Broadcaster David Frost", "neg": "Broadcaster David Dimbleby", "spec": "British broadcaster David Frost", "para": "David Frost , broadcaster"}
+{"x": "on a red couch", "neg": "on a blue couch", "spec": "on a red leather couch", "para": "on a red sofa"}
+{"x": "climbs", "neg": "descends", "spec": "climbs steeply", "para": "ascends"}
+{"x": "a pink coat", "neg": "a pink hat", "spec": "a long pink coat", "para": "a coat that is pink"}
+{"x": "Turkey unrest", "neg": "Turkey election", "spec": "Turkey anti-government unrest", "para": "Unrest in Turkey"}
+{"x": "a brown-colored equine", "neg": "a white-colored equine", "spec": "a brown-colored equine galloping", "para": "a brown horse"}
+{"x": "global alert", "neg": "regional alert", "spec": "global health alert", "para": "worldwide alert"}
+{"x": "seated", "neg": "standing", "spec": "seated on a bench", "para": "sitting"}
+{"x": "while other men", "neg": "while other women", "spec": "while other young men", "para": "as other men"}
+{"x": "as clashes", "neg": "as talks", "spec": "as deadly clashes", "para": "while clashes"}
+{"x": "Heats Up", "neg": "Cools Down", "spec": "Heats Up Sharply", "para": "Intensifies"}
+{"x": "is sniffing", "neg": "is licking", "spec": "is sniffing the ground", "para": "sniffs"}
+{"x": "Two dairy cows", "neg": "Two dairy goats", "spec": "Two black dairy cows", "para": "A pair of dairy cows"}
+{"x": "equities from China", "neg": "bonds from China", "spec": "technology equities from China", "para": "Chinese equities"}
+{"x": "NSA whistleblower Edward Snowden", "neg": "NSA director Keith Alexander", "spec": "NSA whistleblower Edward Snowden , 30", "para": "Edward Snowden , the NSA whistleblower"}
+{"x": "Islamist Tactics", "neg": "Islamist Politics", "spec": "Violent Islamist Tactics", "para": "Tactics of Islamists"}
+{"x": "Shots , Explosions", "neg": "Shots , Sirens", "spec": "Gun Shots , Loud Explosions", "para": "Gunfire , Blasts"}
+{"x": "Black and white cows", "neg": "Brown and white cows", "spec": "Black and white dairy cows", "para": "White and black cows"}
+{"x": "from Calgary homes", "neg": "from Calgary businesses", "spec": "from flooded Calgary homes", "para": "out of Calgary homes"}
+{"x": "in Russian psychiatric hospital fire", "neg": "in Russian nursing home fire", "spec": "in deadly Russian psychiatric hospital fire", "para": "in fire at Russian psychiatric hospital"}
+{"x": "Young couple", "neg": "Young family", "spec": "Young couple kissing", "para": "Young pair"}
+{"x": "Chemical Arms Team", "neg": "Nuclear Arms Team", "spec": "UN Chemical Arms Team", "para": "Chemical Weapons Team"}
+{"x": "The two dogs", "neg": "The two cats", "spec": "The two brown dogs", "para": "The pair of dogs"}
+{"x": "for camera", "neg": "for audience", "spec": "smiling for camera", "para": "for the camera"}
+{"x": "the male child of that person", "neg": "the female child of that person", "spec": "the young male child of that person", "para": "that person's son"}
+{"x": "in northern Lebanon", "neg": "in southern Lebanon", "spec": "in northern Lebanon city of Tripoli", "para": "in the north of Lebanon"}
+{"x": "for Boston bomb suspect", "neg": "for Boston bomb victims", "spec": "for Boston bomb suspect Tsarnaev", "para": "for Boston bombing suspect"}
+{"x": "near two tiny animals", "neg": "near two large animals", "spec": "near two tiny kittens", "para": "close to two small animals"}
+{"x": "in Canada train disaster", "neg": "in Canada plane crash", "spec": "in Quebec Canada train disaster", "para": "in Canadian train disaster"}
+{"x": "India govt", "neg": "Pakistan govt", "spec": "India central govt", "para": "Indian government"}
+{"x": "from a passenger vehicle", "neg": "from a delivery vehicle", "spec": "from a red passenger vehicle", "para": "from a vehicle carrying passengers"}
+{"x": "operating the vehicle", "neg": "repairing the vehicle", "spec": "operating the vehicle at night", "para": "driving the vehicle"}
+{"x": "A guy", "neg": "A girl", "spec": "A guy in a blue shirt", "para": "A man"}
+{"x": "in grassy field", "neg": "in snowy field", "spec": "in large grassy field", "para": "in a field of grass"}
+{"x": "at the Olympic Games", "neg": "at the Paralympic Games", "spec": "at the Winter Olympic Games", "para": "at the Olympics"}
+{"x": "A surfer", "neg": "A swimmer", "spec": "A young surfer", "para": "A person surfing"}
+{"x": "The white and brown dog", "neg": "The black and brown dog", "spec": "The small white and brown dog", "para": "The brown and white dog"}
+{"x": "upon the snowy surface", "neg": "upon the icy surface", "spec": "upon the deep snowy surface", "para": "on the snow-covered surface"}
+{"x": "China 's stocks", "neg": "China 's bonds", "spec": "China 's tech stocks", "para": "Chinese stocks"}
+{"x": "A gray dog", "neg": "A gray cat", "spec": "A large gray dog", "para": "A grey dog"}
+{"x": "into Syria", "neg": "out of Syria", "spec": "into northern Syria", "para": "into Syrian territory"}
+{"x": "Palestinian prisoner release", "neg": "Israeli prisoner release", "spec": "Palestinian long-term prisoner release", "para": "Release of Palestinian prisoners"}
+{"x": "Brown and white dog", "neg": "Black and white dog", "spec": "Small brown and white dog", "para": "White and brown dog"}
+{"x": "UN presses", "neg": "UN praises", "spec": "UN presses Syria", "para": "UN urges"}
+{"x": "to Marry", "neg": "to Divorce", "spec": "to Marry Girlfriend", "para": "To Wed"}
+{"x": "around a tree", "neg": "under a tree", "spec": "around a large oak tree", "para": "round a tree"}
+{"x": "over horse meat scandal", "neg": "over horse racing scandal", "spec": "over European horse meat scandal", "para": "over the horsemeat scandal"}
+{"x": "US Capitol", "neg": "White House", "spec": "US Capitol dome in Washington", "para": "United States Capitol"}
+{"x": "Virginia 's ex-Gov . Bob McDonnell , wife", "neg": "Virginia 's ex-Gov . Bob McDonnell , lawyer", "spec": "Virginia 's ex-Gov . Bob McDonnell , his wife Maureen", "para": "Ex-Gov . Bob McDonnell of Virginia , wife"}
+{"x": "as presidential candidate", "neg": "as vice presidential candidate", "spec": "as Republican presidential candidate", "para": "as candidate for president"}
+{"x": "radical cleric Abu Qatada", "neg": "radical cleric Abu Hamza", "spec": "radical Muslim cleric Abu Qatada", "para": "extremist cleric Abu Qatada"}
+{"x": "dies", "neg": "retires", "spec": "dies at 88", "para": "passes away"}
+{"x": "three U.S. diplomats", "neg": "three U.S. soldiers", "spec": "three senior U.S. diplomats", "para": "3 U.S. diplomats"}
+{"x": "is running after", "neg": "is running away from", "spec": "is running after a ball", "para": "is chasing"}
+{"x": "Ahmadinejad", "neg": "Rouhani", "spec": "Iran president Ahmadinejad", "para": "Ahmedinejad"}
+{"x": "US Capitol Hill", "neg": "US Pentagon", "spec": "US Capitol Hill in Washington", "para": "Capitol Hill in the US"}
+{"x": "15", "neg": "51", "spec": "15 people", "para": "fifteen"}
+{"x": "around a table", "neg": "under a table", "spec": "around a wooden table", "para": "round a table"}
+{"x": "for son", "neg": "for daughter", "spec": "for teenage son", "para": "for the son"}
+{"x": "in middle of grassy field", "neg": "at edge of grassy field", "spec": "in middle of large grassy field", "para": "in the center of a grassy field"}
+{"x": "in a kitchen", "neg": "in a bathroom", "spec": "in a modern kitchen", "para": "inside a kitchen"}
+{"x": "Suicide bomb", "neg": "Car bomb", "spec": "Suicide bomb in Baghdad", "para": "Suicide blast"}

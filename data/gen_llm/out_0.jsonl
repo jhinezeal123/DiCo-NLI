@@ -1,0 +1,100 @@
+{"x": "Ex-Virginia governor Bob McDonnell", "neg": "Ex-Virginia governor Terry McAuliffe", "spec": "Ex-Virginia Republican governor Bob McDonnell", "para": "Former Virginia governor Bob McDonnell"}
+{"x": "the water", "neg": "the sand", "spec": "the cold blue water", "para": "the H2O"}
+{"x": "in a clothing store", "neg": "in a shoe store", "spec": "in a small clothing store downtown", "para": "in an apparel shop"}
+{"x": "on direct flights", "neg": "on connecting flights", "spec": "on direct overnight flights", "para": "on nonstop flights"}
+{"x": "U.S. Midwest", "neg": "U.S. Northeast", "spec": "U.S. Midwest farm belt", "para": "American Midwest"}
+{"x": "Baby", "neg": "Toddler", "spec": "Newborn baby", "para": "Infant"}
+{"x": "Two Eagles", "neg": "Two Falcons", "spec": "Two bald Eagles", "para": "A pair of Eagles"}
+{"x": "from National Zoo", "neg": "from San Diego Zoo", "spec": "from National Zoo in Washington", "para": "from the National Zoological Park"}
+{"x": "perches", "neg": "flies away", "spec": "perches on a fence post", "para": "sits perched"}
+{"x": "on a branch", "neg": "on a rock", "spec": "on a thick oak branch", "para": "on a tree limb"}
+{"x": "Senate Judiciary Committee", "neg": "Senate Finance Committee", "spec": "Democratic-led Senate Judiciary Committee", "para": "Judiciary Committee of the Senate"}
+{"x": "at a brown dog", "neg": "at a black cat", "spec": "at a small brown dog", "para": "toward a brown dog"}
+{"x": "in Egypt clashes", "neg": "in Libya clashes", "spec": "in deadly Egypt clashes", "para": "in clashes in Egypt"}
+{"x": "A skateboarder", "neg": "A snowboarder", "spec": "A young skateboarder in a red helmet", "para": "A person on a skateboard"}
+{"x": "Two firefighters", "neg": "Two police officers", "spec": "Two male firefighters", "para": "A pair of firefighters"}
+{"x": "are racing", "neg": "are walking", "spec": "are racing across a field", "para": "are running a race"}
+{"x": "snowboarding and jumping", "neg": "skiing and falling", "spec": "snowboarding and jumping off a ramp", "para": "jumping and snowboarding"}
+{"x": "goes down", "neg": "goes up", "spec": "goes down a steep hill", "para": "descends"}
+{"x": "as firefighters", "neg": "as paramedics", "spec": "as volunteer firefighters", "para": "while firefighters"}
+{"x": "brown horse", "neg": "white horse", "spec": "dark brown stallion", "para": "chestnut-colored horse"}
+{"x": "under the trees", "neg": "above the trees", "spec": "under the tall pine trees", "para": "beneath the trees"}
+{"x": "world credibility", "neg": "world economy", "spec": "global diplomatic credibility", "para": "international credibility"}
+{"x": "at Greek shopping mall", "neg": "at Greek university", "spec": "at crowded Greek shopping mall", "para": "at shopping mall in Greece"}
+{"x": "under an expressway ledge", "neg": "over an expressway ledge", "spec": "under a concrete expressway ledge", "para": "beneath a highway ledge"}
+{"x": "Aged 116", "neg": "Aged 106", "spec": "Aged 116 and still living alone", "para": "At age 116"}
+{"x": "with a gemmed collar", "neg": "with a leather collar", "spec": "with a ruby-gemmed collar", "para": "with a jeweled collar"}
+{"x": "on tracks", "neg": "on a road", "spec": "on steel tracks", "para": "upon rails"}
+{"x": "30", "neg": "13", "spec": "exactly 30", "para": "thirty"}
+{"x": "One Asian and one occasion woman", "neg": "One Asian and one African man", "spec": "One young Asian and one occasion woman", "para": "An Asian woman and a occasion woman"}
+{"x": "retires", "neg": "resigns", "spec": "retires after 30 years", "para": "steps down at the end of a career"}
+{"x": "US government", "neg": "UK government", "spec": "US federal government", "para": "American government"}
+{"x": "into Iran nuclear deal", "neg": "into Iran sanctions", "spec": "into Iran interim nuclear deal", "para": "into nuclear agreement with Iran"}
+{"x": "Blizzard wallops", "neg": "Blizzard approaches", "spec": "Massive blizzard wallops", "para": "Blizzard hammers"}
+{"x": "a denim jacket", "neg": "a leather jacket", "spec": "a blue denim jacket", "para": "a jean jacket"}
+{"x": "for massive protests", "neg": "for peaceful talks", "spec": "for massive anti-government protests", "para": "for huge protests"}
+{"x": "The black and white dog", "neg": "The brown and white dog", "spec": "The small black and white dog", "para": "The dog that is black and white"}
+{"x": "Powerful 7.6 quake", "neg": "Powerful 6.1 quake", "spec": "Powerful 7.6 undersea quake", "para": "Strong 7.6 earthquake"}
+{"x": "murder charge", "neg": "murder acquittal", "spec": "first-degree murder charge", "para": "charge of murder"}
+{"x": "with two monitors", "neg": "with three keyboards", "spec": "with two flat-panel monitors", "para": "with a pair of monitors"}
+{"x": "chews", "neg": "swallows", "spec": "chews on a bone", "para": "gnaws"}
+{"x": "along dirt path", "neg": "along paved road", "spec": "along narrow dirt path", "para": "down an unpaved trail"}
+{"x": "to talks", "neg": "to war", "spec": "to peace talks", "para": "to negotiations"}
+{"x": "are sheering", "neg": "are feeding", "spec": "are sheering sheep in a barn", "para": "are shearing"}
+{"x": "at the dog", "neg": "at the horse", "spec": "at the large dog", "para": "toward the dog"}
+{"x": "Narendra Modi", "neg": "Rahul Gandhi", "spec": "Gujarat chief minister Narendra Modi", "para": "Modi"}
+{"x": "off Mexico", "neg": "off Chile", "spec": "off the Pacific coast of Mexico", "para": "off the coast of Mexico"}
+{"x": "hits", "neg": "misses", "spec": "hits hard", "para": "strikes"}
+{"x": "Thailand 's opposition Democrat Party", "neg": "Thailand 's ruling Pheu Thai Party", "spec": "Thailand 's main opposition Democrat Party", "para": "Thailand 's Democrat Party opposition"}
+{"x": "around a dining table", "neg": "around a coffee table", "spec": "around a wooden dining table", "para": "surrounding a dining table"}
+{"x": "South Africans", "neg": "Zimbabweans", "spec": "Cape Town South Africans", "para": "People from South Africa"}
+{"x": "through a creek", "neg": "across a bridge", "spec": "through a shallow rocky creek", "para": "through a stream"}
+{"x": "with bubbles", "neg": "with sparkles", "spec": "with soapy bubbles", "para": "containing bubbles"}
+{"x": "in a grassy wooded area", "neg": "in a sandy desert area", "spec": "in a grassy wooded area near a lake", "para": "in a wooded area with grass"}
+{"x": "A flat-screen TV", "neg": "A projector screen", "spec": "A large black flat-screen TV", "para": "A flat panel television"}
+{"x": "on flights", "neg": "on trains", "spec": "on long-haul flights", "para": "aboard airplanes"}
+{"x": "under a small table", "neg": "on a small table", "spec": "under a small wooden table", "para": "beneath a little table"}
+{"x": "presidency bid", "neg": "presidency resignation", "spec": "presidency bid in 2016", "para": "run for president"}
+{"x": "next to a mossy tree", "neg": "next to a bare tree", "spec": "next to a large mossy oak tree", "para": "beside a moss-covered tree"}
+{"x": "peaks out", "neg": "hides inside", "spec": "peaks out from behind a door", "para": "peeks out"}
+{"x": "North Korea", "neg": "South Korea", "spec": "communist North Korea", "para": "the DPRK"}
+{"x": "around a red fire truck", "neg": "around a red tractor", "spec": "around a shiny red fire truck", "para": "surrounding a red fire engine"}
+{"x": "into Lebanon", "neg": "into Jordan", "spec": "into northern Lebanon", "para": "to Lebanon"}
+{"x": "At least 45", "neg": "At least 54", "spec": "At least 45 dead", "para": "No fewer than 45"}
+{"x": "eats", "neg": "drinks", "spec": "eats hungrily", "para": "is eating"}
+{"x": "fiscal cliff deal", "neg": "fiscal cliff talks collapse", "spec": "last-minute fiscal cliff deal", "para": "deal on the fiscal cliff"}
+{"x": "a brown and white horse", "neg": "a black and white horse", "spec": "a large brown and white horse", "para": "a horse that is brown and white"}
+{"x": "on a carpeted floor", "neg": "on a tiled floor", "spec": "on a beige carpeted floor", "para": "on a floor with carpet"}
+{"x": "Egypt 's turmoil", "neg": "Egypt 's economy", "spec": "Egypt 's political turmoil", "para": "Egypt 's upheaval"}
+{"x": "unrest in Egypt", "neg": "unrest in Ukraine", "spec": "violent unrest in Egypt", "para": "Egypt unrest"}
+{"x": "the canine with black-and-white fur", "neg": "the canine with brown fur", "spec": "the fluffy canine with black-and-white fur", "para": "the black and white dog"}
+{"x": "as Egyptian forces", "neg": "as Syrian forces", "spec": "as Egyptian security forces", "para": "while Egypt 's forces"}
+{"x": "toward a policeman", "neg": "away from a policeman", "spec": "toward a mounted policeman", "para": "in the direction of a policeman"}
+{"x": "in front of a silver train", "neg": "in front of a blue train", "spec": "in front of a shiny silver train", "para": "before a silver train"}
+{"x": "Two airplanes", "neg": "Two helicopters", "spec": "Two white airplanes", "para": "A pair of planes"}
+{"x": "claim", "neg": "deny", "spec": "claim responsibility", "para": "assert"}
+{"x": "Two brindle dogs", "neg": "Two spotted dogs", "spec": "Two large brindle dogs", "para": "A pair of brindle dogs"}
+{"x": "on blue sofa", "neg": "on red sofa", "spec": "on soft blue sofa", "para": "on a blue couch"}
+{"x": "to hold", "neg": "to drop", "spec": "to hold tightly", "para": "to grasp"}
+{"x": "bomb attacks", "neg": "bomb threats", "spec": "deadly bomb attacks", "para": "bombings"}
+{"x": "has seized", "neg": "has released", "spec": "has seized by force", "para": "has captured"}
+{"x": "Iran President Hassan Rouhani", "neg": "Iran Supreme Leader Ali Khamenei", "spec": "Iran moderate President Hassan Rouhani", "para": "Iranian President Hassan Rouhani"}
+{"x": "Former Israeli Prime Minister Sharon", "neg": "Former Israeli Prime Minister Olmert", "spec": "Former Israeli Prime Minister Ariel Sharon", "para": "Ex-Israeli premier Sharon"}
+{"x": "Diana and Fayed death info", "neg": "Diana and Fayed wedding rumors", "spec": "Diana and Dodi Fayed car crash death info", "para": "Information on Diana and Fayed deaths"}
+{"x": "Bird", "neg": "Bat", "spec": "Small yellow bird", "para": "Avian"}
+{"x": "in U.S. drone strike", "neg": "in U.S. airstrike", "spec": "in U.S. drone strike in Yemen", "para": "in American drone attack"}
+{"x": "Google and IBM Post Strong Earnings", "neg": "Google and IBM Post Weak Earnings", "spec": "Google and IBM Post Strong Quarterly Earnings", "para": "Google and IBM Report Strong Earnings"}
+{"x": "an ovine animal", "neg": "a bovine animal", "spec": "a woolly ovine animal", "para": "a sheep"}
+{"x": "into two boys", "neg": "into two girls", "spec": "into two young boys", "para": "toward two male children"}
+{"x": "as freight train", "neg": "as passenger train", "spec": "as long freight train", "para": "as cargo train"}
+{"x": "for Christmas", "neg": "for Easter", "spec": "for Christmas dinner", "para": "for the Christmas holiday"}
+{"x": "Red and white bus", "neg": "Blue and white bus", "spec": "Large red and white bus", "para": "White and red bus"}
+{"x": "Cloud-Based , Networked Firewall Specialist Stonesoft", "neg": "Cloud-Based , Networked Antivirus Specialist McAfee", "spec": "Finnish Cloud-Based , Networked Firewall Specialist Stonesoft", "para": "Stonesoft , Specialist in Networked , Cloud-Based Firewalls"}
+{"x": "A long-haired dog", "neg": "A short-haired dog", "spec": "A long-haired brown dog", "para": "A dog with long hair"}
+{"x": "A small white cat", "neg": "A small black cat", "spec": "A small white Persian cat", "para": "A little white cat"}
+{"x": "dressed up", "neg": "dressed down", "spec": "dressed up in costumes", "para": "in fancy clothes"}
+{"x": "in US marathon bomb", "neg": "in US marathon win", "spec": "in US Boston marathon bomb", "para": "in American marathon bombing"}
+{"x": "Peacekeeper", "neg": "Negotiator", "spec": "UN Peacekeeper", "para": "Peacekeeping soldier"}
+{"x": "McAfee", "neg": "Symantec", "spec": "Antivirus firm McAfee", "para": "McAfee Inc."}
+{"x": "next to a yellow sports car", "neg": "next to a yellow school bus", "spec": "next to a bright yellow sports car", "para": "beside a yellow sports car"}
+{"x": "4,000 Cuban doctors", "neg": "4,000 Cuban teachers", "spec": "4,000 Cuban doctors in Venezuela", "para": "4,000 doctors from Cuba"}

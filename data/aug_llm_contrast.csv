@@ -1,0 +1,1474 @@
+instance_id,pair_id,text1_lang,text2_lang,text1,text2,label
+aug_llm_00000__en-en__original,aug_llm_00000,en,en,Ex-Virginia governor Bob McDonnell,Ex-Virginia governor Terry McAuliffe,NEGATIVE_OTHER
+aug_llm_00001__en-en__original,aug_llm_00001,en,en,Ex-Virginia Republican governor Bob McDonnell,Ex-Virginia governor Bob McDonnell,FORWARD_ENTAILMENT
+aug_llm_00001__en-en__flipped,aug_llm_00001,en,en,Ex-Virginia governor Bob McDonnell,Ex-Virginia Republican governor Bob McDonnell,BACKWARD_ENTAILMENT
+aug_llm_00003__en-en__original,aug_llm_00003,en,en,Former Virginia governor Bob McDonnell,Ex-Virginia governor Bob McDonnell,EQUIVALENCE
+aug_llm_00003__en-en__flipped,aug_llm_00003,en,en,Ex-Virginia governor Bob McDonnell,Former Virginia governor Bob McDonnell,EQUIVALENCE
+aug_llm_00005__en-en__original,aug_llm_00005,en,en,the sand,the water,NEGATIVE_OTHER
+aug_llm_00006__en-en__original,aug_llm_00006,en,en,the cold blue water,the water,FORWARD_ENTAILMENT
+aug_llm_00006__en-en__flipped,aug_llm_00006,en,en,the water,the cold blue water,BACKWARD_ENTAILMENT
+aug_llm_00008__en-en__original,aug_llm_00008,en,en,the H2O,the water,EQUIVALENCE
+aug_llm_00008__en-en__flipped,aug_llm_00008,en,en,the water,the H2O,EQUIVALENCE
+aug_llm_00010__en-en__original,aug_llm_00010,en,en,in a clothing store,in a shoe store,NEGATIVE_OTHER
+aug_llm_00011__en-en__original,aug_llm_00011,en,en,in a clothing store,in a small clothing store downtown,BACKWARD_ENTAILMENT
+aug_llm_00011__en-en__flipped,aug_llm_00011,en,en,in a small clothing store downtown,in a clothing store,FORWARD_ENTAILMENT
+aug_llm_00013__en-en__original,aug_llm_00013,en,en,in an apparel shop,in a clothing store,EQUIVALENCE
+aug_llm_00013__en-en__flipped,aug_llm_00013,en,en,in a clothing store,in an apparel shop,EQUIVALENCE
+aug_llm_00015__en-en__original,aug_llm_00015,en,en,on direct flights,on connecting flights,NEGATIVE_OTHER
+aug_llm_00016__en-en__original,aug_llm_00016,en,en,on direct overnight flights,on direct flights,FORWARD_ENTAILMENT
+aug_llm_00016__en-en__flipped,aug_llm_00016,en,en,on direct flights,on direct overnight flights,BACKWARD_ENTAILMENT
+aug_llm_00018__en-en__original,aug_llm_00018,en,en,on direct flights,on nonstop flights,EQUIVALENCE
+aug_llm_00018__en-en__flipped,aug_llm_00018,en,en,on nonstop flights,on direct flights,EQUIVALENCE
+aug_llm_00020__en-en__original,aug_llm_00020,en,en,U.S. Northeast,U.S. Midwest,NEGATIVE_OTHER
+aug_llm_00021__en-en__original,aug_llm_00021,en,en,U.S. Midwest farm belt,U.S. Midwest,FORWARD_ENTAILMENT
+aug_llm_00021__en-en__flipped,aug_llm_00021,en,en,U.S. Midwest,U.S. Midwest farm belt,BACKWARD_ENTAILMENT
+aug_llm_00023__en-en__original,aug_llm_00023,en,en,U.S. Midwest,American Midwest,EQUIVALENCE
+aug_llm_00023__en-en__flipped,aug_llm_00023,en,en,American Midwest,U.S. Midwest,EQUIVALENCE
+aug_llm_00025__en-en__original,aug_llm_00025,en,en,Toddler,Baby,NEGATIVE_OTHER
+aug_llm_00026__en-en__original,aug_llm_00026,en,en,Newborn baby,Baby,FORWARD_ENTAILMENT
+aug_llm_00026__en-en__flipped,aug_llm_00026,en,en,Baby,Newborn baby,BACKWARD_ENTAILMENT
+aug_llm_00028__en-en__original,aug_llm_00028,en,en,Baby,Infant,EQUIVALENCE
+aug_llm_00028__en-en__flipped,aug_llm_00028,en,en,Infant,Baby,EQUIVALENCE
+aug_llm_00030__en-en__original,aug_llm_00030,en,en,Two Eagles,Two Falcons,NEGATIVE_OTHER
+aug_llm_00031__en-en__original,aug_llm_00031,en,en,Two Eagles,A pair of Eagles,EQUIVALENCE
+aug_llm_00031__en-en__flipped,aug_llm_00031,en,en,A pair of Eagles,Two Eagles,EQUIVALENCE
+aug_llm_00033__en-en__original,aug_llm_00033,en,en,from San Diego Zoo,from National Zoo,NEGATIVE_OTHER
+aug_llm_00034__en-en__original,aug_llm_00034,en,en,from National Zoo in Washington,from National Zoo,FORWARD_ENTAILMENT
+aug_llm_00034__en-en__flipped,aug_llm_00034,en,en,from National Zoo,from National Zoo in Washington,BACKWARD_ENTAILMENT
+aug_llm_00036__en-en__original,aug_llm_00036,en,en,from National Zoo,from the National Zoological Park,EQUIVALENCE
+aug_llm_00036__en-en__flipped,aug_llm_00036,en,en,from the National Zoological Park,from National Zoo,EQUIVALENCE
+aug_llm_00038__en-en__original,aug_llm_00038,en,en,perches,flies away,NEGATIVE_OTHER
+aug_llm_00039__en-en__original,aug_llm_00039,en,en,perches,perches on a fence post,BACKWARD_ENTAILMENT
+aug_llm_00039__en-en__flipped,aug_llm_00039,en,en,perches on a fence post,perches,FORWARD_ENTAILMENT
+aug_llm_00041__en-en__original,aug_llm_00041,en,en,sits perched,perches,EQUIVALENCE
+aug_llm_00041__en-en__flipped,aug_llm_00041,en,en,perches,sits perched,EQUIVALENCE
+aug_llm_00043__en-en__original,aug_llm_00043,en,en,on a rock,on a branch,NEGATIVE_OTHER
+aug_llm_00044__en-en__original,aug_llm_00044,en,en,on a thick oak branch,on a branch,FORWARD_ENTAILMENT
+aug_llm_00044__en-en__flipped,aug_llm_00044,en,en,on a branch,on a thick oak branch,BACKWARD_ENTAILMENT
+aug_llm_00046__en-en__original,aug_llm_00046,en,en,on a branch,on a tree limb,EQUIVALENCE
+aug_llm_00046__en-en__flipped,aug_llm_00046,en,en,on a tree limb,on a branch,EQUIVALENCE
+aug_llm_00048__en-en__original,aug_llm_00048,en,en,Senate Judiciary Committee,Senate Finance Committee,NEGATIVE_OTHER
+aug_llm_00049__en-en__original,aug_llm_00049,en,en,Senate Judiciary Committee,Democratic-led Senate Judiciary Committee,BACKWARD_ENTAILMENT
+aug_llm_00049__en-en__flipped,aug_llm_00049,en,en,Democratic-led Senate Judiciary Committee,Senate Judiciary Committee,FORWARD_ENTAILMENT
+aug_llm_00051__en-en__original,aug_llm_00051,en,en,Senate Judiciary Committee,Judiciary Committee of the Senate,EQUIVALENCE
+aug_llm_00051__en-en__flipped,aug_llm_00051,en,en,Judiciary Committee of the Senate,Senate Judiciary Committee,EQUIVALENCE
+aug_llm_00053__en-en__original,aug_llm_00053,en,en,at a black cat,at a brown dog,NEGATIVE_OTHER
+aug_llm_00054__en-en__original,aug_llm_00054,en,en,at a small brown dog,at a brown dog,FORWARD_ENTAILMENT
+aug_llm_00054__en-en__flipped,aug_llm_00054,en,en,at a brown dog,at a small brown dog,BACKWARD_ENTAILMENT
+aug_llm_00056__en-en__original,aug_llm_00056,en,en,at a brown dog,toward a brown dog,EQUIVALENCE
+aug_llm_00056__en-en__flipped,aug_llm_00056,en,en,toward a brown dog,at a brown dog,EQUIVALENCE
+aug_llm_00058__en-en__original,aug_llm_00058,en,en,in Libya clashes,in Egypt clashes,NEGATIVE_OTHER
+aug_llm_00059__en-en__original,aug_llm_00059,en,en,in deadly Egypt clashes,in Egypt clashes,FORWARD_ENTAILMENT
+aug_llm_00059__en-en__flipped,aug_llm_00059,en,en,in Egypt clashes,in deadly Egypt clashes,BACKWARD_ENTAILMENT
+aug_llm_00061__en-en__original,aug_llm_00061,en,en,in clashes in Egypt,in Egypt clashes,EQUIVALENCE
+aug_llm_00061__en-en__flipped,aug_llm_00061,en,en,in Egypt clashes,in clashes in Egypt,EQUIVALENCE
+aug_llm_00063__en-en__original,aug_llm_00063,en,en,A skateboarder,A snowboarder,NEGATIVE_OTHER
+aug_llm_00064__en-en__original,aug_llm_00064,en,en,A young skateboarder in a red helmet,A skateboarder,FORWARD_ENTAILMENT
+aug_llm_00064__en-en__flipped,aug_llm_00064,en,en,A skateboarder,A young skateboarder in a red helmet,BACKWARD_ENTAILMENT
+aug_llm_00066__en-en__original,aug_llm_00066,en,en,A person on a skateboard,A skateboarder,EQUIVALENCE
+aug_llm_00066__en-en__flipped,aug_llm_00066,en,en,A skateboarder,A person on a skateboard,EQUIVALENCE
+aug_llm_00068__en-en__original,aug_llm_00068,en,en,Two police officers,Two firefighters,NEGATIVE_OTHER
+aug_llm_00069__en-en__original,aug_llm_00069,en,en,Two male firefighters,Two firefighters,FORWARD_ENTAILMENT
+aug_llm_00069__en-en__flipped,aug_llm_00069,en,en,Two firefighters,Two male firefighters,BACKWARD_ENTAILMENT
+aug_llm_00071__en-en__original,aug_llm_00071,en,en,A pair of firefighters,Two firefighters,EQUIVALENCE
+aug_llm_00071__en-en__flipped,aug_llm_00071,en,en,Two firefighters,A pair of firefighters,EQUIVALENCE
+aug_llm_00073__en-en__original,aug_llm_00073,en,en,are walking,are racing,NEGATIVE_OTHER
+aug_llm_00074__en-en__original,aug_llm_00074,en,en,are racing across a field,are racing,FORWARD_ENTAILMENT
+aug_llm_00074__en-en__flipped,aug_llm_00074,en,en,are racing,are racing across a field,BACKWARD_ENTAILMENT
+aug_llm_00076__en-en__original,aug_llm_00076,en,en,are running a race,are racing,EQUIVALENCE
+aug_llm_00076__en-en__flipped,aug_llm_00076,en,en,are racing,are running a race,EQUIVALENCE
+aug_llm_00078__en-en__original,aug_llm_00078,en,en,snowboarding and jumping,skiing and falling,NEGATIVE_OTHER
+aug_llm_00079__en-en__original,aug_llm_00079,en,en,snowboarding and jumping,snowboarding and jumping off a ramp,BACKWARD_ENTAILMENT
+aug_llm_00079__en-en__flipped,aug_llm_00079,en,en,snowboarding and jumping off a ramp,snowboarding and jumping,FORWARD_ENTAILMENT
+aug_llm_00081__en-en__original,aug_llm_00081,en,en,snowboarding and jumping,jumping and snowboarding,EQUIVALENCE
+aug_llm_00081__en-en__flipped,aug_llm_00081,en,en,jumping and snowboarding,snowboarding and jumping,EQUIVALENCE
+aug_llm_00083__en-en__original,aug_llm_00083,en,en,goes down,goes up,NEGATIVE_OTHER
+aug_llm_00084__en-en__original,aug_llm_00084,en,en,goes down,goes down a steep hill,BACKWARD_ENTAILMENT
+aug_llm_00084__en-en__flipped,aug_llm_00084,en,en,goes down a steep hill,goes down,FORWARD_ENTAILMENT
+aug_llm_00086__en-en__original,aug_llm_00086,en,en,descends,goes down,EQUIVALENCE
+aug_llm_00086__en-en__flipped,aug_llm_00086,en,en,goes down,descends,EQUIVALENCE
+aug_llm_00088__en-en__original,aug_llm_00088,en,en,as paramedics,as firefighters,NEGATIVE_OTHER
+aug_llm_00089__en-en__original,aug_llm_00089,en,en,as volunteer firefighters,as firefighters,FORWARD_ENTAILMENT
+aug_llm_00089__en-en__flipped,aug_llm_00089,en,en,as firefighters,as volunteer firefighters,BACKWARD_ENTAILMENT
+aug_llm_00091__en-en__original,aug_llm_00091,en,en,as firefighters,while firefighters,EQUIVALENCE
+aug_llm_00091__en-en__flipped,aug_llm_00091,en,en,while firefighters,as firefighters,EQUIVALENCE
+aug_llm_00093__en-en__original,aug_llm_00093,en,en,white horse,brown horse,NEGATIVE_OTHER
+aug_llm_00094__en-en__original,aug_llm_00094,en,en,dark brown stallion,brown horse,FORWARD_ENTAILMENT
+aug_llm_00094__en-en__flipped,aug_llm_00094,en,en,brown horse,dark brown stallion,BACKWARD_ENTAILMENT
+aug_llm_00096__en-en__original,aug_llm_00096,en,en,brown horse,chestnut-colored horse,EQUIVALENCE
+aug_llm_00096__en-en__flipped,aug_llm_00096,en,en,chestnut-colored horse,brown horse,EQUIVALENCE
+aug_llm_00098__en-en__original,aug_llm_00098,en,en,under the trees,above the trees,NEGATIVE_OTHER
+aug_llm_00099__en-en__original,aug_llm_00099,en,en,under the tall pine trees,under the trees,FORWARD_ENTAILMENT
+aug_llm_00099__en-en__flipped,aug_llm_00099,en,en,under the trees,under the tall pine trees,BACKWARD_ENTAILMENT
+aug_llm_00101__en-en__original,aug_llm_00101,en,en,under the trees,beneath the trees,EQUIVALENCE
+aug_llm_00101__en-en__flipped,aug_llm_00101,en,en,beneath the trees,under the trees,EQUIVALENCE
+aug_llm_00103__en-en__original,aug_llm_00103,en,en,world credibility,world economy,NEGATIVE_OTHER
+aug_llm_00104__en-en__original,aug_llm_00104,en,en,global diplomatic credibility,world credibility,FORWARD_ENTAILMENT
+aug_llm_00104__en-en__flipped,aug_llm_00104,en,en,world credibility,global diplomatic credibility,BACKWARD_ENTAILMENT
+aug_llm_00106__en-en__original,aug_llm_00106,en,en,world credibility,international credibility,EQUIVALENCE
+aug_llm_00106__en-en__flipped,aug_llm_00106,en,en,international credibility,world credibility,EQUIVALENCE
+aug_llm_00108__en-en__original,aug_llm_00108,en,en,at Greek university,at Greek shopping mall,NEGATIVE_OTHER
+aug_llm_00109__en-en__original,aug_llm_00109,en,en,at crowded Greek shopping mall,at Greek shopping mall,FORWARD_ENTAILMENT
+aug_llm_00109__en-en__flipped,aug_llm_00109,en,en,at Greek shopping mall,at crowded Greek shopping mall,BACKWARD_ENTAILMENT
+aug_llm_00111__en-en__original,aug_llm_00111,en,en,at shopping mall in Greece,at Greek shopping mall,EQUIVALENCE
+aug_llm_00111__en-en__flipped,aug_llm_00111,en,en,at Greek shopping mall,at shopping mall in Greece,EQUIVALENCE
+aug_llm_00113__en-en__original,aug_llm_00113,en,en,under an expressway ledge,over an expressway ledge,NEGATIVE_OTHER
+aug_llm_00114__en-en__original,aug_llm_00114,en,en,under an expressway ledge,under a concrete expressway ledge,BACKWARD_ENTAILMENT
+aug_llm_00114__en-en__flipped,aug_llm_00114,en,en,under a concrete expressway ledge,under an expressway ledge,FORWARD_ENTAILMENT
+aug_llm_00116__en-en__original,aug_llm_00116,en,en,beneath a highway ledge,under an expressway ledge,EQUIVALENCE
+aug_llm_00116__en-en__flipped,aug_llm_00116,en,en,under an expressway ledge,beneath a highway ledge,EQUIVALENCE
+aug_llm_00118__en-en__original,aug_llm_00118,en,en,Aged 106,Aged 116,NEGATIVE_OTHER
+aug_llm_00119__en-en__original,aug_llm_00119,en,en,Aged 116 and still living alone,Aged 116,FORWARD_ENTAILMENT
+aug_llm_00119__en-en__flipped,aug_llm_00119,en,en,Aged 116,Aged 116 and still living alone,BACKWARD_ENTAILMENT
+aug_llm_00121__en-en__original,aug_llm_00121,en,en,Aged 116,At age 116,EQUIVALENCE
+aug_llm_00121__en-en__flipped,aug_llm_00121,en,en,At age 116,Aged 116,EQUIVALENCE
+aug_llm_00123__en-en__original,aug_llm_00123,en,en,with a leather collar,with a gemmed collar,NEGATIVE_OTHER
+aug_llm_00124__en-en__original,aug_llm_00124,en,en,with a gemmed collar,with a ruby-gemmed collar,BACKWARD_ENTAILMENT
+aug_llm_00124__en-en__flipped,aug_llm_00124,en,en,with a ruby-gemmed collar,with a gemmed collar,FORWARD_ENTAILMENT
+aug_llm_00126__en-en__original,aug_llm_00126,en,en,with a gemmed collar,with a jeweled collar,EQUIVALENCE
+aug_llm_00126__en-en__flipped,aug_llm_00126,en,en,with a jeweled collar,with a gemmed collar,EQUIVALENCE
+aug_llm_00128__en-en__original,aug_llm_00128,en,en,on tracks,on a road,NEGATIVE_OTHER
+aug_llm_00129__en-en__original,aug_llm_00129,en,en,on steel tracks,on tracks,FORWARD_ENTAILMENT
+aug_llm_00129__en-en__flipped,aug_llm_00129,en,en,on tracks,on steel tracks,BACKWARD_ENTAILMENT
+aug_llm_00131__en-en__original,aug_llm_00131,en,en,on tracks,upon rails,EQUIVALENCE
+aug_llm_00131__en-en__flipped,aug_llm_00131,en,en,upon rails,on tracks,EQUIVALENCE
+aug_llm_00133__en-en__original,aug_llm_00133,en,en,30,13,NEGATIVE_OTHER
+aug_llm_00134__en-en__original,aug_llm_00134,en,en,exactly 30,30,FORWARD_ENTAILMENT
+aug_llm_00134__en-en__flipped,aug_llm_00134,en,en,30,exactly 30,BACKWARD_ENTAILMENT
+aug_llm_00136__en-en__original,aug_llm_00136,en,en,30,thirty,EQUIVALENCE
+aug_llm_00136__en-en__flipped,aug_llm_00136,en,en,thirty,30,EQUIVALENCE
+aug_llm_00138__en-en__original,aug_llm_00138,en,en,One Asian and one African man,One Asian and one occasion woman,NEGATIVE_OTHER
+aug_llm_00139__en-en__original,aug_llm_00139,en,en,One young Asian and one occasion woman,One Asian and one occasion woman,FORWARD_ENTAILMENT
+aug_llm_00139__en-en__flipped,aug_llm_00139,en,en,One Asian and one occasion woman,One young Asian and one occasion woman,BACKWARD_ENTAILMENT
+aug_llm_00141__en-en__original,aug_llm_00141,en,en,An Asian woman and a occasion woman,One Asian and one occasion woman,EQUIVALENCE
+aug_llm_00141__en-en__flipped,aug_llm_00141,en,en,One Asian and one occasion woman,An Asian woman and a occasion woman,EQUIVALENCE
+aug_llm_00143__en-en__original,aug_llm_00143,en,en,retires,resigns,NEGATIVE_OTHER
+aug_llm_00144__en-en__original,aug_llm_00144,en,en,retires after 30 years,retires,FORWARD_ENTAILMENT
+aug_llm_00144__en-en__flipped,aug_llm_00144,en,en,retires,retires after 30 years,BACKWARD_ENTAILMENT
+aug_llm_00146__en-en__original,aug_llm_00146,en,en,retires,steps down at the end of a career,EQUIVALENCE
+aug_llm_00146__en-en__flipped,aug_llm_00146,en,en,steps down at the end of a career,retires,EQUIVALENCE
+aug_llm_00148__en-en__original,aug_llm_00148,en,en,US government,UK government,NEGATIVE_OTHER
+aug_llm_00149__en-en__original,aug_llm_00149,en,en,US federal government,US government,FORWARD_ENTAILMENT
+aug_llm_00149__en-en__flipped,aug_llm_00149,en,en,US government,US federal government,BACKWARD_ENTAILMENT
+aug_llm_00151__en-en__original,aug_llm_00151,en,en,US government,American government,EQUIVALENCE
+aug_llm_00151__en-en__flipped,aug_llm_00151,en,en,American government,US government,EQUIVALENCE
+aug_llm_00153__en-en__original,aug_llm_00153,en,en,into Iran sanctions,into Iran nuclear deal,NEGATIVE_OTHER
+aug_llm_00154__en-en__original,aug_llm_00154,en,en,into Iran interim nuclear deal,into Iran nuclear deal,FORWARD_ENTAILMENT
+aug_llm_00154__en-en__flipped,aug_llm_00154,en,en,into Iran nuclear deal,into Iran interim nuclear deal,BACKWARD_ENTAILMENT
+aug_llm_00156__en-en__original,aug_llm_00156,en,en,into Iran nuclear deal,into nuclear agreement with Iran,EQUIVALENCE
+aug_llm_00156__en-en__flipped,aug_llm_00156,en,en,into nuclear agreement with Iran,into Iran nuclear deal,EQUIVALENCE
+aug_llm_00158__en-en__original,aug_llm_00158,en,en,Blizzard wallops,Blizzard approaches,NEGATIVE_OTHER
+aug_llm_00159__en-en__original,aug_llm_00159,en,en,Massive blizzard wallops,Blizzard wallops,FORWARD_ENTAILMENT
+aug_llm_00159__en-en__flipped,aug_llm_00159,en,en,Blizzard wallops,Massive blizzard wallops,BACKWARD_ENTAILMENT
+aug_llm_00161__en-en__original,aug_llm_00161,en,en,a leather jacket,a denim jacket,NEGATIVE_OTHER
+aug_llm_00162__en-en__original,aug_llm_00162,en,en,a blue denim jacket,a denim jacket,FORWARD_ENTAILMENT
+aug_llm_00162__en-en__flipped,aug_llm_00162,en,en,a denim jacket,a blue denim jacket,BACKWARD_ENTAILMENT
+aug_llm_00164__en-en__original,aug_llm_00164,en,en,a jean jacket,a denim jacket,EQUIVALENCE
+aug_llm_00164__en-en__flipped,aug_llm_00164,en,en,a denim jacket,a jean jacket,EQUIVALENCE
+aug_llm_00166__en-en__original,aug_llm_00166,en,en,for massive protests,for peaceful talks,NEGATIVE_OTHER
+aug_llm_00167__en-en__original,aug_llm_00167,en,en,for massive anti-government protests,for massive protests,FORWARD_ENTAILMENT
+aug_llm_00167__en-en__flipped,aug_llm_00167,en,en,for massive protests,for massive anti-government protests,BACKWARD_ENTAILMENT
+aug_llm_00169__en-en__original,aug_llm_00169,en,en,for huge protests,for massive protests,EQUIVALENCE
+aug_llm_00169__en-en__flipped,aug_llm_00169,en,en,for massive protests,for huge protests,EQUIVALENCE
+aug_llm_00171__en-en__original,aug_llm_00171,en,en,The black and white dog,The brown and white dog,NEGATIVE_OTHER
+aug_llm_00172__en-en__original,aug_llm_00172,en,en,The black and white dog,The small black and white dog,BACKWARD_ENTAILMENT
+aug_llm_00172__en-en__flipped,aug_llm_00172,en,en,The small black and white dog,The black and white dog,FORWARD_ENTAILMENT
+aug_llm_00174__en-en__original,aug_llm_00174,en,en,The dog that is black and white,The black and white dog,EQUIVALENCE
+aug_llm_00174__en-en__flipped,aug_llm_00174,en,en,The black and white dog,The dog that is black and white,EQUIVALENCE
+aug_llm_00176__en-en__original,aug_llm_00176,en,en,Powerful 7.6 quake,Powerful 6.1 quake,NEGATIVE_OTHER
+aug_llm_00177__en-en__original,aug_llm_00177,en,en,Powerful 7.6 quake,Powerful 7.6 undersea quake,BACKWARD_ENTAILMENT
+aug_llm_00177__en-en__flipped,aug_llm_00177,en,en,Powerful 7.6 undersea quake,Powerful 7.6 quake,FORWARD_ENTAILMENT
+aug_llm_00179__en-en__original,aug_llm_00179,en,en,Powerful 7.6 quake,Strong 7.6 earthquake,EQUIVALENCE
+aug_llm_00179__en-en__flipped,aug_llm_00179,en,en,Strong 7.6 earthquake,Powerful 7.6 quake,EQUIVALENCE
+aug_llm_00181__en-en__original,aug_llm_00181,en,en,murder acquittal,murder charge,NEGATIVE_OTHER
+aug_llm_00182__en-en__original,aug_llm_00182,en,en,murder charge,first-degree murder charge,BACKWARD_ENTAILMENT
+aug_llm_00182__en-en__flipped,aug_llm_00182,en,en,first-degree murder charge,murder charge,FORWARD_ENTAILMENT
+aug_llm_00184__en-en__original,aug_llm_00184,en,en,murder charge,charge of murder,EQUIVALENCE
+aug_llm_00184__en-en__flipped,aug_llm_00184,en,en,charge of murder,murder charge,EQUIVALENCE
+aug_llm_00186__en-en__original,aug_llm_00186,en,en,with three keyboards,with two monitors,NEGATIVE_OTHER
+aug_llm_00187__en-en__original,aug_llm_00187,en,en,with two flat-panel monitors,with two monitors,FORWARD_ENTAILMENT
+aug_llm_00187__en-en__flipped,aug_llm_00187,en,en,with two monitors,with two flat-panel monitors,BACKWARD_ENTAILMENT
+aug_llm_00189__en-en__original,aug_llm_00189,en,en,with two monitors,with a pair of monitors,EQUIVALENCE
+aug_llm_00189__en-en__flipped,aug_llm_00189,en,en,with a pair of monitors,with two monitors,EQUIVALENCE
+aug_llm_00191__en-en__original,aug_llm_00191,en,en,chews,swallows,NEGATIVE_OTHER
+aug_llm_00192__en-en__original,aug_llm_00192,en,en,chews on a bone,chews,FORWARD_ENTAILMENT
+aug_llm_00192__en-en__flipped,aug_llm_00192,en,en,chews,chews on a bone,BACKWARD_ENTAILMENT
+aug_llm_00194__en-en__original,aug_llm_00194,en,en,gnaws,chews,EQUIVALENCE
+aug_llm_00194__en-en__flipped,aug_llm_00194,en,en,chews,gnaws,EQUIVALENCE
+aug_llm_00196__en-en__original,aug_llm_00196,en,en,along dirt path,along paved road,NEGATIVE_OTHER
+aug_llm_00197__en-en__original,aug_llm_00197,en,en,along narrow dirt path,along dirt path,FORWARD_ENTAILMENT
+aug_llm_00197__en-en__flipped,aug_llm_00197,en,en,along dirt path,along narrow dirt path,BACKWARD_ENTAILMENT
+aug_llm_00199__en-en__original,aug_llm_00199,en,en,along dirt path,down an unpaved trail,EQUIVALENCE
+aug_llm_00199__en-en__flipped,aug_llm_00199,en,en,down an unpaved trail,along dirt path,EQUIVALENCE
+aug_llm_00201__en-en__original,aug_llm_00201,en,en,to war,to talks,NEGATIVE_OTHER
+aug_llm_00202__en-en__original,aug_llm_00202,en,en,to talks,to peace talks,BACKWARD_ENTAILMENT
+aug_llm_00202__en-en__flipped,aug_llm_00202,en,en,to peace talks,to talks,FORWARD_ENTAILMENT
+aug_llm_00204__en-en__original,aug_llm_00204,en,en,are sheering,are feeding,NEGATIVE_OTHER
+aug_llm_00205__en-en__original,aug_llm_00205,en,en,are sheering,are sheering sheep in a barn,BACKWARD_ENTAILMENT
+aug_llm_00205__en-en__flipped,aug_llm_00205,en,en,are sheering sheep in a barn,are sheering,FORWARD_ENTAILMENT
+aug_llm_00207__en-en__original,aug_llm_00207,en,en,are shearing,are sheering,EQUIVALENCE
+aug_llm_00207__en-en__flipped,aug_llm_00207,en,en,are sheering,are shearing,EQUIVALENCE
+aug_llm_00209__en-en__original,aug_llm_00209,en,en,at the dog,at the horse,NEGATIVE_OTHER
+aug_llm_00210__en-en__original,aug_llm_00210,en,en,at the dog,at the large dog,BACKWARD_ENTAILMENT
+aug_llm_00210__en-en__flipped,aug_llm_00210,en,en,at the large dog,at the dog,FORWARD_ENTAILMENT
+aug_llm_00212__en-en__original,aug_llm_00212,en,en,toward the dog,at the dog,EQUIVALENCE
+aug_llm_00212__en-en__flipped,aug_llm_00212,en,en,at the dog,toward the dog,EQUIVALENCE
+aug_llm_00214__en-en__original,aug_llm_00214,en,en,Rahul Gandhi,Narendra Modi,NEGATIVE_OTHER
+aug_llm_00215__en-en__original,aug_llm_00215,en,en,Gujarat chief minister Narendra Modi,Narendra Modi,FORWARD_ENTAILMENT
+aug_llm_00215__en-en__flipped,aug_llm_00215,en,en,Narendra Modi,Gujarat chief minister Narendra Modi,BACKWARD_ENTAILMENT
+aug_llm_00217__en-en__original,aug_llm_00217,en,en,Narendra Modi,Modi,EQUIVALENCE
+aug_llm_00217__en-en__flipped,aug_llm_00217,en,en,Modi,Narendra Modi,EQUIVALENCE
+aug_llm_00219__en-en__original,aug_llm_00219,en,en,off Chile,off Mexico,NEGATIVE_OTHER
+aug_llm_00220__en-en__original,aug_llm_00220,en,en,off Mexico,off the Pacific coast of Mexico,BACKWARD_ENTAILMENT
+aug_llm_00220__en-en__flipped,aug_llm_00220,en,en,off the Pacific coast of Mexico,off Mexico,FORWARD_ENTAILMENT
+aug_llm_00222__en-en__original,aug_llm_00222,en,en,off the coast of Mexico,off Mexico,EQUIVALENCE
+aug_llm_00222__en-en__flipped,aug_llm_00222,en,en,off Mexico,off the coast of Mexico,EQUIVALENCE
+aug_llm_00224__en-en__original,aug_llm_00224,en,en,misses,hits,NEGATIVE_OTHER
+aug_llm_00225__en-en__original,aug_llm_00225,en,en,hits,hits hard,BACKWARD_ENTAILMENT
+aug_llm_00225__en-en__flipped,aug_llm_00225,en,en,hits hard,hits,FORWARD_ENTAILMENT
+aug_llm_00227__en-en__original,aug_llm_00227,en,en,hits,strikes,EQUIVALENCE
+aug_llm_00227__en-en__flipped,aug_llm_00227,en,en,strikes,hits,EQUIVALENCE
+aug_llm_00229__en-en__original,aug_llm_00229,en,en,Thailand 's ruling Pheu Thai Party,Thailand 's opposition Democrat Party,NEGATIVE_OTHER
+aug_llm_00230__en-en__original,aug_llm_00230,en,en,Thailand 's opposition Democrat Party,Thailand 's main opposition Democrat Party,BACKWARD_ENTAILMENT
+aug_llm_00230__en-en__flipped,aug_llm_00230,en,en,Thailand 's main opposition Democrat Party,Thailand 's opposition Democrat Party,FORWARD_ENTAILMENT
+aug_llm_00232__en-en__original,aug_llm_00232,en,en,Thailand 's opposition Democrat Party,Thailand 's Democrat Party opposition,EQUIVALENCE
+aug_llm_00232__en-en__flipped,aug_llm_00232,en,en,Thailand 's Democrat Party opposition,Thailand 's opposition Democrat Party,EQUIVALENCE
+aug_llm_00234__en-en__original,aug_llm_00234,en,en,around a coffee table,around a dining table,NEGATIVE_OTHER
+aug_llm_00235__en-en__original,aug_llm_00235,en,en,around a dining table,around a wooden dining table,BACKWARD_ENTAILMENT
+aug_llm_00235__en-en__flipped,aug_llm_00235,en,en,around a wooden dining table,around a dining table,FORWARD_ENTAILMENT
+aug_llm_00237__en-en__original,aug_llm_00237,en,en,around a dining table,surrounding a dining table,EQUIVALENCE
+aug_llm_00237__en-en__flipped,aug_llm_00237,en,en,surrounding a dining table,around a dining table,EQUIVALENCE
+aug_llm_00239__en-en__original,aug_llm_00239,en,en,Zimbabweans,South Africans,NEGATIVE_OTHER
+aug_llm_00240__en-en__original,aug_llm_00240,en,en,South Africans,Cape Town South Africans,BACKWARD_ENTAILMENT
+aug_llm_00240__en-en__flipped,aug_llm_00240,en,en,Cape Town South Africans,South Africans,FORWARD_ENTAILMENT
+aug_llm_00242__en-en__original,aug_llm_00242,en,en,South Africans,People from South Africa,EQUIVALENCE
+aug_llm_00242__en-en__flipped,aug_llm_00242,en,en,People from South Africa,South Africans,EQUIVALENCE
+aug_llm_00244__en-en__original,aug_llm_00244,en,en,through a creek,across a bridge,NEGATIVE_OTHER
+aug_llm_00245__en-en__original,aug_llm_00245,en,en,through a shallow rocky creek,through a creek,FORWARD_ENTAILMENT
+aug_llm_00245__en-en__flipped,aug_llm_00245,en,en,through a creek,through a shallow rocky creek,BACKWARD_ENTAILMENT
+aug_llm_00247__en-en__original,aug_llm_00247,en,en,through a stream,through a creek,EQUIVALENCE
+aug_llm_00247__en-en__flipped,aug_llm_00247,en,en,through a creek,through a stream,EQUIVALENCE
+aug_llm_00249__en-en__original,aug_llm_00249,en,en,with bubbles,with sparkles,NEGATIVE_OTHER
+aug_llm_00250__en-en__original,aug_llm_00250,en,en,with soapy bubbles,with bubbles,FORWARD_ENTAILMENT
+aug_llm_00250__en-en__flipped,aug_llm_00250,en,en,with bubbles,with soapy bubbles,BACKWARD_ENTAILMENT
+aug_llm_00252__en-en__original,aug_llm_00252,en,en,containing bubbles,with bubbles,EQUIVALENCE
+aug_llm_00252__en-en__flipped,aug_llm_00252,en,en,with bubbles,containing bubbles,EQUIVALENCE
+aug_llm_00254__en-en__original,aug_llm_00254,en,en,in a grassy wooded area,in a sandy desert area,NEGATIVE_OTHER
+aug_llm_00255__en-en__original,aug_llm_00255,en,en,in a grassy wooded area near a lake,in a grassy wooded area,FORWARD_ENTAILMENT
+aug_llm_00255__en-en__flipped,aug_llm_00255,en,en,in a grassy wooded area,in a grassy wooded area near a lake,BACKWARD_ENTAILMENT
+aug_llm_00257__en-en__original,aug_llm_00257,en,en,in a wooded area with grass,in a grassy wooded area,EQUIVALENCE
+aug_llm_00257__en-en__flipped,aug_llm_00257,en,en,in a grassy wooded area,in a wooded area with grass,EQUIVALENCE
+aug_llm_00259__en-en__original,aug_llm_00259,en,en,A projector screen,A flat-screen TV,NEGATIVE_OTHER
+aug_llm_00260__en-en__original,aug_llm_00260,en,en,A large black flat-screen TV,A flat-screen TV,FORWARD_ENTAILMENT
+aug_llm_00260__en-en__flipped,aug_llm_00260,en,en,A flat-screen TV,A large black flat-screen TV,BACKWARD_ENTAILMENT
+aug_llm_00262__en-en__original,aug_llm_00262,en,en,A flat panel television,A flat-screen TV,EQUIVALENCE
+aug_llm_00262__en-en__flipped,aug_llm_00262,en,en,A flat-screen TV,A flat panel television,EQUIVALENCE
+aug_llm_00264__en-en__original,aug_llm_00264,en,en,on trains,on flights,NEGATIVE_OTHER
+aug_llm_00265__en-en__original,aug_llm_00265,en,en,on flights,on long-haul flights,BACKWARD_ENTAILMENT
+aug_llm_00265__en-en__flipped,aug_llm_00265,en,en,on long-haul flights,on flights,FORWARD_ENTAILMENT
+aug_llm_00267__en-en__original,aug_llm_00267,en,en,aboard airplanes,on flights,EQUIVALENCE
+aug_llm_00267__en-en__flipped,aug_llm_00267,en,en,on flights,aboard airplanes,EQUIVALENCE
+aug_llm_00269__en-en__original,aug_llm_00269,en,en,under a small table,on a small table,NEGATIVE_OTHER
+aug_llm_00270__en-en__original,aug_llm_00270,en,en,under a small wooden table,under a small table,FORWARD_ENTAILMENT
+aug_llm_00270__en-en__flipped,aug_llm_00270,en,en,under a small table,under a small wooden table,BACKWARD_ENTAILMENT
+aug_llm_00272__en-en__original,aug_llm_00272,en,en,beneath a little table,under a small table,EQUIVALENCE
+aug_llm_00272__en-en__flipped,aug_llm_00272,en,en,under a small table,beneath a little table,EQUIVALENCE
+aug_llm_00274__en-en__original,aug_llm_00274,en,en,presidency resignation,presidency bid,NEGATIVE_OTHER
+aug_llm_00275__en-en__original,aug_llm_00275,en,en,presidency bid in 2016,presidency bid,FORWARD_ENTAILMENT
+aug_llm_00275__en-en__flipped,aug_llm_00275,en,en,presidency bid,presidency bid in 2016,BACKWARD_ENTAILMENT
+aug_llm_00277__en-en__original,aug_llm_00277,en,en,run for president,presidency bid,EQUIVALENCE
+aug_llm_00277__en-en__flipped,aug_llm_00277,en,en,presidency bid,run for president,EQUIVALENCE
+aug_llm_00279__en-en__original,aug_llm_00279,en,en,next to a mossy tree,next to a bare tree,NEGATIVE_OTHER
+aug_llm_00280__en-en__original,aug_llm_00280,en,en,next to a mossy tree,next to a large mossy oak tree,BACKWARD_ENTAILMENT
+aug_llm_00280__en-en__flipped,aug_llm_00280,en,en,next to a large mossy oak tree,next to a mossy tree,FORWARD_ENTAILMENT
+aug_llm_00282__en-en__original,aug_llm_00282,en,en,next to a mossy tree,beside a moss-covered tree,EQUIVALENCE
+aug_llm_00282__en-en__flipped,aug_llm_00282,en,en,beside a moss-covered tree,next to a mossy tree,EQUIVALENCE
+aug_llm_00284__en-en__original,aug_llm_00284,en,en,hides inside,peaks out,NEGATIVE_OTHER
+aug_llm_00285__en-en__original,aug_llm_00285,en,en,peaks out,peaks out from behind a door,BACKWARD_ENTAILMENT
+aug_llm_00285__en-en__flipped,aug_llm_00285,en,en,peaks out from behind a door,peaks out,FORWARD_ENTAILMENT
+aug_llm_00287__en-en__original,aug_llm_00287,en,en,peeks out,peaks out,EQUIVALENCE
+aug_llm_00287__en-en__flipped,aug_llm_00287,en,en,peaks out,peeks out,EQUIVALENCE
+aug_llm_00289__en-en__original,aug_llm_00289,en,en,South Korea,North Korea,NEGATIVE_OTHER
+aug_llm_00290__en-en__original,aug_llm_00290,en,en,communist North Korea,North Korea,FORWARD_ENTAILMENT
+aug_llm_00290__en-en__flipped,aug_llm_00290,en,en,North Korea,communist North Korea,BACKWARD_ENTAILMENT
+aug_llm_00292__en-en__original,aug_llm_00292,en,en,the DPRK,North Korea,EQUIVALENCE
+aug_llm_00292__en-en__flipped,aug_llm_00292,en,en,North Korea,the DPRK,EQUIVALENCE
+aug_llm_00294__en-en__original,aug_llm_00294,en,en,around a red tractor,around a red fire truck,NEGATIVE_OTHER
+aug_llm_00295__en-en__original,aug_llm_00295,en,en,around a red fire truck,around a shiny red fire truck,BACKWARD_ENTAILMENT
+aug_llm_00295__en-en__flipped,aug_llm_00295,en,en,around a shiny red fire truck,around a red fire truck,FORWARD_ENTAILMENT
+aug_llm_00297__en-en__original,aug_llm_00297,en,en,around a red fire truck,surrounding a red fire engine,EQUIVALENCE
+aug_llm_00297__en-en__flipped,aug_llm_00297,en,en,surrounding a red fire engine,around a red fire truck,EQUIVALENCE
+aug_llm_00299__en-en__original,aug_llm_00299,en,en,into Lebanon,into Jordan,NEGATIVE_OTHER
+aug_llm_00300__en-en__original,aug_llm_00300,en,en,into northern Lebanon,into Lebanon,FORWARD_ENTAILMENT
+aug_llm_00300__en-en__flipped,aug_llm_00300,en,en,into Lebanon,into northern Lebanon,BACKWARD_ENTAILMENT
+aug_llm_00302__en-en__original,aug_llm_00302,en,en,into Lebanon,to Lebanon,EQUIVALENCE
+aug_llm_00302__en-en__flipped,aug_llm_00302,en,en,to Lebanon,into Lebanon,EQUIVALENCE
+aug_llm_00304__en-en__original,aug_llm_00304,en,en,At least 54,At least 45,NEGATIVE_OTHER
+aug_llm_00305__en-en__original,aug_llm_00305,en,en,At least 45,At least 45 dead,BACKWARD_ENTAILMENT
+aug_llm_00305__en-en__flipped,aug_llm_00305,en,en,At least 45 dead,At least 45,FORWARD_ENTAILMENT
+aug_llm_00307__en-en__original,aug_llm_00307,en,en,At least 45,No fewer than 45,EQUIVALENCE
+aug_llm_00307__en-en__flipped,aug_llm_00307,en,en,No fewer than 45,At least 45,EQUIVALENCE
+aug_llm_00309__en-en__original,aug_llm_00309,en,en,drinks,eats,NEGATIVE_OTHER
+aug_llm_00310__en-en__original,aug_llm_00310,en,en,eats,eats hungrily,BACKWARD_ENTAILMENT
+aug_llm_00310__en-en__flipped,aug_llm_00310,en,en,eats hungrily,eats,FORWARD_ENTAILMENT
+aug_llm_00312__en-en__original,aug_llm_00312,en,en,fiscal cliff talks collapse,fiscal cliff deal,NEGATIVE_OTHER
+aug_llm_00313__en-en__original,aug_llm_00313,en,en,fiscal cliff deal,last-minute fiscal cliff deal,BACKWARD_ENTAILMENT
+aug_llm_00313__en-en__flipped,aug_llm_00313,en,en,last-minute fiscal cliff deal,fiscal cliff deal,FORWARD_ENTAILMENT
+aug_llm_00315__en-en__original,aug_llm_00315,en,en,fiscal cliff deal,deal on the fiscal cliff,EQUIVALENCE
+aug_llm_00315__en-en__flipped,aug_llm_00315,en,en,deal on the fiscal cliff,fiscal cliff deal,EQUIVALENCE
+aug_llm_00317__en-en__original,aug_llm_00317,en,en,a black and white horse,a brown and white horse,NEGATIVE_OTHER
+aug_llm_00318__en-en__original,aug_llm_00318,en,en,a large brown and white horse,a brown and white horse,FORWARD_ENTAILMENT
+aug_llm_00318__en-en__flipped,aug_llm_00318,en,en,a brown and white horse,a large brown and white horse,BACKWARD_ENTAILMENT
+aug_llm_00320__en-en__original,aug_llm_00320,en,en,a brown and white horse,a horse that is brown and white,EQUIVALENCE
+aug_llm_00320__en-en__flipped,aug_llm_00320,en,en,a horse that is brown and white,a brown and white horse,EQUIVALENCE
+aug_llm_00322__en-en__original,aug_llm_00322,en,en,on a tiled floor,on a carpeted floor,NEGATIVE_OTHER
+aug_llm_00323__en-en__original,aug_llm_00323,en,en,on a carpeted floor,on a beige carpeted floor,BACKWARD_ENTAILMENT
+aug_llm_00323__en-en__flipped,aug_llm_00323,en,en,on a beige carpeted floor,on a carpeted floor,FORWARD_ENTAILMENT
+aug_llm_00325__en-en__original,aug_llm_00325,en,en,on a carpeted floor,on a floor with carpet,EQUIVALENCE
+aug_llm_00325__en-en__flipped,aug_llm_00325,en,en,on a floor with carpet,on a carpeted floor,EQUIVALENCE
+aug_llm_00327__en-en__original,aug_llm_00327,en,en,Egypt 's economy,Egypt 's turmoil,NEGATIVE_OTHER
+aug_llm_00328__en-en__original,aug_llm_00328,en,en,Egypt 's political turmoil,Egypt 's turmoil,FORWARD_ENTAILMENT
+aug_llm_00328__en-en__flipped,aug_llm_00328,en,en,Egypt 's turmoil,Egypt 's political turmoil,BACKWARD_ENTAILMENT
+aug_llm_00330__en-en__original,aug_llm_00330,en,en,Egypt 's upheaval,Egypt 's turmoil,EQUIVALENCE
+aug_llm_00330__en-en__flipped,aug_llm_00330,en,en,Egypt 's turmoil,Egypt 's upheaval,EQUIVALENCE
+aug_llm_00332__en-en__original,aug_llm_00332,en,en,unrest in Ukraine,unrest in Egypt,NEGATIVE_OTHER
+aug_llm_00333__en-en__original,aug_llm_00333,en,en,unrest in Egypt,violent unrest in Egypt,BACKWARD_ENTAILMENT
+aug_llm_00333__en-en__flipped,aug_llm_00333,en,en,violent unrest in Egypt,unrest in Egypt,FORWARD_ENTAILMENT
+aug_llm_00335__en-en__original,aug_llm_00335,en,en,Egypt unrest,unrest in Egypt,EQUIVALENCE
+aug_llm_00335__en-en__flipped,aug_llm_00335,en,en,unrest in Egypt,Egypt unrest,EQUIVALENCE
+aug_llm_00337__en-en__original,aug_llm_00337,en,en,the canine with black-and-white fur,the canine with brown fur,NEGATIVE_OTHER
+aug_llm_00338__en-en__original,aug_llm_00338,en,en,the canine with black-and-white fur,the fluffy canine with black-and-white fur,BACKWARD_ENTAILMENT
+aug_llm_00338__en-en__flipped,aug_llm_00338,en,en,the fluffy canine with black-and-white fur,the canine with black-and-white fur,FORWARD_ENTAILMENT
+aug_llm_00340__en-en__original,aug_llm_00340,en,en,the canine with black-and-white fur,the black and white dog,EQUIVALENCE
+aug_llm_00340__en-en__flipped,aug_llm_00340,en,en,the black and white dog,the canine with black-and-white fur,EQUIVALENCE
+aug_llm_00342__en-en__original,aug_llm_00342,en,en,as Egyptian forces,as Syrian forces,NEGATIVE_OTHER
+aug_llm_00343__en-en__original,aug_llm_00343,en,en,as Egyptian security forces,as Egyptian forces,FORWARD_ENTAILMENT
+aug_llm_00343__en-en__flipped,aug_llm_00343,en,en,as Egyptian forces,as Egyptian security forces,BACKWARD_ENTAILMENT
+aug_llm_00345__en-en__original,aug_llm_00345,en,en,while Egypt 's forces,as Egyptian forces,EQUIVALENCE
+aug_llm_00345__en-en__flipped,aug_llm_00345,en,en,as Egyptian forces,while Egypt 's forces,EQUIVALENCE
+aug_llm_00347__en-en__original,aug_llm_00347,en,en,away from a policeman,toward a policeman,NEGATIVE_OTHER
+aug_llm_00348__en-en__original,aug_llm_00348,en,en,toward a policeman,toward a mounted policeman,BACKWARD_ENTAILMENT
+aug_llm_00348__en-en__flipped,aug_llm_00348,en,en,toward a mounted policeman,toward a policeman,FORWARD_ENTAILMENT
+aug_llm_00350__en-en__original,aug_llm_00350,en,en,toward a policeman,in the direction of a policeman,EQUIVALENCE
+aug_llm_00350__en-en__flipped,aug_llm_00350,en,en,in the direction of a policeman,toward a policeman,EQUIVALENCE
+aug_llm_00352__en-en__original,aug_llm_00352,en,en,in front of a silver train,in front of a blue train,NEGATIVE_OTHER
+aug_llm_00353__en-en__original,aug_llm_00353,en,en,in front of a shiny silver train,in front of a silver train,FORWARD_ENTAILMENT
+aug_llm_00353__en-en__flipped,aug_llm_00353,en,en,in front of a silver train,in front of a shiny silver train,BACKWARD_ENTAILMENT
+aug_llm_00355__en-en__original,aug_llm_00355,en,en,before a silver train,in front of a silver train,EQUIVALENCE
+aug_llm_00355__en-en__flipped,aug_llm_00355,en,en,in front of a silver train,before a silver train,EQUIVALENCE
+aug_llm_00357__en-en__original,aug_llm_00357,en,en,Two airplanes,Two helicopters,NEGATIVE_OTHER
+aug_llm_00358__en-en__original,aug_llm_00358,en,en,Two white airplanes,Two airplanes,FORWARD_ENTAILMENT
+aug_llm_00358__en-en__flipped,aug_llm_00358,en,en,Two airplanes,Two white airplanes,BACKWARD_ENTAILMENT
+aug_llm_00360__en-en__original,aug_llm_00360,en,en,A pair of planes,Two airplanes,EQUIVALENCE
+aug_llm_00360__en-en__flipped,aug_llm_00360,en,en,Two airplanes,A pair of planes,EQUIVALENCE
+aug_llm_00362__en-en__original,aug_llm_00362,en,en,claim,deny,NEGATIVE_OTHER
+aug_llm_00363__en-en__original,aug_llm_00363,en,en,claim responsibility,claim,FORWARD_ENTAILMENT
+aug_llm_00363__en-en__flipped,aug_llm_00363,en,en,claim,claim responsibility,BACKWARD_ENTAILMENT
+aug_llm_00365__en-en__original,aug_llm_00365,en,en,assert,claim,EQUIVALENCE
+aug_llm_00365__en-en__flipped,aug_llm_00365,en,en,claim,assert,EQUIVALENCE
+aug_llm_00367__en-en__original,aug_llm_00367,en,en,Two brindle dogs,Two spotted dogs,NEGATIVE_OTHER
+aug_llm_00368__en-en__original,aug_llm_00368,en,en,Two brindle dogs,Two large brindle dogs,BACKWARD_ENTAILMENT
+aug_llm_00368__en-en__flipped,aug_llm_00368,en,en,Two large brindle dogs,Two brindle dogs,FORWARD_ENTAILMENT
+aug_llm_00370__en-en__original,aug_llm_00370,en,en,A pair of brindle dogs,Two brindle dogs,EQUIVALENCE
+aug_llm_00370__en-en__flipped,aug_llm_00370,en,en,Two brindle dogs,A pair of brindle dogs,EQUIVALENCE
+aug_llm_00372__en-en__original,aug_llm_00372,en,en,on blue sofa,on red sofa,NEGATIVE_OTHER
+aug_llm_00373__en-en__original,aug_llm_00373,en,en,on blue sofa,on soft blue sofa,BACKWARD_ENTAILMENT
+aug_llm_00373__en-en__flipped,aug_llm_00373,en,en,on soft blue sofa,on blue sofa,FORWARD_ENTAILMENT
+aug_llm_00375__en-en__original,aug_llm_00375,en,en,on blue sofa,on a blue couch,EQUIVALENCE
+aug_llm_00375__en-en__flipped,aug_llm_00375,en,en,on a blue couch,on blue sofa,EQUIVALENCE
+aug_llm_00377__en-en__original,aug_llm_00377,en,en,to hold,to drop,NEGATIVE_OTHER
+aug_llm_00378__en-en__original,aug_llm_00378,en,en,to hold,to hold tightly,BACKWARD_ENTAILMENT
+aug_llm_00378__en-en__flipped,aug_llm_00378,en,en,to hold tightly,to hold,FORWARD_ENTAILMENT
+aug_llm_00380__en-en__original,aug_llm_00380,en,en,to grasp,to hold,EQUIVALENCE
+aug_llm_00380__en-en__flipped,aug_llm_00380,en,en,to hold,to grasp,EQUIVALENCE
+aug_llm_00382__en-en__original,aug_llm_00382,en,en,bomb attacks,bomb threats,NEGATIVE_OTHER
+aug_llm_00383__en-en__original,aug_llm_00383,en,en,deadly bomb attacks,bomb attacks,FORWARD_ENTAILMENT
+aug_llm_00383__en-en__flipped,aug_llm_00383,en,en,bomb attacks,deadly bomb attacks,BACKWARD_ENTAILMENT
+aug_llm_00385__en-en__original,aug_llm_00385,en,en,bombings,bomb attacks,EQUIVALENCE
+aug_llm_00385__en-en__flipped,aug_llm_00385,en,en,bomb attacks,bombings,EQUIVALENCE
+aug_llm_00387__en-en__original,aug_llm_00387,en,en,has seized,has released,NEGATIVE_OTHER
+aug_llm_00388__en-en__original,aug_llm_00388,en,en,has seized,has seized by force,BACKWARD_ENTAILMENT
+aug_llm_00388__en-en__flipped,aug_llm_00388,en,en,has seized by force,has seized,FORWARD_ENTAILMENT
+aug_llm_00390__en-en__original,aug_llm_00390,en,en,has seized,has captured,EQUIVALENCE
+aug_llm_00390__en-en__flipped,aug_llm_00390,en,en,has captured,has seized,EQUIVALENCE
+aug_llm_00392__en-en__original,aug_llm_00392,en,en,Iran Supreme Leader Ali Khamenei,Iran President Hassan Rouhani,NEGATIVE_OTHER
+aug_llm_00393__en-en__original,aug_llm_00393,en,en,Iran President Hassan Rouhani,Iran moderate President Hassan Rouhani,BACKWARD_ENTAILMENT
+aug_llm_00393__en-en__flipped,aug_llm_00393,en,en,Iran moderate President Hassan Rouhani,Iran President Hassan Rouhani,FORWARD_ENTAILMENT
+aug_llm_00395__en-en__original,aug_llm_00395,en,en,Iranian President Hassan Rouhani,Iran President Hassan Rouhani,EQUIVALENCE
+aug_llm_00395__en-en__flipped,aug_llm_00395,en,en,Iran President Hassan Rouhani,Iranian President Hassan Rouhani,EQUIVALENCE
+aug_llm_00397__en-en__original,aug_llm_00397,en,en,Former Israeli Prime Minister Olmert,Former Israeli Prime Minister Sharon,NEGATIVE_OTHER
+aug_llm_00398__en-en__original,aug_llm_00398,en,en,Former Israeli Prime Minister Ariel Sharon,Former Israeli Prime Minister Sharon,FORWARD_ENTAILMENT
+aug_llm_00398__en-en__flipped,aug_llm_00398,en,en,Former Israeli Prime Minister Sharon,Former Israeli Prime Minister Ariel Sharon,BACKWARD_ENTAILMENT
+aug_llm_00400__en-en__original,aug_llm_00400,en,en,Former Israeli Prime Minister Sharon,Ex-Israeli premier Sharon,EQUIVALENCE
+aug_llm_00400__en-en__flipped,aug_llm_00400,en,en,Ex-Israeli premier Sharon,Former Israeli Prime Minister Sharon,EQUIVALENCE
+aug_llm_00402__en-en__original,aug_llm_00402,en,en,Diana and Fayed wedding rumors,Diana and Fayed death info,NEGATIVE_OTHER
+aug_llm_00403__en-en__original,aug_llm_00403,en,en,Diana and Dodi Fayed car crash death info,Diana and Fayed death info,FORWARD_ENTAILMENT
+aug_llm_00403__en-en__flipped,aug_llm_00403,en,en,Diana and Fayed death info,Diana and Dodi Fayed car crash death info,BACKWARD_ENTAILMENT
+aug_llm_00405__en-en__original,aug_llm_00405,en,en,Diana and Fayed death info,Information on Diana and Fayed deaths,EQUIVALENCE
+aug_llm_00405__en-en__flipped,aug_llm_00405,en,en,Information on Diana and Fayed deaths,Diana and Fayed death info,EQUIVALENCE
+aug_llm_00407__en-en__original,aug_llm_00407,en,en,Bat,Bird,NEGATIVE_OTHER
+aug_llm_00408__en-en__original,aug_llm_00408,en,en,Small yellow bird,Bird,FORWARD_ENTAILMENT
+aug_llm_00408__en-en__flipped,aug_llm_00408,en,en,Bird,Small yellow bird,BACKWARD_ENTAILMENT
+aug_llm_00410__en-en__original,aug_llm_00410,en,en,Avian,Bird,EQUIVALENCE
+aug_llm_00410__en-en__flipped,aug_llm_00410,en,en,Bird,Avian,EQUIVALENCE
+aug_llm_00412__en-en__original,aug_llm_00412,en,en,in U.S. airstrike,in U.S. drone strike,NEGATIVE_OTHER
+aug_llm_00413__en-en__original,aug_llm_00413,en,en,in U.S. drone strike,in U.S. drone strike in Yemen,BACKWARD_ENTAILMENT
+aug_llm_00413__en-en__flipped,aug_llm_00413,en,en,in U.S. drone strike in Yemen,in U.S. drone strike,FORWARD_ENTAILMENT
+aug_llm_00415__en-en__original,aug_llm_00415,en,en,in U.S. drone strike,in American drone attack,EQUIVALENCE
+aug_llm_00415__en-en__flipped,aug_llm_00415,en,en,in American drone attack,in U.S. drone strike,EQUIVALENCE
+aug_llm_00417__en-en__original,aug_llm_00417,en,en,Google and IBM Post Strong Earnings,Google and IBM Post Weak Earnings,NEGATIVE_OTHER
+aug_llm_00418__en-en__original,aug_llm_00418,en,en,Google and IBM Post Strong Quarterly Earnings,Google and IBM Post Strong Earnings,FORWARD_ENTAILMENT
+aug_llm_00418__en-en__flipped,aug_llm_00418,en,en,Google and IBM Post Strong Earnings,Google and IBM Post Strong Quarterly Earnings,BACKWARD_ENTAILMENT
+aug_llm_00420__en-en__original,aug_llm_00420,en,en,Google and IBM Post Strong Earnings,Google and IBM Report Strong Earnings,EQUIVALENCE
+aug_llm_00420__en-en__flipped,aug_llm_00420,en,en,Google and IBM Report Strong Earnings,Google and IBM Post Strong Earnings,EQUIVALENCE
+aug_llm_00422__en-en__original,aug_llm_00422,en,en,an ovine animal,a bovine animal,NEGATIVE_OTHER
+aug_llm_00423__en-en__original,aug_llm_00423,en,en,an ovine animal,a woolly ovine animal,BACKWARD_ENTAILMENT
+aug_llm_00423__en-en__flipped,aug_llm_00423,en,en,a woolly ovine animal,an ovine animal,FORWARD_ENTAILMENT
+aug_llm_00425__en-en__original,aug_llm_00425,en,en,into two boys,into two girls,NEGATIVE_OTHER
+aug_llm_00426__en-en__original,aug_llm_00426,en,en,into two young boys,into two boys,FORWARD_ENTAILMENT
+aug_llm_00426__en-en__flipped,aug_llm_00426,en,en,into two boys,into two young boys,BACKWARD_ENTAILMENT
+aug_llm_00428__en-en__original,aug_llm_00428,en,en,into two boys,toward two male children,EQUIVALENCE
+aug_llm_00428__en-en__flipped,aug_llm_00428,en,en,toward two male children,into two boys,EQUIVALENCE
+aug_llm_00430__en-en__original,aug_llm_00430,en,en,as freight train,as passenger train,NEGATIVE_OTHER
+aug_llm_00431__en-en__original,aug_llm_00431,en,en,as long freight train,as freight train,FORWARD_ENTAILMENT
+aug_llm_00431__en-en__flipped,aug_llm_00431,en,en,as freight train,as long freight train,BACKWARD_ENTAILMENT
+aug_llm_00433__en-en__original,aug_llm_00433,en,en,as freight train,as cargo train,EQUIVALENCE
+aug_llm_00433__en-en__flipped,aug_llm_00433,en,en,as cargo train,as freight train,EQUIVALENCE
+aug_llm_00435__en-en__original,aug_llm_00435,en,en,for Easter,for Christmas,NEGATIVE_OTHER
+aug_llm_00436__en-en__original,aug_llm_00436,en,en,for Christmas dinner,for Christmas,FORWARD_ENTAILMENT
+aug_llm_00436__en-en__flipped,aug_llm_00436,en,en,for Christmas,for Christmas dinner,BACKWARD_ENTAILMENT
+aug_llm_00438__en-en__original,aug_llm_00438,en,en,for the Christmas holiday,for Christmas,EQUIVALENCE
+aug_llm_00438__en-en__flipped,aug_llm_00438,en,en,for Christmas,for the Christmas holiday,EQUIVALENCE
+aug_llm_00440__en-en__original,aug_llm_00440,en,en,Red and white bus,Blue and white bus,NEGATIVE_OTHER
+aug_llm_00441__en-en__original,aug_llm_00441,en,en,Red and white bus,Large red and white bus,BACKWARD_ENTAILMENT
+aug_llm_00441__en-en__flipped,aug_llm_00441,en,en,Large red and white bus,Red and white bus,FORWARD_ENTAILMENT
+aug_llm_00443__en-en__original,aug_llm_00443,en,en,White and red bus,Red and white bus,EQUIVALENCE
+aug_llm_00443__en-en__flipped,aug_llm_00443,en,en,Red and white bus,White and red bus,EQUIVALENCE
+aug_llm_00445__en-en__original,aug_llm_00445,en,en,"Cloud-Based , Networked Antivirus Specialist McAfee","Cloud-Based , Networked Firewall Specialist Stonesoft",NEGATIVE_OTHER
+aug_llm_00446__en-en__original,aug_llm_00446,en,en,"Finnish Cloud-Based , Networked Firewall Specialist Stonesoft","Cloud-Based , Networked Firewall Specialist Stonesoft",FORWARD_ENTAILMENT
+aug_llm_00446__en-en__flipped,aug_llm_00446,en,en,"Cloud-Based , Networked Firewall Specialist Stonesoft","Finnish Cloud-Based , Networked Firewall Specialist Stonesoft",BACKWARD_ENTAILMENT
+aug_llm_00448__en-en__original,aug_llm_00448,en,en,"Cloud-Based , Networked Firewall Specialist Stonesoft","Stonesoft , Specialist in Networked , Cloud-Based Firewalls",EQUIVALENCE
+aug_llm_00448__en-en__flipped,aug_llm_00448,en,en,"Stonesoft , Specialist in Networked , Cloud-Based Firewalls","Cloud-Based , Networked Firewall Specialist Stonesoft",EQUIVALENCE
+aug_llm_00450__en-en__original,aug_llm_00450,en,en,A short-haired dog,A long-haired dog,NEGATIVE_OTHER
+aug_llm_00451__en-en__original,aug_llm_00451,en,en,A long-haired brown dog,A long-haired dog,FORWARD_ENTAILMENT
+aug_llm_00451__en-en__flipped,aug_llm_00451,en,en,A long-haired dog,A long-haired brown dog,BACKWARD_ENTAILMENT
+aug_llm_00453__en-en__original,aug_llm_00453,en,en,A dog with long hair,A long-haired dog,EQUIVALENCE
+aug_llm_00453__en-en__flipped,aug_llm_00453,en,en,A long-haired dog,A dog with long hair,EQUIVALENCE
+aug_llm_00455__en-en__original,aug_llm_00455,en,en,A small black cat,A small white cat,NEGATIVE_OTHER
+aug_llm_00456__en-en__original,aug_llm_00456,en,en,A small white Persian cat,A small white cat,FORWARD_ENTAILMENT
+aug_llm_00456__en-en__flipped,aug_llm_00456,en,en,A small white cat,A small white Persian cat,BACKWARD_ENTAILMENT
+aug_llm_00458__en-en__original,aug_llm_00458,en,en,A little white cat,A small white cat,EQUIVALENCE
+aug_llm_00458__en-en__flipped,aug_llm_00458,en,en,A small white cat,A little white cat,EQUIVALENCE
+aug_llm_00460__en-en__original,aug_llm_00460,en,en,dressed down,dressed up,NEGATIVE_OTHER
+aug_llm_00461__en-en__original,aug_llm_00461,en,en,dressed up in costumes,dressed up,FORWARD_ENTAILMENT
+aug_llm_00461__en-en__flipped,aug_llm_00461,en,en,dressed up,dressed up in costumes,BACKWARD_ENTAILMENT
+aug_llm_00463__en-en__original,aug_llm_00463,en,en,in fancy clothes,dressed up,EQUIVALENCE
+aug_llm_00463__en-en__flipped,aug_llm_00463,en,en,dressed up,in fancy clothes,EQUIVALENCE
+aug_llm_00465__en-en__original,aug_llm_00465,en,en,in US marathon win,in US marathon bomb,NEGATIVE_OTHER
+aug_llm_00466__en-en__original,aug_llm_00466,en,en,in US marathon bomb,in US Boston marathon bomb,BACKWARD_ENTAILMENT
+aug_llm_00466__en-en__flipped,aug_llm_00466,en,en,in US Boston marathon bomb,in US marathon bomb,FORWARD_ENTAILMENT
+aug_llm_00468__en-en__original,aug_llm_00468,en,en,in American marathon bombing,in US marathon bomb,EQUIVALENCE
+aug_llm_00468__en-en__flipped,aug_llm_00468,en,en,in US marathon bomb,in American marathon bombing,EQUIVALENCE
+aug_llm_00470__en-en__original,aug_llm_00470,en,en,Negotiator,Peacekeeper,NEGATIVE_OTHER
+aug_llm_00471__en-en__original,aug_llm_00471,en,en,UN Peacekeeper,Peacekeeper,FORWARD_ENTAILMENT
+aug_llm_00471__en-en__flipped,aug_llm_00471,en,en,Peacekeeper,UN Peacekeeper,BACKWARD_ENTAILMENT
+aug_llm_00473__en-en__original,aug_llm_00473,en,en,Peacekeeping soldier,Peacekeeper,EQUIVALENCE
+aug_llm_00473__en-en__flipped,aug_llm_00473,en,en,Peacekeeper,Peacekeeping soldier,EQUIVALENCE
+aug_llm_00475__en-en__original,aug_llm_00475,en,en,Symantec,McAfee,NEGATIVE_OTHER
+aug_llm_00476__en-en__original,aug_llm_00476,en,en,McAfee,Antivirus firm McAfee,BACKWARD_ENTAILMENT
+aug_llm_00476__en-en__flipped,aug_llm_00476,en,en,Antivirus firm McAfee,McAfee,FORWARD_ENTAILMENT
+aug_llm_00478__en-en__original,aug_llm_00478,en,en,McAfee Inc.,McAfee,EQUIVALENCE
+aug_llm_00478__en-en__flipped,aug_llm_00478,en,en,McAfee,McAfee Inc.,EQUIVALENCE
+aug_llm_00480__en-en__original,aug_llm_00480,en,en,next to a yellow school bus,next to a yellow sports car,NEGATIVE_OTHER
+aug_llm_00481__en-en__original,aug_llm_00481,en,en,next to a bright yellow sports car,next to a yellow sports car,FORWARD_ENTAILMENT
+aug_llm_00481__en-en__flipped,aug_llm_00481,en,en,next to a yellow sports car,next to a bright yellow sports car,BACKWARD_ENTAILMENT
+aug_llm_00483__en-en__original,aug_llm_00483,en,en,beside a yellow sports car,next to a yellow sports car,EQUIVALENCE
+aug_llm_00483__en-en__flipped,aug_llm_00483,en,en,next to a yellow sports car,beside a yellow sports car,EQUIVALENCE
+aug_llm_00485__en-en__original,aug_llm_00485,en,en,"4,000 Cuban doctors","4,000 Cuban teachers",NEGATIVE_OTHER
+aug_llm_00486__en-en__original,aug_llm_00486,en,en,"4,000 Cuban doctors in Venezuela","4,000 Cuban doctors",FORWARD_ENTAILMENT
+aug_llm_00486__en-en__flipped,aug_llm_00486,en,en,"4,000 Cuban doctors","4,000 Cuban doctors in Venezuela",BACKWARD_ENTAILMENT
+aug_llm_00488__en-en__original,aug_llm_00488,en,en,"4,000 doctors from Cuba","4,000 Cuban doctors",EQUIVALENCE
+aug_llm_00488__en-en__flipped,aug_llm_00488,en,en,"4,000 Cuban doctors","4,000 doctors from Cuba",EQUIVALENCE
+aug_llm_00490__en-en__original,aug_llm_00490,en,en,on a brown sofa,on a brown chair,NEGATIVE_OTHER
+aug_llm_00491__en-en__original,aug_llm_00491,en,en,on a brown leather chair,on a brown chair,FORWARD_ENTAILMENT
+aug_llm_00491__en-en__flipped,aug_llm_00491,en,en,on a brown chair,on a brown leather chair,BACKWARD_ENTAILMENT
+aug_llm_00493__en-en__original,aug_llm_00493,en,en,on a chair that is brown,on a brown chair,EQUIVALENCE
+aug_llm_00493__en-en__flipped,aug_llm_00493,en,en,on a brown chair,on a chair that is brown,EQUIVALENCE
+aug_llm_00495__en-en__original,aug_llm_00495,en,en,turning its head,directing its gaze,NEGATIVE_OTHER
+aug_llm_00496__en-en__original,aug_llm_00496,en,en,directing its gaze upward,directing its gaze,FORWARD_ENTAILMENT
+aug_llm_00496__en-en__flipped,aug_llm_00496,en,en,directing its gaze,directing its gaze upward,BACKWARD_ENTAILMENT
+aug_llm_00498__en-en__original,aug_llm_00498,en,en,directing its gaze,aiming its gaze,EQUIVALENCE
+aug_llm_00498__en-en__flipped,aug_llm_00498,en,en,aiming its gaze,directing its gaze,EQUIVALENCE
+aug_llm_00500__en-en__original,aug_llm_00500,en,en,a small airplane,a small helicopter,NEGATIVE_OTHER
+aug_llm_00501__en-en__original,aug_llm_00501,en,en,a small white propeller airplane,a small airplane,FORWARD_ENTAILMENT
+aug_llm_00501__en-en__flipped,aug_llm_00501,en,en,a small airplane,a small white propeller airplane,BACKWARD_ENTAILMENT
+aug_llm_00503__en-en__original,aug_llm_00503,en,en,a little aeroplane,a small airplane,EQUIVALENCE
+aug_llm_00503__en-en__flipped,aug_llm_00503,en,en,a small airplane,a little aeroplane,EQUIVALENCE
+aug_llm_00505__en-en__original,aug_llm_00505,en,en,"Red grapes , blueberries","Green grapes , strawberries",NEGATIVE_OTHER
+aug_llm_00506__en-en__original,aug_llm_00506,en,en,"Red seedless grapes , fresh blueberries","Red grapes , blueberries",FORWARD_ENTAILMENT
+aug_llm_00506__en-en__flipped,aug_llm_00506,en,en,"Red grapes , blueberries","Red seedless grapes , fresh blueberries",BACKWARD_ENTAILMENT
+aug_llm_00508__en-en__original,aug_llm_00508,en,en,"Blueberries , red grapes","Red grapes , blueberries",EQUIVALENCE
+aug_llm_00508__en-en__flipped,aug_llm_00508,en,en,"Red grapes , blueberries","Blueberries , red grapes",EQUIVALENCE
+aug_llm_00510__en-en__original,aug_llm_00510,en,en,falling off,doing a trick,NEGATIVE_OTHER
+aug_llm_00511__en-en__original,aug_llm_00511,en,en,doing a kickflip trick,doing a trick,FORWARD_ENTAILMENT
+aug_llm_00511__en-en__flipped,aug_llm_00511,en,en,doing a trick,doing a kickflip trick,BACKWARD_ENTAILMENT
+aug_llm_00513__en-en__original,aug_llm_00513,en,en,performing a trick,doing a trick,EQUIVALENCE
+aug_llm_00513__en-en__flipped,aug_llm_00513,en,en,doing a trick,performing a trick,EQUIVALENCE
+aug_llm_00515__en-en__original,aug_llm_00515,en,en,in Central African Republic elections,in Central African Republic fighting,NEGATIVE_OTHER
+aug_llm_00516__en-en__original,aug_llm_00516,en,en,in Central African Republic fighting,in deadly Central African Republic fighting,BACKWARD_ENTAILMENT
+aug_llm_00516__en-en__flipped,aug_llm_00516,en,en,in deadly Central African Republic fighting,in Central African Republic fighting,FORWARD_ENTAILMENT
+aug_llm_00518__en-en__original,aug_llm_00518,en,en,in Central African Republic fighting,in fighting in Central African Republic,EQUIVALENCE
+aug_llm_00518__en-en__flipped,aug_llm_00518,en,en,in fighting in Central African Republic,in Central African Republic fighting,EQUIVALENCE
+aug_llm_00520__en-en__original,aug_llm_00520,en,en,across the sand,across the grass,NEGATIVE_OTHER
+aug_llm_00521__en-en__original,aug_llm_00521,en,en,across the grass,across the green grass,BACKWARD_ENTAILMENT
+aug_llm_00521__en-en__flipped,aug_llm_00521,en,en,across the green grass,across the grass,FORWARD_ENTAILMENT
+aug_llm_00523__en-en__original,aug_llm_00523,en,en,across the grass,over the grass,EQUIVALENCE
+aug_llm_00523__en-en__flipped,aug_llm_00523,en,en,over the grass,across the grass,EQUIVALENCE
+aug_llm_00525__en-en__original,aug_llm_00525,en,en,frees,arrests,NEGATIVE_OTHER
+aug_llm_00526__en-en__original,aug_llm_00526,en,en,frees,frees two hostages,BACKWARD_ENTAILMENT
+aug_llm_00526__en-en__flipped,aug_llm_00526,en,en,frees two hostages,frees,FORWARD_ENTAILMENT
+aug_llm_00528__en-en__original,aug_llm_00528,en,en,releases,frees,EQUIVALENCE
+aug_llm_00528__en-en__flipped,aug_llm_00528,en,en,frees,releases,EQUIVALENCE
+aug_llm_00530__en-en__original,aug_llm_00530,en,en,as Egypt police,as Egypt army,NEGATIVE_OTHER
+aug_llm_00531__en-en__original,aug_llm_00531,en,en,as Egypt police,as Egypt riot police,BACKWARD_ENTAILMENT
+aug_llm_00531__en-en__flipped,aug_llm_00531,en,en,as Egypt riot police,as Egypt police,FORWARD_ENTAILMENT
+aug_llm_00533__en-en__original,aug_llm_00533,en,en,as Egypt police,while Egypt police,EQUIVALENCE
+aug_llm_00533__en-en__flipped,aug_llm_00533,en,en,while Egypt police,as Egypt police,EQUIVALENCE
+aug_llm_00535__en-en__original,aug_llm_00535,en,en,Three football players,Two football players,NEGATIVE_OTHER
+aug_llm_00536__en-en__original,aug_llm_00536,en,en,Two football players,Two young football players in uniform,BACKWARD_ENTAILMENT
+aug_llm_00536__en-en__flipped,aug_llm_00536,en,en,Two young football players in uniform,Two football players,FORWARD_ENTAILMENT
+aug_llm_00538__en-en__original,aug_llm_00538,en,en,A pair of football players,Two football players,EQUIVALENCE
+aug_llm_00538__en-en__flipped,aug_llm_00538,en,en,Two football players,A pair of football players,EQUIVALENCE
+aug_llm_00540__en-en__original,aug_llm_00540,en,en,with a black and white dog,with a brown and white dog,NEGATIVE_OTHER
+aug_llm_00541__en-en__original,aug_llm_00541,en,en,with a small black and white dog,with a black and white dog,FORWARD_ENTAILMENT
+aug_llm_00541__en-en__flipped,aug_llm_00541,en,en,with a black and white dog,with a small black and white dog,BACKWARD_ENTAILMENT
+aug_llm_00543__en-en__original,aug_llm_00543,en,en,with a black and white dog,with a dog that is black and white,EQUIVALENCE
+aug_llm_00543__en-en__flipped,aug_llm_00543,en,en,with a dog that is black and white,with a black and white dog,EQUIVALENCE
+aug_llm_00545__en-en__original,aug_llm_00545,en,en,of a very empty yellow van,of a very full yellow van,NEGATIVE_OTHER
+aug_llm_00546__en-en__original,aug_llm_00546,en,en,of a very full yellow delivery van,of a very full yellow van,FORWARD_ENTAILMENT
+aug_llm_00546__en-en__flipped,aug_llm_00546,en,en,of a very full yellow van,of a very full yellow delivery van,BACKWARD_ENTAILMENT
+aug_llm_00548__en-en__original,aug_llm_00548,en,en,of a yellow van packed full,of a very full yellow van,EQUIVALENCE
+aug_llm_00548__en-en__flipped,aug_llm_00548,en,en,of a very full yellow van,of a yellow van packed full,EQUIVALENCE
+aug_llm_00550__en-en__original,aug_llm_00550,en,en,ten tourists,nine tourists,NEGATIVE_OTHER
+aug_llm_00551__en-en__original,aug_llm_00551,en,en,nine tourists,nine foreign tourists,BACKWARD_ENTAILMENT
+aug_llm_00551__en-en__flipped,aug_llm_00551,en,en,nine foreign tourists,nine tourists,FORWARD_ENTAILMENT
+aug_llm_00553__en-en__original,aug_llm_00553,en,en,9 tourists,nine tourists,EQUIVALENCE
+aug_llm_00553__en-en__flipped,aug_llm_00553,en,en,nine tourists,9 tourists,EQUIVALENCE
+aug_llm_00555__en-en__original,aug_llm_00555,en,en,toward the camera,away from the camera,NEGATIVE_OTHER
+aug_llm_00556__en-en__original,aug_llm_00556,en,en,toward the camera,directly toward the camera,BACKWARD_ENTAILMENT
+aug_llm_00556__en-en__flipped,aug_llm_00556,en,en,directly toward the camera,toward the camera,FORWARD_ENTAILMENT
+aug_llm_00558__en-en__original,aug_llm_00558,en,en,towards the camera,toward the camera,EQUIVALENCE
+aug_llm_00558__en-en__flipped,aug_llm_00558,en,en,toward the camera,towards the camera,EQUIVALENCE
+aug_llm_00560__en-en__original,aug_llm_00560,en,en,drives up,drives down,NEGATIVE_OTHER
+aug_llm_00561__en-en__original,aug_llm_00561,en,en,drives down,drives down a dirt road,BACKWARD_ENTAILMENT
+aug_llm_00561__en-en__flipped,aug_llm_00561,en,en,drives down a dirt road,drives down,FORWARD_ENTAILMENT
+aug_llm_00563__en-en__original,aug_llm_00563,en,en,drives down,is driving down,EQUIVALENCE
+aug_llm_00563__en-en__flipped,aug_llm_00563,en,en,is driving down,drives down,EQUIVALENCE
+aug_llm_00565__en-en__original,aug_llm_00565,en,en,in a red kayak,in a red canoe,NEGATIVE_OTHER
+aug_llm_00566__en-en__original,aug_llm_00566,en,en,in a red canoe on a lake,in a red canoe,FORWARD_ENTAILMENT
+aug_llm_00566__en-en__flipped,aug_llm_00566,en,en,in a red canoe,in a red canoe on a lake,BACKWARD_ENTAILMENT
+aug_llm_00568__en-en__original,aug_llm_00568,en,en,in a red canoe,in a canoe that is red,EQUIVALENCE
+aug_llm_00568__en-en__flipped,aug_llm_00568,en,en,in a canoe that is red,in a red canoe,EQUIVALENCE
+aug_llm_00570__en-en__original,aug_llm_00570,en,en,midday Thursday,midday Friday,NEGATIVE_OTHER
+aug_llm_00571__en-en__original,aug_llm_00571,en,en,midday Friday,midday Friday local time,BACKWARD_ENTAILMENT
+aug_llm_00571__en-en__flipped,aug_llm_00571,en,en,midday Friday local time,midday Friday,FORWARD_ENTAILMENT
+aug_llm_00573__en-en__original,aug_llm_00573,en,en,midday Friday,noon Friday,EQUIVALENCE
+aug_llm_00573__en-en__flipped,aug_llm_00573,en,en,noon Friday,midday Friday,EQUIVALENCE
+aug_llm_00575__en-en__original,aug_llm_00575,en,en,competing in a race,watching a race,NEGATIVE_OTHER
+aug_llm_00576__en-en__original,aug_llm_00576,en,en,competing in a race,competing in a bicycle race,BACKWARD_ENTAILMENT
+aug_llm_00576__en-en__flipped,aug_llm_00576,en,en,competing in a bicycle race,competing in a race,FORWARD_ENTAILMENT
+aug_llm_00578__en-en__original,aug_llm_00578,en,en,competing in a race,taking part in a race,EQUIVALENCE
+aug_llm_00578__en-en__flipped,aug_llm_00578,en,en,taking part in a race,competing in a race,EQUIVALENCE
+aug_llm_00580__en-en__original,aug_llm_00580,en,en,to 6.2677,to 6.2767,NEGATIVE_OTHER
+aug_llm_00581__en-en__original,aug_llm_00581,en,en,to 6.2767,to 6.2767 yuan,BACKWARD_ENTAILMENT
+aug_llm_00581__en-en__flipped,aug_llm_00581,en,en,to 6.2767 yuan,to 6.2767,FORWARD_ENTAILMENT
+aug_llm_00583__en-en__original,aug_llm_00583,en,en,reaching 6.2767,to 6.2767,EQUIVALENCE
+aug_llm_00583__en-en__flipped,aug_llm_00583,en,en,to 6.2767,reaching 6.2767,EQUIVALENCE
+aug_llm_00585__en-en__original,aug_llm_00585,en,en,for every new settler homes,for every new settler outpost,NEGATIVE_OTHER
+aug_llm_00586__en-en__original,aug_llm_00586,en,en,for every new settler homes,for every new Israeli settler homes,BACKWARD_ENTAILMENT
+aug_llm_00586__en-en__flipped,aug_llm_00586,en,en,for every new Israeli settler homes,for every new settler homes,FORWARD_ENTAILMENT
+aug_llm_00588__en-en__original,aug_llm_00588,en,en,for every new settler homes,for each new settler homes,EQUIVALENCE
+aug_llm_00588__en-en__flipped,aug_llm_00588,en,en,for each new settler homes,for every new settler homes,EQUIVALENCE
+aug_llm_00590__en-en__original,aug_llm_00590,en,en,De Klerk,Mandela,NEGATIVE_OTHER
+aug_llm_00591__en-en__original,aug_llm_00591,en,en,Mandela,Nelson Mandela,BACKWARD_ENTAILMENT
+aug_llm_00591__en-en__flipped,aug_llm_00591,en,en,Nelson Mandela,Mandela,FORWARD_ENTAILMENT
+aug_llm_00593__en-en__original,aug_llm_00593,en,en,Mandela,Madiba,EQUIVALENCE
+aug_llm_00593__en-en__flipped,aug_llm_00593,en,en,Madiba,Mandela,EQUIVALENCE
+aug_llm_00595__en-en__original,aug_llm_00595,en,en,In Cairo Camps Protesters,In Cairo Camps Police,NEGATIVE_OTHER
+aug_llm_00596__en-en__original,aug_llm_00596,en,en,In Cairo Camps Pro-Morsi Protesters,In Cairo Camps Protesters,FORWARD_ENTAILMENT
+aug_llm_00596__en-en__flipped,aug_llm_00596,en,en,In Cairo Camps Protesters,In Cairo Camps Pro-Morsi Protesters,BACKWARD_ENTAILMENT
+aug_llm_00598__en-en__original,aug_llm_00598,en,en,Protesters In Cairo Camps,In Cairo Camps Protesters,EQUIVALENCE
+aug_llm_00598__en-en__flipped,aug_llm_00598,en,en,In Cairo Camps Protesters,Protesters In Cairo Camps,EQUIVALENCE
+aug_llm_00600__en-en__original,aug_llm_00600,en,en,at a coffee table,at a dinner table,NEGATIVE_OTHER
+aug_llm_00601__en-en__original,aug_llm_00601,en,en,at a dinner table,at a wooden dinner table,BACKWARD_ENTAILMENT
+aug_llm_00601__en-en__flipped,aug_llm_00601,en,en,at a wooden dinner table,at a dinner table,FORWARD_ENTAILMENT
+aug_llm_00603__en-en__original,aug_llm_00603,en,en,at a dinner table,at a dining table,EQUIVALENCE
+aug_llm_00603__en-en__flipped,aug_llm_00603,en,en,at a dining table,at a dinner table,EQUIVALENCE
+aug_llm_00605__en-en__original,aug_llm_00605,en,en,of a white sheep,of a black sheep,NEGATIVE_OTHER
+aug_llm_00606__en-en__original,aug_llm_00606,en,en,of a fluffy white sheep,of a white sheep,FORWARD_ENTAILMENT
+aug_llm_00606__en-en__flipped,aug_llm_00606,en,en,of a white sheep,of a fluffy white sheep,BACKWARD_ENTAILMENT
+aug_llm_00608__en-en__original,aug_llm_00608,en,en,of a white sheep,of a sheep that is white,EQUIVALENCE
+aug_llm_00608__en-en__flipped,aug_llm_00608,en,en,of a sheep that is white,of a white sheep,EQUIVALENCE
+aug_llm_00610__en-en__original,aug_llm_00610,en,en,the adult male,the adult female,NEGATIVE_OTHER
+aug_llm_00611__en-en__original,aug_llm_00611,en,en,the adult male,the tall adult male,BACKWARD_ENTAILMENT
+aug_llm_00611__en-en__flipped,aug_llm_00611,en,en,the tall adult male,the adult male,FORWARD_ENTAILMENT
+aug_llm_00613__en-en__original,aug_llm_00613,en,en,the grown man,the adult male,EQUIVALENCE
+aug_llm_00613__en-en__flipped,aug_llm_00613,en,en,the adult male,the grown man,EQUIVALENCE
+aug_llm_00615__en-en__original,aug_llm_00615,en,en,Air strike,Ground assault,NEGATIVE_OTHER
+aug_llm_00616__en-en__original,aug_llm_00616,en,en,Air strike,Israeli air strike,BACKWARD_ENTAILMENT
+aug_llm_00616__en-en__flipped,aug_llm_00616,en,en,Israeli air strike,Air strike,FORWARD_ENTAILMENT
+aug_llm_00618__en-en__original,aug_llm_00618,en,en,Airstrike,Air strike,EQUIVALENCE
+aug_llm_00618__en-en__flipped,aug_llm_00618,en,en,Air strike,Airstrike,EQUIVALENCE
+aug_llm_00620__en-en__original,aug_llm_00620,en,en,A single-decker bus,A double-decker bus,NEGATIVE_OTHER
+aug_llm_00621__en-en__original,aug_llm_00621,en,en,A double-decker bus,A red double-decker bus,BACKWARD_ENTAILMENT
+aug_llm_00621__en-en__flipped,aug_llm_00621,en,en,A red double-decker bus,A double-decker bus,FORWARD_ENTAILMENT
+aug_llm_00623__en-en__original,aug_llm_00623,en,en,A double-decker bus,A bus with two decks,EQUIVALENCE
+aug_llm_00623__en-en__flipped,aug_llm_00623,en,en,A bus with two decks,A double-decker bus,EQUIVALENCE
+aug_llm_00625__en-en__original,aug_llm_00625,en,en,Kenya MPs,Kenya SC,NEGATIVE_OTHER
+aug_llm_00626__en-en__original,aug_llm_00626,en,en,Kenya SC,Kenya SC in Nairobi,BACKWARD_ENTAILMENT
+aug_llm_00626__en-en__flipped,aug_llm_00626,en,en,Kenya SC in Nairobi,Kenya SC,FORWARD_ENTAILMENT
+aug_llm_00628__en-en__original,aug_llm_00628,en,en,in Mumbai bomb blast case,in Mumbai rape gang case,NEGATIVE_OTHER
+aug_llm_00629__en-en__original,aug_llm_00629,en,en,in Mumbai photojournalist rape gang case,in Mumbai rape gang case,FORWARD_ENTAILMENT
+aug_llm_00629__en-en__flipped,aug_llm_00629,en,en,in Mumbai rape gang case,in Mumbai photojournalist rape gang case,BACKWARD_ENTAILMENT
+aug_llm_00631__en-en__original,aug_llm_00631,en,en,in Mumbai rape gang case,in Mumbai gang rape case,EQUIVALENCE
+aug_llm_00631__en-en__flipped,aug_llm_00631,en,en,in Mumbai gang rape case,in Mumbai rape gang case,EQUIVALENCE
+aug_llm_00633__en-en__original,aug_llm_00633,en,en,revokes,approves,NEGATIVE_OTHER
+aug_llm_00634__en-en__original,aug_llm_00634,en,en,revokes licence,revokes,FORWARD_ENTAILMENT
+aug_llm_00634__en-en__flipped,aug_llm_00634,en,en,revokes,revokes licence,BACKWARD_ENTAILMENT
+aug_llm_00636__en-en__original,aug_llm_00636,en,en,revokes,cancels,EQUIVALENCE
+aug_llm_00636__en-en__flipped,aug_llm_00636,en,en,cancels,revokes,EQUIVALENCE
+aug_llm_00638__en-en__original,aug_llm_00638,en,en,atop a rock carving,beside a rock carving,NEGATIVE_OTHER
+aug_llm_00639__en-en__original,aug_llm_00639,en,en,atop a large rock carving,atop a rock carving,FORWARD_ENTAILMENT
+aug_llm_00639__en-en__flipped,aug_llm_00639,en,en,atop a rock carving,atop a large rock carving,BACKWARD_ENTAILMENT
+aug_llm_00641__en-en__original,aug_llm_00641,en,en,atop a rock carving,on top of a rock carving,EQUIVALENCE
+aug_llm_00641__en-en__flipped,aug_llm_00641,en,en,on top of a rock carving,atop a rock carving,EQUIVALENCE
+aug_llm_00643__en-en__original,aug_llm_00643,en,en,Fresh rain,Fresh snow,NEGATIVE_OTHER
+aug_llm_00644__en-en__original,aug_llm_00644,en,en,Fresh heavy rain,Fresh rain,FORWARD_ENTAILMENT
+aug_llm_00644__en-en__flipped,aug_llm_00644,en,en,Fresh rain,Fresh heavy rain,BACKWARD_ENTAILMENT
+aug_llm_00646__en-en__original,aug_llm_00646,en,en,Fresh rain,New rain,EQUIVALENCE
+aug_llm_00646__en-en__flipped,aug_llm_00646,en,en,New rain,Fresh rain,EQUIVALENCE
+aug_llm_00648__en-en__original,aug_llm_00648,en,en,in the backgroud,in the foreground,NEGATIVE_OTHER
+aug_llm_00649__en-en__original,aug_llm_00649,en,en,in the backgroud,in the far backgroud,BACKWARD_ENTAILMENT
+aug_llm_00649__en-en__flipped,aug_llm_00649,en,en,in the far backgroud,in the backgroud,FORWARD_ENTAILMENT
+aug_llm_00651__en-en__original,aug_llm_00651,en,en,in the backgroud,in the background,EQUIVALENCE
+aug_llm_00651__en-en__flipped,aug_llm_00651,en,en,in the background,in the backgroud,EQUIVALENCE
+aug_llm_00653__en-en__original,aug_llm_00653,en,en,India Trophy win,India Trophy loss,NEGATIVE_OTHER
+aug_llm_00654__en-en__original,aug_llm_00654,en,en,India Champions Trophy win,India Trophy win,FORWARD_ENTAILMENT
+aug_llm_00654__en-en__flipped,aug_llm_00654,en,en,India Trophy win,India Champions Trophy win,BACKWARD_ENTAILMENT
+aug_llm_00656__en-en__original,aug_llm_00656,en,en,India wins Trophy,India Trophy win,EQUIVALENCE
+aug_llm_00656__en-en__flipped,aug_llm_00656,en,en,India Trophy win,India wins Trophy,EQUIVALENCE
+aug_llm_00658__en-en__original,aug_llm_00658,en,en,of grass,of dirt,NEGATIVE_OTHER
+aug_llm_00659__en-en__original,aug_llm_00659,en,en,of grass,of tall green grass,BACKWARD_ENTAILMENT
+aug_llm_00659__en-en__flipped,aug_llm_00659,en,en,of tall green grass,of grass,FORWARD_ENTAILMENT
+aug_llm_00661__en-en__original,aug_llm_00661,en,en,of grass,of the grass,EQUIVALENCE
+aug_llm_00661__en-en__flipped,aug_llm_00661,en,en,of the grass,of grass,EQUIVALENCE
+aug_llm_00663__en-en__original,aug_llm_00663,en,en,dead,injured,NEGATIVE_OTHER
+aug_llm_00664__en-en__original,aug_llm_00664,en,en,found dead,dead,FORWARD_ENTAILMENT
+aug_llm_00664__en-en__flipped,aug_llm_00664,en,en,dead,found dead,BACKWARD_ENTAILMENT
+aug_llm_00666__en-en__original,aug_llm_00666,en,en,dead,deceased,EQUIVALENCE
+aug_llm_00666__en-en__flipped,aug_llm_00666,en,en,deceased,dead,EQUIVALENCE
+aug_llm_00668__en-en__original,aug_llm_00668,en,en,against plan,for plan,NEGATIVE_OTHER
+aug_llm_00669__en-en__original,aug_llm_00669,en,en,for plan,for peace plan,BACKWARD_ENTAILMENT
+aug_llm_00669__en-en__flipped,aug_llm_00669,en,en,for peace plan,for plan,FORWARD_ENTAILMENT
+aug_llm_00671__en-en__original,aug_llm_00671,en,en,for plan,for proposal,EQUIVALENCE
+aug_llm_00671__en-en__flipped,aug_llm_00671,en,en,for proposal,for plan,EQUIVALENCE
+aug_llm_00673__en-en__original,aug_llm_00673,en,en,The black sheep,The white sheep,NEGATIVE_OTHER
+aug_llm_00674__en-en__original,aug_llm_00674,en,en,The white sheep,The fluffy white sheep,BACKWARD_ENTAILMENT
+aug_llm_00674__en-en__flipped,aug_llm_00674,en,en,The fluffy white sheep,The white sheep,FORWARD_ENTAILMENT
+aug_llm_00676__en-en__original,aug_llm_00676,en,en,The white sheep,The sheep that is white,EQUIVALENCE
+aug_llm_00676__en-en__flipped,aug_llm_00676,en,en,The sheep that is white,The white sheep,EQUIVALENCE
+aug_llm_00678__en-en__original,aug_llm_00678,en,en,Broadcaster David Frost,Broadcaster David Dimbleby,NEGATIVE_OTHER
+aug_llm_00679__en-en__original,aug_llm_00679,en,en,Broadcaster David Frost,British broadcaster David Frost,BACKWARD_ENTAILMENT
+aug_llm_00679__en-en__flipped,aug_llm_00679,en,en,British broadcaster David Frost,Broadcaster David Frost,FORWARD_ENTAILMENT
+aug_llm_00681__en-en__original,aug_llm_00681,en,en,"David Frost , broadcaster",Broadcaster David Frost,EQUIVALENCE
+aug_llm_00681__en-en__flipped,aug_llm_00681,en,en,Broadcaster David Frost,"David Frost , broadcaster",EQUIVALENCE
+aug_llm_00683__en-en__original,aug_llm_00683,en,en,on a red couch,on a blue couch,NEGATIVE_OTHER
+aug_llm_00684__en-en__original,aug_llm_00684,en,en,on a red couch,on a red leather couch,BACKWARD_ENTAILMENT
+aug_llm_00684__en-en__flipped,aug_llm_00684,en,en,on a red leather couch,on a red couch,FORWARD_ENTAILMENT
+aug_llm_00686__en-en__original,aug_llm_00686,en,en,on a red couch,on a red sofa,EQUIVALENCE
+aug_llm_00686__en-en__flipped,aug_llm_00686,en,en,on a red sofa,on a red couch,EQUIVALENCE
+aug_llm_00688__en-en__original,aug_llm_00688,en,en,descends,climbs,NEGATIVE_OTHER
+aug_llm_00689__en-en__original,aug_llm_00689,en,en,climbs,climbs steeply,BACKWARD_ENTAILMENT
+aug_llm_00689__en-en__flipped,aug_llm_00689,en,en,climbs steeply,climbs,FORWARD_ENTAILMENT
+aug_llm_00691__en-en__original,aug_llm_00691,en,en,climbs,ascends,EQUIVALENCE
+aug_llm_00691__en-en__flipped,aug_llm_00691,en,en,ascends,climbs,EQUIVALENCE
+aug_llm_00693__en-en__original,aug_llm_00693,en,en,a pink hat,a pink coat,NEGATIVE_OTHER
+aug_llm_00694__en-en__original,aug_llm_00694,en,en,a pink coat,a long pink coat,BACKWARD_ENTAILMENT
+aug_llm_00694__en-en__flipped,aug_llm_00694,en,en,a long pink coat,a pink coat,FORWARD_ENTAILMENT
+aug_llm_00696__en-en__original,aug_llm_00696,en,en,a coat that is pink,a pink coat,EQUIVALENCE
+aug_llm_00696__en-en__flipped,aug_llm_00696,en,en,a pink coat,a coat that is pink,EQUIVALENCE
+aug_llm_00698__en-en__original,aug_llm_00698,en,en,Turkey election,Turkey unrest,NEGATIVE_OTHER
+aug_llm_00699__en-en__original,aug_llm_00699,en,en,Turkey anti-government unrest,Turkey unrest,FORWARD_ENTAILMENT
+aug_llm_00699__en-en__flipped,aug_llm_00699,en,en,Turkey unrest,Turkey anti-government unrest,BACKWARD_ENTAILMENT
+aug_llm_00701__en-en__original,aug_llm_00701,en,en,Turkey unrest,Unrest in Turkey,EQUIVALENCE
+aug_llm_00701__en-en__flipped,aug_llm_00701,en,en,Unrest in Turkey,Turkey unrest,EQUIVALENCE
+aug_llm_00703__en-en__original,aug_llm_00703,en,en,a brown-colored equine,a white-colored equine,NEGATIVE_OTHER
+aug_llm_00704__en-en__original,aug_llm_00704,en,en,a brown-colored equine,a brown-colored equine galloping,BACKWARD_ENTAILMENT
+aug_llm_00704__en-en__flipped,aug_llm_00704,en,en,a brown-colored equine galloping,a brown-colored equine,FORWARD_ENTAILMENT
+aug_llm_00706__en-en__original,aug_llm_00706,en,en,a brown-colored equine,a brown horse,EQUIVALENCE
+aug_llm_00706__en-en__flipped,aug_llm_00706,en,en,a brown horse,a brown-colored equine,EQUIVALENCE
+aug_llm_00708__en-en__original,aug_llm_00708,en,en,regional alert,global alert,NEGATIVE_OTHER
+aug_llm_00709__en-en__original,aug_llm_00709,en,en,global health alert,global alert,FORWARD_ENTAILMENT
+aug_llm_00709__en-en__flipped,aug_llm_00709,en,en,global alert,global health alert,BACKWARD_ENTAILMENT
+aug_llm_00711__en-en__original,aug_llm_00711,en,en,worldwide alert,global alert,EQUIVALENCE
+aug_llm_00711__en-en__flipped,aug_llm_00711,en,en,global alert,worldwide alert,EQUIVALENCE
+aug_llm_00713__en-en__original,aug_llm_00713,en,en,standing,seated,NEGATIVE_OTHER
+aug_llm_00714__en-en__original,aug_llm_00714,en,en,seated,seated on a bench,BACKWARD_ENTAILMENT
+aug_llm_00714__en-en__flipped,aug_llm_00714,en,en,seated on a bench,seated,FORWARD_ENTAILMENT
+aug_llm_00716__en-en__original,aug_llm_00716,en,en,sitting,seated,EQUIVALENCE
+aug_llm_00716__en-en__flipped,aug_llm_00716,en,en,seated,sitting,EQUIVALENCE
+aug_llm_00718__en-en__original,aug_llm_00718,en,en,while other women,while other men,NEGATIVE_OTHER
+aug_llm_00719__en-en__original,aug_llm_00719,en,en,while other young men,while other men,FORWARD_ENTAILMENT
+aug_llm_00719__en-en__flipped,aug_llm_00719,en,en,while other men,while other young men,BACKWARD_ENTAILMENT
+aug_llm_00721__en-en__original,aug_llm_00721,en,en,while other men,as other men,EQUIVALENCE
+aug_llm_00721__en-en__flipped,aug_llm_00721,en,en,as other men,while other men,EQUIVALENCE
+aug_llm_00723__en-en__original,aug_llm_00723,en,en,as talks,as clashes,NEGATIVE_OTHER
+aug_llm_00724__en-en__original,aug_llm_00724,en,en,as deadly clashes,as clashes,FORWARD_ENTAILMENT
+aug_llm_00724__en-en__flipped,aug_llm_00724,en,en,as clashes,as deadly clashes,BACKWARD_ENTAILMENT
+aug_llm_00726__en-en__original,aug_llm_00726,en,en,while clashes,as clashes,EQUIVALENCE
+aug_llm_00726__en-en__flipped,aug_llm_00726,en,en,as clashes,while clashes,EQUIVALENCE
+aug_llm_00728__en-en__original,aug_llm_00728,en,en,Cools Down,Heats Up,NEGATIVE_OTHER
+aug_llm_00729__en-en__original,aug_llm_00729,en,en,Heats Up Sharply,Heats Up,FORWARD_ENTAILMENT
+aug_llm_00729__en-en__flipped,aug_llm_00729,en,en,Heats Up,Heats Up Sharply,BACKWARD_ENTAILMENT
+aug_llm_00731__en-en__original,aug_llm_00731,en,en,Intensifies,Heats Up,EQUIVALENCE
+aug_llm_00731__en-en__flipped,aug_llm_00731,en,en,Heats Up,Intensifies,EQUIVALENCE
+aug_llm_00733__en-en__original,aug_llm_00733,en,en,is sniffing,is licking,NEGATIVE_OTHER
+aug_llm_00734__en-en__original,aug_llm_00734,en,en,is sniffing the ground,is sniffing,FORWARD_ENTAILMENT
+aug_llm_00734__en-en__flipped,aug_llm_00734,en,en,is sniffing,is sniffing the ground,BACKWARD_ENTAILMENT
+aug_llm_00736__en-en__original,aug_llm_00736,en,en,sniffs,is sniffing,EQUIVALENCE
+aug_llm_00736__en-en__flipped,aug_llm_00736,en,en,is sniffing,sniffs,EQUIVALENCE
+aug_llm_00738__en-en__original,aug_llm_00738,en,en,Two dairy cows,Two dairy goats,NEGATIVE_OTHER
+aug_llm_00739__en-en__original,aug_llm_00739,en,en,Two dairy cows,Two black dairy cows,BACKWARD_ENTAILMENT
+aug_llm_00739__en-en__flipped,aug_llm_00739,en,en,Two black dairy cows,Two dairy cows,FORWARD_ENTAILMENT
+aug_llm_00741__en-en__original,aug_llm_00741,en,en,A pair of dairy cows,Two dairy cows,EQUIVALENCE
+aug_llm_00741__en-en__flipped,aug_llm_00741,en,en,Two dairy cows,A pair of dairy cows,EQUIVALENCE
+aug_llm_00743__en-en__original,aug_llm_00743,en,en,equities from China,bonds from China,NEGATIVE_OTHER
+aug_llm_00744__en-en__original,aug_llm_00744,en,en,technology equities from China,equities from China,FORWARD_ENTAILMENT
+aug_llm_00744__en-en__flipped,aug_llm_00744,en,en,equities from China,technology equities from China,BACKWARD_ENTAILMENT
+aug_llm_00746__en-en__original,aug_llm_00746,en,en,equities from China,Chinese equities,EQUIVALENCE
+aug_llm_00746__en-en__flipped,aug_llm_00746,en,en,Chinese equities,equities from China,EQUIVALENCE
+aug_llm_00748__en-en__original,aug_llm_00748,en,en,NSA director Keith Alexander,NSA whistleblower Edward Snowden,NEGATIVE_OTHER
+aug_llm_00749__en-en__original,aug_llm_00749,en,en,"NSA whistleblower Edward Snowden , 30",NSA whistleblower Edward Snowden,FORWARD_ENTAILMENT
+aug_llm_00749__en-en__flipped,aug_llm_00749,en,en,NSA whistleblower Edward Snowden,"NSA whistleblower Edward Snowden , 30",BACKWARD_ENTAILMENT
+aug_llm_00751__en-en__original,aug_llm_00751,en,en,NSA whistleblower Edward Snowden,"Edward Snowden , the NSA whistleblower",EQUIVALENCE
+aug_llm_00751__en-en__flipped,aug_llm_00751,en,en,"Edward Snowden , the NSA whistleblower",NSA whistleblower Edward Snowden,EQUIVALENCE
+aug_llm_00753__en-en__original,aug_llm_00753,en,en,Islamist Tactics,Islamist Politics,NEGATIVE_OTHER
+aug_llm_00754__en-en__original,aug_llm_00754,en,en,Violent Islamist Tactics,Islamist Tactics,FORWARD_ENTAILMENT
+aug_llm_00754__en-en__flipped,aug_llm_00754,en,en,Islamist Tactics,Violent Islamist Tactics,BACKWARD_ENTAILMENT
+aug_llm_00756__en-en__original,aug_llm_00756,en,en,Islamist Tactics,Tactics of Islamists,EQUIVALENCE
+aug_llm_00756__en-en__flipped,aug_llm_00756,en,en,Tactics of Islamists,Islamist Tactics,EQUIVALENCE
+aug_llm_00758__en-en__original,aug_llm_00758,en,en,"Shots , Explosions","Shots , Sirens",NEGATIVE_OTHER
+aug_llm_00759__en-en__original,aug_llm_00759,en,en,"Gun Shots , Loud Explosions","Shots , Explosions",FORWARD_ENTAILMENT
+aug_llm_00759__en-en__flipped,aug_llm_00759,en,en,"Shots , Explosions","Gun Shots , Loud Explosions",BACKWARD_ENTAILMENT
+aug_llm_00761__en-en__original,aug_llm_00761,en,en,"Shots , Explosions","Gunfire , Blasts",EQUIVALENCE
+aug_llm_00761__en-en__flipped,aug_llm_00761,en,en,"Gunfire , Blasts","Shots , Explosions",EQUIVALENCE
+aug_llm_00763__en-en__original,aug_llm_00763,en,en,Brown and white cows,Black and white cows,NEGATIVE_OTHER
+aug_llm_00764__en-en__original,aug_llm_00764,en,en,Black and white dairy cows,Black and white cows,FORWARD_ENTAILMENT
+aug_llm_00764__en-en__flipped,aug_llm_00764,en,en,Black and white cows,Black and white dairy cows,BACKWARD_ENTAILMENT
+aug_llm_00766__en-en__original,aug_llm_00766,en,en,White and black cows,Black and white cows,EQUIVALENCE
+aug_llm_00766__en-en__flipped,aug_llm_00766,en,en,Black and white cows,White and black cows,EQUIVALENCE
+aug_llm_00768__en-en__original,aug_llm_00768,en,en,from Calgary homes,from Calgary businesses,NEGATIVE_OTHER
+aug_llm_00769__en-en__original,aug_llm_00769,en,en,from Calgary homes,from flooded Calgary homes,BACKWARD_ENTAILMENT
+aug_llm_00769__en-en__flipped,aug_llm_00769,en,en,from flooded Calgary homes,from Calgary homes,FORWARD_ENTAILMENT
+aug_llm_00771__en-en__original,aug_llm_00771,en,en,from Calgary homes,out of Calgary homes,EQUIVALENCE
+aug_llm_00771__en-en__flipped,aug_llm_00771,en,en,out of Calgary homes,from Calgary homes,EQUIVALENCE
+aug_llm_00773__en-en__original,aug_llm_00773,en,en,in Russian nursing home fire,in Russian psychiatric hospital fire,NEGATIVE_OTHER
+aug_llm_00774__en-en__original,aug_llm_00774,en,en,in Russian psychiatric hospital fire,in deadly Russian psychiatric hospital fire,BACKWARD_ENTAILMENT
+aug_llm_00774__en-en__flipped,aug_llm_00774,en,en,in deadly Russian psychiatric hospital fire,in Russian psychiatric hospital fire,FORWARD_ENTAILMENT
+aug_llm_00776__en-en__original,aug_llm_00776,en,en,in Russian psychiatric hospital fire,in fire at Russian psychiatric hospital,EQUIVALENCE
+aug_llm_00776__en-en__flipped,aug_llm_00776,en,en,in fire at Russian psychiatric hospital,in Russian psychiatric hospital fire,EQUIVALENCE
+aug_llm_00778__en-en__original,aug_llm_00778,en,en,Young family,Young couple,NEGATIVE_OTHER
+aug_llm_00779__en-en__original,aug_llm_00779,en,en,Young couple kissing,Young couple,FORWARD_ENTAILMENT
+aug_llm_00779__en-en__flipped,aug_llm_00779,en,en,Young couple,Young couple kissing,BACKWARD_ENTAILMENT
+aug_llm_00781__en-en__original,aug_llm_00781,en,en,Young couple,Young pair,EQUIVALENCE
+aug_llm_00781__en-en__flipped,aug_llm_00781,en,en,Young pair,Young couple,EQUIVALENCE
+aug_llm_00783__en-en__original,aug_llm_00783,en,en,Chemical Arms Team,Nuclear Arms Team,NEGATIVE_OTHER
+aug_llm_00784__en-en__original,aug_llm_00784,en,en,UN Chemical Arms Team,Chemical Arms Team,FORWARD_ENTAILMENT
+aug_llm_00784__en-en__flipped,aug_llm_00784,en,en,Chemical Arms Team,UN Chemical Arms Team,BACKWARD_ENTAILMENT
+aug_llm_00786__en-en__original,aug_llm_00786,en,en,Chemical Weapons Team,Chemical Arms Team,EQUIVALENCE
+aug_llm_00786__en-en__flipped,aug_llm_00786,en,en,Chemical Arms Team,Chemical Weapons Team,EQUIVALENCE
+aug_llm_00788__en-en__original,aug_llm_00788,en,en,The two cats,The two dogs,NEGATIVE_OTHER
+aug_llm_00789__en-en__original,aug_llm_00789,en,en,The two brown dogs,The two dogs,FORWARD_ENTAILMENT
+aug_llm_00789__en-en__flipped,aug_llm_00789,en,en,The two dogs,The two brown dogs,BACKWARD_ENTAILMENT
+aug_llm_00791__en-en__original,aug_llm_00791,en,en,The two dogs,The pair of dogs,EQUIVALENCE
+aug_llm_00791__en-en__flipped,aug_llm_00791,en,en,The pair of dogs,The two dogs,EQUIVALENCE
+aug_llm_00793__en-en__original,aug_llm_00793,en,en,for camera,for audience,NEGATIVE_OTHER
+aug_llm_00794__en-en__original,aug_llm_00794,en,en,smiling for camera,for camera,FORWARD_ENTAILMENT
+aug_llm_00794__en-en__flipped,aug_llm_00794,en,en,for camera,smiling for camera,BACKWARD_ENTAILMENT
+aug_llm_00796__en-en__original,aug_llm_00796,en,en,for the camera,for camera,EQUIVALENCE
+aug_llm_00796__en-en__flipped,aug_llm_00796,en,en,for camera,for the camera,EQUIVALENCE
+aug_llm_00798__en-en__original,aug_llm_00798,en,en,the female child of that person,the male child of that person,NEGATIVE_OTHER
+aug_llm_00799__en-en__original,aug_llm_00799,en,en,the male child of that person,the young male child of that person,BACKWARD_ENTAILMENT
+aug_llm_00799__en-en__flipped,aug_llm_00799,en,en,the young male child of that person,the male child of that person,FORWARD_ENTAILMENT
+aug_llm_00801__en-en__original,aug_llm_00801,en,en,that person's son,the male child of that person,EQUIVALENCE
+aug_llm_00801__en-en__flipped,aug_llm_00801,en,en,the male child of that person,that person's son,EQUIVALENCE
+aug_llm_00803__en-en__original,aug_llm_00803,en,en,in northern Lebanon,in southern Lebanon,NEGATIVE_OTHER
+aug_llm_00804__en-en__original,aug_llm_00804,en,en,in northern Lebanon city of Tripoli,in northern Lebanon,FORWARD_ENTAILMENT
+aug_llm_00804__en-en__flipped,aug_llm_00804,en,en,in northern Lebanon,in northern Lebanon city of Tripoli,BACKWARD_ENTAILMENT
+aug_llm_00806__en-en__original,aug_llm_00806,en,en,in northern Lebanon,in the north of Lebanon,EQUIVALENCE
+aug_llm_00806__en-en__flipped,aug_llm_00806,en,en,in the north of Lebanon,in northern Lebanon,EQUIVALENCE
+aug_llm_00808__en-en__original,aug_llm_00808,en,en,for Boston bomb victims,for Boston bomb suspect,NEGATIVE_OTHER
+aug_llm_00809__en-en__original,aug_llm_00809,en,en,for Boston bomb suspect,for Boston bomb suspect Tsarnaev,BACKWARD_ENTAILMENT
+aug_llm_00809__en-en__flipped,aug_llm_00809,en,en,for Boston bomb suspect Tsarnaev,for Boston bomb suspect,FORWARD_ENTAILMENT
+aug_llm_00811__en-en__original,aug_llm_00811,en,en,for Boston bomb suspect,for Boston bombing suspect,EQUIVALENCE
+aug_llm_00811__en-en__flipped,aug_llm_00811,en,en,for Boston bombing suspect,for Boston bomb suspect,EQUIVALENCE
+aug_llm_00813__en-en__original,aug_llm_00813,en,en,near two tiny animals,near two large animals,NEGATIVE_OTHER
+aug_llm_00814__en-en__original,aug_llm_00814,en,en,near two tiny animals,near two tiny kittens,BACKWARD_ENTAILMENT
+aug_llm_00814__en-en__flipped,aug_llm_00814,en,en,near two tiny kittens,near two tiny animals,FORWARD_ENTAILMENT
+aug_llm_00816__en-en__original,aug_llm_00816,en,en,close to two small animals,near two tiny animals,EQUIVALENCE
+aug_llm_00816__en-en__flipped,aug_llm_00816,en,en,near two tiny animals,close to two small animals,EQUIVALENCE
+aug_llm_00818__en-en__original,aug_llm_00818,en,en,in Canada train disaster,in Canada plane crash,NEGATIVE_OTHER
+aug_llm_00819__en-en__original,aug_llm_00819,en,en,in Canada train disaster,in Quebec Canada train disaster,BACKWARD_ENTAILMENT
+aug_llm_00819__en-en__flipped,aug_llm_00819,en,en,in Quebec Canada train disaster,in Canada train disaster,FORWARD_ENTAILMENT
+aug_llm_00821__en-en__original,aug_llm_00821,en,en,in Canada train disaster,in Canadian train disaster,EQUIVALENCE
+aug_llm_00821__en-en__flipped,aug_llm_00821,en,en,in Canadian train disaster,in Canada train disaster,EQUIVALENCE
+aug_llm_00823__en-en__original,aug_llm_00823,en,en,India govt,Pakistan govt,NEGATIVE_OTHER
+aug_llm_00824__en-en__original,aug_llm_00824,en,en,India central govt,India govt,FORWARD_ENTAILMENT
+aug_llm_00824__en-en__flipped,aug_llm_00824,en,en,India govt,India central govt,BACKWARD_ENTAILMENT
+aug_llm_00826__en-en__original,aug_llm_00826,en,en,Indian government,India govt,EQUIVALENCE
+aug_llm_00826__en-en__flipped,aug_llm_00826,en,en,India govt,Indian government,EQUIVALENCE
+aug_llm_00828__en-en__original,aug_llm_00828,en,en,from a delivery vehicle,from a passenger vehicle,NEGATIVE_OTHER
+aug_llm_00829__en-en__original,aug_llm_00829,en,en,from a passenger vehicle,from a red passenger vehicle,BACKWARD_ENTAILMENT
+aug_llm_00829__en-en__flipped,aug_llm_00829,en,en,from a red passenger vehicle,from a passenger vehicle,FORWARD_ENTAILMENT
+aug_llm_00831__en-en__original,aug_llm_00831,en,en,from a vehicle carrying passengers,from a passenger vehicle,EQUIVALENCE
+aug_llm_00831__en-en__flipped,aug_llm_00831,en,en,from a passenger vehicle,from a vehicle carrying passengers,EQUIVALENCE
+aug_llm_00833__en-en__original,aug_llm_00833,en,en,repairing the vehicle,operating the vehicle,NEGATIVE_OTHER
+aug_llm_00834__en-en__original,aug_llm_00834,en,en,operating the vehicle,operating the vehicle at night,BACKWARD_ENTAILMENT
+aug_llm_00834__en-en__flipped,aug_llm_00834,en,en,operating the vehicle at night,operating the vehicle,FORWARD_ENTAILMENT
+aug_llm_00836__en-en__original,aug_llm_00836,en,en,operating the vehicle,driving the vehicle,EQUIVALENCE
+aug_llm_00836__en-en__flipped,aug_llm_00836,en,en,driving the vehicle,operating the vehicle,EQUIVALENCE
+aug_llm_00838__en-en__original,aug_llm_00838,en,en,A guy,A girl,NEGATIVE_OTHER
+aug_llm_00839__en-en__original,aug_llm_00839,en,en,A guy,A guy in a blue shirt,BACKWARD_ENTAILMENT
+aug_llm_00839__en-en__flipped,aug_llm_00839,en,en,A guy in a blue shirt,A guy,FORWARD_ENTAILMENT
+aug_llm_00841__en-en__original,aug_llm_00841,en,en,in grassy field,in snowy field,NEGATIVE_OTHER
+aug_llm_00842__en-en__original,aug_llm_00842,en,en,in grassy field,in large grassy field,BACKWARD_ENTAILMENT
+aug_llm_00842__en-en__flipped,aug_llm_00842,en,en,in large grassy field,in grassy field,FORWARD_ENTAILMENT
+aug_llm_00844__en-en__original,aug_llm_00844,en,en,in a field of grass,in grassy field,EQUIVALENCE
+aug_llm_00844__en-en__flipped,aug_llm_00844,en,en,in grassy field,in a field of grass,EQUIVALENCE
+aug_llm_00846__en-en__original,aug_llm_00846,en,en,at the Olympic Games,at the Paralympic Games,NEGATIVE_OTHER
+aug_llm_00847__en-en__original,aug_llm_00847,en,en,at the Winter Olympic Games,at the Olympic Games,FORWARD_ENTAILMENT
+aug_llm_00847__en-en__flipped,aug_llm_00847,en,en,at the Olympic Games,at the Winter Olympic Games,BACKWARD_ENTAILMENT
+aug_llm_00849__en-en__original,aug_llm_00849,en,en,at the Olympics,at the Olympic Games,EQUIVALENCE
+aug_llm_00849__en-en__flipped,aug_llm_00849,en,en,at the Olympic Games,at the Olympics,EQUIVALENCE
+aug_llm_00851__en-en__original,aug_llm_00851,en,en,A swimmer,A surfer,NEGATIVE_OTHER
+aug_llm_00852__en-en__original,aug_llm_00852,en,en,A surfer,A young surfer,BACKWARD_ENTAILMENT
+aug_llm_00852__en-en__flipped,aug_llm_00852,en,en,A young surfer,A surfer,FORWARD_ENTAILMENT
+aug_llm_00854__en-en__original,aug_llm_00854,en,en,A person surfing,A surfer,EQUIVALENCE
+aug_llm_00854__en-en__flipped,aug_llm_00854,en,en,A surfer,A person surfing,EQUIVALENCE
+aug_llm_00856__en-en__original,aug_llm_00856,en,en,The white and brown dog,The black and brown dog,NEGATIVE_OTHER
+aug_llm_00857__en-en__original,aug_llm_00857,en,en,The small white and brown dog,The white and brown dog,FORWARD_ENTAILMENT
+aug_llm_00857__en-en__flipped,aug_llm_00857,en,en,The white and brown dog,The small white and brown dog,BACKWARD_ENTAILMENT
+aug_llm_00859__en-en__original,aug_llm_00859,en,en,The brown and white dog,The white and brown dog,EQUIVALENCE
+aug_llm_00859__en-en__flipped,aug_llm_00859,en,en,The white and brown dog,The brown and white dog,EQUIVALENCE
+aug_llm_00861__en-en__original,aug_llm_00861,en,en,upon the icy surface,upon the snowy surface,NEGATIVE_OTHER
+aug_llm_00862__en-en__original,aug_llm_00862,en,en,upon the snowy surface,upon the deep snowy surface,BACKWARD_ENTAILMENT
+aug_llm_00862__en-en__flipped,aug_llm_00862,en,en,upon the deep snowy surface,upon the snowy surface,FORWARD_ENTAILMENT
+aug_llm_00864__en-en__original,aug_llm_00864,en,en,upon the snowy surface,on the snow-covered surface,EQUIVALENCE
+aug_llm_00864__en-en__flipped,aug_llm_00864,en,en,on the snow-covered surface,upon the snowy surface,EQUIVALENCE
+aug_llm_00866__en-en__original,aug_llm_00866,en,en,China 's bonds,China 's stocks,NEGATIVE_OTHER
+aug_llm_00867__en-en__original,aug_llm_00867,en,en,China 's tech stocks,China 's stocks,FORWARD_ENTAILMENT
+aug_llm_00867__en-en__flipped,aug_llm_00867,en,en,China 's stocks,China 's tech stocks,BACKWARD_ENTAILMENT
+aug_llm_00869__en-en__original,aug_llm_00869,en,en,Chinese stocks,China 's stocks,EQUIVALENCE
+aug_llm_00869__en-en__flipped,aug_llm_00869,en,en,China 's stocks,Chinese stocks,EQUIVALENCE
+aug_llm_00871__en-en__original,aug_llm_00871,en,en,A gray cat,A gray dog,NEGATIVE_OTHER
+aug_llm_00872__en-en__original,aug_llm_00872,en,en,A gray dog,A large gray dog,BACKWARD_ENTAILMENT
+aug_llm_00872__en-en__flipped,aug_llm_00872,en,en,A large gray dog,A gray dog,FORWARD_ENTAILMENT
+aug_llm_00874__en-en__original,aug_llm_00874,en,en,A gray dog,A grey dog,EQUIVALENCE
+aug_llm_00874__en-en__flipped,aug_llm_00874,en,en,A grey dog,A gray dog,EQUIVALENCE
+aug_llm_00876__en-en__original,aug_llm_00876,en,en,into Syria,out of Syria,NEGATIVE_OTHER
+aug_llm_00877__en-en__original,aug_llm_00877,en,en,into northern Syria,into Syria,FORWARD_ENTAILMENT
+aug_llm_00877__en-en__flipped,aug_llm_00877,en,en,into Syria,into northern Syria,BACKWARD_ENTAILMENT
+aug_llm_00879__en-en__original,aug_llm_00879,en,en,into Syrian territory,into Syria,EQUIVALENCE
+aug_llm_00879__en-en__flipped,aug_llm_00879,en,en,into Syria,into Syrian territory,EQUIVALENCE
+aug_llm_00881__en-en__original,aug_llm_00881,en,en,Palestinian prisoner release,Israeli prisoner release,NEGATIVE_OTHER
+aug_llm_00882__en-en__original,aug_llm_00882,en,en,Palestinian prisoner release,Palestinian long-term prisoner release,BACKWARD_ENTAILMENT
+aug_llm_00882__en-en__flipped,aug_llm_00882,en,en,Palestinian long-term prisoner release,Palestinian prisoner release,FORWARD_ENTAILMENT
+aug_llm_00884__en-en__original,aug_llm_00884,en,en,Palestinian prisoner release,Release of Palestinian prisoners,EQUIVALENCE
+aug_llm_00884__en-en__flipped,aug_llm_00884,en,en,Release of Palestinian prisoners,Palestinian prisoner release,EQUIVALENCE
+aug_llm_00886__en-en__original,aug_llm_00886,en,en,Brown and white dog,Small brown and white dog,BACKWARD_ENTAILMENT
+aug_llm_00886__en-en__flipped,aug_llm_00886,en,en,Small brown and white dog,Brown and white dog,FORWARD_ENTAILMENT
+aug_llm_00888__en-en__original,aug_llm_00888,en,en,Brown and white dog,White and brown dog,EQUIVALENCE
+aug_llm_00888__en-en__flipped,aug_llm_00888,en,en,White and brown dog,Brown and white dog,EQUIVALENCE
+aug_llm_00890__en-en__original,aug_llm_00890,en,en,UN presses,UN praises,NEGATIVE_OTHER
+aug_llm_00891__en-en__original,aug_llm_00891,en,en,UN presses Syria,UN presses,FORWARD_ENTAILMENT
+aug_llm_00891__en-en__flipped,aug_llm_00891,en,en,UN presses,UN presses Syria,BACKWARD_ENTAILMENT
+aug_llm_00893__en-en__original,aug_llm_00893,en,en,UN urges,UN presses,EQUIVALENCE
+aug_llm_00893__en-en__flipped,aug_llm_00893,en,en,UN presses,UN urges,EQUIVALENCE
+aug_llm_00895__en-en__original,aug_llm_00895,en,en,to Divorce,to Marry,NEGATIVE_OTHER
+aug_llm_00896__en-en__original,aug_llm_00896,en,en,to Marry Girlfriend,to Marry,FORWARD_ENTAILMENT
+aug_llm_00896__en-en__flipped,aug_llm_00896,en,en,to Marry,to Marry Girlfriend,BACKWARD_ENTAILMENT
+aug_llm_00898__en-en__original,aug_llm_00898,en,en,To Wed,to Marry,EQUIVALENCE
+aug_llm_00898__en-en__flipped,aug_llm_00898,en,en,to Marry,To Wed,EQUIVALENCE
+aug_llm_00900__en-en__original,aug_llm_00900,en,en,under a tree,around a tree,NEGATIVE_OTHER
+aug_llm_00901__en-en__original,aug_llm_00901,en,en,around a tree,around a large oak tree,BACKWARD_ENTAILMENT
+aug_llm_00901__en-en__flipped,aug_llm_00901,en,en,around a large oak tree,around a tree,FORWARD_ENTAILMENT
+aug_llm_00903__en-en__original,aug_llm_00903,en,en,round a tree,around a tree,EQUIVALENCE
+aug_llm_00903__en-en__flipped,aug_llm_00903,en,en,around a tree,round a tree,EQUIVALENCE
+aug_llm_00905__en-en__original,aug_llm_00905,en,en,over horse racing scandal,over horse meat scandal,NEGATIVE_OTHER
+aug_llm_00906__en-en__original,aug_llm_00906,en,en,over horse meat scandal,over European horse meat scandal,BACKWARD_ENTAILMENT
+aug_llm_00906__en-en__flipped,aug_llm_00906,en,en,over European horse meat scandal,over horse meat scandal,FORWARD_ENTAILMENT
+aug_llm_00908__en-en__original,aug_llm_00908,en,en,over the horsemeat scandal,over horse meat scandal,EQUIVALENCE
+aug_llm_00908__en-en__flipped,aug_llm_00908,en,en,over horse meat scandal,over the horsemeat scandal,EQUIVALENCE
+aug_llm_00910__en-en__original,aug_llm_00910,en,en,White House,US Capitol,NEGATIVE_OTHER
+aug_llm_00911__en-en__original,aug_llm_00911,en,en,US Capitol dome in Washington,US Capitol,FORWARD_ENTAILMENT
+aug_llm_00911__en-en__flipped,aug_llm_00911,en,en,US Capitol,US Capitol dome in Washington,BACKWARD_ENTAILMENT
+aug_llm_00913__en-en__original,aug_llm_00913,en,en,US Capitol,United States Capitol,EQUIVALENCE
+aug_llm_00913__en-en__flipped,aug_llm_00913,en,en,United States Capitol,US Capitol,EQUIVALENCE
+aug_llm_00915__en-en__original,aug_llm_00915,en,en,"Virginia 's ex-Gov . Bob McDonnell , lawyer","Virginia 's ex-Gov . Bob McDonnell , wife",NEGATIVE_OTHER
+aug_llm_00916__en-en__original,aug_llm_00916,en,en,"Virginia 's ex-Gov . Bob McDonnell , wife","Virginia 's ex-Gov . Bob McDonnell , his wife Maureen",BACKWARD_ENTAILMENT
+aug_llm_00916__en-en__flipped,aug_llm_00916,en,en,"Virginia 's ex-Gov . Bob McDonnell , his wife Maureen","Virginia 's ex-Gov . Bob McDonnell , wife",FORWARD_ENTAILMENT
+aug_llm_00918__en-en__original,aug_llm_00918,en,en,"Virginia 's ex-Gov . Bob McDonnell , wife","Ex-Gov . Bob McDonnell of Virginia , wife",EQUIVALENCE
+aug_llm_00918__en-en__flipped,aug_llm_00918,en,en,"Ex-Gov . Bob McDonnell of Virginia , wife","Virginia 's ex-Gov . Bob McDonnell , wife",EQUIVALENCE
+aug_llm_00920__en-en__original,aug_llm_00920,en,en,as vice presidential candidate,as presidential candidate,NEGATIVE_OTHER
+aug_llm_00921__en-en__original,aug_llm_00921,en,en,as presidential candidate,as Republican presidential candidate,BACKWARD_ENTAILMENT
+aug_llm_00921__en-en__flipped,aug_llm_00921,en,en,as Republican presidential candidate,as presidential candidate,FORWARD_ENTAILMENT
+aug_llm_00923__en-en__original,aug_llm_00923,en,en,as candidate for president,as presidential candidate,EQUIVALENCE
+aug_llm_00923__en-en__flipped,aug_llm_00923,en,en,as presidential candidate,as candidate for president,EQUIVALENCE
+aug_llm_00925__en-en__original,aug_llm_00925,en,en,radical cleric Abu Qatada,radical cleric Abu Hamza,NEGATIVE_OTHER
+aug_llm_00926__en-en__original,aug_llm_00926,en,en,radical cleric Abu Qatada,radical Muslim cleric Abu Qatada,BACKWARD_ENTAILMENT
+aug_llm_00926__en-en__flipped,aug_llm_00926,en,en,radical Muslim cleric Abu Qatada,radical cleric Abu Qatada,FORWARD_ENTAILMENT
+aug_llm_00928__en-en__original,aug_llm_00928,en,en,extremist cleric Abu Qatada,radical cleric Abu Qatada,EQUIVALENCE
+aug_llm_00928__en-en__flipped,aug_llm_00928,en,en,radical cleric Abu Qatada,extremist cleric Abu Qatada,EQUIVALENCE
+aug_llm_00930__en-en__original,aug_llm_00930,en,en,retires,dies,NEGATIVE_OTHER
+aug_llm_00931__en-en__original,aug_llm_00931,en,en,dies at 88,dies,FORWARD_ENTAILMENT
+aug_llm_00931__en-en__flipped,aug_llm_00931,en,en,dies,dies at 88,BACKWARD_ENTAILMENT
+aug_llm_00933__en-en__original,aug_llm_00933,en,en,passes away,dies,EQUIVALENCE
+aug_llm_00933__en-en__flipped,aug_llm_00933,en,en,dies,passes away,EQUIVALENCE
+aug_llm_00935__en-en__original,aug_llm_00935,en,en,three U.S. soldiers,three U.S. diplomats,NEGATIVE_OTHER
+aug_llm_00936__en-en__original,aug_llm_00936,en,en,three U.S. diplomats,three senior U.S. diplomats,BACKWARD_ENTAILMENT
+aug_llm_00936__en-en__flipped,aug_llm_00936,en,en,three senior U.S. diplomats,three U.S. diplomats,FORWARD_ENTAILMENT
+aug_llm_00938__en-en__original,aug_llm_00938,en,en,is running away from,is running after,NEGATIVE_OTHER
+aug_llm_00939__en-en__original,aug_llm_00939,en,en,is running after a ball,is running after,FORWARD_ENTAILMENT
+aug_llm_00939__en-en__flipped,aug_llm_00939,en,en,is running after,is running after a ball,BACKWARD_ENTAILMENT
+aug_llm_00941__en-en__original,aug_llm_00941,en,en,is running after,is chasing,EQUIVALENCE
+aug_llm_00941__en-en__flipped,aug_llm_00941,en,en,is chasing,is running after,EQUIVALENCE
+aug_llm_00943__en-en__original,aug_llm_00943,en,en,Rouhani,Ahmadinejad,NEGATIVE_OTHER
+aug_llm_00944__en-en__original,aug_llm_00944,en,en,Iran president Ahmadinejad,Ahmadinejad,FORWARD_ENTAILMENT
+aug_llm_00944__en-en__flipped,aug_llm_00944,en,en,Ahmadinejad,Iran president Ahmadinejad,BACKWARD_ENTAILMENT
+aug_llm_00946__en-en__original,aug_llm_00946,en,en,Ahmadinejad,Ahmedinejad,EQUIVALENCE
+aug_llm_00946__en-en__flipped,aug_llm_00946,en,en,Ahmedinejad,Ahmadinejad,EQUIVALENCE
+aug_llm_00948__en-en__original,aug_llm_00948,en,en,US Capitol Hill,US Pentagon,NEGATIVE_OTHER
+aug_llm_00949__en-en__original,aug_llm_00949,en,en,US Capitol Hill,US Capitol Hill in Washington,BACKWARD_ENTAILMENT
+aug_llm_00949__en-en__flipped,aug_llm_00949,en,en,US Capitol Hill in Washington,US Capitol Hill,FORWARD_ENTAILMENT
+aug_llm_00951__en-en__original,aug_llm_00951,en,en,Capitol Hill in the US,US Capitol Hill,EQUIVALENCE
+aug_llm_00951__en-en__flipped,aug_llm_00951,en,en,US Capitol Hill,Capitol Hill in the US,EQUIVALENCE
+aug_llm_00953__en-en__original,aug_llm_00953,en,en,15,51,NEGATIVE_OTHER
+aug_llm_00954__en-en__original,aug_llm_00954,en,en,15,15 people,BACKWARD_ENTAILMENT
+aug_llm_00954__en-en__flipped,aug_llm_00954,en,en,15 people,15,FORWARD_ENTAILMENT
+aug_llm_00956__en-en__original,aug_llm_00956,en,en,fifteen,15,EQUIVALENCE
+aug_llm_00956__en-en__flipped,aug_llm_00956,en,en,15,fifteen,EQUIVALENCE
+aug_llm_00958__en-en__original,aug_llm_00958,en,en,under a table,around a table,NEGATIVE_OTHER
+aug_llm_00959__en-en__original,aug_llm_00959,en,en,around a wooden table,around a table,FORWARD_ENTAILMENT
+aug_llm_00959__en-en__flipped,aug_llm_00959,en,en,around a table,around a wooden table,BACKWARD_ENTAILMENT
+aug_llm_00961__en-en__original,aug_llm_00961,en,en,round a table,around a table,EQUIVALENCE
+aug_llm_00961__en-en__flipped,aug_llm_00961,en,en,around a table,round a table,EQUIVALENCE
+aug_llm_00963__en-en__original,aug_llm_00963,en,en,for daughter,for son,NEGATIVE_OTHER
+aug_llm_00964__en-en__original,aug_llm_00964,en,en,for teenage son,for son,FORWARD_ENTAILMENT
+aug_llm_00964__en-en__flipped,aug_llm_00964,en,en,for son,for teenage son,BACKWARD_ENTAILMENT
+aug_llm_00966__en-en__original,aug_llm_00966,en,en,for the son,for son,EQUIVALENCE
+aug_llm_00966__en-en__flipped,aug_llm_00966,en,en,for son,for the son,EQUIVALENCE
+aug_llm_00968__en-en__original,aug_llm_00968,en,en,at edge of grassy field,in middle of grassy field,NEGATIVE_OTHER
+aug_llm_00969__en-en__original,aug_llm_00969,en,en,in middle of grassy field,in middle of large grassy field,BACKWARD_ENTAILMENT
+aug_llm_00969__en-en__flipped,aug_llm_00969,en,en,in middle of large grassy field,in middle of grassy field,FORWARD_ENTAILMENT
+aug_llm_00971__en-en__original,aug_llm_00971,en,en,in middle of grassy field,in the center of a grassy field,EQUIVALENCE
+aug_llm_00971__en-en__flipped,aug_llm_00971,en,en,in the center of a grassy field,in middle of grassy field,EQUIVALENCE
+aug_llm_00973__en-en__original,aug_llm_00973,en,en,in a kitchen,in a bathroom,NEGATIVE_OTHER
+aug_llm_00974__en-en__original,aug_llm_00974,en,en,in a kitchen,in a modern kitchen,BACKWARD_ENTAILMENT
+aug_llm_00974__en-en__flipped,aug_llm_00974,en,en,in a modern kitchen,in a kitchen,FORWARD_ENTAILMENT
+aug_llm_00976__en-en__original,aug_llm_00976,en,en,inside a kitchen,in a kitchen,EQUIVALENCE
+aug_llm_00976__en-en__flipped,aug_llm_00976,en,en,in a kitchen,inside a kitchen,EQUIVALENCE
+aug_llm_00978__en-en__original,aug_llm_00978,en,en,Suicide bomb,Car bomb,NEGATIVE_OTHER
+aug_llm_00979__en-en__original,aug_llm_00979,en,en,Suicide bomb in Baghdad,Suicide bomb,FORWARD_ENTAILMENT
+aug_llm_00979__en-en__flipped,aug_llm_00979,en,en,Suicide bomb,Suicide bomb in Baghdad,BACKWARD_ENTAILMENT
+aug_llm_00981__en-en__original,aug_llm_00981,en,en,Suicide bomb,Suicide blast,EQUIVALENCE
+aug_llm_00981__en-en__flipped,aug_llm_00981,en,en,Suicide blast,Suicide bomb,EQUIVALENCE
+aug_llm_00983__en-en__original,aug_llm_00983,en,en,in 2016 Rio Olympics,in 2020 Tokyo Olympics,NEGATIVE_OTHER
+aug_llm_00984__en-en__original,aug_llm_00984,en,en,in 2020 Tokyo Olympics men's marathon,in 2020 Tokyo Olympics,FORWARD_ENTAILMENT
+aug_llm_00984__en-en__flipped,aug_llm_00984,en,en,in 2020 Tokyo Olympics,in 2020 Tokyo Olympics men's marathon,BACKWARD_ENTAILMENT
+aug_llm_00986__en-en__original,aug_llm_00986,en,en,at the Tokyo 2020 Games,in 2020 Tokyo Olympics,EQUIVALENCE
+aug_llm_00986__en-en__flipped,aug_llm_00986,en,en,in 2020 Tokyo Olympics,at the Tokyo 2020 Games,EQUIVALENCE
+aug_llm_00988__en-en__original,aug_llm_00988,en,en,of one-child policy,of two-child policy,NEGATIVE_OTHER
+aug_llm_00989__en-en__original,aug_llm_00989,en,en,of China's one-child policy,of one-child policy,FORWARD_ENTAILMENT
+aug_llm_00989__en-en__flipped,aug_llm_00989,en,en,of one-child policy,of China's one-child policy,BACKWARD_ENTAILMENT
+aug_llm_00991__en-en__original,aug_llm_00991,en,en,of the one child rule,of one-child policy,EQUIVALENCE
+aug_llm_00991__en-en__flipped,aug_llm_00991,en,en,of one-child policy,of the one child rule,EQUIVALENCE
+aug_llm_00993__en-en__original,aug_llm_00993,en,en,against Greenpeace,for Greenpeace,NEGATIVE_OTHER
+aug_llm_00994__en-en__original,aug_llm_00994,en,en,against Greenpeace,against Greenpeace in Russia,BACKWARD_ENTAILMENT
+aug_llm_00994__en-en__flipped,aug_llm_00994,en,en,against Greenpeace in Russia,against Greenpeace,FORWARD_ENTAILMENT
+aug_llm_00996__en-en__original,aug_llm_00996,en,en,against Greenpeace,versus Greenpeace,EQUIVALENCE
+aug_llm_00996__en-en__flipped,aug_llm_00996,en,en,versus Greenpeace,against Greenpeace,EQUIVALENCE
+aug_llm_00998__en-en__original,aug_llm_00998,en,en,of touch football,of flag football,NEGATIVE_OTHER
+aug_llm_00999__en-en__original,aug_llm_00999,en,en,of youth flag football,of flag football,FORWARD_ENTAILMENT
+aug_llm_00999__en-en__flipped,aug_llm_00999,en,en,of flag football,of youth flag football,BACKWARD_ENTAILMENT
+aug_llm_01001__en-en__original,aug_llm_01001,en,en,of flag-based football,of flag football,EQUIVALENCE
+aug_llm_01001__en-en__flipped,aug_llm_01001,en,en,of flag football,of flag-based football,EQUIVALENCE
+aug_llm_01003__en-en__original,aug_llm_01003,en,en,in a tidy room,in a messy room,NEGATIVE_OTHER
+aug_llm_01004__en-en__original,aug_llm_01004,en,en,in a messy bedroom,in a messy room,FORWARD_ENTAILMENT
+aug_llm_01004__en-en__flipped,aug_llm_01004,en,en,in a messy room,in a messy bedroom,BACKWARD_ENTAILMENT
+aug_llm_01006__en-en__original,aug_llm_01006,en,en,in a messy room,in an untidy room,EQUIVALENCE
+aug_llm_01006__en-en__flipped,aug_llm_01006,en,en,in an untidy room,in a messy room,EQUIVALENCE
+aug_llm_01008__en-en__original,aug_llm_01008,en,en,after Japanese bridge collapses,after Japanese tunnel collapses,NEGATIVE_OTHER
+aug_llm_01009__en-en__original,aug_llm_01009,en,en,after Japanese tunnel collapses,after Japanese highway tunnel collapses,BACKWARD_ENTAILMENT
+aug_llm_01009__en-en__flipped,aug_llm_01009,en,en,after Japanese highway tunnel collapses,after Japanese tunnel collapses,FORWARD_ENTAILMENT
+aug_llm_01011__en-en__original,aug_llm_01011,en,en,following Japanese tunnel collapse,after Japanese tunnel collapses,EQUIVALENCE
+aug_llm_01011__en-en__flipped,aug_llm_01011,en,en,after Japanese tunnel collapses,following Japanese tunnel collapse,EQUIVALENCE
+aug_llm_01013__en-en__original,aug_llm_01013,en,en,to hinder,to help,NEGATIVE_OTHER
+aug_llm_01014__en-en__original,aug_llm_01014,en,en,to help victims,to help,FORWARD_ENTAILMENT
+aug_llm_01014__en-en__flipped,aug_llm_01014,en,en,to help,to help victims,BACKWARD_ENTAILMENT
+aug_llm_01016__en-en__original,aug_llm_01016,en,en,to help,to assist,EQUIVALENCE
+aug_llm_01016__en-en__flipped,aug_llm_01016,en,en,to assist,to help,EQUIVALENCE
+aug_llm_01018__en-en__original,aug_llm_01018,en,en,shot dead,shot and wounded,NEGATIVE_OTHER
+aug_llm_01019__en-en__original,aug_llm_01019,en,en,shot dead,shot dead by police,BACKWARD_ENTAILMENT
+aug_llm_01019__en-en__flipped,aug_llm_01019,en,en,shot dead by police,shot dead,FORWARD_ENTAILMENT
+aug_llm_01021__en-en__original,aug_llm_01021,en,en,shot dead,killed by gunfire,EQUIVALENCE
+aug_llm_01021__en-en__flipped,aug_llm_01021,en,en,killed by gunfire,shot dead,EQUIVALENCE
+aug_llm_01023__en-en__original,aug_llm_01023,en,en,a big wave,a small wave,NEGATIVE_OTHER
+aug_llm_01024__en-en__original,aug_llm_01024,en,en,a small wave,a small blue wave,BACKWARD_ENTAILMENT
+aug_llm_01024__en-en__flipped,aug_llm_01024,en,en,a small blue wave,a small wave,FORWARD_ENTAILMENT
+aug_llm_01026__en-en__original,aug_llm_01026,en,en,a small wave,a little wave,EQUIVALENCE
+aug_llm_01026__en-en__flipped,aug_llm_01026,en,en,a little wave,a small wave,EQUIVALENCE
+aug_llm_01028__en-en__original,aug_llm_01028,en,en,at an airport,at a port,NEGATIVE_OTHER
+aug_llm_01029__en-en__original,aug_llm_01029,en,en,at a container port,at a port,FORWARD_ENTAILMENT
+aug_llm_01029__en-en__flipped,aug_llm_01029,en,en,at a port,at a container port,BACKWARD_ENTAILMENT
+aug_llm_01031__en-en__original,aug_llm_01031,en,en,at a harbor,at a port,EQUIVALENCE
+aug_llm_01031__en-en__flipped,aug_llm_01031,en,en,at a port,at a harbor,EQUIVALENCE
+aug_llm_01033__en-en__original,aug_llm_01033,en,en,The sheep,The cows,NEGATIVE_OTHER
+aug_llm_01034__en-en__original,aug_llm_01034,en,en,The cows,The brown cows,BACKWARD_ENTAILMENT
+aug_llm_01034__en-en__flipped,aug_llm_01034,en,en,The brown cows,The cows,FORWARD_ENTAILMENT
+aug_llm_01036__en-en__original,aug_llm_01036,en,en,The cows,The cattle,EQUIVALENCE
+aug_llm_01036__en-en__flipped,aug_llm_01036,en,en,The cattle,The cows,EQUIVALENCE
+aug_llm_01038__en-en__original,aug_llm_01038,en,en,Early vote count in Iran,Early vote count in Iraq,NEGATIVE_OTHER
+aug_llm_01039__en-en__original,aug_llm_01039,en,en,Early vote count in Iran shows Rouhani ahead,Early vote count in Iran,FORWARD_ENTAILMENT
+aug_llm_01039__en-en__flipped,aug_llm_01039,en,en,Early vote count in Iran,Early vote count in Iran shows Rouhani ahead,BACKWARD_ENTAILMENT
+aug_llm_01041__en-en__original,aug_llm_01041,en,en,Early vote count in Iran,Initial vote tally in Iran,EQUIVALENCE
+aug_llm_01041__en-en__flipped,aug_llm_01041,en,en,Initial vote tally in Iran,Early vote count in Iran,EQUIVALENCE
+aug_llm_01043__en-en__original,aug_llm_01043,en,en,after resigning,after collapsing,NEGATIVE_OTHER
+aug_llm_01044__en-en__original,aug_llm_01044,en,en,after collapsing at home,after collapsing,FORWARD_ENTAILMENT
+aug_llm_01044__en-en__flipped,aug_llm_01044,en,en,after collapsing,after collapsing at home,BACKWARD_ENTAILMENT
+aug_llm_01046__en-en__original,aug_llm_01046,en,en,after having collapsed,after collapsing,EQUIVALENCE
+aug_llm_01046__en-en__flipped,aug_llm_01046,en,en,after collapsing,after having collapsed,EQUIVALENCE
+aug_llm_01048__en-en__original,aug_llm_01048,en,en,250 militants,205 militants,NEGATIVE_OTHER
+aug_llm_01049__en-en__original,aug_llm_01049,en,en,250 Taliban militants,250 militants,FORWARD_ENTAILMENT
+aug_llm_01049__en-en__flipped,aug_llm_01049,en,en,250 militants,250 Taliban militants,BACKWARD_ENTAILMENT
+aug_llm_01051__en-en__original,aug_llm_01051,en,en,250 insurgents,250 militants,EQUIVALENCE
+aug_llm_01051__en-en__flipped,aug_llm_01051,en,en,250 militants,250 insurgents,EQUIVALENCE
+aug_llm_01053__en-en__original,aug_llm_01053,en,en,on Turkish border,on Syrian border,NEGATIVE_OTHER
+aug_llm_01054__en-en__original,aug_llm_01054,en,en,on northern Syrian border,on Syrian border,FORWARD_ENTAILMENT
+aug_llm_01054__en-en__flipped,aug_llm_01054,en,en,on Syrian border,on northern Syrian border,BACKWARD_ENTAILMENT
+aug_llm_01056__en-en__original,aug_llm_01056,en,en,at Syria's border,on Syrian border,EQUIVALENCE
+aug_llm_01056__en-en__flipped,aug_llm_01056,en,en,on Syrian border,at Syria's border,EQUIVALENCE
+aug_llm_01058__en-en__original,aug_llm_01058,en,en,the television series Doctor Who,the television series Sherlock,NEGATIVE_OTHER
+aug_llm_01059__en-en__original,aug_llm_01059,en,en,the television series Doctor Who,the BBC television series Doctor Who,BACKWARD_ENTAILMENT
+aug_llm_01059__en-en__flipped,aug_llm_01059,en,en,the BBC television series Doctor Who,the television series Doctor Who,FORWARD_ENTAILMENT
+aug_llm_01061__en-en__original,aug_llm_01061,en,en,the television series Doctor Who,the TV show Doctor Who,EQUIVALENCE
+aug_llm_01061__en-en__flipped,aug_llm_01061,en,en,the TV show Doctor Who,the television series Doctor Who,EQUIVALENCE
+aug_llm_01063__en-en__original,aug_llm_01063,en,en,at Athens airport,at Athens shopping mall,NEGATIVE_OTHER
+aug_llm_01064__en-en__original,aug_llm_01064,en,en,at Athens shopping mall food court,at Athens shopping mall,FORWARD_ENTAILMENT
+aug_llm_01064__en-en__flipped,aug_llm_01064,en,en,at Athens shopping mall,at Athens shopping mall food court,BACKWARD_ENTAILMENT
+aug_llm_01066__en-en__original,aug_llm_01066,en,en,at Athens mall,at Athens shopping mall,EQUIVALENCE
+aug_llm_01066__en-en__flipped,aug_llm_01066,en,en,at Athens shopping mall,at Athens mall,EQUIVALENCE
+aug_llm_01068__en-en__original,aug_llm_01068,en,en,A sepia scene,A black and white scene,NEGATIVE_OTHER
+aug_llm_01069__en-en__original,aug_llm_01069,en,en,A black and white scene,A black and white scene of a street,BACKWARD_ENTAILMENT
+aug_llm_01069__en-en__flipped,aug_llm_01069,en,en,A black and white scene of a street,A black and white scene,FORWARD_ENTAILMENT
+aug_llm_01071__en-en__original,aug_llm_01071,en,en,A scene in black and white,A black and white scene,EQUIVALENCE
+aug_llm_01071__en-en__flipped,aug_llm_01071,en,en,A black and white scene,A scene in black and white,EQUIVALENCE
+aug_llm_01073__en-en__original,aug_llm_01073,en,en,looking out,looking in,NEGATIVE_OTHER
+aug_llm_01074__en-en__original,aug_llm_01074,en,en,looking out,looking out a window,BACKWARD_ENTAILMENT
+aug_llm_01074__en-en__flipped,aug_llm_01074,en,en,looking out a window,looking out,FORWARD_ENTAILMENT
+aug_llm_01076__en-en__original,aug_llm_01076,en,en,looking out,gazing out,EQUIVALENCE
+aug_llm_01076__en-en__flipped,aug_llm_01076,en,en,gazing out,looking out,EQUIVALENCE
+aug_llm_01078__en-en__original,aug_llm_01078,en,en,into Ukraine,into Russia,NEGATIVE_OTHER
+aug_llm_01079__en-en__original,aug_llm_01079,en,en,into Russia,into southern Russia,BACKWARD_ENTAILMENT
+aug_llm_01079__en-en__flipped,aug_llm_01079,en,en,into southern Russia,into Russia,FORWARD_ENTAILMENT
+aug_llm_01081__en-en__original,aug_llm_01081,en,en,into Russia,to Russia,EQUIVALENCE
+aug_llm_01081__en-en__flipped,aug_llm_01081,en,en,to Russia,into Russia,EQUIVALENCE
+aug_llm_01083__en-en__original,aug_llm_01083,en,en,'s Salafists,'s Brotherhood,NEGATIVE_OTHER
+aug_llm_01084__en-en__original,aug_llm_01084,en,en,'s Brotherhood leadership,'s Brotherhood,FORWARD_ENTAILMENT
+aug_llm_01084__en-en__flipped,aug_llm_01084,en,en,'s Brotherhood,'s Brotherhood leadership,BACKWARD_ENTAILMENT
+aug_llm_01086__en-en__original,aug_llm_01086,en,en,'s Muslim Brothers,'s Brotherhood,EQUIVALENCE
+aug_llm_01086__en-en__flipped,aug_llm_01086,en,en,'s Brotherhood,'s Muslim Brothers,EQUIVALENCE
+aug_llm_01088__en-en__original,aug_llm_01088,en,en,on a grass area,on a dirt area,NEGATIVE_OTHER
+aug_llm_01089__en-en__original,aug_llm_01089,en,en,on a dry dirt area,on a dirt area,FORWARD_ENTAILMENT
+aug_llm_01089__en-en__flipped,aug_llm_01089,en,en,on a dirt area,on a dry dirt area,BACKWARD_ENTAILMENT
+aug_llm_01091__en-en__original,aug_llm_01091,en,en,on an area of dirt,on a dirt area,EQUIVALENCE
+aug_llm_01091__en-en__flipped,aug_llm_01091,en,en,on a dirt area,on an area of dirt,EQUIVALENCE
+aug_llm_01093__en-en__original,aug_llm_01093,en,en,to lure Gulf investors,to lure Asian investors,NEGATIVE_OTHER
+aug_llm_01094__en-en__original,aug_llm_01094,en,en,to lure Gulf investors,to lure wealthy Gulf investors,BACKWARD_ENTAILMENT
+aug_llm_01094__en-en__flipped,aug_llm_01094,en,en,to lure wealthy Gulf investors,to lure Gulf investors,FORWARD_ENTAILMENT
+aug_llm_01096__en-en__original,aug_llm_01096,en,en,to lure Gulf investors,to attract Gulf investors,EQUIVALENCE
+aug_llm_01096__en-en__flipped,aug_llm_01096,en,en,to attract Gulf investors,to lure Gulf investors,EQUIVALENCE
+aug_llm_01098__en-en__original,aug_llm_01098,en,en,is perched,is flying,NEGATIVE_OTHER
+aug_llm_01099__en-en__original,aug_llm_01099,en,en,is perched high,is perched,FORWARD_ENTAILMENT
+aug_llm_01099__en-en__flipped,aug_llm_01099,en,en,is perched,is perched high,BACKWARD_ENTAILMENT
+aug_llm_01101__en-en__original,aug_llm_01101,en,en,is perched,is roosting,EQUIVALENCE
+aug_llm_01101__en-en__flipped,aug_llm_01101,en,en,is roosting,is perched,EQUIVALENCE
+aug_llm_01103__en-en__original,aug_llm_01103,en,en,Two people and a cat,Two people and a dog,NEGATIVE_OTHER
+aug_llm_01104__en-en__original,aug_llm_01104,en,en,Two people and a dog,Two young people and a dog,BACKWARD_ENTAILMENT
+aug_llm_01104__en-en__flipped,aug_llm_01104,en,en,Two young people and a dog,Two people and a dog,FORWARD_ENTAILMENT
+aug_llm_01106__en-en__original,aug_llm_01106,en,en,Two people and a dog,A dog and two people,EQUIVALENCE
+aug_llm_01106__en-en__flipped,aug_llm_01106,en,en,A dog and two people,Two people and a dog,EQUIVALENCE
+aug_llm_01108__en-en__original,aug_llm_01108,en,en,located within the water,located near the water,NEGATIVE_OTHER
+aug_llm_01109__en-en__original,aug_llm_01109,en,en,located deep within the water,located within the water,FORWARD_ENTAILMENT
+aug_llm_01109__en-en__flipped,aug_llm_01109,en,en,located within the water,located deep within the water,BACKWARD_ENTAILMENT
+aug_llm_01111__en-en__original,aug_llm_01111,en,en,located within the water,situated in the water,EQUIVALENCE
+aug_llm_01111__en-en__flipped,aug_llm_01111,en,en,situated in the water,located within the water,EQUIVALENCE
+aug_llm_01113__en-en__original,aug_llm_01113,en,en,for Taliban peace talks,for Taliban prisoner swap,NEGATIVE_OTHER
+aug_llm_01114__en-en__original,aug_llm_01114,en,en,for Taliban peace talks,for Taliban peace talks in Qatar,BACKWARD_ENTAILMENT
+aug_llm_01114__en-en__flipped,aug_llm_01114,en,en,for Taliban peace talks in Qatar,for Taliban peace talks,FORWARD_ENTAILMENT
+aug_llm_01116__en-en__original,aug_llm_01116,en,en,for Taliban peace talks,for peace talks with the Taliban,EQUIVALENCE
+aug_llm_01116__en-en__flipped,aug_llm_01116,en,en,for peace talks with the Taliban,for Taliban peace talks,EQUIVALENCE
+aug_llm_01118__en-en__original,aug_llm_01118,en,en,Two brunette girls,Two blonde girls,NEGATIVE_OTHER
+aug_llm_01119__en-en__original,aug_llm_01119,en,en,Two blonde girls,Two young blonde girls,BACKWARD_ENTAILMENT
+aug_llm_01119__en-en__flipped,aug_llm_01119,en,en,Two young blonde girls,Two blonde girls,FORWARD_ENTAILMENT
+aug_llm_01121__en-en__original,aug_llm_01121,en,en,Two girls with blonde hair,Two blonde girls,EQUIVALENCE
+aug_llm_01121__en-en__flipped,aug_llm_01121,en,en,Two blonde girls,Two girls with blonde hair,EQUIVALENCE
+aug_llm_01123__en-en__original,aug_llm_01123,en,en,on a black sofa,on a white sofa,NEGATIVE_OTHER
+aug_llm_01124__en-en__original,aug_llm_01124,en,en,on a white sofa,on a white leather sofa,BACKWARD_ENTAILMENT
+aug_llm_01124__en-en__flipped,aug_llm_01124,en,en,on a white leather sofa,on a white sofa,FORWARD_ENTAILMENT
+aug_llm_01126__en-en__original,aug_llm_01126,en,en,on a white couch,on a white sofa,EQUIVALENCE
+aug_llm_01126__en-en__flipped,aug_llm_01126,en,en,on a white sofa,on a white couch,EQUIVALENCE
+aug_llm_01128__en-en__original,aug_llm_01128,en,en,a wave,a splash,NEGATIVE_OTHER
+aug_llm_01129__en-en__original,aug_llm_01129,en,en,a wave,an ocean wave,BACKWARD_ENTAILMENT
+aug_llm_01129__en-en__flipped,aug_llm_01129,en,en,an ocean wave,a wave,FORWARD_ENTAILMENT
+aug_llm_01131__en-en__original,aug_llm_01131,en,en,a wave of water,a wave,EQUIVALENCE
+aug_llm_01131__en-en__flipped,aug_llm_01131,en,en,a wave,a wave of water,EQUIVALENCE
+aug_llm_01133__en-en__original,aug_llm_01133,en,en,on a shiny slide,on a shiny swing,NEGATIVE_OTHER
+aug_llm_01134__en-en__original,aug_llm_01134,en,en,on a shiny metal slide,on a shiny slide,FORWARD_ENTAILMENT
+aug_llm_01134__en-en__flipped,aug_llm_01134,en,en,on a shiny slide,on a shiny metal slide,BACKWARD_ENTAILMENT
+aug_llm_01136__en-en__original,aug_llm_01136,en,en,on a glossy slide,on a shiny slide,EQUIVALENCE
+aug_llm_01136__en-en__flipped,aug_llm_01136,en,en,on a shiny slide,on a glossy slide,EQUIVALENCE
+aug_llm_01138__en-en__original,aug_llm_01138,en,en,in San Francisco air crash,in San Francisco bus crash,NEGATIVE_OTHER
+aug_llm_01139__en-en__original,aug_llm_01139,en,en,in San Francisco air crash,in San Francisco Asiana air crash,BACKWARD_ENTAILMENT
+aug_llm_01139__en-en__flipped,aug_llm_01139,en,en,in San Francisco Asiana air crash,in San Francisco air crash,FORWARD_ENTAILMENT
+aug_llm_01141__en-en__original,aug_llm_01141,en,en,in San Francisco air crash,in air crash in San Francisco,EQUIVALENCE
+aug_llm_01141__en-en__flipped,aug_llm_01141,en,en,in air crash in San Francisco,in San Francisco air crash,EQUIVALENCE
+aug_llm_01143__en-en__original,aug_llm_01143,en,en,north Mali Tuareg rebels,north Mali al-Qaida-linked rebels,NEGATIVE_OTHER
+aug_llm_01144__en-en__original,aug_llm_01144,en,en,north Mali al-Qaida-linked Islamist rebels,north Mali al-Qaida-linked rebels,FORWARD_ENTAILMENT
+aug_llm_01144__en-en__flipped,aug_llm_01144,en,en,north Mali al-Qaida-linked rebels,north Mali al-Qaida-linked Islamist rebels,BACKWARD_ENTAILMENT
+aug_llm_01146__en-en__original,aug_llm_01146,en,en,al-Qaida-linked rebels in north Mali,north Mali al-Qaida-linked rebels,EQUIVALENCE
+aug_llm_01146__en-en__flipped,aug_llm_01146,en,en,north Mali al-Qaida-linked rebels,al-Qaida-linked rebels in north Mali,EQUIVALENCE
+aug_llm_01148__en-en__original,aug_llm_01148,en,en,a denim shirt,a blue denim shirt,BACKWARD_ENTAILMENT
+aug_llm_01148__en-en__flipped,aug_llm_01148,en,en,a blue denim shirt,a denim shirt,FORWARD_ENTAILMENT
+aug_llm_01150__en-en__original,aug_llm_01150,en,en,a shirt made of denim,a denim shirt,EQUIVALENCE
+aug_llm_01150__en-en__flipped,aug_llm_01150,en,en,a denim shirt,a shirt made of denim,EQUIVALENCE
+aug_llm_01152__en-en__original,aug_llm_01152,en,en,Four women and two men,Four men and two women,NEGATIVE_OTHER
+aug_llm_01153__en-en__original,aug_llm_01153,en,en,Four young women and two men,Four women and two men,FORWARD_ENTAILMENT
+aug_llm_01153__en-en__flipped,aug_llm_01153,en,en,Four women and two men,Four young women and two men,BACKWARD_ENTAILMENT
+aug_llm_01155__en-en__original,aug_llm_01155,en,en,Two men and four women,Four women and two men,EQUIVALENCE
+aug_llm_01155__en-en__flipped,aug_llm_01155,en,en,Four women and two men,Two men and four women,EQUIVALENCE
+aug_llm_01157__en-en__original,aug_llm_01157,en,en,of 7 magnitude,of 6 magnitude,NEGATIVE_OTHER
+aug_llm_01158__en-en__original,aug_llm_01158,en,en,of 6 magnitude,of 6 magnitude in Peru,BACKWARD_ENTAILMENT
+aug_llm_01158__en-en__flipped,aug_llm_01158,en,en,of 6 magnitude in Peru,of 6 magnitude,FORWARD_ENTAILMENT
+aug_llm_01160__en-en__original,aug_llm_01160,en,en,of magnitude 6,of 6 magnitude,EQUIVALENCE
+aug_llm_01160__en-en__flipped,aug_llm_01160,en,en,of 6 magnitude,of magnitude 6,EQUIVALENCE
+aug_llm_01162__en-en__original,aug_llm_01162,en,en,Blue and white plane,Red and white plane,NEGATIVE_OTHER
+aug_llm_01163__en-en__original,aug_llm_01163,en,en,Red and white plane,Red and white passenger plane,BACKWARD_ENTAILMENT
+aug_llm_01163__en-en__flipped,aug_llm_01163,en,en,Red and white passenger plane,Red and white plane,FORWARD_ENTAILMENT
+aug_llm_01165__en-en__original,aug_llm_01165,en,en,Red and white plane,White and red plane,EQUIVALENCE
+aug_llm_01165__en-en__flipped,aug_llm_01165,en,en,White and red plane,Red and white plane,EQUIVALENCE
+aug_llm_01167__en-en__original,aug_llm_01167,en,en,A silver truck,A silver car,NEGATIVE_OTHER
+aug_llm_01168__en-en__original,aug_llm_01168,en,en,A silver sports car,A silver car,FORWARD_ENTAILMENT
+aug_llm_01168__en-en__flipped,aug_llm_01168,en,en,A silver car,A silver sports car,BACKWARD_ENTAILMENT
+aug_llm_01170__en-en__original,aug_llm_01170,en,en,A silver car,A silver-colored car,EQUIVALENCE
+aug_llm_01170__en-en__flipped,aug_llm_01170,en,en,A silver-colored car,A silver car,EQUIVALENCE
+aug_llm_01172__en-en__original,aug_llm_01172,en,en,remain upright,remain seated,NEGATIVE_OTHER
+aug_llm_01173__en-en__original,aug_llm_01173,en,en,remain upright in the wind,remain upright,FORWARD_ENTAILMENT
+aug_llm_01173__en-en__flipped,aug_llm_01173,en,en,remain upright,remain upright in the wind,BACKWARD_ENTAILMENT
+aug_llm_01175__en-en__original,aug_llm_01175,en,en,stay upright,remain upright,EQUIVALENCE
+aug_llm_01175__en-en__flipped,aug_llm_01175,en,en,remain upright,stay upright,EQUIVALENCE
+aug_llm_01177__en-en__original,aug_llm_01177,en,en,at a closed door,at an open door,NEGATIVE_OTHER
+aug_llm_01178__en-en__original,aug_llm_01178,en,en,at a closed door,at a closed wooden door,BACKWARD_ENTAILMENT
+aug_llm_01178__en-en__flipped,aug_llm_01178,en,en,at a closed wooden door,at a closed door,FORWARD_ENTAILMENT
+aug_llm_01180__en-en__original,aug_llm_01180,en,en,at a shut door,at a closed door,EQUIVALENCE
+aug_llm_01180__en-en__flipped,aug_llm_01180,en,en,at a closed door,at a shut door,EQUIVALENCE
+aug_llm_01182__en-en__original,aug_llm_01182,en,en,in Singapore,in Malaysia,NEGATIVE_OTHER
+aug_llm_01183__en-en__original,aug_llm_01183,en,en,in downtown Singapore,in Singapore,FORWARD_ENTAILMENT
+aug_llm_01183__en-en__flipped,aug_llm_01183,en,en,in Singapore,in downtown Singapore,BACKWARD_ENTAILMENT
+aug_llm_01185__en-en__original,aug_llm_01185,en,en,in Singapore,in the city-state of Singapore,EQUIVALENCE
+aug_llm_01185__en-en__flipped,aug_llm_01185,en,en,in the city-state of Singapore,in Singapore,EQUIVALENCE
+aug_llm_01187__en-en__original,aug_llm_01187,en,en,in Indonesian volcanic eruption,in Indonesian earthquake,NEGATIVE_OTHER
+aug_llm_01188__en-en__original,aug_llm_01188,en,en,in Indonesian volcanic eruption on Sumatra,in Indonesian volcanic eruption,FORWARD_ENTAILMENT
+aug_llm_01188__en-en__flipped,aug_llm_01188,en,en,in Indonesian volcanic eruption,in Indonesian volcanic eruption on Sumatra,BACKWARD_ENTAILMENT
+aug_llm_01190__en-en__original,aug_llm_01190,en,en,in Indonesian volcanic eruption,in volcanic eruption in Indonesia,EQUIVALENCE
+aug_llm_01190__en-en__flipped,aug_llm_01190,en,en,in volcanic eruption in Indonesia,in Indonesian volcanic eruption,EQUIVALENCE
+aug_llm_01192__en-en__original,aug_llm_01192,en,en,Cannes thief,Cannes winner,NEGATIVE_OTHER
+aug_llm_01193__en-en__original,aug_llm_01193,en,en,Cannes thief,Cannes jewel thief,BACKWARD_ENTAILMENT
+aug_llm_01193__en-en__flipped,aug_llm_01193,en,en,Cannes jewel thief,Cannes thief,FORWARD_ENTAILMENT
+aug_llm_01195__en-en__original,aug_llm_01195,en,en,Cannes thief,Cannes robber,EQUIVALENCE
+aug_llm_01195__en-en__flipped,aug_llm_01195,en,en,Cannes robber,Cannes thief,EQUIVALENCE
+aug_llm_01197__en-en__original,aug_llm_01197,en,en,to go and buy,to go and see,NEGATIVE_OTHER
+aug_llm_01198__en-en__original,aug_llm_01198,en,en,to go and see,to go and see a doctor,BACKWARD_ENTAILMENT
+aug_llm_01198__en-en__flipped,aug_llm_01198,en,en,to go and see a doctor,to go and see,FORWARD_ENTAILMENT
+aug_llm_01200__en-en__original,aug_llm_01200,en,en,to go see,to go and see,EQUIVALENCE
+aug_llm_01200__en-en__flipped,aug_llm_01200,en,en,to go and see,to go see,EQUIVALENCE
+aug_llm_01202__en-en__original,aug_llm_01202,en,en,Two large birds,Two small birds,NEGATIVE_OTHER
+aug_llm_01203__en-en__original,aug_llm_01203,en,en,Two small birds,Two small brown birds,BACKWARD_ENTAILMENT
+aug_llm_01203__en-en__flipped,aug_llm_01203,en,en,Two small brown birds,Two small birds,FORWARD_ENTAILMENT
+aug_llm_01205__en-en__original,aug_llm_01205,en,en,Two small birds,A pair of little birds,EQUIVALENCE
+aug_llm_01205__en-en__flipped,aug_llm_01205,en,en,A pair of little birds,Two small birds,EQUIVALENCE
+aug_llm_01207__en-en__original,aug_llm_01207,en,en,stacked up,lined up,NEGATIVE_OTHER
+aug_llm_01208__en-en__original,aug_llm_01208,en,en,neatly lined up,lined up,FORWARD_ENTAILMENT
+aug_llm_01208__en-en__flipped,aug_llm_01208,en,en,lined up,neatly lined up,BACKWARD_ENTAILMENT
+aug_llm_01210__en-en__original,aug_llm_01210,en,en,lined up,arranged in a row,EQUIVALENCE
+aug_llm_01210__en-en__flipped,aug_llm_01210,en,en,arranged in a row,lined up,EQUIVALENCE
+aug_llm_01212__en-en__original,aug_llm_01212,en,en,at a picnic table,at a dining table,NEGATIVE_OTHER
+aug_llm_01213__en-en__original,aug_llm_01213,en,en,at a picnic table,at a wooden picnic table,BACKWARD_ENTAILMENT
+aug_llm_01213__en-en__flipped,aug_llm_01213,en,en,at a wooden picnic table,at a picnic table,FORWARD_ENTAILMENT
+aug_llm_01215__en-en__original,aug_llm_01215,en,en,at a picnic table,at a table for picnics,EQUIVALENCE
+aug_llm_01215__en-en__flipped,aug_llm_01215,en,en,at a table for picnics,at a picnic table,EQUIVALENCE
+aug_llm_01217__en-en__original,aug_llm_01217,en,en,going under,going over,NEGATIVE_OTHER
+aug_llm_01218__en-en__original,aug_llm_01218,en,en,going over,going over a hill,BACKWARD_ENTAILMENT
+aug_llm_01218__en-en__flipped,aug_llm_01218,en,en,going over a hill,going over,FORWARD_ENTAILMENT
+aug_llm_01220__en-en__original,aug_llm_01220,en,en,passing over,going over,EQUIVALENCE
+aug_llm_01220__en-en__flipped,aug_llm_01220,en,en,going over,passing over,EQUIVALENCE
+aug_llm_01222__en-en__original,aug_llm_01222,en,en,driving quickly,driving slowly,NEGATIVE_OTHER
+aug_llm_01223__en-en__original,aug_llm_01223,en,en,driving quickly down a road,driving quickly,FORWARD_ENTAILMENT
+aug_llm_01223__en-en__flipped,aug_llm_01223,en,en,driving quickly,driving quickly down a road,BACKWARD_ENTAILMENT
+aug_llm_01225__en-en__original,aug_llm_01225,en,en,driving fast,driving quickly,EQUIVALENCE
+aug_llm_01225__en-en__flipped,aug_llm_01225,en,en,driving quickly,driving fast,EQUIVALENCE
+aug_llm_01227__en-en__original,aug_llm_01227,en,en,in Canada train derailment,in Canada train blaze,NEGATIVE_OTHER
+aug_llm_01228__en-en__original,aug_llm_01228,en,en,in Canada train blaze,in Canada oil train blaze,BACKWARD_ENTAILMENT
+aug_llm_01228__en-en__flipped,aug_llm_01228,en,en,in Canada oil train blaze,in Canada train blaze,FORWARD_ENTAILMENT
+aug_llm_01230__en-en__original,aug_llm_01230,en,en,in Canadian train fire,in Canada train blaze,EQUIVALENCE
+aug_llm_01230__en-en__flipped,aug_llm_01230,en,en,in Canada train blaze,in Canadian train fire,EQUIVALENCE
+aug_llm_01232__en-en__original,aug_llm_01232,en,en,21 more Palestinian prisoners,26 more Palestinian prisoners,NEGATIVE_OTHER
+aug_llm_01233__en-en__original,aug_llm_01233,en,en,26 more Palestinian prisoners,26 more long-held Palestinian prisoners,BACKWARD_ENTAILMENT
+aug_llm_01233__en-en__flipped,aug_llm_01233,en,en,26 more long-held Palestinian prisoners,26 more Palestinian prisoners,FORWARD_ENTAILMENT
+aug_llm_01235__en-en__original,aug_llm_01235,en,en,26 additional Palestinian prisoners,26 more Palestinian prisoners,EQUIVALENCE
+aug_llm_01235__en-en__flipped,aug_llm_01235,en,en,26 more Palestinian prisoners,26 additional Palestinian prisoners,EQUIVALENCE
+aug_llm_01237__en-en__original,aug_llm_01237,en,en,with South Korea,with North Korea,NEGATIVE_OTHER
+aug_llm_01238__en-en__original,aug_llm_01238,en,en,with South Korea,with South Korea on trade,BACKWARD_ENTAILMENT
+aug_llm_01238__en-en__flipped,aug_llm_01238,en,en,with South Korea on trade,with South Korea,FORWARD_ENTAILMENT
+aug_llm_01240__en-en__original,aug_llm_01240,en,en,with the Republic of Korea,with South Korea,EQUIVALENCE
+aug_llm_01240__en-en__flipped,aug_llm_01240,en,en,with South Korea,with the Republic of Korea,EQUIVALENCE
+aug_llm_01242__en-en__original,aug_llm_01242,en,en,mopeds,bicycles,NEGATIVE_OTHER
+aug_llm_01243__en-en__original,aug_llm_01243,en,en,red mopeds,mopeds,FORWARD_ENTAILMENT
+aug_llm_01243__en-en__flipped,aug_llm_01243,en,en,mopeds,red mopeds,BACKWARD_ENTAILMENT
+aug_llm_01245__en-en__original,aug_llm_01245,en,en,motor scooters,mopeds,EQUIVALENCE
+aug_llm_01245__en-en__flipped,aug_llm_01245,en,en,mopeds,motor scooters,EQUIVALENCE
+aug_llm_01247__en-en__original,aug_llm_01247,en,en,A pair of dogs,A pair of cats,NEGATIVE_OTHER
+aug_llm_01248__en-en__original,aug_llm_01248,en,en,A pair of dogs,A pair of brown dogs,BACKWARD_ENTAILMENT
+aug_llm_01248__en-en__flipped,aug_llm_01248,en,en,A pair of brown dogs,A pair of dogs,FORWARD_ENTAILMENT
+aug_llm_01250__en-en__original,aug_llm_01250,en,en,is walking,is riding,NEGATIVE_OTHER
+aug_llm_01251__en-en__original,aug_llm_01251,en,en,is riding a horse,is riding,FORWARD_ENTAILMENT
+aug_llm_01251__en-en__flipped,aug_llm_01251,en,en,is riding,is riding a horse,BACKWARD_ENTAILMENT
+aug_llm_01253__en-en__original,aug_llm_01253,en,en,A black cat,A gray cat,NEGATIVE_OTHER
+aug_llm_01254__en-en__original,aug_llm_01254,en,en,A gray tabby cat,A gray cat,FORWARD_ENTAILMENT
+aug_llm_01254__en-en__flipped,aug_llm_01254,en,en,A gray cat,A gray tabby cat,BACKWARD_ENTAILMENT
+aug_llm_01256__en-en__original,aug_llm_01256,en,en,A grey cat,A gray cat,EQUIVALENCE
+aug_llm_01256__en-en__flipped,aug_llm_01256,en,en,A gray cat,A grey cat,EQUIVALENCE
+aug_llm_01258__en-en__original,aug_llm_01258,en,en,"Australia's premier, Tony Abbott","Australia's premier, Kevin Rudd",NEGATIVE_OTHER
+aug_llm_01259__en-en__original,aug_llm_01259,en,en,"Australia's premier, Labor leader Kevin Rudd","Australia's premier, Kevin Rudd",FORWARD_ENTAILMENT
+aug_llm_01259__en-en__flipped,aug_llm_01259,en,en,"Australia's premier, Kevin Rudd","Australia's premier, Labor leader Kevin Rudd",BACKWARD_ENTAILMENT
+aug_llm_01261__en-en__original,aug_llm_01261,en,en,Australian premier Kevin Rudd,"Australia's premier, Kevin Rudd",EQUIVALENCE
+aug_llm_01261__en-en__flipped,aug_llm_01261,en,en,"Australia's premier, Kevin Rudd",Australian premier Kevin Rudd,EQUIVALENCE
+aug_llm_01263__en-en__original,aug_llm_01263,en,en,Tunisia opposition leader,Tunisia prime minister,NEGATIVE_OTHER
+aug_llm_01264__en-en__original,aug_llm_01264,en,en,Tunisia opposition leader Chokri Belaid,Tunisia opposition leader,FORWARD_ENTAILMENT
+aug_llm_01264__en-en__flipped,aug_llm_01264,en,en,Tunisia opposition leader,Tunisia opposition leader Chokri Belaid,BACKWARD_ENTAILMENT
+aug_llm_01266__en-en__original,aug_llm_01266,en,en,Tunisian opposition leader,Tunisia opposition leader,EQUIVALENCE
+aug_llm_01266__en-en__flipped,aug_llm_01266,en,en,Tunisia opposition leader,Tunisian opposition leader,EQUIVALENCE
+aug_llm_01268__en-en__original,aug_llm_01268,en,en,is removed,is placed,NEGATIVE_OTHER
+aug_llm_01269__en-en__original,aug_llm_01269,en,en,is placed,is carefully placed,BACKWARD_ENTAILMENT
+aug_llm_01269__en-en__flipped,aug_llm_01269,en,en,is carefully placed,is placed,FORWARD_ENTAILMENT
+aug_llm_01271__en-en__original,aug_llm_01271,en,en,is put,is placed,EQUIVALENCE
+aug_llm_01271__en-en__flipped,aug_llm_01271,en,en,is placed,is put,EQUIVALENCE
+aug_llm_01273__en-en__original,aug_llm_01273,en,en,At Least 66,At Least 56,NEGATIVE_OTHER
+aug_llm_01274__en-en__original,aug_llm_01274,en,en,At Least 66,At Least 66 civilians,BACKWARD_ENTAILMENT
+aug_llm_01274__en-en__flipped,aug_llm_01274,en,en,At Least 66 civilians,At Least 66,FORWARD_ENTAILMENT
+aug_llm_01276__en-en__original,aug_llm_01276,en,en,At Least 66,No fewer than 66,EQUIVALENCE
+aug_llm_01276__en-en__flipped,aug_llm_01276,en,en,No fewer than 66,At Least 66,EQUIVALENCE
+aug_llm_01278__en-en__original,aug_llm_01278,en,en,bomber,gunman,NEGATIVE_OTHER
+aug_llm_01279__en-en__original,aug_llm_01279,en,en,gunman,masked gunman,BACKWARD_ENTAILMENT
+aug_llm_01279__en-en__flipped,aug_llm_01279,en,en,masked gunman,gunman,FORWARD_ENTAILMENT
+aug_llm_01281__en-en__original,aug_llm_01281,en,en,shooter,gunman,EQUIVALENCE
+aug_llm_01281__en-en__flipped,aug_llm_01281,en,en,gunman,shooter,EQUIVALENCE
+aug_llm_01283__en-en__original,aug_llm_01283,en,en,held between its jaws,held between its paws,NEGATIVE_OTHER
+aug_llm_01284__en-en__original,aug_llm_01284,en,en,held tightly between its jaws,held between its jaws,FORWARD_ENTAILMENT
+aug_llm_01284__en-en__flipped,aug_llm_01284,en,en,held between its jaws,held tightly between its jaws,BACKWARD_ENTAILMENT
+aug_llm_01286__en-en__original,aug_llm_01286,en,en,gripped in its jaws,held between its jaws,EQUIVALENCE
+aug_llm_01286__en-en__flipped,aug_llm_01286,en,en,held between its jaws,gripped in its jaws,EQUIVALENCE
+aug_llm_01288__en-en__original,aug_llm_01288,en,en,in the foreground,in the background,NEGATIVE_OTHER
+aug_llm_01289__en-en__original,aug_llm_01289,en,en,in the background,in the far background,BACKWARD_ENTAILMENT
+aug_llm_01289__en-en__flipped,aug_llm_01289,en,en,in the far background,in the background,FORWARD_ENTAILMENT
+aug_llm_01291__en-en__original,aug_llm_01291,en,en,in the backdrop,in the background,EQUIVALENCE
+aug_llm_01291__en-en__flipped,aug_llm_01291,en,en,in the background,in the backdrop,EQUIVALENCE
+aug_llm_01293__en-en__original,aug_llm_01293,en,en,in a yellow canoe on a lake,in a yellow canoe,FORWARD_ENTAILMENT
+aug_llm_01293__en-en__flipped,aug_llm_01293,en,en,in a yellow canoe,in a yellow canoe on a lake,BACKWARD_ENTAILMENT
+aug_llm_01295__en-en__original,aug_llm_01295,en,en,in a yellow canoe,in a canoe that is yellow,EQUIVALENCE
+aug_llm_01295__en-en__flipped,aug_llm_01295,en,en,in a canoe that is yellow,in a yellow canoe,EQUIVALENCE
+aug_llm_01297__en-en__original,aug_llm_01297,en,en,to approve,to repeal,NEGATIVE_OTHER
+aug_llm_01298__en-en__original,aug_llm_01298,en,en,to repeal,to repeal Obamacare,BACKWARD_ENTAILMENT
+aug_llm_01298__en-en__flipped,aug_llm_01298,en,en,to repeal Obamacare,to repeal,FORWARD_ENTAILMENT
+aug_llm_01300__en-en__original,aug_llm_01300,en,en,to repeal,to overturn,EQUIVALENCE
+aug_llm_01300__en-en__flipped,aug_llm_01300,en,en,to overturn,to repeal,EQUIVALENCE
+aug_llm_01302__en-en__original,aug_llm_01302,en,en,puts on hold,puts on notice,NEGATIVE_OTHER
+aug_llm_01303__en-en__original,aug_llm_01303,en,en,puts Iran on notice,puts on notice,FORWARD_ENTAILMENT
+aug_llm_01303__en-en__flipped,aug_llm_01303,en,en,puts on notice,puts Iran on notice,BACKWARD_ENTAILMENT
+aug_llm_01305__en-en__original,aug_llm_01305,en,en,issues a warning to,puts on notice,EQUIVALENCE
+aug_llm_01305__en-en__flipped,aug_llm_01305,en,en,puts on notice,issues a warning to,EQUIVALENCE
+aug_llm_01307__en-en__original,aug_llm_01307,en,en,swimming,rowing,NEGATIVE_OTHER
+aug_llm_01308__en-en__original,aug_llm_01308,en,en,rowing,rowing fast,BACKWARD_ENTAILMENT
+aug_llm_01308__en-en__flipped,aug_llm_01308,en,en,rowing fast,rowing,FORWARD_ENTAILMENT
+aug_llm_01310__en-en__original,aug_llm_01310,en,en,rowing,paddling with oars,EQUIVALENCE
+aug_llm_01310__en-en__flipped,aug_llm_01310,en,en,paddling with oars,rowing,EQUIVALENCE
+aug_llm_01312__en-en__original,aug_llm_01312,en,en,in a blue dress,in a red dress,NEGATIVE_OTHER
+aug_llm_01313__en-en__original,aug_llm_01313,en,en,in a blue dress,in a long blue dress,BACKWARD_ENTAILMENT
+aug_llm_01313__en-en__flipped,aug_llm_01313,en,en,in a long blue dress,in a blue dress,FORWARD_ENTAILMENT
+aug_llm_01315__en-en__original,aug_llm_01315,en,en,wearing a blue dress,in a blue dress,EQUIVALENCE
+aug_llm_01315__en-en__flipped,aug_llm_01315,en,en,in a blue dress,wearing a blue dress,EQUIVALENCE
+aug_llm_01317__en-en__original,aug_llm_01317,en,en,About 600,About 60,NEGATIVE_OTHER
+aug_llm_01318__en-en__original,aug_llm_01318,en,en,About 60 protesters,About 60,FORWARD_ENTAILMENT
+aug_llm_01318__en-en__flipped,aug_llm_01318,en,en,About 60,About 60 protesters,BACKWARD_ENTAILMENT
+aug_llm_01320__en-en__original,aug_llm_01320,en,en,Roughly 60,About 60,EQUIVALENCE
+aug_llm_01320__en-en__flipped,aug_llm_01320,en,en,About 60,Roughly 60,EQUIVALENCE
+aug_llm_01322__en-en__original,aug_llm_01322,en,en,Three greyhounds,Three whippets,NEGATIVE_OTHER
+aug_llm_01323__en-en__original,aug_llm_01323,en,en,Three greyhounds,Three brown greyhounds,BACKWARD_ENTAILMENT
+aug_llm_01323__en-en__flipped,aug_llm_01323,en,en,Three brown greyhounds,Three greyhounds,FORWARD_ENTAILMENT
+aug_llm_01325__en-en__original,aug_llm_01325,en,en,3 greyhounds,Three greyhounds,EQUIVALENCE
+aug_llm_01325__en-en__flipped,aug_llm_01325,en,en,Three greyhounds,3 greyhounds,EQUIVALENCE
+aug_llm_01327__en-en__original,aug_llm_01327,en,en,A lamb,A goat,NEGATIVE_OTHER
+aug_llm_01328__en-en__original,aug_llm_01328,en,en,A newborn lamb,A lamb,FORWARD_ENTAILMENT
+aug_llm_01328__en-en__flipped,aug_llm_01328,en,en,A lamb,A newborn lamb,BACKWARD_ENTAILMENT
+aug_llm_01330__en-en__original,aug_llm_01330,en,en,A lamb,A young sheep,EQUIVALENCE
+aug_llm_01330__en-en__flipped,aug_llm_01330,en,en,A young sheep,A lamb,EQUIVALENCE
+aug_llm_01332__en-en__original,aug_llm_01332,en,en,issues red alert,issues orange alert,NEGATIVE_OTHER
+aug_llm_01333__en-en__original,aug_llm_01333,en,en,issues red alert for cyclone,issues red alert,FORWARD_ENTAILMENT
+aug_llm_01333__en-en__flipped,aug_llm_01333,en,en,issues red alert,issues red alert for cyclone,BACKWARD_ENTAILMENT
+aug_llm_01335__en-en__original,aug_llm_01335,en,en,declares red alert,issues red alert,EQUIVALENCE
+aug_llm_01335__en-en__flipped,aug_llm_01335,en,en,issues red alert,declares red alert,EQUIVALENCE
+aug_llm_01337__en-en__original,aug_llm_01337,en,en,Five dead,Five injured,NEGATIVE_OTHER
+aug_llm_01338__en-en__original,aug_llm_01338,en,en,Five dead,Five dead in blast,BACKWARD_ENTAILMENT
+aug_llm_01338__en-en__flipped,aug_llm_01338,en,en,Five dead in blast,Five dead,FORWARD_ENTAILMENT
+aug_llm_01340__en-en__original,aug_llm_01340,en,en,Five dead,5 killed,EQUIVALENCE
+aug_llm_01340__en-en__flipped,aug_llm_01340,en,en,5 killed,Five dead,EQUIVALENCE
+aug_llm_01342__en-en__original,aug_llm_01342,en,en,to abstain,to vote,NEGATIVE_OTHER
+aug_llm_01343__en-en__original,aug_llm_01343,en,en,to vote on budget,to vote,FORWARD_ENTAILMENT
+aug_llm_01343__en-en__flipped,aug_llm_01343,en,en,to vote,to vote on budget,BACKWARD_ENTAILMENT
+aug_llm_01345__en-en__original,aug_llm_01345,en,en,to vote,to cast ballots,EQUIVALENCE
+aug_llm_01345__en-en__flipped,aug_llm_01345,en,en,to cast ballots,to vote,EQUIVALENCE
+aug_llm_01347__en-en__original,aug_llm_01347,en,en,green playpen,blue playpen,NEGATIVE_OTHER
+aug_llm_01348__en-en__original,aug_llm_01348,en,en,green playpen,bright green playpen,BACKWARD_ENTAILMENT
+aug_llm_01348__en-en__flipped,aug_llm_01348,en,en,bright green playpen,green playpen,FORWARD_ENTAILMENT
+aug_llm_01350__en-en__original,aug_llm_01350,en,en,green playpen,playpen that is green,EQUIVALENCE
+aug_llm_01350__en-en__flipped,aug_llm_01350,en,en,playpen that is green,green playpen,EQUIVALENCE
+aug_llm_01352__en-en__original,aug_llm_01352,en,en,in rocket attacks,in bomb attacks,NEGATIVE_OTHER
+aug_llm_01353__en-en__original,aug_llm_01353,en,en,in Baghdad bomb attacks,in bomb attacks,FORWARD_ENTAILMENT
+aug_llm_01353__en-en__flipped,aug_llm_01353,en,en,in bomb attacks,in Baghdad bomb attacks,BACKWARD_ENTAILMENT
+aug_llm_01355__en-en__original,aug_llm_01355,en,en,in bomb attacks,in bombings,EQUIVALENCE
+aug_llm_01355__en-en__flipped,aug_llm_01355,en,en,in bombings,in bomb attacks,EQUIVALENCE
+aug_llm_01357__en-en__original,aug_llm_01357,en,en,Bangladesh factory fire,Bangladesh building-collapse,NEGATIVE_OTHER
+aug_llm_01358__en-en__original,aug_llm_01358,en,en,Bangladesh garment factory building-collapse,Bangladesh building-collapse,FORWARD_ENTAILMENT
+aug_llm_01358__en-en__flipped,aug_llm_01358,en,en,Bangladesh building-collapse,Bangladesh garment factory building-collapse,BACKWARD_ENTAILMENT
+aug_llm_01360__en-en__original,aug_llm_01360,en,en,Building collapse in Bangladesh,Bangladesh building-collapse,EQUIVALENCE
+aug_llm_01360__en-en__flipped,aug_llm_01360,en,en,Bangladesh building-collapse,Building collapse in Bangladesh,EQUIVALENCE
+aug_llm_01362__en-en__original,aug_llm_01362,en,en,departs,returns,NEGATIVE_OTHER
+aug_llm_01363__en-en__original,aug_llm_01363,en,en,returns home,returns,FORWARD_ENTAILMENT
+aug_llm_01363__en-en__flipped,aug_llm_01363,en,en,returns,returns home,BACKWARD_ENTAILMENT
+aug_llm_01365__en-en__original,aug_llm_01365,en,en,returns,comes back,EQUIVALENCE
+aug_llm_01365__en-en__flipped,aug_llm_01365,en,en,comes back,returns,EQUIVALENCE
+aug_llm_01367__en-en__original,aug_llm_01367,en,en,emergency evacuation,emergency relief,NEGATIVE_OTHER
+aug_llm_01368__en-en__original,aug_llm_01368,en,en,emergency flood relief,emergency relief,FORWARD_ENTAILMENT
+aug_llm_01368__en-en__flipped,aug_llm_01368,en,en,emergency relief,emergency flood relief,BACKWARD_ENTAILMENT
+aug_llm_01370__en-en__original,aug_llm_01370,en,en,emergency aid,emergency relief,EQUIVALENCE
+aug_llm_01370__en-en__flipped,aug_llm_01370,en,en,emergency relief,emergency aid,EQUIVALENCE
+aug_llm_01372__en-en__original,aug_llm_01372,en,en,"A blue , double-decker bus","A red , double-decker bus",NEGATIVE_OTHER
+aug_llm_01373__en-en__original,aug_llm_01373,en,en,"A red , double-decker bus","A red , double-decker tour bus",BACKWARD_ENTAILMENT
+aug_llm_01373__en-en__flipped,aug_llm_01373,en,en,"A red , double-decker tour bus","A red , double-decker bus",FORWARD_ENTAILMENT
+aug_llm_01375__en-en__original,aug_llm_01375,en,en,"A red , double-decker bus","A red , two-story bus",EQUIVALENCE
+aug_llm_01375__en-en__flipped,aug_llm_01375,en,en,"A red , two-story bus","A red , double-decker bus",EQUIVALENCE
+aug_llm_01377__en-en__original,aug_llm_01377,en,en,at Great Barrier Reef,at Ningaloo Reef,NEGATIVE_OTHER
+aug_llm_01378__en-en__original,aug_llm_01378,en,en,at Great Barrier Reef,at northern Great Barrier Reef,BACKWARD_ENTAILMENT
+aug_llm_01378__en-en__flipped,aug_llm_01378,en,en,at northern Great Barrier Reef,at Great Barrier Reef,FORWARD_ENTAILMENT
+aug_llm_01380__en-en__original,aug_llm_01380,en,en,at Great Barrier Reef,on the Great Barrier Reef,EQUIVALENCE
+aug_llm_01380__en-en__flipped,aug_llm_01380,en,en,on the Great Barrier Reef,at Great Barrier Reef,EQUIVALENCE
+aug_llm_01382__en-en__original,aug_llm_01382,en,en,on the train tracks,beside the train tracks,NEGATIVE_OTHER
+aug_llm_01383__en-en__original,aug_llm_01383,en,en,on the rusty train tracks,on the train tracks,FORWARD_ENTAILMENT
+aug_llm_01383__en-en__flipped,aug_llm_01383,en,en,on the train tracks,on the rusty train tracks,BACKWARD_ENTAILMENT
+aug_llm_01385__en-en__original,aug_llm_01385,en,en,on the train tracks,on the railway tracks,EQUIVALENCE
+aug_llm_01385__en-en__flipped,aug_llm_01385,en,en,on the railway tracks,on the train tracks,EQUIVALENCE
+aug_llm_01387__en-en__original,aug_llm_01387,en,en,Double decker passenger bus,Single decker passenger bus,NEGATIVE_OTHER
+aug_llm_01388__en-en__original,aug_llm_01388,en,en,Double decker passenger bus,Red double decker passenger bus,BACKWARD_ENTAILMENT
+aug_llm_01388__en-en__flipped,aug_llm_01388,en,en,Red double decker passenger bus,Double decker passenger bus,FORWARD_ENTAILMENT
+aug_llm_01390__en-en__original,aug_llm_01390,en,en,Double decker passenger bus,Two-story passenger bus,EQUIVALENCE
+aug_llm_01390__en-en__flipped,aug_llm_01390,en,en,Two-story passenger bus,Double decker passenger bus,EQUIVALENCE
+aug_llm_01392__en-en__original,aug_llm_01392,en,en,Paul Walker Fast and Furious star,Vin Diesel Fast and Furious star,NEGATIVE_OTHER
+aug_llm_01393__en-en__original,aug_llm_01393,en,en,"Paul Walker Fast and Furious star, 40",Paul Walker Fast and Furious star,FORWARD_ENTAILMENT
+aug_llm_01393__en-en__flipped,aug_llm_01393,en,en,Paul Walker Fast and Furious star,"Paul Walker Fast and Furious star, 40",BACKWARD_ENTAILMENT
+aug_llm_01395__en-en__original,aug_llm_01395,en,en,Fast and Furious star Paul Walker,Paul Walker Fast and Furious star,EQUIVALENCE
+aug_llm_01395__en-en__flipped,aug_llm_01395,en,en,Paul Walker Fast and Furious star,Fast and Furious star Paul Walker,EQUIVALENCE
+aug_llm_01397__en-en__original,aug_llm_01397,en,en,Patriot missile batteries,S-300 missile batteries,NEGATIVE_OTHER
+aug_llm_01398__en-en__original,aug_llm_01398,en,en,US Patriot missile batteries,Patriot missile batteries,FORWARD_ENTAILMENT
+aug_llm_01398__en-en__flipped,aug_llm_01398,en,en,Patriot missile batteries,US Patriot missile batteries,BACKWARD_ENTAILMENT
+aug_llm_01400__en-en__original,aug_llm_01400,en,en,Patriot missile batteries,Patriot missile systems,EQUIVALENCE
+aug_llm_01400__en-en__flipped,aug_llm_01400,en,en,Patriot missile systems,Patriot missile batteries,EQUIVALENCE
+aug_llm_01402__en-en__original,aug_llm_01402,en,en,on sandy beach,on grassy field,NEGATIVE_OTHER
+aug_llm_01403__en-en__original,aug_llm_01403,en,en,on grassy soccer field,on grassy field,FORWARD_ENTAILMENT
+aug_llm_01403__en-en__flipped,aug_llm_01403,en,en,on grassy field,on grassy soccer field,BACKWARD_ENTAILMENT
+aug_llm_01405__en-en__original,aug_llm_01405,en,en,on grassy field,on a field of grass,EQUIVALENCE
+aug_llm_01405__en-en__flipped,aug_llm_01405,en,en,on a field of grass,on grassy field,EQUIVALENCE
+aug_llm_01407__en-en__original,aug_llm_01407,en,en,after India train derails,after India buildings collapse,NEGATIVE_OTHER
+aug_llm_01408__en-en__original,aug_llm_01408,en,en,after India buildings collapse,after India apartment buildings collapse,BACKWARD_ENTAILMENT
+aug_llm_01408__en-en__flipped,aug_llm_01408,en,en,after India apartment buildings collapse,after India buildings collapse,FORWARD_ENTAILMENT
+aug_llm_01410__en-en__original,aug_llm_01410,en,en,after buildings collapse in India,after India buildings collapse,EQUIVALENCE
+aug_llm_01410__en-en__flipped,aug_llm_01410,en,en,after India buildings collapse,after buildings collapse in India,EQUIVALENCE
+aug_llm_01412__en-en__original,aug_llm_01412,en,en,may cancel,may delay,NEGATIVE_OTHER
+aug_llm_01413__en-en__original,aug_llm_01413,en,en,may delay launch,may delay,FORWARD_ENTAILMENT
+aug_llm_01413__en-en__flipped,aug_llm_01413,en,en,may delay,may delay launch,BACKWARD_ENTAILMENT
+aug_llm_01415__en-en__original,aug_llm_01415,en,en,may delay,might postpone,EQUIVALENCE
+aug_llm_01415__en-en__flipped,aug_llm_01415,en,en,might postpone,may delay,EQUIVALENCE
+aug_llm_01417__en-en__original,aug_llm_01417,en,en,Quiz sudoku,Quiz crossword,NEGATIVE_OTHER
+aug_llm_01418__en-en__original,aug_llm_01418,en,en,Weekly quiz crossword,Quiz crossword,FORWARD_ENTAILMENT
+aug_llm_01418__en-en__flipped,aug_llm_01418,en,en,Quiz crossword,Weekly quiz crossword,BACKWARD_ENTAILMENT
+aug_llm_01420__en-en__original,aug_llm_01420,en,en,Crossword quiz,Quiz crossword,EQUIVALENCE
+aug_llm_01420__en-en__flipped,aug_llm_01420,en,en,Quiz crossword,Crossword quiz,EQUIVALENCE
+aug_llm_01422__en-en__original,aug_llm_01422,en,en,in Peshawar,in Miranshah,NEGATIVE_OTHER
+aug_llm_01423__en-en__original,aug_llm_01423,en,en,in central Miranshah,in Miranshah,FORWARD_ENTAILMENT
+aug_llm_01423__en-en__flipped,aug_llm_01423,en,en,in Miranshah,in central Miranshah,BACKWARD_ENTAILMENT
+aug_llm_01425__en-en__original,aug_llm_01425,en,en,in the town of Miranshah,in Miranshah,EQUIVALENCE
+aug_llm_01425__en-en__flipped,aug_llm_01425,en,en,in Miranshah,in the town of Miranshah,EQUIVALENCE
+aug_llm_01427__en-en__original,aug_llm_01427,en,en,From Canada Homes,From Canada Schools,NEGATIVE_OTHER
+aug_llm_01428__en-en__original,aug_llm_01428,en,en,"From Canada Homes, Toronto",From Canada Homes,FORWARD_ENTAILMENT
+aug_llm_01428__en-en__flipped,aug_llm_01428,en,en,From Canada Homes,"From Canada Homes, Toronto",BACKWARD_ENTAILMENT
+aug_llm_01430__en-en__original,aug_llm_01430,en,en,From Canada Homes,Coming from Canada Homes,EQUIVALENCE
+aug_llm_01430__en-en__flipped,aug_llm_01430,en,en,Coming from Canada Homes,From Canada Homes,EQUIVALENCE
+aug_llm_01432__en-en__original,aug_llm_01432,en,en,Living room,Dining room,NEGATIVE_OTHER
+aug_llm_01433__en-en__original,aug_llm_01433,en,en,Living room,Modern living room,BACKWARD_ENTAILMENT
+aug_llm_01433__en-en__flipped,aug_llm_01433,en,en,Modern living room,Living room,FORWARD_ENTAILMENT
+aug_llm_01435__en-en__original,aug_llm_01435,en,en,Lounge,Living room,EQUIVALENCE
+aug_llm_01435__en-en__flipped,aug_llm_01435,en,en,Living room,Lounge,EQUIVALENCE
+aug_llm_01437__en-en__original,aug_llm_01437,en,en,bitter healthcare debate,bitter immigration debate,NEGATIVE_OTHER
+aug_llm_01438__en-en__original,aug_llm_01438,en,en,bitter immigration debate in Congress,bitter immigration debate,FORWARD_ENTAILMENT
+aug_llm_01438__en-en__flipped,aug_llm_01438,en,en,bitter immigration debate,bitter immigration debate in Congress,BACKWARD_ENTAILMENT
+aug_llm_01440__en-en__original,aug_llm_01440,en,en,bitter immigration debate,acrimonious immigration debate,EQUIVALENCE
+aug_llm_01440__en-en__flipped,aug_llm_01440,en,en,acrimonious immigration debate,bitter immigration debate,EQUIVALENCE
+aug_llm_01442__en-en__original,aug_llm_01442,en,en,in Afghan parliamentary elections,in Afghan presidential elections,NEGATIVE_OTHER
+aug_llm_01443__en-en__original,aug_llm_01443,en,en,in Afghan presidential elections,in Afghan presidential elections runoff,BACKWARD_ENTAILMENT
+aug_llm_01443__en-en__flipped,aug_llm_01443,en,en,in Afghan presidential elections runoff,in Afghan presidential elections,FORWARD_ENTAILMENT
+aug_llm_01445__en-en__original,aug_llm_01445,en,en,in Afghan presidential elections,in Afghanistan's presidential polls,EQUIVALENCE
+aug_llm_01445__en-en__flipped,aug_llm_01445,en,en,in Afghanistan's presidential polls,in Afghan presidential elections,EQUIVALENCE
+aug_llm_01447__en-en__original,aug_llm_01447,en,en,Former Pakistan army chief,Former Pakistan prime minister,NEGATIVE_OTHER
+aug_llm_01448__en-en__original,aug_llm_01448,en,en,Former Pakistan army chief,Former Pakistan army chief Musharraf,BACKWARD_ENTAILMENT
+aug_llm_01448__en-en__flipped,aug_llm_01448,en,en,Former Pakistan army chief Musharraf,Former Pakistan army chief,FORWARD_ENTAILMENT
+aug_llm_01450__en-en__original,aug_llm_01450,en,en,Former Pakistan army chief,Ex-Pakistan army chief,EQUIVALENCE
+aug_llm_01450__en-en__flipped,aug_llm_01450,en,en,Ex-Pakistan army chief,Former Pakistan army chief,EQUIVALENCE
+aug_llm_01452__en-en__original,aug_llm_01452,en,en,in southwest Syria,in northwest Syria,NEGATIVE_OTHER
+aug_llm_01453__en-en__original,aug_llm_01453,en,en,in northwest Syria,in northwest Syria's Idlib,BACKWARD_ENTAILMENT
+aug_llm_01453__en-en__flipped,aug_llm_01453,en,en,in northwest Syria's Idlib,in northwest Syria,FORWARD_ENTAILMENT
+aug_llm_01455__en-en__original,aug_llm_01455,en,en,in northwest Syria,in Syria's northwest,EQUIVALENCE
+aug_llm_01455__en-en__flipped,aug_llm_01455,en,en,in Syria's northwest,in northwest Syria,EQUIVALENCE
+aug_llm_01457__en-en__original,aug_llm_01457,en,en,Black and white picture,Sepia picture,NEGATIVE_OTHER
+aug_llm_01458__en-en__original,aug_llm_01458,en,en,Black and white picture,Black and white picture of a cat,BACKWARD_ENTAILMENT
+aug_llm_01458__en-en__flipped,aug_llm_01458,en,en,Black and white picture of a cat,Black and white picture,FORWARD_ENTAILMENT
+aug_llm_01460__en-en__original,aug_llm_01460,en,en,Black-and-white photo,Black and white picture,EQUIVALENCE
+aug_llm_01460__en-en__flipped,aug_llm_01460,en,en,Black and white picture,Black-and-white photo,EQUIVALENCE
+aug_llm_01462__en-en__original,aug_llm_01462,en,en,A close-up,A wide shot,NEGATIVE_OTHER
+aug_llm_01463__en-en__original,aug_llm_01463,en,en,A close-up,A close-up of a face,BACKWARD_ENTAILMENT
+aug_llm_01463__en-en__flipped,aug_llm_01463,en,en,A close-up of a face,A close-up,FORWARD_ENTAILMENT
+aug_llm_01465__en-en__original,aug_llm_01465,en,en,A closeup shot,A close-up,EQUIVALENCE
+aug_llm_01465__en-en__flipped,aug_llm_01465,en,en,A close-up,A closeup shot,EQUIVALENCE
+aug_llm_01467__en-en__original,aug_llm_01467,en,en,behind a plane,in front of a plane,NEGATIVE_OTHER
+aug_llm_01468__en-en__original,aug_llm_01468,en,en,in front of a plane,ahead of an airplane,EQUIVALENCE
+aug_llm_01468__en-en__flipped,aug_llm_01468,en,en,ahead of an airplane,in front of a plane,EQUIVALENCE
+aug_llm_01470__en-en__original,aug_llm_01470,en,en,at a demolition site,at a construction site,NEGATIVE_OTHER
+aug_llm_01471__en-en__original,aug_llm_01471,en,en,at a construction site,at a large construction site,BACKWARD_ENTAILMENT
+aug_llm_01471__en-en__flipped,aug_llm_01471,en,en,at a large construction site,at a construction site,FORWARD_ENTAILMENT

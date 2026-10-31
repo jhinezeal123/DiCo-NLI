@@ -8,6 +8,7 @@ under the attention mask, much faster).
 import os
 import random
 import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -113,6 +114,12 @@ def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
     _, tr1, tr2, ytr = load_split(train_path)
+    for extra in cfg.get("extra_train", []):
+        # Augmentation rows (train-derived or generated), committed under data/.
+        _, e1, e2, ey = load_split(Path(__file__).resolve().parents[1] / extra)
+        tr1, tr2, ytr = tr1 + e1, tr2 + e2, np.concatenate([ytr, ey])
+        print(f"extra_train {extra}: rows={len(e1)} labels={np.bincount(ey, minlength=len(LABELS)).tolist()} "
+              f"-> train rows={len(tr1)} labels={np.bincount(ytr, minlength=len(LABELS)).tolist()}", flush=True)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"

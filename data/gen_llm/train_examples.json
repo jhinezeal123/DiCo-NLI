@@ -1,0 +1,168 @@
+{
+ "NEGATIVE_OTHER": [
+  [
+   "0.56 pct",
+   "0.5 pct"
+  ],
+  [
+   "on a skateboard",
+   "down a ramp"
+  ],
+  [
+   "Nelson Mandela memorial service",
+   "Nelson Mandela dies"
+  ],
+  [
+   "swings",
+   "plays ball"
+  ],
+  [
+   "of an orange SUV",
+   "of a very full yellow van"
+  ],
+  [
+   "of a cat",
+   "A siamese cat"
+  ],
+  [
+   "doing a trick",
+   "riding up"
+  ],
+  [
+   "in suicide attacks",
+   "Car bombs"
+  ],
+  [
+   "Ukraine",
+   "in Syria"
+  ],
+  [
+   "is building",
+   "stacks"
+  ],
+  [
+   "to Boston bombing charges",
+   "in Boston Marathon bombing"
+  ],
+  [
+   "The white and brown dog",
+   "The big white dog"
+  ],
+  [
+   "on a leather chair",
+   "on an office chair"
+  ],
+  [
+   "Mexico",
+   "Former New Mexico Gov. Richardson"
+  ],
+  [
+   "rowing",
+   "in rowboat"
+  ],
+  [
+   "Muslim Brotherhood assets",
+   "Muslim Brotherhood funds"
+  ],
+  [
+   "posing",
+   "is standing"
+  ],
+  [
+   "in Bangkok shooting",
+   "in US school shooting"
+  ],
+  [
+   "Mar. 12 , 2013",
+   "June 25 , 2013"
+  ],
+  [
+   "nine people",
+   "3 policemen"
+  ]
+ ],
+ "FORWARD_ENTAILMENT (text1 entails text2)": [
+  [
+   "very close to a small television",
+   "a small TV"
+  ],
+  [
+   "of the back",
+   "the back"
+  ],
+  [
+   "of a gray cat",
+   "of a cat"
+  ],
+  [
+   "N.C. State Fair ride operator",
+   "Ride operator"
+  ],
+  [
+   "A blue motorcycle",
+   "A blue moped"
+  ],
+  [
+   "with tan furniture and flat screen television",
+   "with large screen television"
+  ],
+  [
+   "A young girl",
+   "A women"
+  ],
+  [
+   "The toddler",
+   "The child"
+  ],
+  [
+   "Sistine Chapel",
+   "Vatican"
+  ],
+  [
+   "on gay marriage",
+   "gay marriage"
+  ]
+ ],
+ "EQUIVALENCE": [
+  [
+   "in Bethlehem",
+   "within the city of Bethlehem"
+  ],
+  [
+   "on admitting",
+   "on lifting ban"
+  ],
+  [
+   "receives the crown",
+   "is crowned"
+  ],
+  [
+   "behind a sign that prohibits skiing",
+   "behind a no skiing sign"
+  ],
+  [
+   "a brown-colored equine",
+   "brown horse"
+  ],
+  [
+   "Blizzard hammers",
+   "Blizzard wallops"
+  ],
+  [
+   "is working",
+   "work"
+  ],
+  [
+   "to Marry",
+   "Plans To Get Married"
+  ],
+  [
+   "is flapping",
+   "moving its wings up and down"
+  ],
+  [
+   "signs up",
+   "to sign up"
+  ]
+ ]
+}

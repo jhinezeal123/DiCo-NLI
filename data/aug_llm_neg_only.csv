@@ -1,0 +1,298 @@
+instance_id,pair_id,text1_lang,text2_lang,text1,text2,label
+aug_llm_00000__en-en__original,aug_llm_00000,en,en,Ex-Virginia governor Bob McDonnell,Ex-Virginia governor Terry McAuliffe,NEGATIVE_OTHER
+aug_llm_00005__en-en__original,aug_llm_00005,en,en,the sand,the water,NEGATIVE_OTHER
+aug_llm_00010__en-en__original,aug_llm_00010,en,en,in a clothing store,in a shoe store,NEGATIVE_OTHER
+aug_llm_00015__en-en__original,aug_llm_00015,en,en,on direct flights,on connecting flights,NEGATIVE_OTHER
+aug_llm_00020__en-en__original,aug_llm_00020,en,en,U.S. Northeast,U.S. Midwest,NEGATIVE_OTHER
+aug_llm_00025__en-en__original,aug_llm_00025,en,en,Toddler,Baby,NEGATIVE_OTHER
+aug_llm_00030__en-en__original,aug_llm_00030,en,en,Two Eagles,Two Falcons,NEGATIVE_OTHER
+aug_llm_00033__en-en__original,aug_llm_00033,en,en,from San Diego Zoo,from National Zoo,NEGATIVE_OTHER
+aug_llm_00038__en-en__original,aug_llm_00038,en,en,perches,flies away,NEGATIVE_OTHER
+aug_llm_00043__en-en__original,aug_llm_00043,en,en,on a rock,on a branch,NEGATIVE_OTHER
+aug_llm_00048__en-en__original,aug_llm_00048,en,en,Senate Judiciary Committee,Senate Finance Committee,NEGATIVE_OTHER
+aug_llm_00053__en-en__original,aug_llm_00053,en,en,at a black cat,at a brown dog,NEGATIVE_OTHER
+aug_llm_00058__en-en__original,aug_llm_00058,en,en,in Libya clashes,in Egypt clashes,NEGATIVE_OTHER
+aug_llm_00063__en-en__original,aug_llm_00063,en,en,A skateboarder,A snowboarder,NEGATIVE_OTHER
+aug_llm_00068__en-en__original,aug_llm_00068,en,en,Two police officers,Two firefighters,NEGATIVE_OTHER
+aug_llm_00073__en-en__original,aug_llm_00073,en,en,are walking,are racing,NEGATIVE_OTHER
+aug_llm_00078__en-en__original,aug_llm_00078,en,en,snowboarding and jumping,skiing and falling,NEGATIVE_OTHER
+aug_llm_00083__en-en__original,aug_llm_00083,en,en,goes down,goes up,NEGATIVE_OTHER
+aug_llm_00088__en-en__original,aug_llm_00088,en,en,as paramedics,as firefighters,NEGATIVE_OTHER
+aug_llm_00093__en-en__original,aug_llm_00093,en,en,white horse,brown horse,NEGATIVE_OTHER
+aug_llm_00098__en-en__original,aug_llm_00098,en,en,under the trees,above the trees,NEGATIVE_OTHER
+aug_llm_00103__en-en__original,aug_llm_00103,en,en,world credibility,world economy,NEGATIVE_OTHER
+aug_llm_00108__en-en__original,aug_llm_00108,en,en,at Greek university,at Greek shopping mall,NEGATIVE_OTHER
+aug_llm_00113__en-en__original,aug_llm_00113,en,en,under an expressway ledge,over an expressway ledge,NEGATIVE_OTHER
+aug_llm_00118__en-en__original,aug_llm_00118,en,en,Aged 106,Aged 116,NEGATIVE_OTHER
+aug_llm_00123__en-en__original,aug_llm_00123,en,en,with a leather collar,with a gemmed collar,NEGATIVE_OTHER
+aug_llm_00128__en-en__original,aug_llm_00128,en,en,on tracks,on a road,NEGATIVE_OTHER
+aug_llm_00133__en-en__original,aug_llm_00133,en,en,30,13,NEGATIVE_OTHER
+aug_llm_00138__en-en__original,aug_llm_00138,en,en,One Asian and one African man,One Asian and one occasion woman,NEGATIVE_OTHER
+aug_llm_00143__en-en__original,aug_llm_00143,en,en,retires,resigns,NEGATIVE_OTHER
+aug_llm_00148__en-en__original,aug_llm_00148,en,en,US government,UK government,NEGATIVE_OTHER
+aug_llm_00153__en-en__original,aug_llm_00153,en,en,into Iran sanctions,into Iran nuclear deal,NEGATIVE_OTHER
+aug_llm_00158__en-en__original,aug_llm_00158,en,en,Blizzard wallops,Blizzard approaches,NEGATIVE_OTHER
+aug_llm_00161__en-en__original,aug_llm_00161,en,en,a leather jacket,a denim jacket,NEGATIVE_OTHER
+aug_llm_00166__en-en__original,aug_llm_00166,en,en,for massive protests,for peaceful talks,NEGATIVE_OTHER
+aug_llm_00171__en-en__original,aug_llm_00171,en,en,The black and white dog,The brown and white dog,NEGATIVE_OTHER
+aug_llm_00176__en-en__original,aug_llm_00176,en,en,Powerful 7.6 quake,Powerful 6.1 quake,NEGATIVE_OTHER
+aug_llm_00181__en-en__original,aug_llm_00181,en,en,murder acquittal,murder charge,NEGATIVE_OTHER
+aug_llm_00186__en-en__original,aug_llm_00186,en,en,with three keyboards,with two monitors,NEGATIVE_OTHER
+aug_llm_00191__en-en__original,aug_llm_00191,en,en,chews,swallows,NEGATIVE_OTHER
+aug_llm_00196__en-en__original,aug_llm_00196,en,en,along dirt path,along paved road,NEGATIVE_OTHER
+aug_llm_00201__en-en__original,aug_llm_00201,en,en,to war,to talks,NEGATIVE_OTHER
+aug_llm_00204__en-en__original,aug_llm_00204,en,en,are sheering,are feeding,NEGATIVE_OTHER
+aug_llm_00209__en-en__original,aug_llm_00209,en,en,at the dog,at the horse,NEGATIVE_OTHER
+aug_llm_00214__en-en__original,aug_llm_00214,en,en,Rahul Gandhi,Narendra Modi,NEGATIVE_OTHER
+aug_llm_00219__en-en__original,aug_llm_00219,en,en,off Chile,off Mexico,NEGATIVE_OTHER
+aug_llm_00224__en-en__original,aug_llm_00224,en,en,misses,hits,NEGATIVE_OTHER
+aug_llm_00229__en-en__original,aug_llm_00229,en,en,Thailand 's ruling Pheu Thai Party,Thailand 's opposition Democrat Party,NEGATIVE_OTHER
+aug_llm_00234__en-en__original,aug_llm_00234,en,en,around a coffee table,around a dining table,NEGATIVE_OTHER
+aug_llm_00239__en-en__original,aug_llm_00239,en,en,Zimbabweans,South Africans,NEGATIVE_OTHER
+aug_llm_00244__en-en__original,aug_llm_00244,en,en,through a creek,across a bridge,NEGATIVE_OTHER
+aug_llm_00249__en-en__original,aug_llm_00249,en,en,with bubbles,with sparkles,NEGATIVE_OTHER
+aug_llm_00254__en-en__original,aug_llm_00254,en,en,in a grassy wooded area,in a sandy desert area,NEGATIVE_OTHER
+aug_llm_00259__en-en__original,aug_llm_00259,en,en,A projector screen,A flat-screen TV,NEGATIVE_OTHER
+aug_llm_00264__en-en__original,aug_llm_00264,en,en,on trains,on flights,NEGATIVE_OTHER
+aug_llm_00269__en-en__original,aug_llm_00269,en,en,under a small table,on a small table,NEGATIVE_OTHER
+aug_llm_00274__en-en__original,aug_llm_00274,en,en,presidency resignation,presidency bid,NEGATIVE_OTHER
+aug_llm_00279__en-en__original,aug_llm_00279,en,en,next to a mossy tree,next to a bare tree,NEGATIVE_OTHER
+aug_llm_00284__en-en__original,aug_llm_00284,en,en,hides inside,peaks out,NEGATIVE_OTHER
+aug_llm_00289__en-en__original,aug_llm_00289,en,en,South Korea,North Korea,NEGATIVE_OTHER
+aug_llm_00294__en-en__original,aug_llm_00294,en,en,around a red tractor,around a red fire truck,NEGATIVE_OTHER
+aug_llm_00299__en-en__original,aug_llm_00299,en,en,into Lebanon,into Jordan,NEGATIVE_OTHER
+aug_llm_00304__en-en__original,aug_llm_00304,en,en,At least 54,At least 45,NEGATIVE_OTHER
+aug_llm_00309__en-en__original,aug_llm_00309,en,en,drinks,eats,NEGATIVE_OTHER
+aug_llm_00312__en-en__original,aug_llm_00312,en,en,fiscal cliff talks collapse,fiscal cliff deal,NEGATIVE_OTHER
+aug_llm_00317__en-en__original,aug_llm_00317,en,en,a black and white horse,a brown and white horse,NEGATIVE_OTHER
+aug_llm_00322__en-en__original,aug_llm_00322,en,en,on a tiled floor,on a carpeted floor,NEGATIVE_OTHER
+aug_llm_00327__en-en__original,aug_llm_00327,en,en,Egypt 's economy,Egypt 's turmoil,NEGATIVE_OTHER
+aug_llm_00332__en-en__original,aug_llm_00332,en,en,unrest in Ukraine,unrest in Egypt,NEGATIVE_OTHER
+aug_llm_00337__en-en__original,aug_llm_00337,en,en,the canine with black-and-white fur,the canine with brown fur,NEGATIVE_OTHER
+aug_llm_00342__en-en__original,aug_llm_00342,en,en,as Egyptian forces,as Syrian forces,NEGATIVE_OTHER
+aug_llm_00347__en-en__original,aug_llm_00347,en,en,away from a policeman,toward a policeman,NEGATIVE_OTHER
+aug_llm_00352__en-en__original,aug_llm_00352,en,en,in front of a silver train,in front of a blue train,NEGATIVE_OTHER
+aug_llm_00357__en-en__original,aug_llm_00357,en,en,Two airplanes,Two helicopters,NEGATIVE_OTHER
+aug_llm_00362__en-en__original,aug_llm_00362,en,en,claim,deny,NEGATIVE_OTHER
+aug_llm_00367__en-en__original,aug_llm_00367,en,en,Two brindle dogs,Two spotted dogs,NEGATIVE_OTHER
+aug_llm_00372__en-en__original,aug_llm_00372,en,en,on blue sofa,on red sofa,NEGATIVE_OTHER
+aug_llm_00377__en-en__original,aug_llm_00377,en,en,to hold,to drop,NEGATIVE_OTHER
+aug_llm_00382__en-en__original,aug_llm_00382,en,en,bomb attacks,bomb threats,NEGATIVE_OTHER
+aug_llm_00387__en-en__original,aug_llm_00387,en,en,has seized,has released,NEGATIVE_OTHER
+aug_llm_00392__en-en__original,aug_llm_00392,en,en,Iran Supreme Leader Ali Khamenei,Iran President Hassan Rouhani,NEGATIVE_OTHER
+aug_llm_00397__en-en__original,aug_llm_00397,en,en,Former Israeli Prime Minister Olmert,Former Israeli Prime Minister Sharon,NEGATIVE_OTHER
+aug_llm_00402__en-en__original,aug_llm_00402,en,en,Diana and Fayed wedding rumors,Diana and Fayed death info,NEGATIVE_OTHER
+aug_llm_00407__en-en__original,aug_llm_00407,en,en,Bat,Bird,NEGATIVE_OTHER
+aug_llm_00412__en-en__original,aug_llm_00412,en,en,in U.S. airstrike,in U.S. drone strike,NEGATIVE_OTHER
+aug_llm_00417__en-en__original,aug_llm_00417,en,en,Google and IBM Post Strong Earnings,Google and IBM Post Weak Earnings,NEGATIVE_OTHER
+aug_llm_00422__en-en__original,aug_llm_00422,en,en,an ovine animal,a bovine animal,NEGATIVE_OTHER
+aug_llm_00425__en-en__original,aug_llm_00425,en,en,into two boys,into two girls,NEGATIVE_OTHER
+aug_llm_00430__en-en__original,aug_llm_00430,en,en,as freight train,as passenger train,NEGATIVE_OTHER
+aug_llm_00435__en-en__original,aug_llm_00435,en,en,for Easter,for Christmas,NEGATIVE_OTHER
+aug_llm_00440__en-en__original,aug_llm_00440,en,en,Red and white bus,Blue and white bus,NEGATIVE_OTHER
+aug_llm_00445__en-en__original,aug_llm_00445,en,en,"Cloud-Based , Networked Antivirus Specialist McAfee","Cloud-Based , Networked Firewall Specialist Stonesoft",NEGATIVE_OTHER
+aug_llm_00450__en-en__original,aug_llm_00450,en,en,A short-haired dog,A long-haired dog,NEGATIVE_OTHER
+aug_llm_00455__en-en__original,aug_llm_00455,en,en,A small black cat,A small white cat,NEGATIVE_OTHER
+aug_llm_00460__en-en__original,aug_llm_00460,en,en,dressed down,dressed up,NEGATIVE_OTHER
+aug_llm_00465__en-en__original,aug_llm_00465,en,en,in US marathon win,in US marathon bomb,NEGATIVE_OTHER
+aug_llm_00470__en-en__original,aug_llm_00470,en,en,Negotiator,Peacekeeper,NEGATIVE_OTHER
+aug_llm_00475__en-en__original,aug_llm_00475,en,en,Symantec,McAfee,NEGATIVE_OTHER
+aug_llm_00480__en-en__original,aug_llm_00480,en,en,next to a yellow school bus,next to a yellow sports car,NEGATIVE_OTHER
+aug_llm_00485__en-en__original,aug_llm_00485,en,en,"4,000 Cuban doctors","4,000 Cuban teachers",NEGATIVE_OTHER
+aug_llm_00490__en-en__original,aug_llm_00490,en,en,on a brown sofa,on a brown chair,NEGATIVE_OTHER
+aug_llm_00495__en-en__original,aug_llm_00495,en,en,turning its head,directing its gaze,NEGATIVE_OTHER
+aug_llm_00500__en-en__original,aug_llm_00500,en,en,a small airplane,a small helicopter,NEGATIVE_OTHER
+aug_llm_00505__en-en__original,aug_llm_00505,en,en,"Red grapes , blueberries","Green grapes , strawberries",NEGATIVE_OTHER
+aug_llm_00510__en-en__original,aug_llm_00510,en,en,falling off,doing a trick,NEGATIVE_OTHER
+aug_llm_00515__en-en__original,aug_llm_00515,en,en,in Central African Republic elections,in Central African Republic fighting,NEGATIVE_OTHER
+aug_llm_00520__en-en__original,aug_llm_00520,en,en,across the sand,across the grass,NEGATIVE_OTHER
+aug_llm_00525__en-en__original,aug_llm_00525,en,en,frees,arrests,NEGATIVE_OTHER
+aug_llm_00530__en-en__original,aug_llm_00530,en,en,as Egypt police,as Egypt army,NEGATIVE_OTHER
+aug_llm_00535__en-en__original,aug_llm_00535,en,en,Three football players,Two football players,NEGATIVE_OTHER
+aug_llm_00540__en-en__original,aug_llm_00540,en,en,with a black and white dog,with a brown and white dog,NEGATIVE_OTHER
+aug_llm_00545__en-en__original,aug_llm_00545,en,en,of a very empty yellow van,of a very full yellow van,NEGATIVE_OTHER
+aug_llm_00550__en-en__original,aug_llm_00550,en,en,ten tourists,nine tourists,NEGATIVE_OTHER
+aug_llm_00555__en-en__original,aug_llm_00555,en,en,toward the camera,away from the camera,NEGATIVE_OTHER
+aug_llm_00560__en-en__original,aug_llm_00560,en,en,drives up,drives down,NEGATIVE_OTHER
+aug_llm_00565__en-en__original,aug_llm_00565,en,en,in a red kayak,in a red canoe,NEGATIVE_OTHER
+aug_llm_00570__en-en__original,aug_llm_00570,en,en,midday Thursday,midday Friday,NEGATIVE_OTHER
+aug_llm_00575__en-en__original,aug_llm_00575,en,en,competing in a race,watching a race,NEGATIVE_OTHER
+aug_llm_00580__en-en__original,aug_llm_00580,en,en,to 6.2677,to 6.2767,NEGATIVE_OTHER
+aug_llm_00585__en-en__original,aug_llm_00585,en,en,for every new settler homes,for every new settler outpost,NEGATIVE_OTHER
+aug_llm_00590__en-en__original,aug_llm_00590,en,en,De Klerk,Mandela,NEGATIVE_OTHER
+aug_llm_00595__en-en__original,aug_llm_00595,en,en,In Cairo Camps Protesters,In Cairo Camps Police,NEGATIVE_OTHER
+aug_llm_00600__en-en__original,aug_llm_00600,en,en,at a coffee table,at a dinner table,NEGATIVE_OTHER
+aug_llm_00605__en-en__original,aug_llm_00605,en,en,of a white sheep,of a black sheep,NEGATIVE_OTHER
+aug_llm_00610__en-en__original,aug_llm_00610,en,en,the adult male,the adult female,NEGATIVE_OTHER
+aug_llm_00615__en-en__original,aug_llm_00615,en,en,Air strike,Ground assault,NEGATIVE_OTHER
+aug_llm_00620__en-en__original,aug_llm_00620,en,en,A single-decker bus,A double-decker bus,NEGATIVE_OTHER
+aug_llm_00625__en-en__original,aug_llm_00625,en,en,Kenya MPs,Kenya SC,NEGATIVE_OTHER
+aug_llm_00628__en-en__original,aug_llm_00628,en,en,in Mumbai bomb blast case,in Mumbai rape gang case,NEGATIVE_OTHER
+aug_llm_00633__en-en__original,aug_llm_00633,en,en,revokes,approves,NEGATIVE_OTHER
+aug_llm_00638__en-en__original,aug_llm_00638,en,en,atop a rock carving,beside a rock carving,NEGATIVE_OTHER
+aug_llm_00643__en-en__original,aug_llm_00643,en,en,Fresh rain,Fresh snow,NEGATIVE_OTHER
+aug_llm_00648__en-en__original,aug_llm_00648,en,en,in the backgroud,in the foreground,NEGATIVE_OTHER
+aug_llm_00653__en-en__original,aug_llm_00653,en,en,India Trophy win,India Trophy loss,NEGATIVE_OTHER
+aug_llm_00658__en-en__original,aug_llm_00658,en,en,of grass,of dirt,NEGATIVE_OTHER
+aug_llm_00663__en-en__original,aug_llm_00663,en,en,dead,injured,NEGATIVE_OTHER
+aug_llm_00668__en-en__original,aug_llm_00668,en,en,against plan,for plan,NEGATIVE_OTHER
+aug_llm_00673__en-en__original,aug_llm_00673,en,en,The black sheep,The white sheep,NEGATIVE_OTHER
+aug_llm_00678__en-en__original,aug_llm_00678,en,en,Broadcaster David Frost,Broadcaster David Dimbleby,NEGATIVE_OTHER
+aug_llm_00683__en-en__original,aug_llm_00683,en,en,on a red couch,on a blue couch,NEGATIVE_OTHER
+aug_llm_00688__en-en__original,aug_llm_00688,en,en,descends,climbs,NEGATIVE_OTHER
+aug_llm_00693__en-en__original,aug_llm_00693,en,en,a pink hat,a pink coat,NEGATIVE_OTHER
+aug_llm_00698__en-en__original,aug_llm_00698,en,en,Turkey election,Turkey unrest,NEGATIVE_OTHER
+aug_llm_00703__en-en__original,aug_llm_00703,en,en,a brown-colored equine,a white-colored equine,NEGATIVE_OTHER
+aug_llm_00708__en-en__original,aug_llm_00708,en,en,regional alert,global alert,NEGATIVE_OTHER
+aug_llm_00713__en-en__original,aug_llm_00713,en,en,standing,seated,NEGATIVE_OTHER
+aug_llm_00718__en-en__original,aug_llm_00718,en,en,while other women,while other men,NEGATIVE_OTHER
+aug_llm_00723__en-en__original,aug_llm_00723,en,en,as talks,as clashes,NEGATIVE_OTHER
+aug_llm_00728__en-en__original,aug_llm_00728,en,en,Cools Down,Heats Up,NEGATIVE_OTHER
+aug_llm_00733__en-en__original,aug_llm_00733,en,en,is sniffing,is licking,NEGATIVE_OTHER
+aug_llm_00738__en-en__original,aug_llm_00738,en,en,Two dairy cows,Two dairy goats,NEGATIVE_OTHER
+aug_llm_00743__en-en__original,aug_llm_00743,en,en,equities from China,bonds from China,NEGATIVE_OTHER
+aug_llm_00748__en-en__original,aug_llm_00748,en,en,NSA director Keith Alexander,NSA whistleblower Edward Snowden,NEGATIVE_OTHER
+aug_llm_00753__en-en__original,aug_llm_00753,en,en,Islamist Tactics,Islamist Politics,NEGATIVE_OTHER
+aug_llm_00758__en-en__original,aug_llm_00758,en,en,"Shots , Explosions","Shots , Sirens",NEGATIVE_OTHER
+aug_llm_00763__en-en__original,aug_llm_00763,en,en,Brown and white cows,Black and white cows,NEGATIVE_OTHER
+aug_llm_00768__en-en__original,aug_llm_00768,en,en,from Calgary homes,from Calgary businesses,NEGATIVE_OTHER
+aug_llm_00773__en-en__original,aug_llm_00773,en,en,in Russian nursing home fire,in Russian psychiatric hospital fire,NEGATIVE_OTHER
+aug_llm_00778__en-en__original,aug_llm_00778,en,en,Young family,Young couple,NEGATIVE_OTHER
+aug_llm_00783__en-en__original,aug_llm_00783,en,en,Chemical Arms Team,Nuclear Arms Team,NEGATIVE_OTHER
+aug_llm_00788__en-en__original,aug_llm_00788,en,en,The two cats,The two dogs,NEGATIVE_OTHER
+aug_llm_00793__en-en__original,aug_llm_00793,en,en,for camera,for audience,NEGATIVE_OTHER
+aug_llm_00798__en-en__original,aug_llm_00798,en,en,the female child of that person,the male child of that person,NEGATIVE_OTHER
+aug_llm_00803__en-en__original,aug_llm_00803,en,en,in northern Lebanon,in southern Lebanon,NEGATIVE_OTHER
+aug_llm_00808__en-en__original,aug_llm_00808,en,en,for Boston bomb victims,for Boston bomb suspect,NEGATIVE_OTHER
+aug_llm_00813__en-en__original,aug_llm_00813,en,en,near two tiny animals,near two large animals,NEGATIVE_OTHER
+aug_llm_00818__en-en__original,aug_llm_00818,en,en,in Canada train disaster,in Canada plane crash,NEGATIVE_OTHER
+aug_llm_00823__en-en__original,aug_llm_00823,en,en,India govt,Pakistan govt,NEGATIVE_OTHER
+aug_llm_00828__en-en__original,aug_llm_00828,en,en,from a delivery vehicle,from a passenger vehicle,NEGATIVE_OTHER
+aug_llm_00833__en-en__original,aug_llm_00833,en,en,repairing the vehicle,operating the vehicle,NEGATIVE_OTHER
+aug_llm_00838__en-en__original,aug_llm_00838,en,en,A guy,A girl,NEGATIVE_OTHER
+aug_llm_00841__en-en__original,aug_llm_00841,en,en,in grassy field,in snowy field,NEGATIVE_OTHER
+aug_llm_00846__en-en__original,aug_llm_00846,en,en,at the Olympic Games,at the Paralympic Games,NEGATIVE_OTHER
+aug_llm_00851__en-en__original,aug_llm_00851,en,en,A swimmer,A surfer,NEGATIVE_OTHER
+aug_llm_00856__en-en__original,aug_llm_00856,en,en,The white and brown dog,The black and brown dog,NEGATIVE_OTHER
+aug_llm_00861__en-en__original,aug_llm_00861,en,en,upon the icy surface,upon the snowy surface,NEGATIVE_OTHER
+aug_llm_00866__en-en__original,aug_llm_00866,en,en,China 's bonds,China 's stocks,NEGATIVE_OTHER
+aug_llm_00871__en-en__original,aug_llm_00871,en,en,A gray cat,A gray dog,NEGATIVE_OTHER
+aug_llm_00876__en-en__original,aug_llm_00876,en,en,into Syria,out of Syria,NEGATIVE_OTHER
+aug_llm_00881__en-en__original,aug_llm_00881,en,en,Palestinian prisoner release,Israeli prisoner release,NEGATIVE_OTHER
+aug_llm_00890__en-en__original,aug_llm_00890,en,en,UN presses,UN praises,NEGATIVE_OTHER
+aug_llm_00895__en-en__original,aug_llm_00895,en,en,to Divorce,to Marry,NEGATIVE_OTHER
+aug_llm_00900__en-en__original,aug_llm_00900,en,en,under a tree,around a tree,NEGATIVE_OTHER
+aug_llm_00905__en-en__original,aug_llm_00905,en,en,over horse racing scandal,over horse meat scandal,NEGATIVE_OTHER
+aug_llm_00910__en-en__original,aug_llm_00910,en,en,White House,US Capitol,NEGATIVE_OTHER
+aug_llm_00915__en-en__original,aug_llm_00915,en,en,"Virginia 's ex-Gov . Bob McDonnell , lawyer","Virginia 's ex-Gov . Bob McDonnell , wife",NEGATIVE_OTHER
+aug_llm_00920__en-en__original,aug_llm_00920,en,en,as vice presidential candidate,as presidential candidate,NEGATIVE_OTHER
+aug_llm_00925__en-en__original,aug_llm_00925,en,en,radical cleric Abu Qatada,radical cleric Abu Hamza,NEGATIVE_OTHER
+aug_llm_00930__en-en__original,aug_llm_00930,en,en,retires,dies,NEGATIVE_OTHER
+aug_llm_00935__en-en__original,aug_llm_00935,en,en,three U.S. soldiers,three U.S. diplomats,NEGATIVE_OTHER
+aug_llm_00938__en-en__original,aug_llm_00938,en,en,is running away from,is running after,NEGATIVE_OTHER
+aug_llm_00943__en-en__original,aug_llm_00943,en,en,Rouhani,Ahmadinejad,NEGATIVE_OTHER
+aug_llm_00948__en-en__original,aug_llm_00948,en,en,US Capitol Hill,US Pentagon,NEGATIVE_OTHER
+aug_llm_00953__en-en__original,aug_llm_00953,en,en,15,51,NEGATIVE_OTHER
+aug_llm_00958__en-en__original,aug_llm_00958,en,en,under a table,around a table,NEGATIVE_OTHER
+aug_llm_00963__en-en__original,aug_llm_00963,en,en,for daughter,for son,NEGATIVE_OTHER
+aug_llm_00968__en-en__original,aug_llm_00968,en,en,at edge of grassy field,in middle of grassy field,NEGATIVE_OTHER
+aug_llm_00973__en-en__original,aug_llm_00973,en,en,in a kitchen,in a bathroom,NEGATIVE_OTHER
+aug_llm_00978__en-en__original,aug_llm_00978,en,en,Suicide bomb,Car bomb,NEGATIVE_OTHER
+aug_llm_00983__en-en__original,aug_llm_00983,en,en,in 2016 Rio Olympics,in 2020 Tokyo Olympics,NEGATIVE_OTHER
+aug_llm_00988__en-en__original,aug_llm_00988,en,en,of one-child policy,of two-child policy,NEGATIVE_OTHER
+aug_llm_00993__en-en__original,aug_llm_00993,en,en,against Greenpeace,for Greenpeace,NEGATIVE_OTHER
+aug_llm_00998__en-en__original,aug_llm_00998,en,en,of touch football,of flag football,NEGATIVE_OTHER
+aug_llm_01003__en-en__original,aug_llm_01003,en,en,in a tidy room,in a messy room,NEGATIVE_OTHER
+aug_llm_01008__en-en__original,aug_llm_01008,en,en,after Japanese bridge collapses,after Japanese tunnel collapses,NEGATIVE_OTHER
+aug_llm_01013__en-en__original,aug_llm_01013,en,en,to hinder,to help,NEGATIVE_OTHER
+aug_llm_01018__en-en__original,aug_llm_01018,en,en,shot dead,shot and wounded,NEGATIVE_OTHER
+aug_llm_01023__en-en__original,aug_llm_01023,en,en,a big wave,a small wave,NEGATIVE_OTHER
+aug_llm_01028__en-en__original,aug_llm_01028,en,en,at an airport,at a port,NEGATIVE_OTHER
+aug_llm_01033__en-en__original,aug_llm_01033,en,en,The sheep,The cows,NEGATIVE_OTHER
+aug_llm_01038__en-en__original,aug_llm_01038,en,en,Early vote count in Iran,Early vote count in Iraq,NEGATIVE_OTHER
+aug_llm_01043__en-en__original,aug_llm_01043,en,en,after resigning,after collapsing,NEGATIVE_OTHER
+aug_llm_01048__en-en__original,aug_llm_01048,en,en,250 militants,205 militants,NEGATIVE_OTHER
+aug_llm_01053__en-en__original,aug_llm_01053,en,en,on Turkish border,on Syrian border,NEGATIVE_OTHER
+aug_llm_01058__en-en__original,aug_llm_01058,en,en,the television series Doctor Who,the television series Sherlock,NEGATIVE_OTHER
+aug_llm_01063__en-en__original,aug_llm_01063,en,en,at Athens airport,at Athens shopping mall,NEGATIVE_OTHER
+aug_llm_01068__en-en__original,aug_llm_01068,en,en,A sepia scene,A black and white scene,NEGATIVE_OTHER
+aug_llm_01073__en-en__original,aug_llm_01073,en,en,looking out,looking in,NEGATIVE_OTHER
+aug_llm_01078__en-en__original,aug_llm_01078,en,en,into Ukraine,into Russia,NEGATIVE_OTHER
+aug_llm_01083__en-en__original,aug_llm_01083,en,en,'s Salafists,'s Brotherhood,NEGATIVE_OTHER
+aug_llm_01088__en-en__original,aug_llm_01088,en,en,on a grass area,on a dirt area,NEGATIVE_OTHER
+aug_llm_01093__en-en__original,aug_llm_01093,en,en,to lure Gulf investors,to lure Asian investors,NEGATIVE_OTHER
+aug_llm_01098__en-en__original,aug_llm_01098,en,en,is perched,is flying,NEGATIVE_OTHER
+aug_llm_01103__en-en__original,aug_llm_01103,en,en,Two people and a cat,Two people and a dog,NEGATIVE_OTHER
+aug_llm_01108__en-en__original,aug_llm_01108,en,en,located within the water,located near the water,NEGATIVE_OTHER
+aug_llm_01113__en-en__original,aug_llm_01113,en,en,for Taliban peace talks,for Taliban prisoner swap,NEGATIVE_OTHER
+aug_llm_01118__en-en__original,aug_llm_01118,en,en,Two brunette girls,Two blonde girls,NEGATIVE_OTHER
+aug_llm_01123__en-en__original,aug_llm_01123,en,en,on a black sofa,on a white sofa,NEGATIVE_OTHER
+aug_llm_01128__en-en__original,aug_llm_01128,en,en,a wave,a splash,NEGATIVE_OTHER
+aug_llm_01133__en-en__original,aug_llm_01133,en,en,on a shiny slide,on a shiny swing,NEGATIVE_OTHER
+aug_llm_01138__en-en__original,aug_llm_01138,en,en,in San Francisco air crash,in San Francisco bus crash,NEGATIVE_OTHER
+aug_llm_01143__en-en__original,aug_llm_01143,en,en,north Mali Tuareg rebels,north Mali al-Qaida-linked rebels,NEGATIVE_OTHER
+aug_llm_01152__en-en__original,aug_llm_01152,en,en,Four women and two men,Four men and two women,NEGATIVE_OTHER
+aug_llm_01157__en-en__original,aug_llm_01157,en,en,of 7 magnitude,of 6 magnitude,NEGATIVE_OTHER
+aug_llm_01162__en-en__original,aug_llm_01162,en,en,Blue and white plane,Red and white plane,NEGATIVE_OTHER
+aug_llm_01167__en-en__original,aug_llm_01167,en,en,A silver truck,A silver car,NEGATIVE_OTHER
+aug_llm_01172__en-en__original,aug_llm_01172,en,en,remain upright,remain seated,NEGATIVE_OTHER
+aug_llm_01177__en-en__original,aug_llm_01177,en,en,at a closed door,at an open door,NEGATIVE_OTHER
+aug_llm_01182__en-en__original,aug_llm_01182,en,en,in Singapore,in Malaysia,NEGATIVE_OTHER
+aug_llm_01187__en-en__original,aug_llm_01187,en,en,in Indonesian volcanic eruption,in Indonesian earthquake,NEGATIVE_OTHER
+aug_llm_01192__en-en__original,aug_llm_01192,en,en,Cannes thief,Cannes winner,NEGATIVE_OTHER
+aug_llm_01197__en-en__original,aug_llm_01197,en,en,to go and buy,to go and see,NEGATIVE_OTHER
+aug_llm_01202__en-en__original,aug_llm_01202,en,en,Two large birds,Two small birds,NEGATIVE_OTHER
+aug_llm_01207__en-en__original,aug_llm_01207,en,en,stacked up,lined up,NEGATIVE_OTHER
+aug_llm_01212__en-en__original,aug_llm_01212,en,en,at a picnic table,at a dining table,NEGATIVE_OTHER
+aug_llm_01217__en-en__original,aug_llm_01217,en,en,going under,going over,NEGATIVE_OTHER
+aug_llm_01222__en-en__original,aug_llm_01222,en,en,driving quickly,driving slowly,NEGATIVE_OTHER
+aug_llm_01227__en-en__original,aug_llm_01227,en,en,in Canada train derailment,in Canada train blaze,NEGATIVE_OTHER
+aug_llm_01232__en-en__original,aug_llm_01232,en,en,21 more Palestinian prisoners,26 more Palestinian prisoners,NEGATIVE_OTHER
+aug_llm_01237__en-en__original,aug_llm_01237,en,en,with South Korea,with North Korea,NEGATIVE_OTHER
+aug_llm_01242__en-en__original,aug_llm_01242,en,en,mopeds,bicycles,NEGATIVE_OTHER
+aug_llm_01247__en-en__original,aug_llm_01247,en,en,A pair of dogs,A pair of cats,NEGATIVE_OTHER
+aug_llm_01250__en-en__original,aug_llm_01250,en,en,is walking,is riding,NEGATIVE_OTHER
+aug_llm_01253__en-en__original,aug_llm_01253,en,en,A black cat,A gray cat,NEGATIVE_OTHER
+aug_llm_01258__en-en__original,aug_llm_01258,en,en,"Australia's premier, Tony Abbott","Australia's premier, Kevin Rudd",NEGATIVE_OTHER
+aug_llm_01263__en-en__original,aug_llm_01263,en,en,Tunisia opposition leader,Tunisia prime minister,NEGATIVE_OTHER
+aug_llm_01268__en-en__original,aug_llm_01268,en,en,is removed,is placed,NEGATIVE_OTHER
+aug_llm_01273__en-en__original,aug_llm_01273,en,en,At Least 66,At Least 56,NEGATIVE_OTHER
+aug_llm_01278__en-en__original,aug_llm_01278,en,en,bomber,gunman,NEGATIVE_OTHER
+aug_llm_01283__en-en__original,aug_llm_01283,en,en,held between its jaws,held between its paws,NEGATIVE_OTHER
+aug_llm_01288__en-en__original,aug_llm_01288,en,en,in the foreground,in the background,NEGATIVE_OTHER
+aug_llm_01297__en-en__original,aug_llm_01297,en,en,to approve,to repeal,NEGATIVE_OTHER
+aug_llm_01302__en-en__original,aug_llm_01302,en,en,puts on hold,puts on notice,NEGATIVE_OTHER
+aug_llm_01307__en-en__original,aug_llm_01307,en,en,swimming,rowing,NEGATIVE_OTHER
+aug_llm_01312__en-en__original,aug_llm_01312,en,en,in a blue dress,in a red dress,NEGATIVE_OTHER
+aug_llm_01317__en-en__original,aug_llm_01317,en,en,About 600,About 60,NEGATIVE_OTHER
+aug_llm_01322__en-en__original,aug_llm_01322,en,en,Three greyhounds,Three whippets,NEGATIVE_OTHER
+aug_llm_01327__en-en__original,aug_llm_01327,en,en,A lamb,A goat,NEGATIVE_OTHER
+aug_llm_01332__en-en__original,aug_llm_01332,en,en,issues red alert,issues orange alert,NEGATIVE_OTHER
+aug_llm_01337__en-en__original,aug_llm_01337,en,en,Five dead,Five injured,NEGATIVE_OTHER
+aug_llm_01342__en-en__original,aug_llm_01342,en,en,to abstain,to vote,NEGATIVE_OTHER
+aug_llm_01347__en-en__original,aug_llm_01347,en,en,green playpen,blue playpen,NEGATIVE_OTHER
+aug_llm_01352__en-en__original,aug_llm_01352,en,en,in rocket attacks,in bomb attacks,NEGATIVE_OTHER
+aug_llm_01357__en-en__original,aug_llm_01357,en,en,Bangladesh factory fire,Bangladesh building-collapse,NEGATIVE_OTHER
+aug_llm_01362__en-en__original,aug_llm_01362,en,en,departs,returns,NEGATIVE_OTHER
+aug_llm_01367__en-en__original,aug_llm_01367,en,en,emergency evacuation,emergency relief,NEGATIVE_OTHER
+aug_llm_01372__en-en__original,aug_llm_01372,en,en,"A blue , double-decker bus","A red , double-decker bus",NEGATIVE_OTHER
+aug_llm_01377__en-en__original,aug_llm_01377,en,en,at Great Barrier Reef,at Ningaloo Reef,NEGATIVE_OTHER
+aug_llm_01382__en-en__original,aug_llm_01382,en,en,on the train tracks,beside the train tracks,NEGATIVE_OTHER
+aug_llm_01387__en-en__original,aug_llm_01387,en,en,Double decker passenger bus,Single decker passenger bus,NEGATIVE_OTHER
+aug_llm_01392__en-en__original,aug_llm_01392,en,en,Paul Walker Fast and Furious star,Vin Diesel Fast and Furious star,NEGATIVE_OTHER
+aug_llm_01397__en-en__original,aug_llm_01397,en,en,Patriot missile batteries,S-300 missile batteries,NEGATIVE_OTHER
+aug_llm_01402__en-en__original,aug_llm_01402,en,en,on sandy beach,on grassy field,NEGATIVE_OTHER
+aug_llm_01407__en-en__original,aug_llm_01407,en,en,after India train derails,after India buildings collapse,NEGATIVE_OTHER
+aug_llm_01412__en-en__original,aug_llm_01412,en,en,may cancel,may delay,NEGATIVE_OTHER
+aug_llm_01417__en-en__original,aug_llm_01417,en,en,Quiz sudoku,Quiz crossword,NEGATIVE_OTHER
+aug_llm_01422__en-en__original,aug_llm_01422,en,en,in Peshawar,in Miranshah,NEGATIVE_OTHER
+aug_llm_01427__en-en__original,aug_llm_01427,en,en,From Canada Homes,From Canada Schools,NEGATIVE_OTHER
+aug_llm_01432__en-en__original,aug_llm_01432,en,en,Living room,Dining room,NEGATIVE_OTHER
+aug_llm_01437__en-en__original,aug_llm_01437,en,en,bitter healthcare debate,bitter immigration debate,NEGATIVE_OTHER
+aug_llm_01442__en-en__original,aug_llm_01442,en,en,in Afghan parliamentary elections,in Afghan presidential elections,NEGATIVE_OTHER
+aug_llm_01447__en-en__original,aug_llm_01447,en,en,Former Pakistan army chief,Former Pakistan prime minister,NEGATIVE_OTHER
+aug_llm_01452__en-en__original,aug_llm_01452,en,en,in southwest Syria,in northwest Syria,NEGATIVE_OTHER
+aug_llm_01457__en-en__original,aug_llm_01457,en,en,Black and white picture,Sepia picture,NEGATIVE_OTHER
+aug_llm_01462__en-en__original,aug_llm_01462,en,en,A close-up,A wide shot,NEGATIVE_OTHER
+aug_llm_01467__en-en__original,aug_llm_01467,en,en,behind a plane,in front of a plane,NEGATIVE_OTHER
+aug_llm_01470__en-en__original,aug_llm_01470,en,en,at a demolition site,at a construction site,NEGATIVE_OTHER

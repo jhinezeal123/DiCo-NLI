@@ -1,0 +1,100 @@
+{"x": "in 2020 Tokyo Olympics", "neg": "in 2016 Rio Olympics", "spec": "in 2020 Tokyo Olympics men's marathon", "para": "at the Tokyo 2020 Games"}
+{"x": "of one-child policy", "neg": "of two-child policy", "spec": "of China's one-child policy", "para": "of the one child rule"}
+{"x": "against Greenpeace", "neg": "for Greenpeace", "spec": "against Greenpeace in Russia", "para": "versus Greenpeace"}
+{"x": "of flag football", "neg": "of touch football", "spec": "of youth flag football", "para": "of flag-based football"}
+{"x": "in a messy room", "neg": "in a tidy room", "spec": "in a messy bedroom", "para": "in an untidy room"}
+{"x": "after Japanese tunnel collapses", "neg": "after Japanese bridge collapses", "spec": "after Japanese highway tunnel collapses", "para": "following Japanese tunnel collapse"}
+{"x": "to help", "neg": "to hinder", "spec": "to help victims", "para": "to assist"}
+{"x": "shot dead", "neg": "shot and wounded", "spec": "shot dead by police", "para": "killed by gunfire"}
+{"x": "a small wave", "neg": "a big wave", "spec": "a small blue wave", "para": "a little wave"}
+{"x": "at a port", "neg": "at an airport", "spec": "at a container port", "para": "at a harbor"}
+{"x": "The cows", "neg": "The sheep", "spec": "The brown cows", "para": "The cattle"}
+{"x": "Early vote count in Iran", "neg": "Early vote count in Iraq", "spec": "Early vote count in Iran shows Rouhani ahead", "para": "Initial vote tally in Iran"}
+{"x": "after collapsing", "neg": "after resigning", "spec": "after collapsing at home", "para": "after having collapsed"}
+{"x": "250 militants", "neg": "205 militants", "spec": "250 Taliban militants", "para": "250 insurgents"}
+{"x": "on Syrian border", "neg": "on Turkish border", "spec": "on northern Syrian border", "para": "at Syria's border"}
+{"x": "the television series Doctor Who", "neg": "the television series Sherlock", "spec": "the BBC television series Doctor Who", "para": "the TV show Doctor Who"}
+{"x": "at Athens shopping mall", "neg": "at Athens airport", "spec": "at Athens shopping mall food court", "para": "at Athens mall"}
+{"x": "A black and white scene", "neg": "A sepia scene", "spec": "A black and white scene of a street", "para": "A scene in black and white"}
+{"x": "looking out", "neg": "looking in", "spec": "looking out a window", "para": "gazing out"}
+{"x": "into Russia", "neg": "into Ukraine", "spec": "into southern Russia", "para": "to Russia"}
+{"x": "'s Brotherhood", "neg": "'s Salafists", "spec": "'s Brotherhood leadership", "para": "'s Muslim Brothers"}
+{"x": "on a dirt area", "neg": "on a grass area", "spec": "on a dry dirt area", "para": "on an area of dirt"}
+{"x": "to lure Gulf investors", "neg": "to lure Asian investors", "spec": "to lure wealthy Gulf investors", "para": "to attract Gulf investors"}
+{"x": "is perched", "neg": "is flying", "spec": "is perched high", "para": "is roosting"}
+{"x": "Two people and a dog", "neg": "Two people and a cat", "spec": "Two young people and a dog", "para": "A dog and two people"}
+{"x": "located within the water", "neg": "located near the water", "spec": "located deep within the water", "para": "situated in the water"}
+{"x": "for Taliban peace talks", "neg": "for Taliban prisoner swap", "spec": "for Taliban peace talks in Qatar", "para": "for peace talks with the Taliban"}
+{"x": "Two blonde girls", "neg": "Two brunette girls", "spec": "Two young blonde girls", "para": "Two girls with blonde hair"}
+{"x": "on a white sofa", "neg": "on a black sofa", "spec": "on a white leather sofa", "para": "on a white couch"}
+{"x": "a wave", "neg": "a splash", "spec": "an ocean wave", "para": "a wave of water"}
+{"x": "on a shiny slide", "neg": "on a shiny swing", "spec": "on a shiny metal slide", "para": "on a glossy slide"}
+{"x": "in San Francisco air crash", "neg": "in San Francisco bus crash", "spec": "in San Francisco Asiana air crash", "para": "in air crash in San Francisco"}
+{"x": "north Mali al-Qaida-linked rebels", "neg": "north Mali Tuareg rebels", "spec": "north Mali al-Qaida-linked Islamist rebels", "para": "al-Qaida-linked rebels in north Mali"}
+{"x": "a denim shirt", "neg": "a denim jacket", "spec": "a blue denim shirt", "para": "a shirt made of denim"}
+{"x": "Four women and two men", "neg": "Four men and two women", "spec": "Four young women and two men", "para": "Two men and four women"}
+{"x": "of 6 magnitude", "neg": "of 7 magnitude", "spec": "of 6 magnitude in Peru", "para": "of magnitude 6"}
+{"x": "Red and white plane", "neg": "Blue and white plane", "spec": "Red and white passenger plane", "para": "White and red plane"}
+{"x": "A silver car", "neg": "A silver truck", "spec": "A silver sports car", "para": "A silver-colored car"}
+{"x": "remain upright", "neg": "remain seated", "spec": "remain upright in the wind", "para": "stay upright"}
+{"x": "at a closed door", "neg": "at an open door", "spec": "at a closed wooden door", "para": "at a shut door"}
+{"x": "in Singapore", "neg": "in Malaysia", "spec": "in downtown Singapore", "para": "in the city-state of Singapore"}
+{"x": "in Indonesian volcanic eruption", "neg": "in Indonesian earthquake", "spec": "in Indonesian volcanic eruption on Sumatra", "para": "in volcanic eruption in Indonesia"}
+{"x": "Cannes thief", "neg": "Cannes winner", "spec": "Cannes jewel thief", "para": "Cannes robber"}
+{"x": "to go and see", "neg": "to go and buy", "spec": "to go and see a doctor", "para": "to go see"}
+{"x": "Two small birds", "neg": "Two large birds", "spec": "Two small brown birds", "para": "A pair of little birds"}
+{"x": "lined up", "neg": "stacked up", "spec": "neatly lined up", "para": "arranged in a row"}
+{"x": "at a picnic table", "neg": "at a dining table", "spec": "at a wooden picnic table", "para": "at a table for picnics"}
+{"x": "going over", "neg": "going under", "spec": "going over a hill", "para": "passing over"}
+{"x": "driving quickly", "neg": "driving slowly", "spec": "driving quickly down a road", "para": "driving fast"}
+{"x": "in Canada train blaze", "neg": "in Canada train derailment", "spec": "in Canada oil train blaze", "para": "in Canadian train fire"}
+{"x": "26 more Palestinian prisoners", "neg": "21 more Palestinian prisoners", "spec": "26 more long-held Palestinian prisoners", "para": "26 additional Palestinian prisoners"}
+{"x": "with South Korea", "neg": "with North Korea", "spec": "with South Korea on trade", "para": "with the Republic of Korea"}
+{"x": "mopeds", "neg": "bicycles", "spec": "red mopeds", "para": "motor scooters"}
+{"x": "A pair of dogs", "neg": "A pair of cats", "spec": "A pair of brown dogs", "para": "Two dogs"}
+{"x": "is riding", "neg": "is walking", "spec": "is riding a horse", "para": "rides"}
+{"x": "A gray cat", "neg": "A black cat", "spec": "A gray tabby cat", "para": "A grey cat"}
+{"x": "Australia's premier, Kevin Rudd", "neg": "Australia's premier, Tony Abbott", "spec": "Australia's premier, Labor leader Kevin Rudd", "para": "Australian premier Kevin Rudd"}
+{"x": "Tunisia opposition leader", "neg": "Tunisia prime minister", "spec": "Tunisia opposition leader Chokri Belaid", "para": "Tunisian opposition leader"}
+{"x": "is placed", "neg": "is removed", "spec": "is carefully placed", "para": "is put"}
+{"x": "At Least 66", "neg": "At Least 56", "spec": "At Least 66 civilians", "para": "No fewer than 66"}
+{"x": "gunman", "neg": "bomber", "spec": "masked gunman", "para": "shooter"}
+{"x": "held between its jaws", "neg": "held between its paws", "spec": "held tightly between its jaws", "para": "gripped in its jaws"}
+{"x": "in the background", "neg": "in the foreground", "spec": "in the far background", "para": "in the backdrop"}
+{"x": "in a yellow canoe", "neg": "in a red canoe", "spec": "in a yellow canoe on a lake", "para": "in a canoe that is yellow"}
+{"x": "to repeal", "neg": "to approve", "spec": "to repeal Obamacare", "para": "to overturn"}
+{"x": "puts on notice", "neg": "puts on hold", "spec": "puts Iran on notice", "para": "issues a warning to"}
+{"x": "rowing", "neg": "swimming", "spec": "rowing fast", "para": "paddling with oars"}
+{"x": "in a blue dress", "neg": "in a red dress", "spec": "in a long blue dress", "para": "wearing a blue dress"}
+{"x": "About 60", "neg": "About 600", "spec": "About 60 protesters", "para": "Roughly 60"}
+{"x": "Three greyhounds", "neg": "Three whippets", "spec": "Three brown greyhounds", "para": "3 greyhounds"}
+{"x": "A lamb", "neg": "A goat", "spec": "A newborn lamb", "para": "A young sheep"}
+{"x": "issues red alert", "neg": "issues orange alert", "spec": "issues red alert for cyclone", "para": "declares red alert"}
+{"x": "Five dead", "neg": "Five injured", "spec": "Five dead in blast", "para": "5 killed"}
+{"x": "to vote", "neg": "to abstain", "spec": "to vote on budget", "para": "to cast ballots"}
+{"x": "green playpen", "neg": "blue playpen", "spec": "bright green playpen", "para": "playpen that is green"}
+{"x": "in bomb attacks", "neg": "in rocket attacks", "spec": "in Baghdad bomb attacks", "para": "in bombings"}
+{"x": "Bangladesh building-collapse", "neg": "Bangladesh factory fire", "spec": "Bangladesh garment factory building-collapse", "para": "Building collapse in Bangladesh"}
+{"x": "returns", "neg": "departs", "spec": "returns home", "para": "comes back"}
+{"x": "emergency relief", "neg": "emergency evacuation", "spec": "emergency flood relief", "para": "emergency aid"}
+{"x": "A red , double-decker bus", "neg": "A blue , double-decker bus", "spec": "A red , double-decker tour bus", "para": "A red , two-story bus"}
+{"x": "at Great Barrier Reef", "neg": "at Ningaloo Reef", "spec": "at northern Great Barrier Reef", "para": "on the Great Barrier Reef"}
+{"x": "on the train tracks", "neg": "beside the train tracks", "spec": "on the rusty train tracks", "para": "on the railway tracks"}
+{"x": "Double decker passenger bus", "neg": "Single decker passenger bus", "spec": "Red double decker passenger bus", "para": "Two-story passenger bus"}
+{"x": "Paul Walker Fast and Furious star", "neg": "Vin Diesel Fast and Furious star", "spec": "Paul Walker Fast and Furious star, 40", "para": "Fast and Furious star Paul Walker"}
+{"x": "Patriot missile batteries", "neg": "S-300 missile batteries", "spec": "US Patriot missile batteries", "para": "Patriot missile systems"}
+{"x": "on grassy field", "neg": "on sandy beach", "spec": "on grassy soccer field", "para": "on a field of grass"}
+{"x": "after India buildings collapse", "neg": "after India train derails", "spec": "after India apartment buildings collapse", "para": "after buildings collapse in India"}
+{"x": "may delay", "neg": "may cancel", "spec": "may delay launch", "para": "might postpone"}
+{"x": "Quiz crossword", "neg": "Quiz sudoku", "spec": "Weekly quiz crossword", "para": "Crossword quiz"}
+{"x": "in Miranshah", "neg": "in Peshawar", "spec": "in central Miranshah", "para": "in the town of Miranshah"}
+{"x": "From Canada Homes", "neg": "From Canada Schools", "spec": "From Canada Homes, Toronto", "para": "Coming from Canada Homes"}
+{"x": "Living room", "neg": "Dining room", "spec": "Modern living room", "para": "Lounge"}
+{"x": "bitter immigration debate", "neg": "bitter healthcare debate", "spec": "bitter immigration debate in Congress", "para": "acrimonious immigration debate"}
+{"x": "in Afghan presidential elections", "neg": "in Afghan parliamentary elections", "spec": "in Afghan presidential elections runoff", "para": "in Afghanistan's presidential polls"}
+{"x": "Former Pakistan army chief", "neg": "Former Pakistan prime minister", "spec": "Former Pakistan army chief Musharraf", "para": "Ex-Pakistan army chief"}
+{"x": "in northwest Syria", "neg": "in southwest Syria", "spec": "in northwest Syria's Idlib", "para": "in Syria's northwest"}
+{"x": "Black and white picture", "neg": "Sepia picture", "spec": "Black and white picture of a cat", "para": "Black-and-white photo"}
+{"x": "A close-up", "neg": "A wide shot", "spec": "A close-up of a face", "para": "A closeup shot"}
+{"x": "in front of a plane", "neg": "behind a plane", "spec": "in front of a small plane", "para": "ahead of an airplane"}
+{"x": "at a construction site", "neg": "at a demolition site", "spec": "at a large construction site", "para": "at a building site"}
