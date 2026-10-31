@@ -1,5 +1,5 @@
 {
-  "name": "track1_r1_ds_views_robustness",
+  "name": "r2_sick_ds_external_validation",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -32,81 +32,16 @@
     ]
   },
   "label_smoothing": 0.1,
-  "mode": "ds_views",
-  "views": [
-    {
-      "teacher": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
-      "track": 1,
-      "kind": "nli"
-    },
-    {
-      "teacher": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli@b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
-      "track": 1,
-      "kind": "nli"
-    },
-    {
-      "teacher": "facebook/bart-large-mnli@d7645e127eaf1aefc7862fd59a17a5aa8558b8ce",
-      "track": 1,
-      "kind": "nli"
-    },
-    {
-      "teacher": "FacebookAI/roberta-large-mnli@2a8f12d27941090092df78e4ba6f0928eb5eac98",
-      "track": 1,
-      "kind": "nli"
-    },
-    {
-      "teacher": "Qwen/Qwen2.5-3B-Instruct@aa8e72537993ba99e69dfaafa59ed015b17504d1",
-      "track": 1,
-      "kind": "llm"
-    },
-    {
-      "teacher": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7@b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
-      "track": 2,
-      "kind": "nli"
-    },
-    {
-      "teacher": "joeddav/xlm-roberta-large-xnli@b227ee8435ceadfa86dc1368a34254e2838bf242",
-      "track": 2,
-      "kind": "nli"
-    },
-    {
-      "teacher": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7@b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
-      "track": 3,
-      "kind": "nli"
-    },
-    {
-      "teacher": "joeddav/xlm-roberta-large-xnli@b227ee8435ceadfa86dc1368a34254e2838bf242",
-      "track": 3,
-      "kind": "nli"
-    }
-  ],
-  "view_sets": {
-    "en4": [
-      "DeBERTa-v3-base-mnli-fever-anli@t1",
-      "DeBERTa-v3-large-mnli-fever-anli-ling-wanli@t1",
-      "bart-large-mnli@t1",
-      "roberta-large-mnli@t1"
-    ],
-    "en4_llm": [
-      "DeBERTa-v3-base-mnli-fever-anli@t1",
-      "DeBERTa-v3-large-mnli-fever-anli-ling-wanli@t1",
-      "bart-large-mnli@t1",
-      "roberta-large-mnli@t1",
-      "Qwen2.5-3B-Instruct@t1"
-    ],
-    "multilingual_es_eu": [
-      "mDeBERTa-v3-base-xnli-multilingual-nli-2mil7@t2",
-      "xlm-roberta-large-xnli@t2",
-      "mDeBERTa-v3-base-xnli-multilingual-nli-2mil7@t3",
-      "xlm-roberta-large-xnli@t3"
-    ],
-    "llm_plus_multilingual": [
-      "Qwen2.5-3B-Instruct@t1",
-      "mDeBERTa-v3-base-xnli-multilingual-nli-2mil7@t2",
-      "xlm-roberta-large-xnli@t2",
-      "mDeBERTa-v3-base-xnli-multilingual-nli-2mil7@t3",
-      "xlm-roberta-large-xnli@t3"
-    ],
-    "all": "all"
+  "mode": "sick_ds",
+  "probe": {
+    "teachers": [
+      "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
+      "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli@b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "facebook/bart-large-mnli@d7645e127eaf1aefc7862fd59a17a5aa8558b8ce",
+      "FacebookAI/roberta-large-mnli@2a8f12d27941090092df78e4ba6f0928eb5eac98"
+    ]
+  },
+  "sick": {
+    "url": "https://raw.githubusercontent.com/kkalouli/SICK-processing/0848f4aec60870122a4ca18de08ba0e25f6f9a75/SICK.txt"
   }
 }

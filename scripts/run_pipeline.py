@@ -278,6 +278,13 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    if cfg.get("mode") == "sick_ds":
+        sys.path.insert(0, str(REPO / "src"))
+        import sick_ds
+        section("SICK_DS")
+        sick_ds.run(cfg, upstream, lambda s: print(s, flush=True))
+        return
+
     if cfg.get("mode") == "ds_views":
         sys.path.insert(0, str(REPO / "src"))
         import ds_views
