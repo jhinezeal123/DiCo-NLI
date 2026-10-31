@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_h3_repeat_control",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -31,5 +31,10 @@
       "down_proj"
     ]
   },
-  "label_smoothing": 0.1
+  "label_smoothing": 0.1,
+  "extra_train": {
+    "path": "data/h3/h3_adjudicated.csv",
+    "mode": "repeat_control",
+    "control_seed": 20261031
+  }
 }
