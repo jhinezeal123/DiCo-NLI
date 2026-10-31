@@ -1,5 +1,5 @@
 {
-  "name": "track1_m1_convention_probe_fixed_logic",
+  "name": "track1_m1b_ds_multiview_convention",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -32,11 +32,13 @@
     ]
   },
   "label_smoothing": 0.1,
-  "mode": "convention_probe",
+  "mode": "ds_probe",
   "probe": {
     "teachers": [
       "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
-      "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli@b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7"
+      "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli@b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7",
+      "facebook/bart-large-mnli@d7645e127eaf1aefc7862fd59a17a5aa8558b8ce",
+      "FacebookAI/roberta-large-mnli@2a8f12d27941090092df78e4ba6f0928eb5eac98"
     ],
     "bootstrap": 300
   }
