@@ -91,3 +91,22 @@ def run(cfg, upstream, emit):
     for i in range(len(ids)):
         emit(f"{ids[i]},{split[i]},{LAB[y[i]]},{soft[i]:.4f}," + ",".join(f"{v:.4f}" for v in list(r[i]) + list(pt[i])))
     emit("TABLE>>>")
+    # R2b: per-teacher q and a cue-free DS variant, for baseline comparisons offline
+    for k, teacher in enumerate(cfg["probe"]["teachers"]):
+        emit(f"<<<TABLE sick_teacher_q_{k}")
+        emit("instance_id," + ",".join(f"q_{z}" for z in Z))
+        for i in range(len(ids)):
+            emit(f"{ids[i]}," + ",".join(f"{v:.4f}" for v in Q[k][i]))
+        emit("TABLE>>>")
+    zero = np.zeros((len(ids), 0), dtype=np.float32)
+    ds0 = dsp.DS(T.shape[1])
+    ds0.fit(np.mean([q[tr] for q in Q], 0), T[tr], y[tr], zero[tr], emit=emit)
+    r0 = ds0.posterior(T, y, zero)
+    pt0 = ds0.posterior(T, None, zero)
+    emit(f"METRIC sick/cuefree/all/convention_rate={np.mean(IDENT[r0.argmax(1)] != y):.4f}")
+    soft0 = 1 - (r0 * (IDENT[None, :] == y[:, None])).sum(1)
+    emit("<<<TABLE sick_posteriors_cuefree")
+    emit("instance_id,conv_soft," + ",".join(f"r_{z}" for z in Z) + "," + ",".join(f"pt_{z}" for z in Z))
+    for i in range(len(ids)):
+        emit(f"{ids[i]},{soft0[i]:.4f}," + ",".join(f"{v:.4f}" for v in list(r0[i]) + list(pt0[i])))
+    emit("TABLE>>>")

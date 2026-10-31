@@ -1,5 +1,5 @@
 {
-  "name": "r2_sick_ds_external_validation",
+  "name": "r2b_sick_baselines",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
