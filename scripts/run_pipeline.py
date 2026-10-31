@@ -179,6 +179,74 @@ def error_analysis(pred, ref_rows):
               f"consistent_but_wrong={buckets[(kind, 'consistent_but_wrong')]}")
 
 
+def write_preds(path, ids, probs, labels):
+    import numpy as np
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["instance_id", "label"])
+        for i, pr in zip(ids, probs):
+            w.writerow([i, labels[int(np.argmax(pr))]])
+
+
+def fusion(cfg, upstream, out_root, dev_rows, bidir_by_seed, labels):
+    """Pre-registered 50/50 fusion of this run's bidir probs with committed reference probs.
+
+    This run's instance ids are mapped onto the reference ids (e.g. __es-es__ -> __en-en__) and the
+    fused predictions are scored with the official scorer on the reference track's dev reference.
+    """
+    import numpy as np
+    fc = cfg["fusion"]
+    section("FUSION (pre-registered: 0.5 * this view + 0.5 * reference view, same seed)")
+    ref_probs = {}
+    for r in read_csv(Path(__file__).resolve().parents[1] / fc["reference_probs"]):
+        ref_probs[(r["instance_id"], int(r["seed"]))] = np.array([float(r[l]) for l in labels])
+    src, dst = fc.get("id_map", ["", ""])
+    mapped = [r["instance_id"].replace(src, dst) for r in dev_rows]
+    ref_dir = upstream / "final_data" / "dev"
+    t = f"track{fc['reference_track']}"
+    ref_ref_path = ref_dir / f"dico_nli_dev_{t}_reference.csv"
+    ref_rows = read_csv(ref_dir / f"dico_nli_dev_{t}_participant_labeled.csv")
+    gold = {r["instance_id"]: r["label"] for r in ref_rows}
+    assert set(mapped) == set(gold), "fusion id mapping does not cover the reference dev set"
+    this_gold = [r["label"] for r in dev_rows]
+    assert all(this_gold[k] == gold[m] for k, m in enumerate(mapped)), "gold labels differ across views"
+    print(f"reference_probs={fc['reference_probs']} sha256={sha256(Path(__file__).resolve().parents[1] / fc['reference_probs'])} "
+          f"reference_track={fc['reference_track']} id_map={src}->{dst}")
+    fused_scores, ens = {}, {"ref": 0, "this": 0, "fused": 0}
+    for seed, this in bidir_by_seed.items():
+        ref = np.stack([ref_probs[(m, seed)] for m in mapped])
+        fused = 0.5 * this + 0.5 * ref
+        for k, v in (("ref", ref), ("this", this), ("fused", fused)):
+            ens[k] = ens[k] + v
+        err_ref = {m for m, pr in zip(mapped, ref) if labels[int(np.argmax(pr))] != gold[m]}
+        err_this = {m for m, pr in zip(mapped, this) if labels[int(np.argmax(pr))] != gold[m]}
+        inter, union = len(err_ref & err_this), len(err_ref | err_this)
+        print(f"ERROR_OVERLAP seed={seed} ref_errors={len(err_ref)} this_errors={len(err_this)} shared={inter} "
+              f"jaccard={inter / max(1, union):.4f} share_of_ref_errors_also_wrong_here={inter / max(1, len(err_ref)):.4f}")
+        out = out_root / f"fusion_seed{seed}"
+        out.mkdir(exist_ok=True)
+        for k, v in (("ref", ref), ("fused", fused)):
+            pp = out / f"{t}_dev_predictions_{k}.csv"
+            write_preds(pp, mapped, v, labels)
+            sc = official_score(upstream, ref_ref_path, pp.resolve(), (out / f"scores_{k}").resolve())
+            print(f"FUSION_SEED_METRICS kind={k} seed={seed} weighted_f1={sc['weighted_f1']:.4f} "
+                  f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}", flush=True)
+            if k == "fused":
+                fused_scores[seed] = sc
+    for k in ("ref", "this", "fused"):
+        pp = out_root / f"fusion_ensemble_{k}.csv"
+        write_preds(pp, mapped, ens[k], labels)
+        sc = official_score(upstream, ref_ref_path, pp.resolve(), (out_root / f"scores_fusion_ensemble_{k}").resolve())
+        print(f"FUSION_ENSEMBLE_METRICS kind={k} n_seeds={len(bidir_by_seed)} weighted_f1={sc['weighted_f1']:.4f} "
+              f"soft_cons={sc['soft_cons']:.4f} hard_cons={sc['hard_cons']:.4f}")
+        if k == "fused":
+            error_analysis({m: labels[int(np.argmax(pr))] for m, pr in zip(mapped, ens[k])}, read_csv(ref_ref_path))
+    agg = {m: [s[m] for s in fused_scores.values()] for m in ("weighted_f1", "soft_cons", "hard_cons")}
+    print(f"FUSION_FINAL_METRICS split=dev track={fc['reference_track']} seeds={list(fused_scores)} " + " ".join(
+        f"{m}={statistics.mean(v):.4f}+-{(statistics.stdev(v) if len(v) > 1 else 0.0):.4f}(min {min(v):.4f})"
+        for m, v in agg.items()))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -218,6 +286,7 @@ def main():
     modes = ["standard", "bidir"]
     results = {m: {} for m in modes}
     ens_sum = {}
+    bidir_by_seed = {}
     for seed in cfg["seeds"]:
         section(f"SEED {seed}")
         out = out_root / f"seed{seed}"
@@ -225,6 +294,7 @@ def main():
         p, q = trained[seed]["orig"], trained[seed]["swap"]
         # q is the prediction for the swapped input; map it back through the reversal.
         final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
+        bidir_by_seed[seed] = final["bidir"]
         for mode in final:
             ens_sum[mode] = ens_sum.get(mode, 0) + final[mode]
         print(f"<<<DEV_PROBS seed={seed}")
@@ -278,6 +348,9 @@ def main():
             agg[m] = (statistics.mean(vals), statistics.stdev(vals) if len(vals) > 1 else 0.0, min(vals))
         print(f"{tag} decoding={mode} split=dev track={cfg['track']} seeds={list(results[mode])} "
               + " ".join(f"{m}={a[0]:.4f}+-{a[1]:.4f}(min {a[2]:.4f})" for m, a in agg.items()))
+
+    if cfg.get("fusion"):
+        fusion(cfg, upstream, out_root, dev_rows, bidir_by_seed, dt.LABELS)
 
 
 if __name__ == "__main__":

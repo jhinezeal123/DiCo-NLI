@@ -1,6 +1,6 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
-  "track": 1,
+  "name": "track2_es_qwen25_1p5b_lora_ls0p1_rosetta_screen",
+  "track": 2,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
     42,
@@ -31,5 +31,14 @@
       "down_proj"
     ]
   },
-  "label_smoothing": 0.1
+  "label_smoothing": 0.1,
+  "fusion": {
+    "reference_probs": "data/fusion/en_parent_dev_bidir_probs.csv",
+    "reference_track": 1,
+    "reference_run": "13417727-b568-4efc-8fec-b67f7d0e3c03",
+    "id_map": [
+      "__es-es__",
+      "__en-en__"
+    ]
+  }
 }
