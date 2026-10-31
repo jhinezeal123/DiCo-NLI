@@ -215,7 +215,7 @@ def main():
     print(f"train_wall_seconds_all_seeds={time.time() - t0:.1f}")
 
     headline = cfg.get("decode", "standard")
-    modes = ["standard", "bidir"]
+    modes = ["standard", "bidir"] + (["bidir_negw"] if "neg_weight" in cfg else [])
     results = {m: {} for m in modes}
     ens_sum = {}
     for seed in cfg["seeds"]:
@@ -225,6 +225,11 @@ def main():
         p, q = trained[seed]["orig"], trained[seed]["swap"]
         # q is the prediction for the swapped input; map it back through the reversal.
         final = {"standard": p, "bidir": 0.5 * (p + q[:, dt.REV])}
+        if "neg_weight" in cfg:
+            # NEG decision weight chosen on train OOF (not dev); rescales NEG before argmax.
+            w = np.ones(len(dt.LABELS))
+            w[dt.LABEL2ID["NEGATIVE_OTHER"]] = float(cfg["neg_weight"])
+            final["bidir_negw"] = final["bidir"] * w
         for mode in final:
             ens_sum[mode] = ens_sum.get(mode, 0) + final[mode]
         print(f"<<<DEV_PROBS seed={seed}")
