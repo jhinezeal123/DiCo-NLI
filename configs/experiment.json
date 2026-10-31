@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_precedents_k4",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_precedents_random",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -34,6 +34,6 @@
   "label_smoothing": 0.1,
   "precedents": {
     "k": 4,
-    "mode": "nearest"
+    "mode": "random"
   }
 }
