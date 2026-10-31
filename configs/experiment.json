@@ -1,5 +1,5 @@
 {
-  "name": "track1_m1b_ds_multiview_convention",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_logic_hint_ds",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -13,10 +13,10 @@
   "batch_size": 8,
   "wd": 0.01,
   "num_epochs": 3,
-  "max_length": 128,
+  "max_length": 144,
   "amp": true,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "pair_template": "Text 1: {t1}\nText 2: {t2}\nLogic: {z}\nRelation:",
   "lora": {
     "r": 16,
     "alpha": 32,
@@ -32,7 +32,6 @@
     ]
   },
   "label_smoothing": 0.1,
-  "mode": "ds_probe",
   "probe": {
     "teachers": [
       "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
@@ -41,5 +40,6 @@
       "FacebookAI/roberta-large-mnli@2a8f12d27941090092df78e4ba6f0928eb5eac98"
     ],
     "bootstrap": 300
-  }
+  },
+  "logic_hint": "ds"
 }

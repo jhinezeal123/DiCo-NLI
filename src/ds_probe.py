@@ -227,3 +227,42 @@ def run(cfg, upstream, emit):
     for i, k in enumerate(dv_ids):
         emit(f"{k},{dt.LABELS[ydv[i]]}," + ",".join(f"{v:.4f}" for v in list(r_dv[i]) + list(pz_t[i])))
     emit("TABLE>>>")
+
+
+
+def write_hints(cfg, upstream, out_path, emit):
+    """Label-free logic hints z_hat = argmax DS teacher-only posterior (DS parameters fit on train only)."""
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    data = upstream / "final_data"
+    tr_ids, tr1, tr2, ytr = dt.load_split(data / "train" / "dico_nli_train_track1_participant_labeled.csv")
+    dv_ids, dv1, dv2, ydv = dt.load_split(data / "dev" / "dico_nli_dev_track1_participant_labeled.csv")
+    dom_pred = lcf.domain_model(tr_ids, tr1, tr2)
+    c_tr, c_dv = cp.cue_features(tr1, tr2, dom_pred), cp.cue_features(dv1, dv2, dom_pred)
+    Q_tr, Q_dv = [], []
+    for teacher in cfg["probe"]["teachers"]:
+        name, _, rev = teacher.partition("@")
+        tcfg = {"lcf": {"teacher": name, "teacher_revision": rev or None}}
+        Q_tr.append(lcf.teacher_q(tcfg, tr1, tr2, device))
+        Q_dv.append(lcf.teacher_q(tcfg, dv1, dv2, device))
+    t_tr = np.stack([q.argmax(1) for q in Q_tr], 1)
+    t_dv = np.stack([q.argmax(1) for q in Q_dv], 1)
+    ds = DS(len(Q_tr))
+    ds.fit(np.mean(Q_tr, 0), t_tr, ytr, c_tr, emit=emit)
+    z_tr = ds.posterior(t_tr, None, c_tr).argmax(1)
+    z_dv = ds.posterior(t_dv, None, c_dv).argmax(1)
+    # swap check: hints of swapped dev inputs must be the FWD<->REV image
+    z_dv_sw = ds.posterior(np.array(SW)[t_dv], None, c_dv).argmax(1)  # teacher relations of swapped inputs
+    emit(f"hint_swap_consistency_dev={np.mean(np.array(SW)[z_dv] == z_dv_sw):.4f}")
+    if cfg["logic_hint"] == "shuffled":
+        rng = np.random.default_rng(20261031)
+        z_tr, z_dv = rng.permutation(z_tr), rng.permutation(z_dv)
+    for nm, z, y in (("train", z_tr, ytr), ("dev", z_dv, ydv)):
+        pred = lcf.logic_to_label(np.eye(5)[z]).argmax(1)
+        emit(f"METRIC hint/{nm}/identity_label_acc={np.mean(pred == y):.4f} hint/{nm}/identity_label_f1="
+             f"{f1_score(y, pred, average='weighted'):.4f} hint/{nm}/dist=" + "|".join(f"{Z[k]}:{np.mean(z == k):.3f}" for k in range(5)))
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("instance_id,z\n")
+        for ids, z in ((tr_ids, z_tr), (dv_ids, z_dv)):
+            for k, v in zip(ids, z):
+                f.write(f"{k},{Z[v]}\n")
+

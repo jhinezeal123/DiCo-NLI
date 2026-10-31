@@ -6,6 +6,7 @@ Difference: per-batch dynamic padding instead of padding to max_length (identica
 under the attention mask, much faster).
 """
 import os
+from pathlib import Path
 import random
 import re
 
@@ -52,11 +53,17 @@ def load_split(path):
     return ids, t1, t2, y
 
 
-def encode(tok, t1, t2, max_length, template=None):
+HINT_WORDS = {"EQV": "equivalent", "FWD": "text 1 entails text 2", "REV": "text 2 entails text 1",
+              "EXC": "contradictory", "IND": "neutral"}
+SWAP_Z = {"EQV": "EQV", "FWD": "REV", "REV": "FWD", "EXC": "EXC", "IND": "IND"}
+
+
+def encode(tok, t1, t2, max_length, template=None, hints=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
-        enc = tok([template.format(t1=a, t2=b) for a, b in zip(t1, t2)], truncation=True,
-                  max_length=max_length)
+        hints = hints or [None] * len(t1)
+        enc = tok([template.format(t1=a, t2=b, z=HINT_WORDS.get(h, "")) for a, b, h in zip(t1, t2, hints)],
+                  truncation=True, max_length=max_length)
     else:
         enc = tok(t1, t2, truncation="only_second", max_length=max_length)
     keys = [k for k in ("input_ids", "attention_mask", "token_type_ids") if k in enc]
@@ -112,8 +119,13 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
-    _, dv1, dv2, ydv = load_split(dev_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
+    dv_ids, dv1, dv2, ydv = load_split(dev_path)
+    h_tr = h_dv = h_dv_sw = None
+    if cfg.get("logic_hint"):
+        hint = dict(pd.read_csv(Path("outputs") / cfg["name"] / "logic_hints.csv").values)
+        h_tr, h_dv = [hint[k] for k in tr_ids], [hint[k] for k in dv_ids]
+        h_dv_sw = [SWAP_Z[h] for h in h_dv]
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
     if factorized:
@@ -124,8 +136,8 @@ def run(cfg, seed, train_path, dev_path, device):
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
-    f_train = encode(tok, tr1, tr2, L, tpl)
-    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
+    f_train = encode(tok, tr1, tr2, L, tpl, h_tr)
+    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl, h_dv), encode(tok, dv2, dv1, L, tpl, h_dv_sw)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
@@ -170,4 +182,19 @@ def run(cfg, seed, train_path, dev_path, device):
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
+    if h_dv is not None:
+        hint_interventions(model, tok, dv1, dv2, ydv, h_dv, L, tpl, bs, device, amp)
     return {"orig": p, "swap": q}
+
+
+def hint_interventions(model, tok, dv1, dv2, ydv, h_dv, L, tpl, bs, device, amp):
+    """Counterfactual logic hints on dev: how far does the predicted label follow the stated logic?"""
+    ident = {"EQV": "EQUIVALENCE", "FWD": "FORWARD_ENTAILMENT", "REV": "BACKWARD_ENTAILMENT",
+             "EXC": "NEGATIVE_OTHER", "IND": "NEGATIVE_OTHER"}
+    base = predict_probs(model, tok, encode(tok, dv1, dv2, L, tpl, h_dv), bs, device, amp).argmax(1)
+    for z in HINT_WORDS:
+        pred = predict_probs(model, tok, encode(tok, dv1, dv2, L, tpl, [z] * len(dv1)), bs, device, amp).argmax(1)
+        dist = np.bincount(pred, minlength=len(LABELS)) / len(pred)
+        print(f"HINT_INTERVENTION z={z} follow_rate={np.mean(pred == LABEL2ID[ident[z]]):.4f} "
+              f"changed_vs_actual_hint={np.mean(pred != base):.4f} acc={np.mean(pred == ydv):.4f} "
+              + " ".join(f"P_{l[:2]}={v:.3f}" for l, v in zip(LABELS, dist)), flush=True)
