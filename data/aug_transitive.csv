@@ -1,0 +1,749 @@
+instance_id,pair_id,text1_lang,text2_lang,text1,text2,label
+aug_trans_00000__en-en__original,aug_trans_00000,en,en,'s Benghazi,in Libya 's Benghazi,BACKWARD_ENTAILMENT
+aug_trans_00000__en-en__flipped,aug_trans_00000,en,en,in Libya 's Benghazi,'s Benghazi,FORWARD_ENTAILMENT
+aug_trans_00001__en-en__original,aug_trans_00001,en,en,'s killing,among dead,EQUIVALENCE
+aug_trans_00001__en-en__flipped,aug_trans_00001,en,en,among dead,'s killing,EQUIVALENCE
+aug_trans_00002__en-en__original,aug_trans_00002,en,en,'s killing,shot dead,BACKWARD_ENTAILMENT
+aug_trans_00002__en-en__flipped,aug_trans_00002,en,en,shot dead,'s killing,FORWARD_ENTAILMENT
+aug_trans_00003__en-en__original,aug_trans_00003,en,en,11 missing,for 40 missing,BACKWARD_ENTAILMENT
+aug_trans_00003__en-en__flipped,aug_trans_00003,en,en,for 40 missing,11 missing,FORWARD_ENTAILMENT
+aug_trans_00004__en-en__original,aug_trans_00004,en,en,6 Killed,Four dead,FORWARD_ENTAILMENT
+aug_trans_00004__en-en__flipped,aug_trans_00004,en,en,Four dead,6 Killed,BACKWARD_ENTAILMENT
+aug_trans_00005__en-en__original,aug_trans_00005,en,en,8 dead,Four dead,FORWARD_ENTAILMENT
+aug_trans_00005__en-en__flipped,aug_trans_00005,en,en,Four dead,8 dead,BACKWARD_ENTAILMENT
+aug_trans_00006__en-en__original,aug_trans_00006,en,en,a ball,on an orange ball,BACKWARD_ENTAILMENT
+aug_trans_00006__en-en__flipped,aug_trans_00006,en,en,on an orange ball,a ball,FORWARD_ENTAILMENT
+aug_trans_00007__en-en__original,aug_trans_00007,en,en,a bird with blue plumage,Black bird,NEGATIVE_OTHER
+aug_trans_00008__en-en__original,aug_trans_00008,en,en,"A black , brown and white dog",A black dog,FORWARD_ENTAILMENT
+aug_trans_00008__en-en__flipped,aug_trans_00008,en,en,A black dog,"A black , brown and white dog",BACKWARD_ENTAILMENT
+aug_trans_00009__en-en__original,aug_trans_00009,en,en,"A black , brown and white dog",a canine with black-and-white fur,FORWARD_ENTAILMENT
+aug_trans_00009__en-en__flipped,aug_trans_00009,en,en,a canine with black-and-white fur,"A black , brown and white dog",BACKWARD_ENTAILMENT
+aug_trans_00010__en-en__original,aug_trans_00010,en,en,"A black , brown and white dog",A dog,FORWARD_ENTAILMENT
+aug_trans_00010__en-en__flipped,aug_trans_00010,en,en,A dog,"A black , brown and white dog",BACKWARD_ENTAILMENT
+aug_trans_00011__en-en__original,aug_trans_00011,en,en,"A black , brown and white dog",the canine with black-and-white fur,FORWARD_ENTAILMENT
+aug_trans_00011__en-en__flipped,aug_trans_00011,en,en,the canine with black-and-white fur,"A black , brown and white dog",BACKWARD_ENTAILMENT
+aug_trans_00012__en-en__original,aug_trans_00012,en,en,A black and grey dog,A dog,FORWARD_ENTAILMENT
+aug_trans_00012__en-en__flipped,aug_trans_00012,en,en,A dog,A black and grey dog,BACKWARD_ENTAILMENT
+aug_trans_00013__en-en__original,aug_trans_00013,en,en,A black and grey dog,Dog,FORWARD_ENTAILMENT
+aug_trans_00013__en-en__flipped,aug_trans_00013,en,en,Dog,A black and grey dog,BACKWARD_ENTAILMENT
+aug_trans_00014__en-en__original,aug_trans_00014,en,en,A black and tan dog,A dog,FORWARD_ENTAILMENT
+aug_trans_00014__en-en__flipped,aug_trans_00014,en,en,A dog,A black and tan dog,BACKWARD_ENTAILMENT
+aug_trans_00015__en-en__original,aug_trans_00015,en,en,A black and tan dog,Dog,FORWARD_ENTAILMENT
+aug_trans_00015__en-en__flipped,aug_trans_00015,en,en,Dog,A black and tan dog,BACKWARD_ENTAILMENT
+aug_trans_00016__en-en__original,aug_trans_00016,en,en,A black and white cow,Black and white cows,BACKWARD_ENTAILMENT
+aug_trans_00016__en-en__flipped,aug_trans_00016,en,en,Black and white cows,A black and white cow,FORWARD_ENTAILMENT
+aug_trans_00017__en-en__original,aug_trans_00017,en,en,A black and white dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00017__en-en__flipped,aug_trans_00017,en,en,a domestic canine,A black and white dog,BACKWARD_ENTAILMENT
+aug_trans_00018__en-en__original,aug_trans_00018,en,en,A black and white dog,Dog,FORWARD_ENTAILMENT
+aug_trans_00018__en-en__flipped,aug_trans_00018,en,en,Dog,A black and white dog,BACKWARD_ENTAILMENT
+aug_trans_00019__en-en__original,aug_trans_00019,en,en,A black and white horned cow,a bovine with black-and-white coloring,FORWARD_ENTAILMENT
+aug_trans_00019__en-en__flipped,aug_trans_00019,en,en,a bovine with black-and-white coloring,A black and white horned cow,BACKWARD_ENTAILMENT
+aug_trans_00020__en-en__original,aug_trans_00020,en,en,A black and white image,a photograph rendered in monochrome,BACKWARD_ENTAILMENT
+aug_trans_00020__en-en__flipped,aug_trans_00020,en,en,a photograph rendered in monochrome,A black and white image,FORWARD_ENTAILMENT
+aug_trans_00021__en-en__original,aug_trans_00021,en,en,A black and white image,This is a black and white picture,BACKWARD_ENTAILMENT
+aug_trans_00021__en-en__flipped,aug_trans_00021,en,en,This is a black and white picture,A black and white image,FORWARD_ENTAILMENT
+aug_trans_00022__en-en__original,aug_trans_00022,en,en,A black and white photo,Black and white picture,FORWARD_ENTAILMENT
+aug_trans_00022__en-en__flipped,aug_trans_00022,en,en,Black and white picture,A black and white photo,BACKWARD_ENTAILMENT
+aug_trans_00023__en-en__original,aug_trans_00023,en,en,A black and white scene,a photograph rendered in monochrome,NEGATIVE_OTHER
+aug_trans_00024__en-en__original,aug_trans_00024,en,en,A black and white scene,This is a black and white picture,NEGATIVE_OTHER
+aug_trans_00025__en-en__original,aug_trans_00025,en,en,A black dog,a canine with black-and-white fur,BACKWARD_ENTAILMENT
+aug_trans_00025__en-en__flipped,aug_trans_00025,en,en,a canine with black-and-white fur,A black dog,FORWARD_ENTAILMENT
+aug_trans_00026__en-en__original,aug_trans_00026,en,en,A black dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00026__en-en__flipped,aug_trans_00026,en,en,a domestic canine,A black dog,BACKWARD_ENTAILMENT
+aug_trans_00027__en-en__original,aug_trans_00027,en,en,A black dog,the canine with black-and-white fur,BACKWARD_ENTAILMENT
+aug_trans_00027__en-en__flipped,aug_trans_00027,en,en,the canine with black-and-white fur,A black dog,FORWARD_ENTAILMENT
+aug_trans_00028__en-en__original,aug_trans_00028,en,en,A BMW motorcycle,a motorbike,FORWARD_ENTAILMENT
+aug_trans_00028__en-en__flipped,aug_trans_00028,en,en,a motorbike,A BMW motorcycle,BACKWARD_ENTAILMENT
+aug_trans_00029__en-en__original,aug_trans_00029,en,en,a bovine with black-and-white coloring,A lone cow,NEGATIVE_OTHER
+aug_trans_00030__en-en__original,aug_trans_00030,en,en,a bovine with black-and-white coloring,Two black and white cows,BACKWARD_ENTAILMENT
+aug_trans_00030__en-en__flipped,aug_trans_00030,en,en,Two black and white cows,a bovine with black-and-white coloring,FORWARD_ENTAILMENT
+aug_trans_00031__en-en__original,aug_trans_00031,en,en,A boy,a domestic canine,NEGATIVE_OTHER
+aug_trans_00032__en-en__original,aug_trans_00032,en,en,A boy,A guy,FORWARD_ENTAILMENT
+aug_trans_00032__en-en__flipped,aug_trans_00032,en,en,A guy,A boy,BACKWARD_ENTAILMENT
+aug_trans_00033__en-en__original,aug_trans_00033,en,en,A boy,someone,FORWARD_ENTAILMENT
+aug_trans_00033__en-en__flipped,aug_trans_00033,en,en,someone,A boy,BACKWARD_ENTAILMENT
+aug_trans_00034__en-en__original,aug_trans_00034,en,en,A brown and white dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00034__en-en__flipped,aug_trans_00034,en,en,a domestic canine,A brown and white dog,BACKWARD_ENTAILMENT
+aug_trans_00035__en-en__original,aug_trans_00035,en,en,A brown and white dog,The big white dog,NEGATIVE_OTHER
+aug_trans_00036__en-en__original,aug_trans_00036,en,en,A brown dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00036__en-en__flipped,aug_trans_00036,en,en,a domestic canine,A brown dog,BACKWARD_ENTAILMENT
+aug_trans_00037__en-en__original,aug_trans_00037,en,en,A brown dog,The brown dog,EQUIVALENCE
+aug_trans_00037__en-en__flipped,aug_trans_00037,en,en,The brown dog,A brown dog,EQUIVALENCE
+aug_trans_00038__en-en__original,aug_trans_00038,en,en,a brown-colored equine,an equine whose coat is brown,EQUIVALENCE
+aug_trans_00038__en-en__flipped,aug_trans_00038,en,en,an equine whose coat is brown,a brown-colored equine,EQUIVALENCE
+aug_trans_00039__en-en__original,aug_trans_00039,en,en,a brown-colored equine,Two brown horses,BACKWARD_ENTAILMENT
+aug_trans_00039__en-en__flipped,aug_trans_00039,en,en,Two brown horses,a brown-colored equine,FORWARD_ENTAILMENT
+aug_trans_00040__en-en__original,aug_trans_00040,en,en,A bulldog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00040__en-en__flipped,aug_trans_00040,en,en,a domestic canine,A bulldog,BACKWARD_ENTAILMENT
+aug_trans_00041__en-en__original,aug_trans_00041,en,en,A bus,A red two story bus,BACKWARD_ENTAILMENT
+aug_trans_00041__en-en__flipped,aug_trans_00041,en,en,A red two story bus,A bus,FORWARD_ENTAILMENT
+aug_trans_00042__en-en__original,aug_trans_00042,en,en,A bus,An old Red London double decker bus,BACKWARD_ENTAILMENT
+aug_trans_00042__en-en__flipped,aug_trans_00042,en,en,An old Red London double decker bus,A bus,FORWARD_ENTAILMENT
+aug_trans_00043__en-en__original,aug_trans_00043,en,en,a canine with black-and-white fur,A dog,FORWARD_ENTAILMENT
+aug_trans_00043__en-en__flipped,aug_trans_00043,en,en,A dog,a canine with black-and-white fur,BACKWARD_ENTAILMENT
+aug_trans_00044__en-en__original,aug_trans_00044,en,en,a canine with black-and-white fur,the canine with black-and-white fur,EQUIVALENCE
+aug_trans_00044__en-en__flipped,aug_trans_00044,en,en,the canine with black-and-white fur,a canine with black-and-white fur,EQUIVALENCE
+aug_trans_00045__en-en__original,aug_trans_00045,en,en,a canine with white fur,A small white dog,BACKWARD_ENTAILMENT
+aug_trans_00045__en-en__flipped,aug_trans_00045,en,en,A small white dog,a canine with white fur,FORWARD_ENTAILMENT
+aug_trans_00046__en-en__original,aug_trans_00046,en,en,A cat,Two baby kittens,BACKWARD_ENTAILMENT
+aug_trans_00046__en-en__flipped,aug_trans_00046,en,en,Two baby kittens,A cat,FORWARD_ENTAILMENT
+aug_trans_00047__en-en__original,aug_trans_00047,en,en,A child,a domestic canine,NEGATIVE_OTHER
+aug_trans_00048__en-en__original,aug_trans_00048,en,en,A close-up view,an enlarged detail view,EQUIVALENCE
+aug_trans_00048__en-en__flipped,aug_trans_00048,en,en,an enlarged detail view,A close-up view,EQUIVALENCE
+aug_trans_00049__en-en__original,aug_trans_00049,en,en,A close-up view,Close up image,BACKWARD_ENTAILMENT
+aug_trans_00049__en-en__flipped,aug_trans_00049,en,en,Close up image,A close-up view,FORWARD_ENTAILMENT
+aug_trans_00050__en-en__original,aug_trans_00050,en,en,a collection,Crowd,EQUIVALENCE
+aug_trans_00050__en-en__flipped,aug_trans_00050,en,en,Crowd,a collection,EQUIVALENCE
+aug_trans_00051__en-en__original,aug_trans_00051,en,en,A collie,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00051__en-en__flipped,aug_trans_00051,en,en,a domestic canine,A collie,BACKWARD_ENTAILMENT
+aug_trans_00052__en-en__original,aug_trans_00052,en,en,A dalmation,A dog,FORWARD_ENTAILMENT
+aug_trans_00052__en-en__flipped,aug_trans_00052,en,en,A dog,A dalmation,BACKWARD_ENTAILMENT
+aug_trans_00053__en-en__original,aug_trans_00053,en,en,a dirt bike,A motorcycle,NEGATIVE_OTHER
+aug_trans_00054__en-en__original,aug_trans_00054,en,en,A dog,A guy,NEGATIVE_OTHER
+aug_trans_00055__en-en__original,aug_trans_00055,en,en,A dog,A large white dog,BACKWARD_ENTAILMENT
+aug_trans_00055__en-en__flipped,aug_trans_00055,en,en,A large white dog,A dog,FORWARD_ENTAILMENT
+aug_trans_00056__en-en__original,aug_trans_00056,en,en,A dog,A pair of dogs,BACKWARD_ENTAILMENT
+aug_trans_00056__en-en__flipped,aug_trans_00056,en,en,A pair of dogs,A dog,FORWARD_ENTAILMENT
+aug_trans_00057__en-en__original,aug_trans_00057,en,en,A dog,A tan dog,BACKWARD_ENTAILMENT
+aug_trans_00057__en-en__flipped,aug_trans_00057,en,en,A tan dog,A dog,FORWARD_ENTAILMENT
+aug_trans_00058__en-en__original,aug_trans_00058,en,en,A dog,Light brown dog,BACKWARD_ENTAILMENT
+aug_trans_00058__en-en__flipped,aug_trans_00058,en,en,Light brown dog,A dog,FORWARD_ENTAILMENT
+aug_trans_00059__en-en__original,aug_trans_00059,en,en,A dog,the canine with black-and-white fur,BACKWARD_ENTAILMENT
+aug_trans_00059__en-en__flipped,aug_trans_00059,en,en,the canine with black-and-white fur,A dog,FORWARD_ENTAILMENT
+aug_trans_00060__en-en__original,aug_trans_00060,en,en,A dog,the pair of canines,BACKWARD_ENTAILMENT
+aug_trans_00060__en-en__flipped,aug_trans_00060,en,en,the pair of canines,A dog,FORWARD_ENTAILMENT
+aug_trans_00061__en-en__original,aug_trans_00061,en,en,A dog,The white and brown dog,BACKWARD_ENTAILMENT
+aug_trans_00061__en-en__flipped,aug_trans_00061,en,en,The white and brown dog,A dog,FORWARD_ENTAILMENT
+aug_trans_00062__en-en__original,aug_trans_00062,en,en,A dog,Three dogs,BACKWARD_ENTAILMENT
+aug_trans_00062__en-en__flipped,aug_trans_00062,en,en,Three dogs,A dog,FORWARD_ENTAILMENT
+aug_trans_00063__en-en__original,aug_trans_00063,en,en,A dog,Two black dogs,BACKWARD_ENTAILMENT
+aug_trans_00063__en-en__flipped,aug_trans_00063,en,en,Two black dogs,A dog,FORWARD_ENTAILMENT
+aug_trans_00064__en-en__original,aug_trans_00064,en,en,A dog,Two brownish dogs,BACKWARD_ENTAILMENT
+aug_trans_00064__en-en__flipped,aug_trans_00064,en,en,Two brownish dogs,A dog,FORWARD_ENTAILMENT
+aug_trans_00065__en-en__original,aug_trans_00065,en,en,A dog,Two grey dogs,BACKWARD_ENTAILMENT
+aug_trans_00065__en-en__flipped,aug_trans_00065,en,en,Two grey dogs,A dog,FORWARD_ENTAILMENT
+aug_trans_00066__en-en__original,aug_trans_00066,en,en,A dog,Two tan dogs,BACKWARD_ENTAILMENT
+aug_trans_00066__en-en__flipped,aug_trans_00066,en,en,Two tan dogs,A dog,FORWARD_ENTAILMENT
+aug_trans_00067__en-en__original,aug_trans_00067,en,en,a domestic canine,a man,NEGATIVE_OTHER
+aug_trans_00068__en-en__original,aug_trans_00068,en,en,a domestic canine,A small dog,BACKWARD_ENTAILMENT
+aug_trans_00068__en-en__flipped,aug_trans_00068,en,en,A small dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00069__en-en__original,aug_trans_00069,en,en,a domestic canine,A white and brown dog,BACKWARD_ENTAILMENT
+aug_trans_00069__en-en__flipped,aug_trans_00069,en,en,A white and brown dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00070__en-en__original,aug_trans_00070,en,en,a domestic canine,a white dog,BACKWARD_ENTAILMENT
+aug_trans_00070__en-en__flipped,aug_trans_00070,en,en,a white dog,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00071__en-en__original,aug_trans_00071,en,en,a domestic canine,the skateboarder,NEGATIVE_OTHER
+aug_trans_00072__en-en__original,aug_trans_00072,en,en,a domestic canine,Two dogs,BACKWARD_ENTAILMENT
+aug_trans_00072__en-en__flipped,aug_trans_00072,en,en,Two dogs,a domestic canine,FORWARD_ENTAILMENT
+aug_trans_00073__en-en__original,aug_trans_00073,en,en,A double decker bus,A red two story bus,BACKWARD_ENTAILMENT
+aug_trans_00073__en-en__flipped,aug_trans_00073,en,en,A red two story bus,A double decker bus,FORWARD_ENTAILMENT
+aug_trans_00074__en-en__original,aug_trans_00074,en,en,A double decker bus,An old Red London double decker bus,BACKWARD_ENTAILMENT
+aug_trans_00074__en-en__flipped,aug_trans_00074,en,en,An old Red London double decker bus,A double decker bus,FORWARD_ENTAILMENT
+aug_trans_00075__en-en__original,aug_trans_00075,en,en,A father,the adult male,FORWARD_ENTAILMENT
+aug_trans_00075__en-en__flipped,aug_trans_00075,en,en,the adult male,A father,BACKWARD_ENTAILMENT
+aug_trans_00076__en-en__original,aug_trans_00076,en,en,a feline,A gray cat,BACKWARD_ENTAILMENT
+aug_trans_00076__en-en__flipped,aug_trans_00076,en,en,A gray cat,a feline,FORWARD_ENTAILMENT
+aug_trans_00077__en-en__original,aug_trans_00077,en,en,a feline,Grey and white cat,BACKWARD_ENTAILMENT
+aug_trans_00077__en-en__flipped,aug_trans_00077,en,en,Grey and white cat,a feline,FORWARD_ENTAILMENT
+aug_trans_00078__en-en__original,aug_trans_00078,en,en,A girl,A little girl and a little boy,BACKWARD_ENTAILMENT
+aug_trans_00078__en-en__flipped,aug_trans_00078,en,en,A little girl and a little boy,A girl,FORWARD_ENTAILMENT
+aug_trans_00079__en-en__original,aug_trans_00079,en,en,A girl,A women,NEGATIVE_OTHER
+aug_trans_00080__en-en__original,aug_trans_00080,en,en,A girl,a young baby girl,BACKWARD_ENTAILMENT
+aug_trans_00080__en-en__flipped,aug_trans_00080,en,en,a young baby girl,A girl,FORWARD_ENTAILMENT
+aug_trans_00081__en-en__original,aug_trans_00081,en,en,A girl,A young blonde girl,BACKWARD_ENTAILMENT
+aug_trans_00081__en-en__flipped,aug_trans_00081,en,en,A young blonde girl,A girl,FORWARD_ENTAILMENT
+aug_trans_00082__en-en__original,aug_trans_00082,en,en,"A gray , black , and white cat",The cat,FORWARD_ENTAILMENT
+aug_trans_00082__en-en__flipped,aug_trans_00082,en,en,The cat,"A gray , black , and white cat",BACKWARD_ENTAILMENT
+aug_trans_00083__en-en__original,aug_trans_00083,en,en,A grey dog,A tan dog,NEGATIVE_OTHER
+aug_trans_00084__en-en__original,aug_trans_00084,en,en,A group of elderly people,An elderly Asian couple,NEGATIVE_OTHER
+aug_trans_00085__en-en__original,aug_trans_00085,en,en,A group of four people,Group of people,BACKWARD_ENTAILMENT
+aug_trans_00085__en-en__flipped,aug_trans_00085,en,en,Group of people,A group of four people,FORWARD_ENTAILMENT
+aug_trans_00086__en-en__original,aug_trans_00086,en,en,A guy,A hiker,NEGATIVE_OTHER
+aug_trans_00087__en-en__original,aug_trans_00087,en,en,A guy,A long-haired man,BACKWARD_ENTAILMENT
+aug_trans_00087__en-en__flipped,aug_trans_00087,en,en,A long-haired man,A guy,FORWARD_ENTAILMENT
+aug_trans_00088__en-en__original,aug_trans_00088,en,en,A guy,A runner,NEGATIVE_OTHER
+aug_trans_00089__en-en__original,aug_trans_00089,en,en,A guy,A shirtless man,BACKWARD_ENTAILMENT
+aug_trans_00089__en-en__flipped,aug_trans_00089,en,en,A shirtless man,A guy,FORWARD_ENTAILMENT
+aug_trans_00090__en-en__original,aug_trans_00090,en,en,A guy,A surfer,NEGATIVE_OTHER
+aug_trans_00091__en-en__original,aug_trans_00091,en,en,A guy,A women,NEGATIVE_OTHER
+aug_trans_00092__en-en__original,aug_trans_00092,en,en,A guy,A young woman,NEGATIVE_OTHER
+aug_trans_00093__en-en__original,aug_trans_00093,en,en,A guy,an adult male,BACKWARD_ENTAILMENT
+aug_trans_00093__en-en__flipped,aug_trans_00093,en,en,an adult male,A guy,FORWARD_ENTAILMENT
+aug_trans_00094__en-en__original,aug_trans_00094,en,en,A guy,an African man,BACKWARD_ENTAILMENT
+aug_trans_00094__en-en__flipped,aug_trans_00094,en,en,an African man,A guy,FORWARD_ENTAILMENT
+aug_trans_00095__en-en__original,aug_trans_00095,en,en,A guy,Older gentleman,BACKWARD_ENTAILMENT
+aug_trans_00095__en-en__flipped,aug_trans_00095,en,en,Older gentleman,A guy,FORWARD_ENTAILMENT
+aug_trans_00096__en-en__original,aug_trans_00096,en,en,A guy,someone,FORWARD_ENTAILMENT
+aug_trans_00096__en-en__flipped,aug_trans_00096,en,en,someone,A guy,BACKWARD_ENTAILMENT
+aug_trans_00097__en-en__original,aug_trans_00097,en,en,A home office,an indoor space,FORWARD_ENTAILMENT
+aug_trans_00097__en-en__flipped,aug_trans_00097,en,en,an indoor space,A home office,BACKWARD_ENTAILMENT
+aug_trans_00098__en-en__original,aug_trans_00098,en,en,A horse rider,A women,NEGATIVE_OTHER
+aug_trans_00099__en-en__original,aug_trans_00099,en,en,A lamb,an ovine animal,NEGATIVE_OTHER
+aug_trans_00100__en-en__original,aug_trans_00100,en,en,A large airplane,A passenger jet,NEGATIVE_OTHER
+aug_trans_00101__en-en__original,aug_trans_00101,en,en,A light brown dog,A white and brown dog,NEGATIVE_OTHER
+aug_trans_00102__en-en__original,aug_trans_00102,en,en,A light brown dog,The white and brown dog,NEGATIVE_OTHER
+aug_trans_00103__en-en__original,aug_trans_00103,en,en,A little boy,a man,FORWARD_ENTAILMENT
+aug_trans_00103__en-en__flipped,aug_trans_00103,en,en,a man,A little boy,BACKWARD_ENTAILMENT
+aug_trans_00104__en-en__original,aug_trans_00104,en,en,A little brown dog,A tan dog,FORWARD_ENTAILMENT
+aug_trans_00104__en-en__flipped,aug_trans_00104,en,en,A tan dog,A little brown dog,BACKWARD_ENTAILMENT
+aug_trans_00105__en-en__original,aug_trans_00105,en,en,A little girl and a little boy,one,FORWARD_ENTAILMENT
+aug_trans_00105__en-en__flipped,aug_trans_00105,en,en,one,A little girl and a little boy,BACKWARD_ENTAILMENT
+aug_trans_00106__en-en__original,aug_trans_00106,en,en,A long-haired man,someone,FORWARD_ENTAILMENT
+aug_trans_00106__en-en__flipped,aug_trans_00106,en,en,someone,A long-haired man,BACKWARD_ENTAILMENT
+aug_trans_00107__en-en__original,aug_trans_00107,en,en,a man,A woman,NEGATIVE_OTHER
+aug_trans_00108__en-en__original,aug_trans_00108,en,en,a man,A young boy,BACKWARD_ENTAILMENT
+aug_trans_00108__en-en__flipped,aug_trans_00108,en,en,A young boy,a man,FORWARD_ENTAILMENT
+aug_trans_00109__en-en__original,aug_trans_00109,en,en,a man,An adult man,BACKWARD_ENTAILMENT
+aug_trans_00109__en-en__flipped,aug_trans_00109,en,en,An adult man,a man,FORWARD_ENTAILMENT
+aug_trans_00110__en-en__original,aug_trans_00110,en,en,a man,An elderly man,BACKWARD_ENTAILMENT
+aug_trans_00110__en-en__flipped,aug_trans_00110,en,en,An elderly man,a man,FORWARD_ENTAILMENT
+aug_trans_00111__en-en__original,aug_trans_00111,en,en,A man and boy,A woman,NEGATIVE_OTHER
+aug_trans_00112__en-en__original,aug_trans_00112,en,en,A man and woman,the adult male,FORWARD_ENTAILMENT
+aug_trans_00112__en-en__flipped,aug_trans_00112,en,en,the adult male,A man and woman,BACKWARD_ENTAILMENT
+aug_trans_00113__en-en__original,aug_trans_00113,en,en,A man and woman,the male adult,FORWARD_ENTAILMENT
+aug_trans_00113__en-en__flipped,aug_trans_00113,en,en,the male adult,A man and woman,BACKWARD_ENTAILMENT
+aug_trans_00114__en-en__original,aug_trans_00114,en,en,A man and women,A person,FORWARD_ENTAILMENT
+aug_trans_00114__en-en__flipped,aug_trans_00114,en,en,A person,A man and women,BACKWARD_ENTAILMENT
+aug_trans_00115__en-en__original,aug_trans_00115,en,en,A man and women,A women,FORWARD_ENTAILMENT
+aug_trans_00115__en-en__flipped,aug_trans_00115,en,en,A women,A man and women,BACKWARD_ENTAILMENT
+aug_trans_00116__en-en__original,aug_trans_00116,en,en,A man and women,Person,FORWARD_ENTAILMENT
+aug_trans_00116__en-en__flipped,aug_trans_00116,en,en,Person,A man and women,BACKWARD_ENTAILMENT
+aug_trans_00117__en-en__original,aug_trans_00117,en,en,A mother,A person,FORWARD_ENTAILMENT
+aug_trans_00117__en-en__flipped,aug_trans_00117,en,en,A person,A mother,BACKWARD_ENTAILMENT
+aug_trans_00118__en-en__original,aug_trans_00118,en,en,A mother,A women,FORWARD_ENTAILMENT
+aug_trans_00118__en-en__flipped,aug_trans_00118,en,en,A women,A mother,BACKWARD_ENTAILMENT
+aug_trans_00119__en-en__original,aug_trans_00119,en,en,A mother,Person,FORWARD_ENTAILMENT
+aug_trans_00119__en-en__flipped,aug_trans_00119,en,en,Person,A mother,BACKWARD_ENTAILMENT
+aug_trans_00120__en-en__original,aug_trans_00120,en,en,a motorbike,A silver and blue motorcycle,BACKWARD_ENTAILMENT
+aug_trans_00120__en-en__flipped,aug_trans_00120,en,en,A silver and blue motorcycle,a motorbike,FORWARD_ENTAILMENT
+aug_trans_00121__en-en__original,aug_trans_00121,en,en,A pair of dogs,the pair of canines,EQUIVALENCE
+aug_trans_00121__en-en__flipped,aug_trans_00121,en,en,the pair of canines,A pair of dogs,EQUIVALENCE
+aug_trans_00122__en-en__original,aug_trans_00122,en,en,A pair of dogs,Three dogs,BACKWARD_ENTAILMENT
+aug_trans_00122__en-en__flipped,aug_trans_00122,en,en,Three dogs,A pair of dogs,FORWARD_ENTAILMENT
+aug_trans_00123__en-en__original,aug_trans_00123,en,en,A pair of dogs,Two black dogs,BACKWARD_ENTAILMENT
+aug_trans_00123__en-en__flipped,aug_trans_00123,en,en,Two black dogs,A pair of dogs,FORWARD_ENTAILMENT
+aug_trans_00124__en-en__original,aug_trans_00124,en,en,A pair of dogs,Two brownish dogs,BACKWARD_ENTAILMENT
+aug_trans_00124__en-en__flipped,aug_trans_00124,en,en,Two brownish dogs,A pair of dogs,FORWARD_ENTAILMENT
+aug_trans_00125__en-en__original,aug_trans_00125,en,en,A pair of dogs,Two grey dogs,BACKWARD_ENTAILMENT
+aug_trans_00125__en-en__flipped,aug_trans_00125,en,en,Two grey dogs,A pair of dogs,FORWARD_ENTAILMENT
+aug_trans_00126__en-en__original,aug_trans_00126,en,en,A pair of dogs,Two tan dogs,BACKWARD_ENTAILMENT
+aug_trans_00126__en-en__flipped,aug_trans_00126,en,en,Two tan dogs,A pair of dogs,FORWARD_ENTAILMENT
+aug_trans_00127__en-en__original,aug_trans_00127,en,en,A person,A smiling woman,BACKWARD_ENTAILMENT
+aug_trans_00127__en-en__flipped,aug_trans_00127,en,en,A smiling woman,A person,FORWARD_ENTAILMENT
+aug_trans_00128__en-en__original,aug_trans_00128,en,en,A person,A women,BACKWARD_ENTAILMENT
+aug_trans_00128__en-en__flipped,aug_trans_00128,en,en,A women,A person,FORWARD_ENTAILMENT
+aug_trans_00129__en-en__original,aug_trans_00129,en,en,A person,A young girl,BACKWARD_ENTAILMENT
+aug_trans_00129__en-en__flipped,aug_trans_00129,en,en,A young girl,A person,FORWARD_ENTAILMENT
+aug_trans_00130__en-en__original,aug_trans_00130,en,en,A person,Four women and two men,BACKWARD_ENTAILMENT
+aug_trans_00130__en-en__flipped,aug_trans_00130,en,en,Four women and two men,A person,FORWARD_ENTAILMENT
+aug_trans_00131__en-en__original,aug_trans_00131,en,en,A person,Older woman,BACKWARD_ENTAILMENT
+aug_trans_00131__en-en__flipped,aug_trans_00131,en,en,Older woman,A person,FORWARD_ENTAILMENT
+aug_trans_00132__en-en__original,aug_trans_00132,en,en,A person,Smiling woman,BACKWARD_ENTAILMENT
+aug_trans_00132__en-en__flipped,aug_trans_00132,en,en,Smiling woman,A person,FORWARD_ENTAILMENT
+aug_trans_00133__en-en__original,aug_trans_00133,en,en,A person,Two women,BACKWARD_ENTAILMENT
+aug_trans_00133__en-en__flipped,aug_trans_00133,en,en,Two women,A person,FORWARD_ENTAILMENT
+aug_trans_00134__en-en__original,aug_trans_00134,en,en,A person,Women,BACKWARD_ENTAILMENT
+aug_trans_00134__en-en__flipped,aug_trans_00134,en,en,Women,A person,FORWARD_ENTAILMENT
+aug_trans_00135__en-en__original,aug_trans_00135,en,en,a photograph rendered in monochrome,This is a black and white picture,EQUIVALENCE
+aug_trans_00135__en-en__flipped,aug_trans_00135,en,en,This is a black and white picture,a photograph rendered in monochrome,EQUIVALENCE
+aug_trans_00136__en-en__original,aug_trans_00136,en,en,A red two story bus,An old Red London double decker bus,BACKWARD_ENTAILMENT
+aug_trans_00136__en-en__flipped,aug_trans_00136,en,en,An old Red London double decker bus,A red two story bus,FORWARD_ENTAILMENT
+aug_trans_00137__en-en__original,aug_trans_00137,en,en,A red two story bus,Double decker passenger bus,NEGATIVE_OTHER
+aug_trans_00138__en-en__original,aug_trans_00138,en,en,A shirtless man,someone,FORWARD_ENTAILMENT
+aug_trans_00138__en-en__flipped,aug_trans_00138,en,en,someone,A shirtless man,BACKWARD_ENTAILMENT
+aug_trans_00139__en-en__original,aug_trans_00139,en,en,A small bird,an avian animal,FORWARD_ENTAILMENT
+aug_trans_00139__en-en__flipped,aug_trans_00139,en,en,an avian animal,A small bird,BACKWARD_ENTAILMENT
+aug_trans_00140__en-en__original,aug_trans_00140,en,en,A smiling woman,A women,FORWARD_ENTAILMENT
+aug_trans_00140__en-en__flipped,aug_trans_00140,en,en,A women,A smiling woman,BACKWARD_ENTAILMENT
+aug_trans_00141__en-en__original,aug_trans_00141,en,en,A smiling woman,Person,FORWARD_ENTAILMENT
+aug_trans_00141__en-en__flipped,aug_trans_00141,en,en,Person,A smiling woman,BACKWARD_ENTAILMENT
+aug_trans_00142__en-en__original,aug_trans_00142,en,en,A tan dog,Light brown dog,BACKWARD_ENTAILMENT
+aug_trans_00142__en-en__flipped,aug_trans_00142,en,en,Light brown dog,A tan dog,FORWARD_ENTAILMENT
+aug_trans_00143__en-en__original,aug_trans_00143,en,en,A tan dog,The skinny brown dog,BACKWARD_ENTAILMENT
+aug_trans_00143__en-en__flipped,aug_trans_00143,en,en,The skinny brown dog,A tan dog,FORWARD_ENTAILMENT
+aug_trans_00144__en-en__original,aug_trans_00144,en,en,A tan dog,with a dog,NEGATIVE_OTHER
+aug_trans_00145__en-en__original,aug_trans_00145,en,en,a two-level bus painted red,of a red double decker bus,BACKWARD_ENTAILMENT
+aug_trans_00145__en-en__flipped,aug_trans_00145,en,en,of a red double decker bus,a two-level bus painted red,FORWARD_ENTAILMENT
+aug_trans_00146__en-en__original,aug_trans_00146,en,en,A white and brown dog,The white and brown dog,EQUIVALENCE
+aug_trans_00146__en-en__flipped,aug_trans_00146,en,en,The white and brown dog,A white and brown dog,EQUIVALENCE
+aug_trans_00147__en-en__original,aug_trans_00147,en,en,A woman,a young baby girl,BACKWARD_ENTAILMENT
+aug_trans_00147__en-en__flipped,aug_trans_00147,en,en,a young baby girl,A woman,FORWARD_ENTAILMENT
+aug_trans_00148__en-en__original,aug_trans_00148,en,en,A woman,A young blonde girl,BACKWARD_ENTAILMENT
+aug_trans_00148__en-en__flipped,aug_trans_00148,en,en,A young blonde girl,A woman,FORWARD_ENTAILMENT
+aug_trans_00149__en-en__original,aug_trans_00149,en,en,A woman,Elderly woman around younger woman,BACKWARD_ENTAILMENT
+aug_trans_00149__en-en__flipped,aug_trans_00149,en,en,Elderly woman around younger woman,A woman,FORWARD_ENTAILMENT
+aug_trans_00150__en-en__original,aug_trans_00150,en,en,A woman,One Asian and one occasion woman,BACKWARD_ENTAILMENT
+aug_trans_00150__en-en__flipped,aug_trans_00150,en,en,One Asian and one occasion woman,A woman,FORWARD_ENTAILMENT
+aug_trans_00151__en-en__original,aug_trans_00151,en,en,A woman,Saudi Women,BACKWARD_ENTAILMENT
+aug_trans_00151__en-en__flipped,aug_trans_00151,en,en,Saudi Women,A woman,FORWARD_ENTAILMENT
+aug_trans_00152__en-en__original,aug_trans_00152,en,en,A woman,Two ladies,BACKWARD_ENTAILMENT
+aug_trans_00152__en-en__flipped,aug_trans_00152,en,en,Two ladies,A woman,FORWARD_ENTAILMENT
+aug_trans_00153__en-en__original,aug_trans_00153,en,en,A woman,Two smiling women,BACKWARD_ENTAILMENT
+aug_trans_00153__en-en__flipped,aug_trans_00153,en,en,Two smiling women,A woman,FORWARD_ENTAILMENT
+aug_trans_00154__en-en__original,aug_trans_00154,en,en,A woman,Two smiling young women,BACKWARD_ENTAILMENT
+aug_trans_00154__en-en__flipped,aug_trans_00154,en,en,Two smiling young women,A woman,FORWARD_ENTAILMENT
+aug_trans_00155__en-en__original,aug_trans_00155,en,en,A woman,Two young women,BACKWARD_ENTAILMENT
+aug_trans_00155__en-en__flipped,aug_trans_00155,en,en,Two young women,A woman,FORWARD_ENTAILMENT
+aug_trans_00156__en-en__original,aug_trans_00156,en,en,A woman,Women drivers,BACKWARD_ENTAILMENT
+aug_trans_00156__en-en__flipped,aug_trans_00156,en,en,Women drivers,A woman,FORWARD_ENTAILMENT
+aug_trans_00157__en-en__original,aug_trans_00157,en,en,A women,a young baby girl,BACKWARD_ENTAILMENT
+aug_trans_00157__en-en__flipped,aug_trans_00157,en,en,a young baby girl,A women,FORWARD_ENTAILMENT
+aug_trans_00158__en-en__original,aug_trans_00158,en,en,A women,A young blonde girl,BACKWARD_ENTAILMENT
+aug_trans_00158__en-en__flipped,aug_trans_00158,en,en,A young blonde girl,A women,FORWARD_ENTAILMENT
+aug_trans_00159__en-en__original,aug_trans_00159,en,en,A women,A young woman,BACKWARD_ENTAILMENT
+aug_trans_00159__en-en__flipped,aug_trans_00159,en,en,A young woman,A women,FORWARD_ENTAILMENT
+aug_trans_00160__en-en__original,aug_trans_00160,en,en,A women,Four women and two men,BACKWARD_ENTAILMENT
+aug_trans_00160__en-en__flipped,aug_trans_00160,en,en,Four women and two men,A women,FORWARD_ENTAILMENT
+aug_trans_00161__en-en__original,aug_trans_00161,en,en,A women,Older woman,BACKWARD_ENTAILMENT
+aug_trans_00161__en-en__flipped,aug_trans_00161,en,en,Older woman,A women,FORWARD_ENTAILMENT
+aug_trans_00162__en-en__original,aug_trans_00162,en,en,A women,Person,FORWARD_ENTAILMENT
+aug_trans_00162__en-en__flipped,aug_trans_00162,en,en,Person,A women,BACKWARD_ENTAILMENT
+aug_trans_00163__en-en__original,aug_trans_00163,en,en,A women,Smiling woman,BACKWARD_ENTAILMENT
+aug_trans_00163__en-en__flipped,aug_trans_00163,en,en,Smiling woman,A women,FORWARD_ENTAILMENT
+aug_trans_00164__en-en__original,aug_trans_00164,en,en,A women,Two women,BACKWARD_ENTAILMENT
+aug_trans_00164__en-en__flipped,aug_trans_00164,en,en,Two women,A women,FORWARD_ENTAILMENT
+aug_trans_00165__en-en__original,aug_trans_00165,en,en,A women,Women,BACKWARD_ENTAILMENT
+aug_trans_00165__en-en__flipped,aug_trans_00165,en,en,Women,A women,FORWARD_ENTAILMENT
+aug_trans_00166__en-en__original,aug_trans_00166,en,en,A young boy,the adult male,FORWARD_ENTAILMENT
+aug_trans_00166__en-en__flipped,aug_trans_00166,en,en,the adult male,A young boy,BACKWARD_ENTAILMENT
+aug_trans_00167__en-en__original,aug_trans_00167,en,en,A young boy,the male adult,FORWARD_ENTAILMENT
+aug_trans_00167__en-en__flipped,aug_trans_00167,en,en,the male adult,A young boy,BACKWARD_ENTAILMENT
+aug_trans_00168__en-en__original,aug_trans_00168,en,en,A young boy,the male child,FORWARD_ENTAILMENT
+aug_trans_00168__en-en__flipped,aug_trans_00168,en,en,the male child,A young boy,BACKWARD_ENTAILMENT
+aug_trans_00169__en-en__original,aug_trans_00169,en,en,A young boy,the young male child,FORWARD_ENTAILMENT
+aug_trans_00169__en-en__flipped,aug_trans_00169,en,en,the young male child,A young boy,BACKWARD_ENTAILMENT
+aug_trans_00170__en-en__original,aug_trans_00170,en,en,A young girl,Person,FORWARD_ENTAILMENT
+aug_trans_00170__en-en__flipped,aug_trans_00170,en,en,Person,A young girl,BACKWARD_ENTAILMENT
+aug_trans_00171__en-en__original,aug_trans_00171,en,en,A young woman,Person,FORWARD_ENTAILMENT
+aug_trans_00171__en-en__flipped,aug_trans_00171,en,en,Person,A young woman,BACKWARD_ENTAILMENT
+aug_trans_00172__en-en__original,aug_trans_00172,en,en,across a grassy path,in grass,NEGATIVE_OTHER
+aug_trans_00173__en-en__original,aug_trans_00173,en,en,across an open field,in a plain,FORWARD_ENTAILMENT
+aug_trans_00173__en-en__flipped,aug_trans_00173,en,en,in a plain,across an open field,BACKWARD_ENTAILMENT
+aug_trans_00174__en-en__original,aug_trans_00174,en,en,across an open field,within an open field,FORWARD_ENTAILMENT
+aug_trans_00174__en-en__flipped,aug_trans_00174,en,en,within an open field,across an open field,BACKWARD_ENTAILMENT
+aug_trans_00175__en-en__original,aug_trans_00175,en,en,across the water's surface,afloat on the water,EQUIVALENCE
+aug_trans_00175__en-en__flipped,aug_trans_00175,en,en,afloat on the water,across the water's surface,EQUIVALENCE
+aug_trans_00176__en-en__original,aug_trans_00176,en,en,across the water's surface,in a body of water,EQUIVALENCE
+aug_trans_00176__en-en__flipped,aug_trans_00176,en,en,in a body of water,across the water's surface,EQUIVALENCE
+aug_trans_00177__en-en__original,aug_trans_00177,en,en,across the water's surface,on glassy water,BACKWARD_ENTAILMENT
+aug_trans_00177__en-en__flipped,aug_trans_00177,en,en,on glassy water,across the water's surface,FORWARD_ENTAILMENT
+aug_trans_00178__en-en__original,aug_trans_00178,en,en,across the water's surface,on the blue water,BACKWARD_ENTAILMENT
+aug_trans_00178__en-en__flipped,aug_trans_00178,en,en,on the blue water,across the water's surface,FORWARD_ENTAILMENT
+aug_trans_00179__en-en__original,aug_trans_00179,en,en,across the water's surface,on the ocean,BACKWARD_ENTAILMENT
+aug_trans_00179__en-en__flipped,aug_trans_00179,en,en,on the ocean,across the water's surface,FORWARD_ENTAILMENT
+aug_trans_00180__en-en__original,aug_trans_00180,en,en,Afghan legislator,Karzai,BACKWARD_ENTAILMENT
+aug_trans_00180__en-en__flipped,aug_trans_00180,en,en,Karzai,Afghan legislator,FORWARD_ENTAILMENT
+aug_trans_00181__en-en__original,aug_trans_00181,en,en,afloat on the water,in a body of water,EQUIVALENCE
+aug_trans_00181__en-en__flipped,aug_trans_00181,en,en,in a body of water,afloat on the water,EQUIVALENCE
+aug_trans_00182__en-en__original,aug_trans_00182,en,en,afloat on the water,on glassy water,BACKWARD_ENTAILMENT
+aug_trans_00182__en-en__flipped,aug_trans_00182,en,en,on glassy water,afloat on the water,FORWARD_ENTAILMENT
+aug_trans_00183__en-en__original,aug_trans_00183,en,en,afloat on the water,on the blue water,BACKWARD_ENTAILMENT
+aug_trans_00183__en-en__flipped,aug_trans_00183,en,en,on the blue water,afloat on the water,FORWARD_ENTAILMENT
+aug_trans_00184__en-en__original,aug_trans_00184,en,en,afloat on the water,on the ocean,BACKWARD_ENTAILMENT
+aug_trans_00184__en-en__flipped,aug_trans_00184,en,en,on the ocean,afloat on the water,FORWARD_ENTAILMENT
+aug_trans_00185__en-en__original,aug_trans_00185,en,en,after U.S.-Russia Deal,US-Russian deal,FORWARD_ENTAILMENT
+aug_trans_00185__en-en__flipped,aug_trans_00185,en,en,US-Russian deal,after U.S.-Russia Deal,BACKWARD_ENTAILMENT
+aug_trans_00186__en-en__original,aug_trans_00186,en,en,Air strike,Suspected U.S. drone strike,BACKWARD_ENTAILMENT
+aug_trans_00186__en-en__flipped,aug_trans_00186,en,en,Suspected U.S. drone strike,Air strike,FORWARD_ENTAILMENT
+aug_trans_00187__en-en__original,aug_trans_00187,en,en,amid snow,in the white snow,EQUIVALENCE
+aug_trans_00187__en-en__flipped,aug_trans_00187,en,en,in the white snow,amid snow,EQUIVALENCE
+aug_trans_00188__en-en__original,aug_trans_00188,en,en,amid snow,on a snowy hill,BACKWARD_ENTAILMENT
+aug_trans_00188__en-en__flipped,aug_trans_00188,en,en,on a snowy hill,amid snow,FORWARD_ENTAILMENT
+aug_trans_00189__en-en__original,aug_trans_00189,en,en,amid snow,through snow,BACKWARD_ENTAILMENT
+aug_trans_00189__en-en__flipped,aug_trans_00189,en,en,through snow,amid snow,FORWARD_ENTAILMENT
+aug_trans_00190__en-en__original,aug_trans_00190,en,en,amid snow,through the snow,BACKWARD_ENTAILMENT
+aug_trans_00190__en-en__flipped,aug_trans_00190,en,en,through the snow,amid snow,FORWARD_ENTAILMENT
+aug_trans_00191__en-en__original,aug_trans_00191,en,en,amid snow,within the snow,EQUIVALENCE
+aug_trans_00191__en-en__flipped,aug_trans_00191,en,en,within the snow,amid snow,EQUIVALENCE
+aug_trans_00192__en-en__original,aug_trans_00192,en,en,among dead,shot dead,BACKWARD_ENTAILMENT
+aug_trans_00192__en-en__flipped,aug_trans_00192,en,en,shot dead,among dead,FORWARD_ENTAILMENT
+aug_trans_00193__en-en__original,aug_trans_00193,en,en,an adult male,someone,FORWARD_ENTAILMENT
+aug_trans_00193__en-en__flipped,aug_trans_00193,en,en,someone,an adult male,BACKWARD_ENTAILMENT
+aug_trans_00194__en-en__original,aug_trans_00194,en,en,an African man,someone,FORWARD_ENTAILMENT
+aug_trans_00194__en-en__flipped,aug_trans_00194,en,en,someone,an African man,BACKWARD_ENTAILMENT
+aug_trans_00195__en-en__original,aug_trans_00195,en,en,an enlarged detail view,Close up image,BACKWARD_ENTAILMENT
+aug_trans_00195__en-en__flipped,aug_trans_00195,en,en,Close up image,an enlarged detail view,FORWARD_ENTAILMENT
+aug_trans_00196__en-en__original,aug_trans_00196,en,en,an equine whose coat is brown,Two brown horses,BACKWARD_ENTAILMENT
+aug_trans_00196__en-en__flipped,aug_trans_00196,en,en,Two brown horses,an equine whose coat is brown,FORWARD_ENTAILMENT
+aug_trans_00197__en-en__original,aug_trans_00197,en,en,an indoor space,in a messy room,BACKWARD_ENTAILMENT
+aug_trans_00197__en-en__flipped,aug_trans_00197,en,en,in a messy room,an indoor space,FORWARD_ENTAILMENT
+aug_trans_00198__en-en__original,aug_trans_00198,en,en,an ovine animal,The white sheep,BACKWARD_ENTAILMENT
+aug_trans_00198__en-en__flipped,aug_trans_00198,en,en,The white sheep,an ovine animal,FORWARD_ENTAILMENT
+aug_trans_00199__en-en__original,aug_trans_00199,en,en,an ovine animal,Woolly sheep,BACKWARD_ENTAILMENT
+aug_trans_00199__en-en__flipped,aug_trans_00199,en,en,Woolly sheep,an ovine animal,FORWARD_ENTAILMENT
+aug_trans_00200__en-en__original,aug_trans_00200,en,en,Announces Retirement,to retire,EQUIVALENCE
+aug_trans_00200__en-en__flipped,aug_trans_00200,en,en,to retire,Announces Retirement,EQUIVALENCE
+aug_trans_00201__en-en__original,aug_trans_00201,en,en,Any blackbird,The bird,FORWARD_ENTAILMENT
+aug_trans_00201__en-en__flipped,aug_trans_00201,en,en,The bird,Any blackbird,BACKWARD_ENTAILMENT
+aug_trans_00202__en-en__original,aug_trans_00202,en,en,Any young girl,The woman,FORWARD_ENTAILMENT
+aug_trans_00202__en-en__flipped,aug_trans_00202,en,en,The woman,Any young girl,BACKWARD_ENTAILMENT
+aug_trans_00203__en-en__original,aug_trans_00203,en,en,are,moving at a run,BACKWARD_ENTAILMENT
+aug_trans_00203__en-en__flipped,aug_trans_00203,en,en,moving at a run,are,FORWARD_ENTAILMENT
+aug_trans_00204__en-en__original,aug_trans_00204,en,en,are,seated,BACKWARD_ENTAILMENT
+aug_trans_00204__en-en__flipped,aug_trans_00204,en,en,seated,are,FORWARD_ENTAILMENT
+aug_trans_00205__en-en__original,aug_trans_00205,en,en,are,sit,BACKWARD_ENTAILMENT
+aug_trans_00205__en-en__flipped,aug_trans_00205,en,en,sit,are,FORWARD_ENTAILMENT
+aug_trans_00206__en-en__original,aug_trans_00206,en,en,are playing,is playing,EQUIVALENCE
+aug_trans_00206__en-en__flipped,aug_trans_00206,en,en,is playing,are playing,EQUIVALENCE
+aug_trans_00207__en-en__original,aug_trans_00207,en,en,are playing,playing around,BACKWARD_ENTAILMENT
+aug_trans_00207__en-en__flipped,aug_trans_00207,en,en,playing around,are playing,FORWARD_ENTAILMENT
+aug_trans_00208__en-en__original,aug_trans_00208,en,en,are playing fetch,engaging in play,FORWARD_ENTAILMENT
+aug_trans_00208__en-en__flipped,aug_trans_00208,en,en,engaging in play,are playing fetch,BACKWARD_ENTAILMENT
+aug_trans_00209__en-en__original,aug_trans_00209,en,en,are playing fetch,plays,FORWARD_ENTAILMENT
+aug_trans_00209__en-en__flipped,aug_trans_00209,en,en,plays,are playing fetch,BACKWARD_ENTAILMENT
+aug_trans_00210__en-en__original,aug_trans_00210,en,en,are playing on,stand,NEGATIVE_OTHER
+aug_trans_00211__en-en__original,aug_trans_00211,en,en,are seated,are sitting down,BACKWARD_ENTAILMENT
+aug_trans_00211__en-en__flipped,aug_trans_00211,en,en,are sitting down,are seated,FORWARD_ENTAILMENT
+aug_trans_00212__en-en__original,aug_trans_00212,en,en,are seated,while sitting,BACKWARD_ENTAILMENT
+aug_trans_00212__en-en__flipped,aug_trans_00212,en,en,while sitting,are seated,FORWARD_ENTAILMENT
+aug_trans_00213__en-en__original,aug_trans_00213,en,en,are standing,assuming a pose,NEGATIVE_OTHER
+aug_trans_00214__en-en__original,aug_trans_00214,en,en,are standing,holding a pose,NEGATIVE_OTHER
+aug_trans_00215__en-en__original,aug_trans_00215,en,en,are standing,is parked,NEGATIVE_OTHER
+aug_trans_00216__en-en__original,aug_trans_00216,en,en,are standing,maintaining an upright stance,NEGATIVE_OTHER
+aug_trans_00217__en-en__original,aug_trans_00217,en,en,are standing,remain upright,NEGATIVE_OTHER
+aug_trans_00218__en-en__original,aug_trans_00218,en,en,around a dining table,beside the dining table,NEGATIVE_OTHER
+aug_trans_00219__en-en__original,aug_trans_00219,en,en,around a restaurant dining table,around a table,FORWARD_ENTAILMENT
+aug_trans_00219__en-en__flipped,aug_trans_00219,en,en,around a table,around a restaurant dining table,BACKWARD_ENTAILMENT
+aug_trans_00220__en-en__original,aug_trans_00220,en,en,around a restaurant dining table,at a table,FORWARD_ENTAILMENT
+aug_trans_00220__en-en__flipped,aug_trans_00220,en,en,at a table,around a restaurant dining table,BACKWARD_ENTAILMENT
+aug_trans_00221__en-en__original,aug_trans_00221,en,en,around a table,beside a table,NEGATIVE_OTHER
+aug_trans_00222__en-en__original,aug_trans_00222,en,en,assuming a pose,holding a pose,EQUIVALENCE
+aug_trans_00222__en-en__flipped,aug_trans_00222,en,en,holding a pose,assuming a pose,EQUIVALENCE
+aug_trans_00223__en-en__original,aug_trans_00223,en,en,at a long table,beside a table,FORWARD_ENTAILMENT
+aug_trans_00223__en-en__flipped,aug_trans_00223,en,en,beside a table,at a long table,BACKWARD_ENTAILMENT
+aug_trans_00224__en-en__original,aug_trans_00224,en,en,at a restaurant table,beside a table,FORWARD_ENTAILMENT
+aug_trans_00224__en-en__flipped,aug_trans_00224,en,en,beside a table,at a restaurant table,BACKWARD_ENTAILMENT
+aug_trans_00225__en-en__original,aug_trans_00225,en,en,at a train station,at the city train station,BACKWARD_ENTAILMENT
+aug_trans_00225__en-en__flipped,aug_trans_00225,en,en,at the city train station,at a train station,FORWARD_ENTAILMENT
+aug_trans_00226__en-en__original,aug_trans_00226,en,en,at a train station,in a shed,NEGATIVE_OTHER
+aug_trans_00227__en-en__original,aug_trans_00227,en,en,at a train station,inside an indoor station,BACKWARD_ENTAILMENT
+aug_trans_00227__en-en__flipped,aug_trans_00227,en,en,inside an indoor station,at a train station,FORWARD_ENTAILMENT
+aug_trans_00228__en-en__original,aug_trans_00228,en,en,at pro-Morsy protesters,protesters,FORWARD_ENTAILMENT
+aug_trans_00228__en-en__flipped,aug_trans_00228,en,en,protesters,at pro-Morsy protesters,BACKWARD_ENTAILMENT
+aug_trans_00229__en-en__original,aug_trans_00229,en,en,at pro-Morsy protesters,protests,FORWARD_ENTAILMENT
+aug_trans_00229__en-en__flipped,aug_trans_00229,en,en,protests,at pro-Morsy protesters,BACKWARD_ENTAILMENT
+aug_trans_00230__en-en__original,aug_trans_00230,en,en,at the Boston Marathon event,in Boston Marathon attack,BACKWARD_ENTAILMENT
+aug_trans_00230__en-en__flipped,aug_trans_00230,en,en,in Boston Marathon attack,at the Boston Marathon event,FORWARD_ENTAILMENT
+aug_trans_00231__en-en__original,aug_trans_00231,en,en,at the rail-transport terminal,at the railway terminal,EQUIVALENCE
+aug_trans_00231__en-en__flipped,aug_trans_00231,en,en,at the railway terminal,at the rail-transport terminal,EQUIVALENCE
+aug_trans_00232__en-en__original,aug_trans_00232,en,en,at the rail-transport terminal,inside a train station,NEGATIVE_OTHER
+aug_trans_00233__en-en__original,aug_trans_00233,en,en,at the railway terminal,inside a train station,NEGATIVE_OTHER
+aug_trans_00234__en-en__original,aug_trans_00234,en,en,atop grassy ground,atop the grassy ground,EQUIVALENCE
+aug_trans_00234__en-en__flipped,aug_trans_00234,en,en,atop the grassy ground,atop grassy ground,EQUIVALENCE
+aug_trans_00235__en-en__original,aug_trans_00235,en,en,atop grassy ground,in a grassy plain,BACKWARD_ENTAILMENT
+aug_trans_00235__en-en__flipped,aug_trans_00235,en,en,in a grassy plain,atop grassy ground,FORWARD_ENTAILMENT
+aug_trans_00236__en-en__original,aug_trans_00236,en,en,atop grassy ground,in hay,NEGATIVE_OTHER
+aug_trans_00237__en-en__original,aug_trans_00237,en,en,atop grassy ground,through the grass,BACKWARD_ENTAILMENT
+aug_trans_00237__en-en__flipped,aug_trans_00237,en,en,through the grass,atop grassy ground,FORWARD_ENTAILMENT
+aug_trans_00238__en-en__original,aug_trans_00238,en,en,atop grassy ground,through the snowed green field,BACKWARD_ENTAILMENT
+aug_trans_00238__en-en__flipped,aug_trans_00238,en,en,through the snowed green field,atop grassy ground,FORWARD_ENTAILMENT
+aug_trans_00239__en-en__original,aug_trans_00239,en,en,atop the grassy ground,in a grassy plain,BACKWARD_ENTAILMENT
+aug_trans_00239__en-en__flipped,aug_trans_00239,en,en,in a grassy plain,atop the grassy ground,FORWARD_ENTAILMENT
+aug_trans_00240__en-en__original,aug_trans_00240,en,en,atop the grassy ground,in hay,NEGATIVE_OTHER
+aug_trans_00241__en-en__original,aug_trans_00241,en,en,atop the grassy ground,through the grass,BACKWARD_ENTAILMENT
+aug_trans_00241__en-en__flipped,aug_trans_00241,en,en,through the grass,atop the grassy ground,FORWARD_ENTAILMENT
+aug_trans_00242__en-en__original,aug_trans_00242,en,en,atop the grassy ground,through the snowed green field,BACKWARD_ENTAILMENT
+aug_trans_00242__en-en__flipped,aug_trans_00242,en,en,through the snowed green field,atop the grassy ground,FORWARD_ENTAILMENT
+aug_trans_00243__en-en__original,aug_trans_00243,en,en,being thrown,plays,NEGATIVE_OTHER
+aug_trans_00244__en-en__original,aug_trans_00244,en,en,British Nobel-Winning Author Doris Lessing,Nobel laureate Doris Lessing,FORWARD_ENTAILMENT
+aug_trans_00244__en-en__flipped,aug_trans_00244,en,en,Nobel laureate Doris Lessing,British Nobel-Winning Author Doris Lessing,BACKWARD_ENTAILMENT
+aug_trans_00245__en-en__original,aug_trans_00245,en,en,by the seaside,in dark blue waters,NEGATIVE_OTHER
+aug_trans_00246__en-en__original,aug_trans_00246,en,en,casting its gaze,directing its gaze,EQUIVALENCE
+aug_trans_00246__en-en__flipped,aug_trans_00246,en,en,directing its gaze,casting its gaze,EQUIVALENCE
+aug_trans_00247__en-en__original,aug_trans_00247,en,en,climbs up,moves up,FORWARD_ENTAILMENT
+aug_trans_00247__en-en__flipped,aug_trans_00247,en,en,moves up,climbs up,BACKWARD_ENTAILMENT
+aug_trans_00248__en-en__original,aug_trans_00248,en,en,consuming food,eats,EQUIVALENCE
+aug_trans_00248__en-en__flipped,aug_trans_00248,en,en,eats,consuming food,EQUIVALENCE
+aug_trans_00249__en-en__original,aug_trans_00249,en,en,directed at the camera,into the camera,NEGATIVE_OTHER
+aug_trans_00250__en-en__original,aug_trans_00250,en,en,directed at the camera,toward the camera,NEGATIVE_OTHER
+aug_trans_00251__en-en__original,aug_trans_00251,en,en,Dog,Two black dogs,BACKWARD_ENTAILMENT
+aug_trans_00251__en-en__flipped,aug_trans_00251,en,en,Two black dogs,Dog,FORWARD_ENTAILMENT
+aug_trans_00252__en-en__original,aug_trans_00252,en,en,drives,drives down,BACKWARD_ENTAILMENT
+aug_trans_00252__en-en__flipped,aug_trans_00252,en,en,drives down,drives,FORWARD_ENTAILMENT
+aug_trans_00253__en-en__original,aug_trans_00253,en,en,drives down,driving,FORWARD_ENTAILMENT
+aug_trans_00253__en-en__flipped,aug_trans_00253,en,en,driving,drives down,BACKWARD_ENTAILMENT
+aug_trans_00254__en-en__original,aug_trans_00254,en,en,driving,rides,NEGATIVE_OTHER
+aug_trans_00255__en-en__original,aug_trans_00255,en,en,driving,traveling while mounted,NEGATIVE_OTHER
+aug_trans_00256__en-en__original,aug_trans_00256,en,en,drone,US drone strikes,BACKWARD_ENTAILMENT
+aug_trans_00256__en-en__flipped,aug_trans_00256,en,en,US drone strikes,drone,FORWARD_ENTAILMENT
+aug_trans_00257__en-en__original,aug_trans_00257,en,en,Drone strike,Suspected U.S. drone strike,BACKWARD_ENTAILMENT
+aug_trans_00257__en-en__flipped,aug_trans_00257,en,en,Suspected U.S. drone strike,Drone strike,FORWARD_ENTAILMENT
+aug_trans_00258__en-en__original,aug_trans_00258,en,en,Egypt,in Egypt clashes,BACKWARD_ENTAILMENT
+aug_trans_00258__en-en__flipped,aug_trans_00258,en,en,in Egypt clashes,Egypt,FORWARD_ENTAILMENT
+aug_trans_00259__en-en__original,aug_trans_00259,en,en,Egypt,in face of Egypt govt threat,BACKWARD_ENTAILMENT
+aug_trans_00259__en-en__flipped,aug_trans_00259,en,en,in face of Egypt govt threat,Egypt,FORWARD_ENTAILMENT
+aug_trans_00260__en-en__original,aug_trans_00260,en,en,engaging in play,play,EQUIVALENCE
+aug_trans_00260__en-en__flipped,aug_trans_00260,en,en,play,engaging in play,EQUIVALENCE
+aug_trans_00261__en-en__original,aug_trans_00261,en,en,engaging in play,plays,EQUIVALENCE
+aug_trans_00261__en-en__flipped,aug_trans_00261,en,en,plays,engaging in play,EQUIVALENCE
+aug_trans_00262__en-en__original,aug_trans_00262,en,en,entering a transport terminal,moving into a transport terminal,EQUIVALENCE
+aug_trans_00262__en-en__flipped,aug_trans_00262,en,en,moving into a transport terminal,entering a transport terminal,EQUIVALENCE
+aug_trans_00263__en-en__original,aug_trans_00263,en,en,entering the water,underwater,NEGATIVE_OTHER
+aug_trans_00264__en-en__original,aug_trans_00264,en,en,Four dead,Much more Deaths,BACKWARD_ENTAILMENT
+aug_trans_00264__en-en__flipped,aug_trans_00264,en,en,Much more Deaths,Four dead,FORWARD_ENTAILMENT
+aug_trans_00265__en-en__original,aug_trans_00265,en,en,Four women and two men,Person,FORWARD_ENTAILMENT
+aug_trans_00265__en-en__flipped,aug_trans_00265,en,en,Person,Four women and two men,BACKWARD_ENTAILMENT
+aug_trans_00266__en-en__original,aug_trans_00266,en,en,Four women and two men,The man,FORWARD_ENTAILMENT
+aug_trans_00266__en-en__flipped,aug_trans_00266,en,en,The man,Four women and two men,BACKWARD_ENTAILMENT
+aug_trans_00267__en-en__original,aug_trans_00267,en,en,Four women and two men,The woman,FORWARD_ENTAILMENT
+aug_trans_00267__en-en__flipped,aug_trans_00267,en,en,The woman,Four women and two men,BACKWARD_ENTAILMENT
+aug_trans_00268__en-en__original,aug_trans_00268,en,en,has been captured,has seized,EQUIVALENCE
+aug_trans_00268__en-en__flipped,aug_trans_00268,en,en,has seized,has been captured,EQUIVALENCE
+aug_trans_00269__en-en__original,aug_trans_00269,en,en,holding,is holding,EQUIVALENCE
+aug_trans_00269__en-en__flipped,aug_trans_00269,en,en,is holding,holding,EQUIVALENCE
+aug_trans_00270__en-en__original,aug_trans_00270,en,en,holds,keeping hold of,EQUIVALENCE
+aug_trans_00270__en-en__flipped,aug_trans_00270,en,en,keeping hold of,holds,EQUIVALENCE
+aug_trans_00271__en-en__original,aug_trans_00271,en,en,holds up,keeping hold of,FORWARD_ENTAILMENT
+aug_trans_00271__en-en__flipped,aug_trans_00271,en,en,keeping hold of,holds up,BACKWARD_ENTAILMENT
+aug_trans_00272__en-en__original,aug_trans_00272,en,en,Hollywood star Paul Walker,Paul Walker Fast and Furious star,BACKWARD_ENTAILMENT
+aug_trans_00272__en-en__flipped,aug_trans_00272,en,en,Paul Walker Fast and Furious star,Hollywood star Paul Walker,FORWARD_ENTAILMENT
+aug_trans_00273__en-en__original,aug_trans_00273,en,en,immersed in the water,immersed in water,EQUIVALENCE
+aug_trans_00273__en-en__flipped,aug_trans_00273,en,en,immersed in water,immersed in the water,EQUIVALENCE
+aug_trans_00274__en-en__original,aug_trans_00274,en,en,immersed in the water,located within the water,EQUIVALENCE
+aug_trans_00274__en-en__flipped,aug_trans_00274,en,en,located within the water,immersed in the water,EQUIVALENCE
+aug_trans_00275__en-en__original,aug_trans_00275,en,en,immersed in the water,on the blue sea,BACKWARD_ENTAILMENT
+aug_trans_00275__en-en__flipped,aug_trans_00275,en,en,on the blue sea,immersed in the water,FORWARD_ENTAILMENT
+aug_trans_00276__en-en__original,aug_trans_00276,en,en,immersed in the water,the water,FORWARD_ENTAILMENT
+aug_trans_00276__en-en__flipped,aug_trans_00276,en,en,the water,immersed in the water,BACKWARD_ENTAILMENT
+aug_trans_00277__en-en__original,aug_trans_00277,en,en,immersed in the water,through water,BACKWARD_ENTAILMENT
+aug_trans_00277__en-en__flipped,aug_trans_00277,en,en,through water,immersed in the water,FORWARD_ENTAILMENT
+aug_trans_00278__en-en__original,aug_trans_00278,en,en,immersed in water,located within the water,EQUIVALENCE
+aug_trans_00278__en-en__flipped,aug_trans_00278,en,en,located within the water,immersed in water,EQUIVALENCE
+aug_trans_00279__en-en__original,aug_trans_00279,en,en,immersed in water,on the blue sea,BACKWARD_ENTAILMENT
+aug_trans_00279__en-en__flipped,aug_trans_00279,en,en,on the blue sea,immersed in water,FORWARD_ENTAILMENT
+aug_trans_00280__en-en__original,aug_trans_00280,en,en,immersed in water,the water,FORWARD_ENTAILMENT
+aug_trans_00280__en-en__flipped,aug_trans_00280,en,en,the water,immersed in water,BACKWARD_ENTAILMENT
+aug_trans_00281__en-en__original,aug_trans_00281,en,en,immersed in water,through water,BACKWARD_ENTAILMENT
+aug_trans_00281__en-en__flipped,aug_trans_00281,en,en,through water,immersed in water,FORWARD_ENTAILMENT
+aug_trans_00282__en-en__original,aug_trans_00282,en,en,in a body of water,on glassy water,BACKWARD_ENTAILMENT
+aug_trans_00282__en-en__flipped,aug_trans_00282,en,en,on glassy water,in a body of water,FORWARD_ENTAILMENT
+aug_trans_00283__en-en__original,aug_trans_00283,en,en,in a body of water,on the blue water,BACKWARD_ENTAILMENT
+aug_trans_00283__en-en__flipped,aug_trans_00283,en,en,on the blue water,in a body of water,FORWARD_ENTAILMENT
+aug_trans_00284__en-en__original,aug_trans_00284,en,en,in a body of water,on the ocean,BACKWARD_ENTAILMENT
+aug_trans_00284__en-en__flipped,aug_trans_00284,en,en,on the ocean,in a body of water,FORWARD_ENTAILMENT
+aug_trans_00285__en-en__original,aug_trans_00285,en,en,in a field,in middle of grassy field,BACKWARD_ENTAILMENT
+aug_trans_00285__en-en__flipped,aug_trans_00285,en,en,in middle of grassy field,in a field,FORWARD_ENTAILMENT
+aug_trans_00286__en-en__original,aug_trans_00286,en,en,in a field of green grass,in a plain,FORWARD_ENTAILMENT
+aug_trans_00286__en-en__flipped,aug_trans_00286,en,en,in a plain,in a field of green grass,BACKWARD_ENTAILMENT
+aug_trans_00287__en-en__original,aug_trans_00287,en,en,in a field of green grass,within an open field,FORWARD_ENTAILMENT
+aug_trans_00287__en-en__flipped,aug_trans_00287,en,en,within an open field,in a field of green grass,BACKWARD_ENTAILMENT
+aug_trans_00288__en-en__original,aug_trans_00288,en,en,in a grassy field,within the open field,FORWARD_ENTAILMENT
+aug_trans_00288__en-en__flipped,aug_trans_00288,en,en,within the open field,in a grassy field,BACKWARD_ENTAILMENT
+aug_trans_00289__en-en__original,aug_trans_00289,en,en,in a grassy wooded area,in grass,FORWARD_ENTAILMENT
+aug_trans_00289__en-en__flipped,aug_trans_00289,en,en,in grass,in a grassy wooded area,BACKWARD_ENTAILMENT
+aug_trans_00290__en-en__original,aug_trans_00290,en,en,in a green field,in a plain,FORWARD_ENTAILMENT
+aug_trans_00290__en-en__flipped,aug_trans_00290,en,en,in a plain,in a green field,BACKWARD_ENTAILMENT
+aug_trans_00291__en-en__original,aug_trans_00291,en,en,in a green field,within an open field,FORWARD_ENTAILMENT
+aug_trans_00291__en-en__flipped,aug_trans_00291,en,en,within an open field,in a green field,BACKWARD_ENTAILMENT
+aug_trans_00292__en-en__original,aug_trans_00292,en,en,in a lush green field,in a plain,FORWARD_ENTAILMENT
+aug_trans_00292__en-en__flipped,aug_trans_00292,en,en,in a plain,in a lush green field,BACKWARD_ENTAILMENT
+aug_trans_00293__en-en__original,aug_trans_00293,en,en,in a lush green field,within an open field,FORWARD_ENTAILMENT
+aug_trans_00293__en-en__flipped,aug_trans_00293,en,en,within an open field,in a lush green field,BACKWARD_ENTAILMENT
+aug_trans_00294__en-en__original,aug_trans_00294,en,en,in a plain,in a rural area,NEGATIVE_OTHER
+aug_trans_00295__en-en__original,aug_trans_00295,en,en,in a plain,in grassy field,BACKWARD_ENTAILMENT
+aug_trans_00295__en-en__flipped,aug_trans_00295,en,en,in grassy field,in a plain,FORWARD_ENTAILMENT
+aug_trans_00296__en-en__original,aug_trans_00296,en,en,in a plain,of a huge field,BACKWARD_ENTAILMENT
+aug_trans_00296__en-en__flipped,aug_trans_00296,en,en,of a huge field,in a plain,FORWARD_ENTAILMENT
+aug_trans_00297__en-en__original,aug_trans_00297,en,en,in a plain,of grassy green field,BACKWARD_ENTAILMENT
+aug_trans_00297__en-en__flipped,aug_trans_00297,en,en,of grassy green field,in a plain,FORWARD_ENTAILMENT
+aug_trans_00298__en-en__original,aug_trans_00298,en,en,in a plain,within an open field,EQUIVALENCE
+aug_trans_00298__en-en__flipped,aug_trans_00298,en,en,within an open field,in a plain,EQUIVALENCE
+aug_trans_00299__en-en__original,aug_trans_00299,en,en,in a rural area,within an open field,NEGATIVE_OTHER
+aug_trans_00300__en-en__original,aug_trans_00300,en,en,in a snowy field,in the snow,FORWARD_ENTAILMENT
+aug_trans_00300__en-en__flipped,aug_trans_00300,en,en,in the snow,in a snowy field,BACKWARD_ENTAILMENT
+aug_trans_00301__en-en__original,aug_trans_00301,en,en,in any hospital bed,inside a hospital facility,FORWARD_ENTAILMENT
+aug_trans_00301__en-en__flipped,aug_trans_00301,en,en,inside a hospital facility,in any hospital bed,BACKWARD_ENTAILMENT
+aug_trans_00302__en-en__original,aug_trans_00302,en,en,in Canada train blaze,in Canada train disaster,FORWARD_ENTAILMENT
+aug_trans_00302__en-en__flipped,aug_trans_00302,en,en,in Canada train disaster,in Canada train blaze,BACKWARD_ENTAILMENT
+aug_trans_00303__en-en__original,aug_trans_00303,en,en,in fast running,is running,FORWARD_ENTAILMENT
+aug_trans_00303__en-en__flipped,aug_trans_00303,en,en,is running,in fast running,BACKWARD_ENTAILMENT
+aug_trans_00304__en-en__original,aug_trans_00304,en,en,in flight,in mid-flight,BACKWARD_ENTAILMENT
+aug_trans_00304__en-en__flipped,aug_trans_00304,en,en,in mid-flight,in flight,FORWARD_ENTAILMENT
+aug_trans_00305__en-en__original,aug_trans_00305,en,en,in grassy field,within an open field,FORWARD_ENTAILMENT
+aug_trans_00305__en-en__flipped,aug_trans_00305,en,en,within an open field,in grassy field,BACKWARD_ENTAILMENT
+aug_trans_00306__en-en__original,aug_trans_00306,en,en,in Israeli raid,inside Syria's borders,NEGATIVE_OTHER
+aug_trans_00307__en-en__original,aug_trans_00307,en,en,in northern Pakistan,Pakistan,FORWARD_ENTAILMENT
+aug_trans_00307__en-en__flipped,aug_trans_00307,en,en,Pakistan,in northern Pakistan,BACKWARD_ENTAILMENT
+aug_trans_00308__en-en__original,aug_trans_00308,en,en,in Obama,US government,FORWARD_ENTAILMENT
+aug_trans_00308__en-en__flipped,aug_trans_00308,en,en,US government,in Obama,BACKWARD_ENTAILMENT
+aug_trans_00309__en-en__original,aug_trans_00309,en,en,in Pakistan,inside Syria's borders,NEGATIVE_OTHER
+aug_trans_00310__en-en__original,aug_trans_00310,en,en,in snow,in the snow,EQUIVALENCE
+aug_trans_00310__en-en__flipped,aug_trans_00310,en,en,in the snow,in snow,EQUIVALENCE
+aug_trans_00311__en-en__original,aug_trans_00311,en,en,in southwest Pakistan,Pakistan,FORWARD_ENTAILMENT
+aug_trans_00311__en-en__flipped,aug_trans_00311,en,en,Pakistan,in southwest Pakistan,BACKWARD_ENTAILMENT
+aug_trans_00312__en-en__original,aug_trans_00312,en,en,in the field,within a grass-covered field,BACKWARD_ENTAILMENT
+aug_trans_00312__en-en__flipped,aug_trans_00312,en,en,within a grass-covered field,in the field,FORWARD_ENTAILMENT
+aug_trans_00313__en-en__original,aug_trans_00313,en,en,in the snow,through a snowy field,BACKWARD_ENTAILMENT
+aug_trans_00313__en-en__flipped,aug_trans_00313,en,en,through a snowy field,in the snow,FORWARD_ENTAILMENT
+aug_trans_00314__en-en__original,aug_trans_00314,en,en,in the white snow,on a snowy hill,BACKWARD_ENTAILMENT
+aug_trans_00314__en-en__flipped,aug_trans_00314,en,en,on a snowy hill,in the white snow,FORWARD_ENTAILMENT
+aug_trans_00315__en-en__original,aug_trans_00315,en,en,in the white snow,through snow,BACKWARD_ENTAILMENT
+aug_trans_00315__en-en__flipped,aug_trans_00315,en,en,through snow,in the white snow,FORWARD_ENTAILMENT
+aug_trans_00316__en-en__original,aug_trans_00316,en,en,in the white snow,through the snow,BACKWARD_ENTAILMENT
+aug_trans_00316__en-en__flipped,aug_trans_00316,en,en,through the snow,in the white snow,FORWARD_ENTAILMENT
+aug_trans_00317__en-en__original,aug_trans_00317,en,en,in the white snow,within the snow,EQUIVALENCE
+aug_trans_00317__en-en__flipped,aug_trans_00317,en,en,within the snow,in the white snow,EQUIVALENCE
+aug_trans_00318__en-en__original,aug_trans_00318,en,en,inside Syria's borders,Ukraine,NEGATIVE_OTHER
+aug_trans_00319__en-en__original,aug_trans_00319,en,en,into two boys,Two people,FORWARD_ENTAILMENT
+aug_trans_00319__en-en__flipped,aug_trans_00319,en,en,Two people,into two boys,BACKWARD_ENTAILMENT
+aug_trans_00320__en-en__original,aug_trans_00320,en,en,is,run,BACKWARD_ENTAILMENT
+aug_trans_00320__en-en__flipped,aug_trans_00320,en,en,run,is,FORWARD_ENTAILMENT
+aug_trans_00321__en-en__original,aug_trans_00321,en,en,is,runs,BACKWARD_ENTAILMENT
+aug_trans_00321__en-en__flipped,aug_trans_00321,en,en,runs,is,FORWARD_ENTAILMENT
+aug_trans_00322__en-en__original,aug_trans_00322,en,en,is holding,to hold,EQUIVALENCE
+aug_trans_00322__en-en__flipped,aug_trans_00322,en,en,to hold,is holding,EQUIVALENCE
+aug_trans_00323__en-en__original,aug_trans_00323,en,en,is jumping,is leaping,EQUIVALENCE
+aug_trans_00323__en-en__flipped,aug_trans_00323,en,en,is leaping,is jumping,EQUIVALENCE
+aug_trans_00324__en-en__original,aug_trans_00324,en,en,is laying,resting asleep,BACKWARD_ENTAILMENT
+aug_trans_00324__en-en__flipped,aug_trans_00324,en,en,resting asleep,is laying,FORWARD_ENTAILMENT
+aug_trans_00325__en-en__original,aug_trans_00325,en,en,is running after,to catch,NEGATIVE_OTHER
+aug_trans_00326__en-en__original,aug_trans_00326,en,en,is sitting,perches,EQUIVALENCE
+aug_trans_00326__en-en__flipped,aug_trans_00326,en,en,perches,is sitting,EQUIVALENCE
+aug_trans_00327__en-en__original,aug_trans_00327,en,en,is standing,stand,NEGATIVE_OTHER
+aug_trans_00328__en-en__original,aug_trans_00328,en,en,is walking,walking,EQUIVALENCE
+aug_trans_00328__en-en__flipped,aug_trans_00328,en,en,walking,is walking,EQUIVALENCE
+aug_trans_00329__en-en__original,aug_trans_00329,en,en,leaps,riding,NEGATIVE_OTHER
+aug_trans_00330__en-en__original,aug_trans_00330,en,en,located within the water,on the blue sea,BACKWARD_ENTAILMENT
+aug_trans_00330__en-en__flipped,aug_trans_00330,en,en,on the blue sea,located within the water,FORWARD_ENTAILMENT
+aug_trans_00331__en-en__original,aug_trans_00331,en,en,located within the water,the water,FORWARD_ENTAILMENT
+aug_trans_00331__en-en__flipped,aug_trans_00331,en,en,the water,located within the water,BACKWARD_ENTAILMENT
+aug_trans_00332__en-en__original,aug_trans_00332,en,en,located within the water,through water,BACKWARD_ENTAILMENT
+aug_trans_00332__en-en__flipped,aug_trans_00332,en,en,through water,located within the water,FORWARD_ENTAILMENT
+aug_trans_00333__en-en__original,aug_trans_00333,en,en,maintaining an upright stance,posing,NEGATIVE_OTHER
+aug_trans_00334__en-en__original,aug_trans_00334,en,en,maintaining an upright stance,remain upright,EQUIVALENCE
+aug_trans_00334__en-en__flipped,aug_trans_00334,en,en,remain upright,maintaining an upright stance,EQUIVALENCE
+aug_trans_00335__en-en__original,aug_trans_00335,en,en,Man,The man,EQUIVALENCE
+aug_trans_00335__en-en__flipped,aug_trans_00335,en,en,The man,Man,EQUIVALENCE
+aug_trans_00336__en-en__original,aug_trans_00336,en,en,mopeds,on motorbikes,BACKWARD_ENTAILMENT
+aug_trans_00336__en-en__flipped,aug_trans_00336,en,en,on motorbikes,mopeds,FORWARD_ENTAILMENT
+aug_trans_00337__en-en__original,aug_trans_00337,en,en,Morsi backers,protesters,NEGATIVE_OTHER
+aug_trans_00338__en-en__original,aug_trans_00338,en,en,moving on foot,rides a bicycle,NEGATIVE_OTHER
+aug_trans_00339__en-en__original,aug_trans_00339,en,en,Nelson Mandela himself,of icon Nelson Mandela,BACKWARD_ENTAILMENT
+aug_trans_00339__en-en__flipped,aug_trans_00339,en,en,of icon Nelson Mandela,Nelson Mandela himself,FORWARD_ENTAILMENT
+aug_trans_00340__en-en__original,aug_trans_00340,en,en,Nobel author Doris Lessing,Nobel Prize winning author Doris Lessing,EQUIVALENCE
+aug_trans_00340__en-en__flipped,aug_trans_00340,en,en,Nobel Prize winning author Doris Lessing,Nobel author Doris Lessing,EQUIVALENCE
+aug_trans_00341__en-en__original,aug_trans_00341,en,en,Obama economic tour,US government,FORWARD_ENTAILMENT
+aug_trans_00341__en-en__flipped,aug_trans_00341,en,en,US government,Obama economic tour,BACKWARD_ENTAILMENT
+aug_trans_00342__en-en__original,aug_trans_00342,en,en,of a huge field,within an open field,FORWARD_ENTAILMENT
+aug_trans_00342__en-en__flipped,aug_trans_00342,en,en,within an open field,of a huge field,BACKWARD_ENTAILMENT
+aug_trans_00343__en-en__original,aug_trans_00343,en,en,of black people,of four,FORWARD_ENTAILMENT
+aug_trans_00343__en-en__flipped,aug_trans_00343,en,en,of four,of black people,BACKWARD_ENTAILMENT
+aug_trans_00344__en-en__original,aug_trans_00344,en,en,of black people,of four people,FORWARD_ENTAILMENT
+aug_trans_00344__en-en__flipped,aug_trans_00344,en,en,of four people,of black people,BACKWARD_ENTAILMENT
+aug_trans_00345__en-en__original,aug_trans_00345,en,en,of black people,of six people,FORWARD_ENTAILMENT
+aug_trans_00345__en-en__flipped,aug_trans_00345,en,en,of six people,of black people,BACKWARD_ENTAILMENT
+aug_trans_00346__en-en__original,aug_trans_00346,en,en,of black people,People,FORWARD_ENTAILMENT
+aug_trans_00346__en-en__flipped,aug_trans_00346,en,en,People,of black people,BACKWARD_ENTAILMENT
+aug_trans_00347__en-en__original,aug_trans_00347,en,en,of elderly people,of four,FORWARD_ENTAILMENT
+aug_trans_00347__en-en__flipped,aug_trans_00347,en,en,of four,of elderly people,BACKWARD_ENTAILMENT
+aug_trans_00348__en-en__original,aug_trans_00348,en,en,of elderly people,of four people,FORWARD_ENTAILMENT
+aug_trans_00348__en-en__flipped,aug_trans_00348,en,en,of four people,of elderly people,BACKWARD_ENTAILMENT
+aug_trans_00349__en-en__original,aug_trans_00349,en,en,of elderly people,of six people,FORWARD_ENTAILMENT
+aug_trans_00349__en-en__flipped,aug_trans_00349,en,en,of six people,of elderly people,BACKWARD_ENTAILMENT
+aug_trans_00350__en-en__original,aug_trans_00350,en,en,of elderly people,People,FORWARD_ENTAILMENT
+aug_trans_00350__en-en__flipped,aug_trans_00350,en,en,People,of elderly people,BACKWARD_ENTAILMENT
+aug_trans_00351__en-en__original,aug_trans_00351,en,en,of government shutdown,shutdown,FORWARD_ENTAILMENT
+aug_trans_00351__en-en__flipped,aug_trans_00351,en,en,shutdown,of government shutdown,BACKWARD_ENTAILMENT
+aug_trans_00352__en-en__original,aug_trans_00352,en,en,of grassy green field,within an open field,FORWARD_ENTAILMENT
+aug_trans_00352__en-en__flipped,aug_trans_00352,en,en,within an open field,of grassy green field,BACKWARD_ENTAILMENT
+aug_trans_00353__en-en__original,aug_trans_00353,en,en,of snow,within the open field,NEGATIVE_OTHER
+aug_trans_00354__en-en__original,aug_trans_00354,en,en,of the yard,within the open field,NEGATIVE_OTHER
+aug_trans_00355__en-en__original,aug_trans_00355,en,en,Older gentleman,someone,FORWARD_ENTAILMENT
+aug_trans_00355__en-en__flipped,aug_trans_00355,en,en,someone,Older gentleman,BACKWARD_ENTAILMENT
+aug_trans_00356__en-en__original,aug_trans_00356,en,en,Older woman,Person,FORWARD_ENTAILMENT
+aug_trans_00356__en-en__flipped,aug_trans_00356,en,en,Person,Older woman,BACKWARD_ENTAILMENT
+aug_trans_00357__en-en__original,aug_trans_00357,en,en,on a blue sofa,on couch,FORWARD_ENTAILMENT
+aug_trans_00357__en-en__flipped,aug_trans_00357,en,en,on couch,on a blue sofa,BACKWARD_ENTAILMENT
+aug_trans_00358__en-en__original,aug_trans_00358,en,en,on a dirt course,over dirt hill,NEGATIVE_OTHER
+aug_trans_00359__en-en__original,aug_trans_00359,en,en,on a metal band,on a railing,NEGATIVE_OTHER
+aug_trans_00360__en-en__original,aug_trans_00360,en,en,on a snowy hill,within the snow,FORWARD_ENTAILMENT
+aug_trans_00360__en-en__flipped,aug_trans_00360,en,en,within the snow,on a snowy hill,BACKWARD_ENTAILMENT
+aug_trans_00361__en-en__original,aug_trans_00361,en,en,on grass,through a watery field,BACKWARD_ENTAILMENT
+aug_trans_00361__en-en__flipped,aug_trans_00361,en,en,through a watery field,on grass,FORWARD_ENTAILMENT
+aug_trans_00362__en-en__original,aug_trans_00362,en,en,on the blue sea,the water,FORWARD_ENTAILMENT
+aug_trans_00362__en-en__flipped,aug_trans_00362,en,en,the water,on the blue sea,BACKWARD_ENTAILMENT
+aug_trans_00363__en-en__original,aug_trans_00363,en,en,on the grass,through a watery field,BACKWARD_ENTAILMENT
+aug_trans_00363__en-en__flipped,aug_trans_00363,en,en,through a watery field,on the grass,FORWARD_ENTAILMENT
+aug_trans_00364__en-en__original,aug_trans_00364,en,en,on the grassy field,upon the grassy ground,FORWARD_ENTAILMENT
+aug_trans_00364__en-en__flipped,aug_trans_00364,en,en,upon the grassy ground,on the grassy field,BACKWARD_ENTAILMENT
+aug_trans_00365__en-en__original,aug_trans_00365,en,en,on the railroad tracks,upon railway lines,EQUIVALENCE
+aug_trans_00365__en-en__flipped,aug_trans_00365,en,en,upon railway lines,on the railroad tracks,EQUIVALENCE
+aug_trans_00366__en-en__original,aug_trans_00366,en,en,on the tracks,on the train tracks,BACKWARD_ENTAILMENT
+aug_trans_00366__en-en__flipped,aug_trans_00366,en,en,on the train tracks,on the tracks,FORWARD_ENTAILMENT
+aug_trans_00367__en-en__original,aug_trans_00367,en,en,on the train tracks,the tracks,FORWARD_ENTAILMENT
+aug_trans_00367__en-en__flipped,aug_trans_00367,en,en,the tracks,on the train tracks,BACKWARD_ENTAILMENT
+aug_trans_00368__en-en__original,aug_trans_00368,en,en,over grass,through a green grassy field,BACKWARD_ENTAILMENT
+aug_trans_00368__en-en__flipped,aug_trans_00368,en,en,through a green grassy field,over grass,FORWARD_ENTAILMENT
+aug_trans_00369__en-en__original,aug_trans_00369,en,en,Palestinian prisoner,Palestinian prisoners,BACKWARD_ENTAILMENT
+aug_trans_00369__en-en__flipped,aug_trans_00369,en,en,Palestinian prisoners,Palestinian prisoner,FORWARD_ENTAILMENT
+aug_trans_00370__en-en__original,aug_trans_00370,en,en,Person,Smiling woman,BACKWARD_ENTAILMENT
+aug_trans_00370__en-en__flipped,aug_trans_00370,en,en,Smiling woman,Person,FORWARD_ENTAILMENT
+aug_trans_00371__en-en__original,aug_trans_00371,en,en,Person,Two women,BACKWARD_ENTAILMENT
+aug_trans_00371__en-en__flipped,aug_trans_00371,en,en,Two women,Person,FORWARD_ENTAILMENT
+aug_trans_00372__en-en__original,aug_trans_00372,en,en,Person,Women,BACKWARD_ENTAILMENT
+aug_trans_00372__en-en__flipped,aug_trans_00372,en,en,Women,Person,FORWARD_ENTAILMENT
+aug_trans_00373__en-en__original,aug_trans_00373,en,en,Philippines,the Philippines,EQUIVALENCE
+aug_trans_00373__en-en__flipped,aug_trans_00373,en,en,the Philippines,Philippines,EQUIVALENCE
+aug_trans_00374__en-en__original,aug_trans_00374,en,en,play,plays,EQUIVALENCE
+aug_trans_00374__en-en__flipped,aug_trans_00374,en,en,plays,play,EQUIVALENCE
+aug_trans_00375__en-en__original,aug_trans_00375,en,en,posing,remain upright,NEGATIVE_OTHER
+aug_trans_00376__en-en__original,aug_trans_00376,en,en,pulling,run,NEGATIVE_OTHER
+aug_trans_00377__en-en__original,aug_trans_00377,en,en,pulling,runs,NEGATIVE_OTHER
+aug_trans_00378__en-en__original,aug_trans_00378,en,en,receives the crown,wins,NEGATIVE_OTHER
+aug_trans_00379__en-en__original,aug_trans_00379,en,en,rides,traveling while mounted,EQUIVALENCE
+aug_trans_00379__en-en__flipped,aug_trans_00379,en,en,traveling while mounted,rides,EQUIVALENCE
+aug_trans_00380__en-en__original,aug_trans_00380,en,en,run,runs,EQUIVALENCE
+aug_trans_00380__en-en__flipped,aug_trans_00380,en,en,runs,run,EQUIVALENCE
+aug_trans_00381__en-en__original,aug_trans_00381,en,en,seated,sit,EQUIVALENCE
+aug_trans_00381__en-en__flipped,aug_trans_00381,en,en,sit,seated,EQUIVALENCE
+aug_trans_00382__en-en__original,aug_trans_00382,en,en,Several large dogs,Two dogs,FORWARD_ENTAILMENT
+aug_trans_00382__en-en__flipped,aug_trans_00382,en,en,Two dogs,Several large dogs,BACKWARD_ENTAILMENT
+aug_trans_00383__en-en__original,aug_trans_00383,en,en,Thai opposition,Thailand 's opposition Democrat Party,BACKWARD_ENTAILMENT
+aug_trans_00383__en-en__flipped,aug_trans_00383,en,en,Thailand 's opposition Democrat Party,Thai opposition,FORWARD_ENTAILMENT
+aug_trans_00384__en-en__original,aug_trans_00384,en,en,the adult male,the male adult,EQUIVALENCE
+aug_trans_00384__en-en__flipped,aug_trans_00384,en,en,the male adult,the adult male,EQUIVALENCE
+aug_trans_00385__en-en__original,aug_trans_00385,en,en,the adult male,Two constructions workers,BACKWARD_ENTAILMENT
+aug_trans_00385__en-en__flipped,aug_trans_00385,en,en,Two constructions workers,the adult male,FORWARD_ENTAILMENT
+aug_trans_00386__en-en__original,aug_trans_00386,en,en,The blue train,the rail conveyance,FORWARD_ENTAILMENT
+aug_trans_00386__en-en__flipped,aug_trans_00386,en,en,the rail conveyance,The blue train,BACKWARD_ENTAILMENT
+aug_trans_00387__en-en__original,aug_trans_00387,en,en,The blue train,the rail passenger vehicle,FORWARD_ENTAILMENT
+aug_trans_00387__en-en__flipped,aug_trans_00387,en,en,the rail passenger vehicle,The blue train,BACKWARD_ENTAILMENT
+aug_trans_00388__en-en__original,aug_trans_00388,en,en,the male adult,Two constructions workers,BACKWARD_ENTAILMENT
+aug_trans_00388__en-en__flipped,aug_trans_00388,en,en,Two constructions workers,the male adult,FORWARD_ENTAILMENT
+aug_trans_00389__en-en__original,aug_trans_00389,en,en,the male child,the young male child,EQUIVALENCE
+aug_trans_00389__en-en__flipped,aug_trans_00389,en,en,the young male child,the male child,EQUIVALENCE
+aug_trans_00390__en-en__original,aug_trans_00390,en,en,the pair of canines,Three dogs,BACKWARD_ENTAILMENT
+aug_trans_00390__en-en__flipped,aug_trans_00390,en,en,Three dogs,the pair of canines,FORWARD_ENTAILMENT
+aug_trans_00391__en-en__original,aug_trans_00391,en,en,the pair of canines,Two black dogs,BACKWARD_ENTAILMENT
+aug_trans_00391__en-en__flipped,aug_trans_00391,en,en,Two black dogs,the pair of canines,FORWARD_ENTAILMENT
+aug_trans_00392__en-en__original,aug_trans_00392,en,en,the pair of canines,Two brownish dogs,BACKWARD_ENTAILMENT
+aug_trans_00392__en-en__flipped,aug_trans_00392,en,en,Two brownish dogs,the pair of canines,FORWARD_ENTAILMENT
+aug_trans_00393__en-en__original,aug_trans_00393,en,en,the pair of canines,Two grey dogs,BACKWARD_ENTAILMENT
+aug_trans_00393__en-en__flipped,aug_trans_00393,en,en,Two grey dogs,the pair of canines,FORWARD_ENTAILMENT
+aug_trans_00394__en-en__original,aug_trans_00394,en,en,the pair of canines,Two tan dogs,BACKWARD_ENTAILMENT
+aug_trans_00394__en-en__flipped,aug_trans_00394,en,en,Two tan dogs,the pair of canines,FORWARD_ENTAILMENT
+aug_trans_00395__en-en__original,aug_trans_00395,en,en,the rail conveyance,the rail passenger vehicle,EQUIVALENCE
+aug_trans_00395__en-en__flipped,aug_trans_00395,en,en,the rail passenger vehicle,the rail conveyance,EQUIVALENCE
+aug_trans_00396__en-en__original,aug_trans_00396,en,en,the rail conveyance,Two trains,BACKWARD_ENTAILMENT
+aug_trans_00396__en-en__flipped,aug_trans_00396,en,en,Two trains,the rail conveyance,FORWARD_ENTAILMENT
+aug_trans_00397__en-en__original,aug_trans_00397,en,en,the rail passenger vehicle,Two trains,BACKWARD_ENTAILMENT
+aug_trans_00397__en-en__flipped,aug_trans_00397,en,en,Two trains,the rail passenger vehicle,FORWARD_ENTAILMENT
+aug_trans_00398__en-en__original,aug_trans_00398,en,en,The red train and the yellow train,The train,FORWARD_ENTAILMENT
+aug_trans_00398__en-en__flipped,aug_trans_00398,en,en,The train,The red train and the yellow train,BACKWARD_ENTAILMENT
+aug_trans_00399__en-en__original,aug_trans_00399,en,en,the water,through water,BACKWARD_ENTAILMENT
+aug_trans_00399__en-en__flipped,aug_trans_00399,en,en,through water,the water,FORWARD_ENTAILMENT
+aug_trans_00400__en-en__original,aug_trans_00400,en,en,Three individuals,Two elderly women,NEGATIVE_OTHER
+aug_trans_00401__en-en__original,aug_trans_00401,en,en,through a large grassy area,upon grassy ground,FORWARD_ENTAILMENT
+aug_trans_00401__en-en__flipped,aug_trans_00401,en,en,upon grassy ground,through a large grassy area,BACKWARD_ENTAILMENT
+aug_trans_00402__en-en__original,aug_trans_00402,en,en,through snow,within the snow,FORWARD_ENTAILMENT
+aug_trans_00402__en-en__flipped,aug_trans_00402,en,en,within the snow,through snow,BACKWARD_ENTAILMENT
+aug_trans_00403__en-en__original,aug_trans_00403,en,en,through the field,within the open field,FORWARD_ENTAILMENT
+aug_trans_00403__en-en__flipped,aug_trans_00403,en,en,within the open field,through the field,BACKWARD_ENTAILMENT
+aug_trans_00404__en-en__original,aug_trans_00404,en,en,through the grass,upon grassy ground,FORWARD_ENTAILMENT
+aug_trans_00404__en-en__flipped,aug_trans_00404,en,en,upon grassy ground,through the grass,BACKWARD_ENTAILMENT
+aug_trans_00405__en-en__original,aug_trans_00405,en,en,through the snow,within the snow,FORWARD_ENTAILMENT
+aug_trans_00405__en-en__flipped,aug_trans_00405,en,en,within the snow,through the snow,BACKWARD_ENTAILMENT
+aug_trans_00406__en-en__original,aug_trans_00406,en,en,to Nelson Mandela,with Mandela family,NEGATIVE_OTHER
+aug_trans_00407__en-en__original,aug_trans_00407,en,en,Two animals,Two bald eagles,BACKWARD_ENTAILMENT
+aug_trans_00407__en-en__flipped,aug_trans_00407,en,en,Two bald eagles,Two animals,FORWARD_ENTAILMENT
+aug_trans_00408__en-en__original,aug_trans_00408,en,en,Two blonde girls,Two people,FORWARD_ENTAILMENT
+aug_trans_00408__en-en__flipped,aug_trans_00408,en,en,Two people,Two blonde girls,BACKWARD_ENTAILMENT
