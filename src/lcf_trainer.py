@@ -167,6 +167,25 @@ def run(cfg, seed, train_path, dev_path, device):
     print("train rows per context:", {names[k]: int(v) for k, v in enumerate(np.bincount(g_tr, minlength=n_ctx))})
     assert np.array_equal(g_dv, g_dv_swap), "contexts must be swap-invariant"
 
+    em = lc.get("z_target") == "posterior"
+    if em:  # LCF-EM: convention estimated with logic fixed to the teacher, then frozen (identifiability)
+        import convention_probe as cp
+        cue_tr, cue_dv = cp.cue_features(tr1, tr2, dom_pred), cp.cue_features(dv1, dv2, dom_pred)
+        cm = cp.fit_c(q_tr, ytr, cue_tr)
+        with torch.no_grad():
+            Ci_tr, Ci_dv = cm(torch.tensor(cue_tr)).numpy(), cm(torch.tensor(cue_dv)).numpy()
+        pfix = np.einsum("nz,nzy->ny", q_dv, Ci_dv).argmax(1)
+        print(f"fixed-C (teacher logic, rich cues) dev acc {np.mean(pfix == ydv):.4f} "
+              f"weighted_f1 {f1_score(ydv, pfix, average='weighted'):.4f}", flush=True)
+        beta = float(lc.get("posterior_beta", 1.0))
+        r = q_tr ** beta * Ci_tr[np.arange(len(ytr)), :, ytr]
+        r = r / r.sum(1, keepdims=True)
+        print(f"EM posterior targets: argmax==teacher {np.mean(r.argmax(1) == q_tr.argmax(1)):.4f}; "
+              f"identity-label(argmax r)==gold {np.mean(logic_to_label(r).argmax(1) == ytr):.4f}; "
+              f"mean r {dict(zip(Z, np.round(r.mean(0), 4)))}", flush=True)
+        r_t, Ci_t = torch.tensor(r, dtype=torch.float32, device=device), torch.tensor(Ci_tr, dtype=torch.float32, device=device)
+        Ci_dv_t = torch.tensor(Ci_dv, dtype=torch.float32, device=device)
+
     tok, model = dt.build_model(cfg, len(Z), device)
     conv = Convention(n_ctx).to(device)
     L, tpl = cfg["max_length"], cfg.get("pair_template")
@@ -187,9 +206,9 @@ def run(cfg, seed, train_path, dev_path, device):
     @torch.no_grad()
     def predict(feats, gg):
         model.eval()
-        C = conv()
         pz = torch.tensor(dt.predict_probs(model, tok, feats, bs, device, amp), dtype=torch.float32, device=device)
-        py = torch.einsum("nz,nzy->ny", pz, C[torch.tensor(gg, device=device)])
+        Cx = Ci_dv_t if em else conv()[torch.tensor(gg, device=device)]
+        py = torch.einsum("nz,nzy->ny", pz, Cx)
         return pz.cpu().numpy().astype(np.float64), py.cpu().numpy().astype(np.float64)
 
     for epoch in range(epochs):
@@ -202,12 +221,16 @@ def run(cfg, seed, train_path, dev_path, device):
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
             logpz = F.log_softmax(logits.float(), -1)
-            C = conv()[g_t[idx]]
+            C = Ci_t[idx] if em else conv()[g_t[idx]]
             logpy = torch.logsumexp(logpz.unsqueeze(-1) + torch.log(C + 1e-9), dim=1)
             target = F.one_hot(y_t[idx], 4).float() * (1 - ls) + ls / 4
             nll = -(target * logpy).sum(-1).mean()
             kl = (q_t[idx] * (torch.log(q_t[idx] + 1e-9) - logpz)).sum(-1).mean()
-            loss = nll + lam * kl
+            if em:  # M-step: logic head fits the EM posterior (label smoothing applied in z-space)
+                rt = r_t[idx] * (1 - ls) + ls / len(Z)
+                loss = -(rt * logpz).sum(-1).mean() + lam * kl
+            else:
+                loss = nll + lam * kl
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
@@ -226,6 +249,8 @@ def run(cfg, seed, train_path, dev_path, device):
 
     # ---------------- interpretability diagnostics
     C = conv().detach().cpu().numpy()
+    if em:  # fixed instance-level C, summarised as its mean within each context
+        C = np.stack([Ci_tr[g_tr == k].mean(0) if (g_tr == k).any() else np.full((len(Z), 4), np.nan) for k in range(n_ctx)])
     counts = np.bincount(g_tr, minlength=n_ctx)
     print("<<<CONVENTION_MATRICES (rows z, cols y in order BE,EQ,FE,NO)")
     for k in range(n_ctx):

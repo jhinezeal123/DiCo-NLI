@@ -1,5 +1,5 @@
 {
-  "name": "track1_m1_convention_probe_fixed_logic",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_lcf_em_posterior",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -32,12 +32,14 @@
     ]
   },
   "label_smoothing": 0.1,
-  "mode": "convention_probe",
-  "probe": {
-    "teachers": [
-      "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
-      "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli@b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7"
-    ],
-    "bootstrap": 300
+  "objective": "lcf",
+  "lcf": {
+    "teacher": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+    "teacher_revision": "6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
+    "n_contexts": 8,
+    "anchor_lambda": 0.0,
+    "conv_lr": 0.0,
+    "z_target": "posterior",
+    "posterior_beta": 1.0
   }
 }
