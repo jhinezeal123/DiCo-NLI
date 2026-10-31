@@ -292,6 +292,12 @@ def main():
         convention_probe.run(cfg, upstream, lambda s: print(s, flush=True))
         return
 
+    if cfg.get("logic_hint"):
+        sys.path.insert(0, str(REPO / "src"))
+        import ds_probe
+        section("LOGIC HINTS (4-teacher Dawid-Skene, label-free at inference)")
+        ds_probe.write_hints(cfg, upstream, out_root / "logic_hints.csv", lambda s: print(s, flush=True))
+
     if cfg.get("extra_train"):
         paths["train"] = extra_train(cfg, train_rows, out_root)
 
