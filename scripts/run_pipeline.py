@@ -200,6 +200,10 @@ def main():
 
     section("CONFIG")
     print(json.dumps(cfg, indent=1))
+    if cfg.get("augmentation_mode"):
+        from prepare_paraphrase_pilot import prepare
+        paths["train"] = prepare(cfg, paths["train"], paths["dev"], out_root).resolve()
+        print(f"TRAIN_CSV_OVERRIDE {paths['train']}", flush=True)
     train_rows, dev_rows = read_csv(paths["train"]), read_csv(paths["dev"])
     ref_rows = read_csv(paths["dev_reference"])
     audit(train_rows, dev_rows, paths)

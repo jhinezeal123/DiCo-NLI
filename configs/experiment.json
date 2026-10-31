@@ -1,5 +1,13 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_cb_paraphrase_pilot",
+  "augmentation_mode": "paraphrase",
+  "paraphrase_candidates": "data/paraphrase_candidates.jsonl",
+  "nli_model_id": "cross-encoder/nli-deberta-v3-base",
+  "nli_revision": "6c749ce3425cd33b46d187e45b92bbf96ee12ec7",
+  "nli_threshold": 0.8,
+  "max_per_class": 80,
+  "min_augmented_rows": 80,
+  "max_steps": 1143,
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
