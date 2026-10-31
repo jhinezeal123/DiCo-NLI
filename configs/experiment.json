@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_conv_aux_w0p5",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_conv_reweight_a1",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -42,7 +42,7 @@
     "bootstrap": 300
   },
   "convention_aux": {
-    "mode": "aux",
-    "weight": 0.5
+    "mode": "weight",
+    "alpha": 1.0
   }
 }
