@@ -1,0 +1,190 @@
+source_id,source_pair,label,side,original,paraphrase,nli_fwd,nli_rev
+dico_phrasis_0001717__en-en__original,dico_phrasis_0001717,FORWARD_ENTAILMENT,text1,At least 45,No fewer than 45,0.981193,0.988861
+dico_phrasis_0001761__en-en__original,dico_phrasis_0001761,FORWARD_ENTAILMENT,text1,A small white cat,A little white cat,0.996355,0.996771
+dico_phrasis_0001369__en-en__flipped,dico_phrasis_0001369,BACKWARD_ENTAILMENT,text1,nine tourists,9 tourists,0.997055,0.997606
+dico_phrasis_0002489__en-en__original,dico_phrasis_0002489,NEGATIVE_OTHER,text2,global alert,worldwide alert,0.993732,0.99591
+dico_phrasis_0000154__en-en__flipped,dico_phrasis_0000154,FORWARD_ENTAILMENT,text2,The black and white dog,The dog that is black and white,0.995908,0.994609
+dico_phrasis_0002985__en-en__original,dico_phrasis_0002985,NEGATIVE_OTHER,text1,South Africans,People from South Africa,0.997244,0.995764
+dico_phrasis_0001124__en-en__flipped,dico_phrasis_0001124,EQUIVALENCE,text1,A flat-screen TV,A flat panel television,0.99599,0.997699
+dico_phrasis_0002689__en-en__original,dico_phrasis_0002689,NEGATIVE_OTHER,text2,Two football players,A pair of football players,0.995844,0.99279
+dico_phrasis_0001146__en-en__original,dico_phrasis_0001146,EQUIVALENCE,text1,perches,sits perched,0.990224,0.97368
+dico_phrasis_0001211__en-en__original,dico_phrasis_0001211,EQUIVALENCE,text1,on grassy field,on a field of grass,0.996996,0.966432
+dico_phrasis_0000751__en-en__flipped,dico_phrasis_0000751,EQUIVALENCE,text2,is running after,is chasing,0.991443,0.988511
+dico_phrasis_0001015__en-en__flipped,dico_phrasis_0001015,EQUIVALENCE,text2,to Marry,To Wed,0.996487,0.995603
+dico_phrasis_0003153__en-en__original,dico_phrasis_0003153,NEGATIVE_OTHER,text2,with two monitors,with a pair of monitors,0.994882,0.992551
+dico_phrasis_0000400__en-en__original,dico_phrasis_0000400,BACKWARD_ENTAILMENT,text2,north Mali al-Qaida-linked rebels,al-Qaida-linked rebels in north Mali,0.996898,0.996871
+dico_phrasis_0000400__en-en__flipped,dico_phrasis_0000400,FORWARD_ENTAILMENT,text1,north Mali al-Qaida-linked rebels,al-Qaida-linked rebels in north Mali,0.996898,0.996871
+dico_phrasis_0001873__en-en__original,dico_phrasis_0001873,FORWARD_ENTAILMENT,text1,Red and white bus,White and red bus,0.994879,0.993548
+dico_phrasis_0000206__en-en__original,dico_phrasis_0000206,BACKWARD_ENTAILMENT,text2,with a black and white dog,with a dog that is black and white,0.997405,0.99607
+dico_phrasis_0001761__en-en__flipped,dico_phrasis_0001761,BACKWARD_ENTAILMENT,text2,A small white cat,A little white cat,0.996355,0.996771
+dico_phrasis_0000089__en-en__flipped,dico_phrasis_0000089,FORWARD_ENTAILMENT,text2,presidency bid,run for president,0.994836,0.99414
+dico_phrasis_0001738__en-en__original,dico_phrasis_0001738,FORWARD_ENTAILMENT,text2,26 more Palestinian prisoners,26 additional Palestinian prisoners,0.997947,0.997491
+dico_phrasis_0000987__en-en__flipped,dico_phrasis_0000987,EQUIVALENCE,text1,the television series Doctor Who,the TV show Doctor Who,0.998067,0.998154
+dico_phrasis_0001835__en-en__flipped,dico_phrasis_0001835,BACKWARD_ENTAILMENT,text1,around a table,round a table,0.996193,0.994632
+dico_phrasis_0001786__en-en__original,dico_phrasis_0001786,FORWARD_ENTAILMENT,text1,Two dairy cows,A pair of dairy cows,0.995561,0.990351
+dico_phrasis_0001934__en-en__original,dico_phrasis_0001934,FORWARD_ENTAILMENT,text1,of a white sheep,of a sheep that is white,0.996597,0.993922
+dico_phrasis_0000880__en-en__original,dico_phrasis_0000880,EQUIVALENCE,text2,Bangladesh building-collapse,Building collapse in Bangladesh,0.993925,0.988797
+dico_phrasis_0000710__en-en__original,dico_phrasis_0000710,EQUIVALENCE,text1,unrest in Egypt,Egypt unrest,0.995495,0.994464
+dico_phrasis_0001369__en-en__original,dico_phrasis_0001369,FORWARD_ENTAILMENT,text2,nine tourists,9 tourists,0.997055,0.997606
+dico_phrasis_0000169__en-en__original,dico_phrasis_0000169,BACKWARD_ENTAILMENT,text1,The two dogs,The pair of dogs,0.995068,0.992791
+dico_phrasis_0003069__en-en__original,dico_phrasis_0003069,NEGATIVE_OTHER,text1,toward the camera,towards the camera,0.991327,0.996528
+dico_phrasis_0001289__en-en__flipped,dico_phrasis_0001289,EQUIVALENCE,text2,at a construction site,at a building site,0.971621,0.977684
+dico_phrasis_0001311__en-en__original,dico_phrasis_0001311,EQUIVALENCE,text2,on the train tracks,on the railway tracks,0.994833,0.994869
+dico_phrasis_0000545__en-en__original,dico_phrasis_0000545,BACKWARD_ENTAILMENT,text1,Two Eagles,A pair of Eagles,0.994538,0.989358
+dico_phrasis_0001935__en-en__original,dico_phrasis_0001935,FORWARD_ENTAILMENT,text1,in a messy room,in an untidy room,0.99622,0.997041
+dico_phrasis_0001393__en-en__flipped,dico_phrasis_0001393,BACKWARD_ENTAILMENT,text1,Former Pakistan army chief,Ex-Pakistan army chief,0.997705,0.997715
+dico_phrasis_0002723__en-en__original,dico_phrasis_0002723,NEGATIVE_OTHER,text2,Diana and Fayed death info,Information on Diana and Fayed deaths,0.997567,0.997546
+dico_phrasis_0000597__en-en__flipped,dico_phrasis_0000597,FORWARD_ENTAILMENT,text1,in a grassy wooded area,in a wooded area with grass,0.989906,0.987387
+dico_phrasis_0000878__en-en__original,dico_phrasis_0000878,EQUIVALENCE,text1,fiscal cliff deal,deal on the fiscal cliff,0.994292,0.977349
+dico_phrasis_0000257__en-en__flipped,dico_phrasis_0000257,FORWARD_ENTAILMENT,text1,Senate Judiciary Committee,Judiciary Committee of the Senate,0.988888,0.993964
+dico_phrasis_0000515__en-en__original,dico_phrasis_0000515,BACKWARD_ENTAILMENT,text1,in grassy field,in a field of grass,0.996656,0.964415
+dico_phrasis_0001542__en-en__flipped,dico_phrasis_0001542,BACKWARD_ENTAILMENT,text1,around a tree,round a tree,0.991988,0.992799
+dico_phrasis_0000545__en-en__flipped,dico_phrasis_0000545,FORWARD_ENTAILMENT,text2,Two Eagles,A pair of Eagles,0.994538,0.989358
+dico_phrasis_0001890__en-en__flipped,dico_phrasis_0001890,BACKWARD_ENTAILMENT,text1,next to a yellow sports car,beside a yellow sports car,0.996533,0.997168
+dico_phrasis_0001120__en-en__original,dico_phrasis_0001120,EQUIVALENCE,text2,"A red , double-decker bus","A red , two-story bus",0.996136,0.986321
+dico_phrasis_0002086__en-en__original,dico_phrasis_0002086,NEGATIVE_OTHER,text1,for Christmas,for the Christmas holiday,0.900359,0.879547
+dico_phrasis_0002680__en-en__original,dico_phrasis_0002680,NEGATIVE_OTHER,text1,brown and white dog,White and brown dog,0.993211,0.990399
+dico_phrasis_0002539__en-en__original,dico_phrasis_0002539,NEGATIVE_OTHER,text1,Brown and white dog,White and brown dog,0.993211,0.990399
+dico_phrasis_0002347__en-en__original,dico_phrasis_0002347,NEGATIVE_OTHER,text2,at a closed door,at a shut door,0.997745,0.997287
+dico_phrasis_0001575__en-en__original,dico_phrasis_0001575,FORWARD_ENTAILMENT,text1,Google and IBM Post Strong Earnings,Google and IBM Report Strong Earnings,0.998086,0.998141
+dico_phrasis_0000569__en-en__flipped,dico_phrasis_0000569,FORWARD_ENTAILMENT,text1,Two small birds,A pair of little birds,0.996588,0.995829
+dico_phrasis_0000878__en-en__flipped,dico_phrasis_0000878,EQUIVALENCE,text2,fiscal cliff deal,deal on the fiscal cliff,0.994292,0.977349
+dico_phrasis_0002450__en-en__original,dico_phrasis_0002450,NEGATIVE_OTHER,text2,in Afghan presidential elections,in Afghanistan's presidential polls,0.997861,0.997444
+dico_phrasis_0000413__en-en__original,dico_phrasis_0000413,BACKWARD_ENTAILMENT,text1,Two firefighters,A pair of firefighters,0.995925,0.991389
+dico_phrasis_0001737__en-en__original,dico_phrasis_0001737,FORWARD_ENTAILMENT,text1,At Least 66,No fewer than 66,0.979014,0.988779
+dico_phrasis_0001596__en-en__flipped,dico_phrasis_0001596,BACKWARD_ENTAILMENT,text2,in bomb attacks,in bombings,0.996258,0.995076
+dico_phrasis_0000482__en-en__original,dico_phrasis_0000482,BACKWARD_ENTAILMENT,text2,A silver car,A silver-colored car,0.994408,0.99171
+dico_phrasis_0001873__en-en__flipped,dico_phrasis_0001873,BACKWARD_ENTAILMENT,text2,Red and white bus,White and red bus,0.994879,0.993548
+dico_phrasis_0001021__en-en__flipped,dico_phrasis_0001021,EQUIVALENCE,text1,"Red grapes , blueberries","Blueberries , red grapes",0.995709,0.994397
+dico_phrasis_0000069__en-en__flipped,dico_phrasis_0000069,FORWARD_ENTAILMENT,text2,Air strike,Airstrike,0.985389,0.985954
+dico_phrasis_0001617__en-en__original,dico_phrasis_0001617,FORWARD_ENTAILMENT,text1,US Capitol Hill,Capitol Hill in the US,0.989874,0.98896
+dico_phrasis_0000196__en-en__flipped,dico_phrasis_0000196,FORWARD_ENTAILMENT,text1,on a red couch,on a red sofa,0.996415,0.996683
+dico_phrasis_0000317__en-en__original,dico_phrasis_0000317,BACKWARD_ENTAILMENT,text1,15,fifteen,0.995142,0.993991
+dico_phrasis_0000473__en-en__original,dico_phrasis_0000473,BACKWARD_ENTAILMENT,text2,in grassy field,in a field of grass,0.996656,0.964415
+dico_phrasis_0000751__en-en__original,dico_phrasis_0000751,EQUIVALENCE,text1,is running after,is chasing,0.991443,0.988511
+dico_phrasis_0000234__en-en__original,dico_phrasis_0000234,BACKWARD_ENTAILMENT,text2,over horse meat scandal,over the horsemeat scandal,0.997241,0.996961
+dico_phrasis_0001280__en-en__original,dico_phrasis_0001280,EQUIVALENCE,text1,the adult male,the grown man,0.993419,0.996393
+dico_phrasis_0000160__en-en__flipped,dico_phrasis_0000160,FORWARD_ENTAILMENT,text1,under an expressway ledge,beneath a highway ledge,0.996921,0.993955
+dico_phrasis_0000607__en-en__original,dico_phrasis_0000607,BACKWARD_ENTAILMENT,text1,"A red , double-decker bus","A red , two-story bus",0.996136,0.986321
+dico_phrasis_0001539__en-en__original,dico_phrasis_0001539,FORWARD_ENTAILMENT,text1,snowboarding and jumping,jumping and snowboarding,0.99373,0.991656
+dico_phrasis_0000169__en-en__flipped,dico_phrasis_0000169,FORWARD_ENTAILMENT,text2,The two dogs,The pair of dogs,0.995068,0.992791
+dico_phrasis_0002702__en-en__original,dico_phrasis_0002702,NEGATIVE_OTHER,text1,at a picnic table,at a table for picnics,0.951474,0.968296
+dico_phrasis_0000314__en-en__original,dico_phrasis_0000314,BACKWARD_ENTAILMENT,text1,murder charge,charge of murder,0.99739,0.988441
+dico_phrasis_0000689__en-en__flipped,dico_phrasis_0000689,EQUIVALENCE,text1,in Russian psychiatric hospital fire,in fire at Russian psychiatric hospital,0.978696,0.995668
+dico_phrasis_0000910__en-en__original,dico_phrasis_0000910,EQUIVALENCE,text1,may delay,might postpone,0.995139,0.993912
+dico_phrasis_0002200__en-en__original,dico_phrasis_0002200,NEGATIVE_OTHER,text2,North Korea,the DPRK,0.995947,0.992901
+dico_phrasis_0001076__en-en__flipped,dico_phrasis_0001076,EQUIVALENCE,text2,to go and see,to go see,0.996862,0.990883
+dico_phrasis_0001390__en-en__original,dico_phrasis_0001390,FORWARD_ENTAILMENT,text1,in Egypt clashes,in clashes in Egypt,0.980893,0.997702
+dico_phrasis_0000861__en-en__original,dico_phrasis_0000861,EQUIVALENCE,text1,at the Olympic Games,at the Olympics,0.983763,0.990364
+dico_phrasis_0001021__en-en__original,dico_phrasis_0001021,EQUIVALENCE,text2,"Red grapes , blueberries","Blueberries , red grapes",0.995709,0.994397
+dico_phrasis_0002305__en-en__original,dico_phrasis_0002305,NEGATIVE_OTHER,text2,under the trees,beneath the trees,0.988192,0.991043
+dico_phrasis_0000783__en-en__original,dico_phrasis_0000783,EQUIVALENCE,text2,remain upright,stay upright,0.996284,0.997075
+dico_phrasis_0000413__en-en__flipped,dico_phrasis_0000413,FORWARD_ENTAILMENT,text2,Two firefighters,A pair of firefighters,0.995925,0.991389
+dico_phrasis_0000407__en-en__flipped,dico_phrasis_0000407,FORWARD_ENTAILMENT,text1,shot dead,killed by gunfire,0.982704,0.989128
+dico_phrasis_0003257__en-en__original,dico_phrasis_0003257,NEGATIVE_OTHER,text2,on a white sofa,on a white couch,0.996361,0.995954
+dico_phrasis_0001766__en-en__original,dico_phrasis_0001766,FORWARD_ENTAILMENT,text1,Two airplanes,A pair of planes,0.993968,0.987751
+dico_phrasis_0000789__en-en__original,dico_phrasis_0000789,EQUIVALENCE,text1,competing in a race,taking part in a race,0.98526,0.978945
+dico_phrasis_0000935__en-en__original,dico_phrasis_0000935,EQUIVALENCE,text2,Iran President Hassan Rouhani,Iranian President Hassan Rouhani,0.996823,0.993956
+dico_phrasis_0000539__en-en__flipped,dico_phrasis_0000539,FORWARD_ENTAILMENT,text2,The cows,The cattle,0.992667,0.99058
+dico_phrasis_0003265__en-en__original,dico_phrasis_0003265,NEGATIVE_OTHER,text1,A small white cat,A little white cat,0.996355,0.996771
+dico_phrasis_0000557__en-en__flipped,dico_phrasis_0000557,FORWARD_ENTAILMENT,text1,is placed,is put,0.997682,0.997347
+dico_phrasis_0000591__en-en__original,dico_phrasis_0000591,BACKWARD_ENTAILMENT,text1,A gray cat,A grey cat,0.996262,0.996888
+dico_phrasis_0000633__en-en__original,dico_phrasis_0000633,BACKWARD_ENTAILMENT,text2,Two eagles,A pair of Eagles,0.994538,0.989358
+dico_phrasis_0000208__en-en__original,dico_phrasis_0000208,BACKWARD_ENTAILMENT,text1,Baby,Infant,0.988974,0.97758
+dico_phrasis_0000317__en-en__flipped,dico_phrasis_0000317,FORWARD_ENTAILMENT,text2,15,fifteen,0.995142,0.993991
+dico_phrasis_0002389__en-en__original,dico_phrasis_0002389,NEGATIVE_OTHER,text1,after India buildings collapse,after buildings collapse in India,0.994261,0.995805
+dico_phrasis_0000357__en-en__original,dico_phrasis_0000357,BACKWARD_ENTAILMENT,text2,NSA whistleblower Edward Snowden,"Edward Snowden , the NSA whistleblower",0.997517,0.996991
+dico_phrasis_0001969__en-en__original,dico_phrasis_0001969,NEGATIVE_OTHER,text2,Palestinian prisoner release,Release of Palestinian prisoners,0.996158,0.99073
+dico_phrasis_0003086__en-en__original,dico_phrasis_0003086,NEGATIVE_OTHER,text1,Four women and two men,Two men and four women,0.994187,0.994193
+dico_phrasis_0000736__en-en__flipped,dico_phrasis_0000736,EQUIVALENCE,text2,A pair of dogs,Two dogs,0.987141,0.993863
+dico_phrasis_0001826__en-en__flipped,dico_phrasis_0001826,BACKWARD_ENTAILMENT,text1,a small airplane,a little aeroplane,0.992717,0.995055
+dico_phrasis_0000650__en-en__flipped,dico_phrasis_0000650,EQUIVALENCE,text1,Aged 116,At age 116,0.997194,0.997424
+dico_phrasis_0000233__en-en__flipped,dico_phrasis_0000233,FORWARD_ENTAILMENT,text1,with South Korea,with the Republic of Korea,0.980702,0.936217
+dico_phrasis_0001677__en-en__flipped,dico_phrasis_0001677,BACKWARD_ENTAILMENT,text2,"Cloud-Based , Networked Firewall Specialist Stonesoft","Stonesoft , Specialist in Networked , Cloud-Based Firewalls",0.997451,0.995536
+dico_phrasis_0002786__en-en__original,dico_phrasis_0002786,NEGATIVE_OTHER,text2,in Egypt clashes,in clashes in Egypt,0.980893,0.997702
+dico_phrasis_0001401__en-en__original,dico_phrasis_0001401,FORWARD_ENTAILMENT,text2,"4,000 Cuban doctors","4,000 doctors from Cuba",0.997226,0.997336
+dico_phrasis_0003255__en-en__original,dico_phrasis_0003255,NEGATIVE_OTHER,text2,A black and white scene,A scene in black and white,0.995639,0.993966
+dico_phrasis_0000209__en-en__flipped,dico_phrasis_0000209,FORWARD_ENTAILMENT,text2,green playpen,playpen that is green,0.997271,0.997127
+dico_phrasis_0001288__en-en__flipped,dico_phrasis_0001288,EQUIVALENCE,text2,located within the water,situated in the water,0.997493,0.997612
+dico_phrasis_0001542__en-en__original,dico_phrasis_0001542,FORWARD_ENTAILMENT,text1,next to a mossy tree,beside a moss-covered tree,0.99674,0.99578
+dico_phrasis_0003291__en-en__original,dico_phrasis_0003291,NEGATIVE_OTHER,text2,A gray dog,A grey dog,0.995843,0.996566
+dico_phrasis_0000530__en-en__original,dico_phrasis_0000530,BACKWARD_ENTAILMENT,text2,Four women and two men,Two men and four women,0.994187,0.994193
+dico_phrasis_0002541__en-en__original,dico_phrasis_0002541,NEGATIVE_OTHER,text1,a pink coat,a coat that is pink,0.997488,0.996795
+dico_phrasis_0001015__en-en__original,dico_phrasis_0001015,EQUIVALENCE,text1,to Marry,To Wed,0.996487,0.995603
+dico_phrasis_0000703__en-en__original,dico_phrasis_0000703,EQUIVALENCE,text1,returns,comes back,0.994769,0.992325
+dico_phrasis_0001348__en-en__original,dico_phrasis_0001348,FORWARD_ENTAILMENT,text2,30,thirty,0.99321,0.988831
+dico_phrasis_0000065__en-en__original,dico_phrasis_0000065,BACKWARD_ENTAILMENT,text2,South Africans,People from South Africa,0.997244,0.995764
+dico_phrasis_0001081__en-en__original,dico_phrasis_0001081,EQUIVALENCE,text1,after collapsing,after having collapsed,0.98983,0.97951
+dico_phrasis_0000984__en-en__original,dico_phrasis_0000984,EQUIVALENCE,text2,into Syria,into Syrian territory,0.996071,0.98767
+dico_phrasis_0000170__en-en__flipped,dico_phrasis_0000170,FORWARD_ENTAILMENT,text2,Three greyhounds,3 greyhounds,0.995995,0.996975
+dico_phrasis_0001424__en-en__flipped,dico_phrasis_0001424,BACKWARD_ENTAILMENT,text1,North Korea,the DPRK,0.995947,0.992901
+dico_phrasis_0000346__en-en__original,dico_phrasis_0000346,BACKWARD_ENTAILMENT,text1,US government,American government,0.994436,0.988005
+dico_phrasis_0000650__en-en__original,dico_phrasis_0000650,EQUIVALENCE,text2,Aged 116,At age 116,0.997194,0.997424
+dico_phrasis_0000935__en-en__flipped,dico_phrasis_0000935,EQUIVALENCE,text1,Iran President Hassan Rouhani,Iranian President Hassan Rouhani,0.996823,0.993956
+dico_phrasis_0000557__en-en__original,dico_phrasis_0000557,BACKWARD_ENTAILMENT,text2,is placed,is put,0.997682,0.997347
+dico_phrasis_0001124__en-en__original,dico_phrasis_0001124,EQUIVALENCE,text2,A flat-screen TV,A flat panel television,0.99599,0.997699
+dico_phrasis_0001786__en-en__flipped,dico_phrasis_0001786,BACKWARD_ENTAILMENT,text2,Two dairy cows,A pair of dairy cows,0.995561,0.990351
+dico_phrasis_0001753__en-en__original,dico_phrasis_0001753,FORWARD_ENTAILMENT,text1,under a small table,beneath a little table,0.996476,0.9962
+dico_phrasis_0000779__en-en__original,dico_phrasis_0000779,EQUIVALENCE,text1,The white and brown dog,The brown and white dog,0.993644,0.993694
+dico_phrasis_0000581__en-en__flipped,dico_phrasis_0000581,FORWARD_ENTAILMENT,text1,Four women and two men,Two men and four women,0.994187,0.994193
+dico_phrasis_0001878__en-en__flipped,dico_phrasis_0001878,BACKWARD_ENTAILMENT,text2,on blue sofa,on a blue couch,0.996709,0.994196
+dico_phrasis_0000682__en-en__original,dico_phrasis_0000682,EQUIVALENCE,text1,three U.S. diplomats,3 U.S. diplomats,0.996352,0.997726
+dico_phrasis_0000296__en-en__original,dico_phrasis_0000296,BACKWARD_ENTAILMENT,text1,Ex-Virginia governor Bob McDonnell,Former Virginia governor Bob McDonnell,0.998025,0.998128
+dico_phrasis_0000639__en-en__flipped,dico_phrasis_0000639,EQUIVALENCE,text1,Former Israeli Prime Minister Sharon,Ex-Israeli premier Sharon,0.998233,0.998297
+dico_phrasis_0002524__en-en__original,dico_phrasis_0002524,NEGATIVE_OTHER,text2,in northern Lebanon,in the north of Lebanon,0.995984,0.992553
+dico_phrasis_0002593__en-en__original,dico_phrasis_0002593,NEGATIVE_OTHER,text1,with a gemmed collar,with a jeweled collar,0.998127,0.997943
+dico_phrasis_0001717__en-en__flipped,dico_phrasis_0001717,BACKWARD_ENTAILMENT,text2,At least 45,No fewer than 45,0.981193,0.988861
+dico_phrasis_0000984__en-en__flipped,dico_phrasis_0000984,EQUIVALENCE,text1,into Syria,into Syrian territory,0.996071,0.98767
+dico_phrasis_0000208__en-en__flipped,dico_phrasis_0000208,FORWARD_ENTAILMENT,text2,Baby,Infant,0.988974,0.97758
+dico_phrasis_0000304__en-en__flipped,dico_phrasis_0000304,FORWARD_ENTAILMENT,text1,in Egypt clashes,in clashes in Egypt,0.980893,0.997702
+dico_phrasis_0002929__en-en__original,dico_phrasis_0002929,NEGATIVE_OTHER,text1,in northwest Syria,in Syria's northwest,0.995798,0.996524
+dico_phrasis_0000473__en-en__flipped,dico_phrasis_0000473,FORWARD_ENTAILMENT,text1,in grassy field,in a field of grass,0.996656,0.964415
+dico_phrasis_0000973__en-en__original,dico_phrasis_0000973,EQUIVALENCE,text2,in Indonesian volcanic eruption,in volcanic eruption in Indonesia,0.996577,0.996126
+dico_phrasis_0001098__en-en__flipped,dico_phrasis_0001098,EQUIVALENCE,text1,upon the snowy surface,on the snow-covered surface,0.996024,0.983868
+dico_phrasis_0000314__en-en__flipped,dico_phrasis_0000314,FORWARD_ENTAILMENT,text2,murder charge,charge of murder,0.99739,0.988441
+dico_phrasis_0000166__en-en__flipped,dico_phrasis_0000166,FORWARD_ENTAILMENT,text1,Two blonde girls,Two girls with blonde hair,0.996796,0.992733
+dico_phrasis_0000789__en-en__flipped,dico_phrasis_0000789,EQUIVALENCE,text1,are racing,are running a race,0.927911,0.974036
+dico_phrasis_0000703__en-en__flipped,dico_phrasis_0000703,EQUIVALENCE,text2,returns,comes back,0.994769,0.992325
+dico_phrasis_0001440__en-en__flipped,dico_phrasis_0001440,BACKWARD_ENTAILMENT,text1,climbs,ascends,0.994483,0.992097
+dico_phrasis_0001792__en-en__flipped,dico_phrasis_0001792,BACKWARD_ENTAILMENT,text2,a brown and white horse,a horse that is brown and white,0.997722,0.997098
+dico_phrasis_0000539__en-en__original,dico_phrasis_0000539,BACKWARD_ENTAILMENT,text1,The cows,The cattle,0.992667,0.99058
+dico_phrasis_0003180__en-en__original,dico_phrasis_0003180,NEGATIVE_OTHER,text2,around a table,round a table,0.996193,0.994632
+dico_phrasis_0000689__en-en__original,dico_phrasis_0000689,EQUIVALENCE,text2,in Russian psychiatric hospital fire,in fire at Russian psychiatric hospital,0.978696,0.995668
+dico_phrasis_0001561__en-en__flipped,dico_phrasis_0001561,BACKWARD_ENTAILMENT,text2,bitter immigration debate,acrimonious immigration debate,0.995523,0.994321
+dico_phrasis_0000987__en-en__original,dico_phrasis_0000987,EQUIVALENCE,text2,the television series Doctor Who,the TV show Doctor Who,0.998067,0.998154
+dico_phrasis_0001110__en-en__flipped,dico_phrasis_0001110,EQUIVALENCE,text1,Red and white plane,White and red plane,0.986379,0.983395
+dico_phrasis_0000357__en-en__flipped,dico_phrasis_0000357,FORWARD_ENTAILMENT,text1,NSA whistleblower Edward Snowden,"Edward Snowden , the NSA whistleblower",0.997517,0.996991
+dico_phrasis_0000530__en-en__flipped,dico_phrasis_0000530,FORWARD_ENTAILMENT,text1,Four women and two men,Two men and four women,0.994187,0.994193
+dico_phrasis_0000807__en-en__flipped,dico_phrasis_0000807,EQUIVALENCE,text2,climbs,ascends,0.994483,0.992097
+dico_phrasis_0000482__en-en__flipped,dico_phrasis_0000482,FORWARD_ENTAILMENT,text1,A silver car,A silver-colored car,0.994408,0.99171
+dico_phrasis_0003261__en-en__original,dico_phrasis_0003261,NEGATIVE_OTHER,text2,A long-haired dog,A dog with long hair,0.99429,0.996832
+dico_phrasis_0000065__en-en__flipped,dico_phrasis_0000065,FORWARD_ENTAILMENT,text1,South Africans,People from South Africa,0.997244,0.995764
+dico_phrasis_0001890__en-en__original,dico_phrasis_0001890,FORWARD_ENTAILMENT,text2,next to a yellow sports car,beside a yellow sports car,0.996533,0.997168
+dico_phrasis_0001927__en-en__original,dico_phrasis_0001927,FORWARD_ENTAILMENT,text2,A double-decker bus,A bus with two decks,0.988062,0.99463
+dico_phrasis_0001809__en-en__flipped,dico_phrasis_0001809,BACKWARD_ENTAILMENT,text2,A gray cat,A grey cat,0.996262,0.996888
+dico_phrasis_0001485__en-en__flipped,dico_phrasis_0001485,BACKWARD_ENTAILMENT,text2,Two people and a dog,A dog and two people,0.992192,0.994573
+dico_phrasis_0000181__en-en__original,dico_phrasis_0000181,BACKWARD_ENTAILMENT,text1,on a dirt area,on an area of dirt,0.997601,0.993481
+dico_phrasis_0002425__en-en__original,dico_phrasis_0002425,NEGATIVE_OTHER,text1,India govt,Indian government,0.996687,0.992246
+dico_phrasis_0003029__en-en__original,dico_phrasis_0003029,NEGATIVE_OTHER,text1,A lamb,A young sheep,0.966991,0.938129
+dico_phrasis_0002322__en-en__original,dico_phrasis_0002322,NEGATIVE_OTHER,text1,atop a rock carving,on top of a rock carving,0.996011,0.994521
+dico_phrasis_0000160__en-en__original,dico_phrasis_0000160,BACKWARD_ENTAILMENT,text2,under an expressway ledge,beneath a highway ledge,0.996921,0.993955
+dico_phrasis_0002717__en-en__original,dico_phrasis_0002717,NEGATIVE_OTHER,text2,dies,passes away,0.996116,0.992448
+dico_phrasis_0002982__en-en__original,dico_phrasis_0002982,NEGATIVE_OTHER,text2,for Boston bomb suspect,for Boston bombing suspect,0.997309,0.99771
+dico_phrasis_0002422__en-en__original,dico_phrasis_0002422,NEGATIVE_OTHER,text1,Powerful 7.6 quake,Strong 7.6 earthquake,0.997774,0.997555
+dico_phrasis_0002987__en-en__original,dico_phrasis_0002987,NEGATIVE_OTHER,text1,in bomb attacks,in bombings,0.996258,0.995076
+dico_phrasis_0002190__en-en__original,dico_phrasis_0002190,NEGATIVE_OTHER,text2,Turkey unrest,Unrest in Turkey,0.996245,0.996816
+dico_phrasis_0002461__en-en__original,dico_phrasis_0002461,NEGATIVE_OTHER,text2,of 6 magnitude,of magnitude 6,0.99602,0.995637
+dico_phrasis_0002546__en-en__original,dico_phrasis_0002546,NEGATIVE_OTHER,text2,Two brindle dogs,A pair of brindle dogs,0.995615,0.993173
+dico_phrasis_0002293__en-en__original,dico_phrasis_0002293,NEGATIVE_OTHER,text1,lined up,arranged in a row,0.983482,0.972271
+dico_phrasis_0002807__en-en__original,dico_phrasis_0002807,NEGATIVE_OTHER,text1,About 60,Roughly 60,0.991109,0.993125
+dico_phrasis_0002538__en-en__original,dico_phrasis_0002538,NEGATIVE_OTHER,text1,a denim shirt,a shirt made of denim,0.996605,0.996749
+dico_phrasis_0002720__en-en__original,dico_phrasis_0002720,NEGATIVE_OTHER,text2,for massive protests,for huge protests,0.996013,0.995618
+dico_phrasis_0002327__en-en__original,dico_phrasis_0002327,NEGATIVE_OTHER,text2,around a table,round a table,0.996193,0.994632
+dico_phrasis_0002940__en-en__original,dico_phrasis_0002940,NEGATIVE_OTHER,text1,in Central African Republic fighting,in fighting in Central African Republic,0.980005,0.995939
+dico_phrasis_0002877__en-en__original,dico_phrasis_0002877,NEGATIVE_OTHER,text2,in San Francisco air crash,in air crash in San Francisco,0.994898,0.996765
+dico_phrasis_0003038__en-en__original,dico_phrasis_0003038,NEGATIVE_OTHER,text1,in a red canoe,in a canoe that is red,0.996902,0.995749
+dico_phrasis_0003088__en-en__original,dico_phrasis_0003088,NEGATIVE_OTHER,text1,on a carpeted floor,on a floor with carpet,0.990525,0.997101
+dico_phrasis_0002677__en-en__original,dico_phrasis_0002677,NEGATIVE_OTHER,text1,The white and brown dog,The brown and white dog,0.993644,0.993694
+dico_phrasis_0002795__en-en__original,dico_phrasis_0002795,NEGATIVE_OTHER,text2,U.S. Midwest,American Midwest,0.995476,0.993841
+dico_phrasis_0002746__en-en__original,dico_phrasis_0002746,NEGATIVE_OTHER,text2,as presidential candidate,as candidate for president,0.99686,0.993073
+dico_phrasis_0001972__en-en__original,dico_phrasis_0001972,NEGATIVE_OTHER,text2,North Korea,the DPRK,0.995947,0.992901

@@ -1,0 +1,243 @@
+review_id,source_phrase,paraphrase,verdict,reason,selected_row_count
+1,are sheering,are shearing,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+2,At least 45,No fewer than 45,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+3,issues red alert,declares red alert,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+4,into Russia,to Russia,UNCERTAIN_OR_REJECT,into va to khac gioi tu ve dich/huong,2
+5,A small white cat,A little white cat,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,3
+6,nine tourists,9 tourists,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+7,global alert,worldwide alert,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+8,in 2020 Tokyo Olympics,at the Tokyo 2020 Games,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+9,The black and white dog,The dog that is black and white,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+10,South Africans,People from South Africa,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,3
+11,at a port,at a harbor,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+12,for plan,for proposal,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+13,A flat-screen TV,A flat panel television,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+14,Five dead,5 killed,UNCERTAIN_OR_REJECT,dead khong nhat thiet la killed,3
+15,Bird,Avian,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+16,Two football players,A pair of football players,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+17,perches,sits perched,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+18,bomb attacks,bombings,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+19,on grassy field,on a field of grass,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+20,is running after,is chasing,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+21,to Marry,To Wed,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+22,with two monitors,with a pair of monitors,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+23,north Mali al-Qaida-linked rebels,al-Qaida-linked rebels in north Mali,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+24,Red and white bus,White and red bus,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+25,with a black and white dog,with a dog that is black and white,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+26,for every new settler homes,for each new settler homes,UNCERTAIN_OR_REJECT,cau sai ngu phap/khong ro nghia,1
+27,250 militants,250 insurgents,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+28,presidency bid,run for president,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+29,from Calgary homes,out of Calgary homes,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+30,26 more Palestinian prisoners,26 additional Palestinian prisoners,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+31,the television series Doctor Who,the TV show Doctor Who,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+32,as firefighters,while firefighters,UNCERTAIN_OR_REJECT,as khong nhat thiet la while,1
+33,emergency relief,emergency aid,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+34,around a table,round a table,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,3
+35,Two dairy cows,A pair of dairy cows,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+36,of a white sheep,of a sheep that is white,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+37,Black and white picture,Black-and-white photo,UNCERTAIN_OR_REJECT,picture khong nhat thiet la photo,1
+38,Bangladesh building-collapse,Building collapse in Bangladesh,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+39,unrest in Egypt,Egypt unrest,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+40,The two dogs,The pair of dogs,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+41,Patriot missile batteries,Patriot missile systems,UNCERTAIN_OR_REJECT,batteries va systems khong nhat thiet tuong duong,1
+42,toward the camera,towards the camera,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+43,at a construction site,at a building site,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+44,"Shots , Explosions","Gunfire , Blasts",UNCERTAIN_OR_REJECT,shots co the khong phai gunfire,1
+45,at Great Barrier Reef,on the Great Barrier Reef,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+46,on the train tracks,on the railway tracks,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+47,Two Eagles,A pair of Eagles,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+48,in a messy room,in an untidy room,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+49,Former Pakistan army chief,Ex-Pakistan army chief,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+50,Diana and Fayed death info,Information on Diana and Fayed deaths,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+51,in a grassy wooded area,in a wooded area with grass,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+52,fiscal cliff deal,deal on the fiscal cliff,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+53,looking out,gazing out,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+54,Senate Judiciary Committee,Judiciary Committee of the Senate,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+55,in grassy field,in a field of grass,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,3
+56,with bubbles,containing bubbles,UNCERTAIN_OR_REJECT,with co nhieu nghia khong nhat thiet containing,1
+57,around a tree,round a tree,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+58,in a blue dress,wearing a blue dress,UNCERTAIN_OR_REJECT,in khong phai luc nao cung la wearing,1
+59,the canine with black-and-white fur,the black and white dog,UNCERTAIN_OR_REJECT,canine khong nhat thiet la dog,1
+60,next to a yellow sports car,beside a yellow sports car,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+61,a brown-colored equine,a brown horse,UNCERTAIN_OR_REJECT,equine bao gom nhieu loai hon horse,2
+62,"A red , double-decker bus","A red , two-story bus",ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+63,as freight train,as cargo train,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+64,for Christmas,for the Christmas holiday,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+65,Blizzard wallops,Blizzard hammers,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+66,brown and white dog,White and brown dog,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+67,Brown and white dog,White and brown dog,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+68,at a closed door,at a shut door,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+69,In Cairo Camps Protesters,Protesters In Cairo Camps,UNCERTAIN_OR_REJECT,doi trat tu co the doi vai tro ngu phap,1
+70,midday Friday,noon Friday,UNCERTAIN_OR_REJECT,midday co the gan noon khong phai chinh xac,2
+71,at a brown dog,toward a brown dog,UNCERTAIN_OR_REJECT,at va toward khong chac tuong duong,1
+72,Chemical Arms Team,Chemical Weapons Team,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+73,Google and IBM Post Strong Earnings,Google and IBM Report Strong Earnings,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+74,to lure Gulf investors,to attract Gulf investors,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+75,Two small birds,A pair of little birds,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+76,on a shiny slide,on a glossy slide,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+77,in Afghan presidential elections,in Afghanistan's presidential polls,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+78,Two firefighters,A pair of firefighters,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+79,At Least 66,No fewer than 66,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+80,in bomb attacks,in bombings,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+81,A silver car,A silver-colored car,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+82,has seized,has captured,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+83,in the background,in the backdrop,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+84,"Red grapes , blueberries","Blueberries , red grapes",ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+85,Air strike,Airstrike,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+86,along dirt path,down an unpaved trail,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+87,dead,deceased,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+88,US Capitol Hill,Capitol Hill in the US,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+89,on a red couch,on a red sofa,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+90,15,fifteen,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+91,over horse meat scandal,over the horsemeat scandal,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+92,the adult male,the grown man,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+93,under an expressway ledge,beneath a highway ledge,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+94,snowboarding and jumping,jumping and snowboarding,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+95,A surfer,A person surfing,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+96,into two boys,toward two male children,UNCERTAIN_OR_REJECT,into va toward khac nhau ve huong/chuyen dong,1
+97,at a picnic table,at a table for picnics,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+98,murder charge,charge of murder,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+99,equities from China,Chinese equities,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+100,from a passenger vehicle,from a vehicle carrying passengers,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+101,near two tiny animals,close to two small animals,UNCERTAIN_OR_REJECT,tiny va small khac muc do,1
+102,in Russian psychiatric hospital fire,in fire at Russian psychiatric hospital,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+103,may delay,might postpone,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+104,North Korea,the DPRK,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,3
+105,of grass,of the grass,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+106,to go and see,to go see,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+107,in Egypt clashes,in clashes in Egypt,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,3
+108,at the Olympic Games,at the Olympics,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+109,held between its jaws,gripped in its jaws,UNCERTAIN_OR_REJECT,held khong nhat thiet la gripped,2
+110,under the trees,beneath the trees,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+111,as clashes,while clashes,UNCERTAIN_OR_REJECT,as khong nhat thiet la while,1
+112,remain upright,stay upright,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+113,shot dead,killed by gunfire,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+114,Quiz crossword,Crossword quiz,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+115,Islamist Tactics,Tactics of Islamists,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+116,on a white sofa,on a white couch,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+117,Two airplanes,A pair of planes,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+118,in front of a plane,ahead of an airplane,UNCERTAIN_OR_REJECT,in front of khong phai moi truong hop la ahead of,1
+119,competing in a race,taking part in a race,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+120,in Canada train blaze,in Canadian train fire,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+121,peaks out,peeks out,UNCERTAIN_OR_REJECT,sua typo khong du chac khong doi nghia,2
+122,Iran President Hassan Rouhani,Iranian President Hassan Rouhani,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+123,Ahmadinejad,Ahmedinejad,UNCERTAIN_OR_REJECT,ten rieng thay spelling khong xac thuc duoc,1
+124,The cows,The cattle,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+125,world credibility,international credibility,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+126,One Asian and one occasion woman,An Asian woman and a occasion woman,UNCERTAIN_OR_REJECT,cau nguon khong ro/possible typo,2
+127,is placed,is put,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+128,to talks,to negotiations,UNCERTAIN_OR_REJECT,talks khong nhat thiet la negotiations,2
+129,A gray cat,A grey cat,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+130,as Egypt police,while Egypt police,UNCERTAIN_OR_REJECT,as va while co the khac vai tro,1
+131,Two eagles,A pair of Eagles,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+132,of one-child policy,of the one child rule,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+133,for Taliban peace talks,for peace talks with the Taliban,UNCERTAIN_OR_REJECT,co the them doi tuong peace talks,2
+134,Baby,Infant,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+135,after India buildings collapse,after buildings collapse in India,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+136,NSA whistleblower Edward Snowden,"Edward Snowden , the NSA whistleblower",ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+137,Palestinian prisoner release,Release of Palestinian prisoners,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+138,Four women and two men,Two men and four women,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,4
+139,after Japanese tunnel collapses,following Japanese tunnel collapse,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+140,A pair of dogs,Two dogs,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+141,a small wave,a little wave,UNCERTAIN_OR_REJECT,small va little phu thuoc ngu canh,1
+142,a small airplane,a little aeroplane,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+143,Narendra Modi,Modi,UNCERTAIN_OR_REJECT,bo ten rieng lam mat thong tin,2
+144,Aged 116,At age 116,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+145,on a branch,on a tree limb,UNCERTAIN_OR_REJECT,branch khong nhat thiet la tree limb,3
+146,with South Korea,with the Republic of Korea,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+147,"Cloud-Based , Networked Firewall Specialist Stonesoft","Stonesoft , Specialist in Networked , Cloud-Based Firewalls",ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+148,"4,000 Cuban doctors","4,000 doctors from Cuba",ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+149,A close-up,A closeup shot,UNCERTAIN_OR_REJECT,close-up khong nhat thiet la mot shot,1
+150,A black and white scene,A scene in black and white,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+151,green playpen,playpen that is green,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+152,located within the water,situated in the water,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+153,next to a mossy tree,beside a moss-covered tree,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+154,A gray dog,A grey dog,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+155,a pink coat,a coat that is pink,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+156,against Greenpeace,versus Greenpeace,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+157,in Miranshah,in the town of Miranshah,UNCERTAIN_OR_REJECT,them town la thong tin ngoai van ban,2
+158,in front of a silver train,before a silver train,UNCERTAIN_OR_REJECT,before co the la thoi gian thay vi vi tri,1
+159,into Lebanon,to Lebanon,UNCERTAIN_OR_REJECT,into va to khac nghia,1
+160,gunman,shooter,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,2
+161,returns,comes back,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+162,30,thirty,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+163,India Trophy win,India wins Trophy,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+164,across the grass,over the grass,UNCERTAIN_OR_REJECT,across va over co the khac duong di,2
+165,after collapsing,after having collapsed,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+166,Fresh rain,New rain,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+167,into Syria,into Syrian territory,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+168,Three greyhounds,3 greyhounds,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+169,US government,American government,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+170,for son,for the son,UNCERTAIN_OR_REJECT,them mao tu co the doi tham chieu,1
+171,for camera,for the camera,UNCERTAIN_OR_REJECT,them mao tu co the doi tham chieu,1
+172,as Egyptian forces,while Egypt 's forces,UNCERTAIN_OR_REJECT,as khong nhat thiet la while,1
+173,under a small table,beneath a little table,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+174,The white and brown dog,The brown and white dog,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+175,on blue sofa,on a blue couch,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+176,hits,strikes,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+177,three U.S. diplomats,3 U.S. diplomats,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+178,Ex-Virginia governor Bob McDonnell,Former Virginia governor Bob McDonnell,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+179,of flag football,of flag-based football,UNCERTAIN_OR_REJECT,flag-based football mo ta chua chac,2
+180,Former Israeli Prime Minister Sharon,Ex-Israeli premier Sharon,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+181,operating the vehicle,driving the vehicle,UNCERTAIN_OR_REJECT,operating khong nhat thiet la driving,2
+182,eats,is eating,UNCERTAIN_OR_REJECT,thi/khia canh hien tai thuong va tiep dien khac,2
+183,in northern Lebanon,in the north of Lebanon,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+184,with a gemmed collar,with a jeweled collar,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+185,from National Zoo,from the National Zoological Park,UNCERTAIN_OR_REJECT,ten rieng khong xac minh duoc,1
+186,on Syrian border,at Syria's border,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+187,in northwest Syria,in Syria's northwest,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+188,at a dinner table,at a dining table,UNCERTAIN_OR_REJECT,dinner table khong nhat thiet la dining table,1
+189,Heats Up,Intensifies,UNCERTAIN_OR_REJECT,heats up co nghia nhiet do hay nghia bong,1
+190,in Indonesian volcanic eruption,in volcanic eruption in Indonesia,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+191,upon the snowy surface,on the snow-covered surface,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+192,Two blonde girls,Two girls with blonde hair,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+193,in Singapore,in the city-state of Singapore,UNCERTAIN_OR_REJECT,them city-state co the dua tri thuc ben ngoai,1
+194,are racing,are running a race,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+195,Thailand 's opposition Democrat Party,Thailand 's Democrat Party opposition,UNCERTAIN_OR_REJECT,dao thu tu co the doi cau truc,2
+196,climbs,ascends,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,2
+197,a brown and white horse,a horse that is brown and white,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+198,Kenya SC,Kenya Supreme Court,UNCERTAIN_OR_REJECT,SC co the viet tat nhieu nghia,1
+199,directing its gaze,aiming its gaze,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+200,on flights,aboard airplanes,UNCERTAIN_OR_REJECT,flights khong chi may bay theo moi ngu canh,1
+201,bitter immigration debate,acrimonious immigration debate,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+202,at the dog,toward the dog,UNCERTAIN_OR_REJECT,at va toward co the khac huong,1
+203,in the backgroud,in the background,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+204,Red and white plane,White and red plane,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+205,in middle of grassy field,in the center of a grassy field,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+206,A long-haired dog,A dog with long hair,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+207,the water,the H2O,UNCERTAIN_OR_REJECT,water trong ngu canh thong thuong khong chi hoa hoc H2O,1
+208,A double-decker bus,A bus with two decks,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+209,at Athens shopping mall,at Athens mall,UNCERTAIN_OR_REJECT,shopping mall va mall co the khac,1
+210,in US marathon bomb,in American marathon bombing,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+211,of a very full yellow van,of a yellow van packed full,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+212,Two people and a dog,A dog and two people,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+213,on a dirt area,on an area of dirt,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+214,India govt,Indian government,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+215,A lamb,A young sheep,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+216,atop a rock carving,on top of a rock carving,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+217,on tracks,upon rails,UNCERTAIN_OR_REJECT,tracks khong nhat thiet la rails,1
+218,dies,passes away,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+219,A skateboarder,A person on a skateboard,UNCERTAIN_OR_REJECT,skateboarder khong nhat thiet dang dung tren van,1
+220,for Boston bomb suspect,for Boston bombing suspect,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+221,Powerful 7.6 quake,Strong 7.6 earthquake,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+222,off Mexico,off the coast of Mexico,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+223,radical cleric Abu Qatada,extremist cleric Abu Qatada,UNCERTAIN_OR_REJECT,radical khong dong nghia extremist,1
+224,Turkey unrest,Unrest in Turkey,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+225,of 6 magnitude,of magnitude 6,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+226,Two brindle dogs,A pair of brindle dogs,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+227,lined up,arranged in a row,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+228,About 60,Roughly 60,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+229,a denim shirt,a shirt made of denim,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+230,for massive protests,for huge protests,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+231,to 6.2767,reaching 6.2767,UNCERTAIN_OR_REJECT,to va reaching khac quan he,1
+232,into Iran nuclear deal,into nuclear agreement with Iran,UNCERTAIN_OR_REJECT,into khong nhat thiet la with,1
+233,in Central African Republic fighting,in fighting in Central African Republic,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+234,in San Francisco air crash,in air crash in San Francisco,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+235,goes down,descends,UNCERTAIN_OR_REJECT,Khong du chac giu nghia trong moi ngu canh; loai bao thu,1
+236,in U.S. drone strike,in American drone attack,UNCERTAIN_OR_REJECT,strike va attack khong luon tuong duong,1
+237,in a red canoe,in a canoe that is red,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+238,chews,gnaws,UNCERTAIN_OR_REJECT,chew va gnaw la hai hanh vi khac,1
+239,on a carpeted floor,on a floor with carpet,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+240,U.S. Midwest,American Midwest,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
+241,around a dining table,surrounding a dining table,UNCERTAIN_OR_REJECT,around va surrounding co the khac,1
+242,as presidential candidate,as candidate for president,ACCEPT,Tuong duong tuong doi ro theo AI khi xet cum tach roi,1
