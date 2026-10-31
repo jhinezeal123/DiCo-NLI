@@ -1,5 +1,5 @@
 {
-  "name": "track1_h2_matched_data_channel_control_seed42",
+  "name": "track1_h2_matched_data_contrastive_channel_seed42",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -36,7 +36,7 @@
     "control_seed": 20261031
   },
   "objective": "channel",
-  "channel_contrast_weight": 0.0,
+  "channel_contrast_weight": 0.2,
   "paired_analysis": {
     "reference_run": "9836faa6-7d30-4bd5-bdfe-e9fa3ea9c9c0",
     "seed": 42,
