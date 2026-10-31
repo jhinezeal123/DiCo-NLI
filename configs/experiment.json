@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_lcf_full",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_lcf_full_lambda0-0",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -37,7 +37,7 @@
     "teacher": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
     "teacher_revision": "6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
     "n_contexts": 8,
-    "anchor_lambda": 1.0,
+    "anchor_lambda": 0.0,
     "conv_lr": 0.01
   }
 }
