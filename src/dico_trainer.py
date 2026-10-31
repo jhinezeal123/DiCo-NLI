@@ -9,6 +9,8 @@ import os
 import random
 import re
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import torch
@@ -68,7 +70,7 @@ def batch(tok, feats, idx, device):
 
 
 @torch.no_grad()
-def predict_probs(model, tok, feats, bs, device, amp=False):
+def predict_probs(model, tok, feats, bs, device, amp=False, n_out=None):
     bs = max(bs, 64)  # eval-only: larger batches, no effect on training
     model.eval()
     out = []
@@ -76,6 +78,8 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
         b = batch(tok, feats, range(s, min(s + bs, len(feats))), device)
         with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
             logits = model(**b).logits
+        if n_out:
+            logits = logits[:, :n_out]  # main head only (auxiliary logits follow)
         out.append(torch.softmax(logits.float(), dim=-1).cpu().numpy())
     return np.concatenate(out).astype(np.float64)
 
@@ -109,10 +113,34 @@ def factorized_probs(e_fwd, e_bwd):
                      (1 - e_fwd) * (1 - e_bwd)], axis=1)
 
 
+def train_loss(cfg, logits, y, yi, n_main):
+    """Gold CE (label smoothing) plus the configured use of the in-context iSTS label yi (-1 = none)."""
+    ls = float(cfg.get("label_smoothing", 0.0))
+    ic = cfg.get("ists")
+    if not ic:
+        return F.cross_entropy(logits, y, label_smoothing=ls)
+    w, has = float(ic["weight"]), yi >= 0
+    main = logits[:, :n_main]
+    if ic["mode"] == "aux":
+        loss = F.cross_entropy(main, y, label_smoothing=ls)
+        if has.any():
+            loss = loss + w * F.cross_entropy(logits[has, n_main:], yi[has])
+        return loss
+    if ic["mode"] == "soft":
+        target = F.one_hot(y, n_main).float() * (1 - ls) + ls / n_main
+        mix = F.one_hot(yi.clamp(min=0), n_main).float()
+        target = torch.where(has[:, None], (1 - w) * target + w * mix, target)
+        return -(target * F.log_softmax(main, -1)).sum(-1).mean()
+    if ic["mode"] == "downweight":
+        rw = 1.0 - (1.0 - w) * (has & (yi != y)).float()
+        return (rw * F.cross_entropy(main, y, label_smoothing=ls, reduction="none")).mean()
+    raise ValueError(ic["mode"])
+
+
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
@@ -120,7 +148,20 @@ def run(cfg, seed, train_path, dev_path, device):
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
 
-    tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    # Second expert annotation: iSTS-2016 in-context label of each TRAIN pair (-1 if unmatched).
+    ic = cfg.get("ists")
+    if ic:
+        lab = pd.read_csv(Path(__file__).resolve().parents[1] / ic["path"], keep_default_na=False)
+        lab = dict(zip(lab["instance_id"], lab["ists_label"]))
+        yists = np.array([LABEL2ID.get(lab.get(i, ""), -1) for i in tr_ids])
+        has = yists >= 0
+        print(f"ists mode={ic['mode']} weight={ic['weight']} matched {has.mean():.3f} "
+              f"disagree-with-gold {np.mean(yists[has] != ytr[has]):.3f}", flush=True)
+        yists_t = torch.tensor(yists, device=device)
+    aux = bool(ic) and ic["mode"] == "aux"
+    n_main = 2 if factorized else len(LABELS)
+
+    tok, model = build_model(cfg, 2 * n_main if aux else n_main, device)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
@@ -138,8 +179,8 @@ def run(cfg, seed, train_path, dev_path, device):
     ytr_t = torch.tensor(ytr, device=device)
 
     def dev_probs():
-        p = predict_probs(model, tok, f_dev, bs, device, amp)
-        q = predict_probs(model, tok, f_dev_swap, bs, device, amp)
+        p = predict_probs(model, tok, f_dev, bs, device, amp, n_main if aux else None)
+        q = predict_probs(model, tok, f_dev_swap, bs, device, amp, n_main if aux else None)
         if factorized:
             p, q = factorized_probs(p[:, 1], q[:, 1]), factorized_probs(q[:, 1], p[:, 1])
         return p, q
@@ -153,7 +194,7 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            loss = train_loss(cfg, logits.float(), ytr_t[idx], yists_t[idx] if ic else None, n_main)
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
