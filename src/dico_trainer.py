@@ -151,9 +151,23 @@ def run(cfg, seed, train_path, dev_path, device):
         for s in range(0, len(perm), bs):
             idx = perm[s:s + bs]
             b = batch(tok, f_train, idx, device)
+            rdrop = float(cfg.get("rdrop_alpha", 0.0))
+            if rdrop > 0:
+                # R-Drop: two stochastic passes (stacked into one batch), CE on both + symmetric KL.
+                b = {k: torch.cat([v, v]) for k, v in b.items()}
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            ls = float(cfg.get("label_smoothing", 0.0))
+            if rdrop > 0:
+                l1, l2 = logits.float().chunk(2)
+                y = ytr_t[idx]
+                ce = 0.5 * (F.cross_entropy(l1, y, label_smoothing=ls) + F.cross_entropy(l2, y, label_smoothing=ls))
+                lp1, lp2 = F.log_softmax(l1, -1), F.log_softmax(l2, -1)
+                kl = 0.5 * (F.kl_div(lp1, lp2, log_target=True, reduction="batchmean")
+                            + F.kl_div(lp2, lp1, log_target=True, reduction="batchmean"))
+                loss = ce + rdrop * kl
+            else:
+                loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=ls)
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
