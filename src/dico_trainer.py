@@ -129,6 +129,9 @@ def run(cfg, seed, train_path, dev_path, device):
     f_train = f_train_t[0]
     f_dev_t = [encode(tok, dv1, dv2, L, t) for t in tpls]
     f_dev_swap_t = [encode(tok, dv2, dv1, L, t) for t in tpls]
+    if cfg.get("eval_template_ids") is not None:  # ablation: predict with a subset of the templates
+        f_dev_t = [f_dev_t[i] for i in cfg["eval_template_ids"]]
+        f_dev_swap_t = [f_dev_swap_t[i] for i in cfg["eval_template_ids"]]
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]

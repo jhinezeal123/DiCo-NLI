@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8_multitpl3",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8_multitpl3_evaltpl0",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -37,5 +37,8 @@
     "Text 1: {t1}\nText 2: {t2}\nRelation:",
     "Premise: {t1}\nHypothesis: {t2}\nInference relation:",
     "Phrase A: {t1}\nPhrase B: {t2}\nHow does phrase A relate to phrase B?"
+  ],
+  "eval_template_ids": [
+    0
   ]
 }
