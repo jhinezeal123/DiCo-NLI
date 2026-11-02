@@ -6,6 +6,7 @@ Difference: per-batch dynamic padding instead of padding to max_length (identica
 under the attention mask, much faster).
 """
 import os
+from pathlib import Path
 import random
 import re
 
@@ -68,7 +69,7 @@ def batch(tok, feats, idx, device):
 
 
 @torch.no_grad()
-def predict_probs(model, tok, feats, bs, device, amp=False):
+def predict_probs(model, tok, feats, bs, device, amp=False, n_cls=None):
     bs = max(bs, 64)  # eval-only: larger batches, no effect on training
     model.eval()
     out = []
@@ -76,7 +77,7 @@ def predict_probs(model, tok, feats, bs, device, amp=False):
         b = batch(tok, feats, range(s, min(s + bs, len(feats))), device)
         with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
             logits = model(**b).logits
-        out.append(torch.softmax(logits.float(), dim=-1).cpu().numpy())
+        out.append(torch.softmax(logits.float()[:, :n_cls], dim=-1).cpu().numpy())
     return np.concatenate(out).astype(np.float64)
 
 
@@ -112,7 +113,7 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
@@ -120,7 +121,24 @@ def run(cfg, seed, train_path, dev_path, device):
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
 
-    tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    ia = cfg.get("ists_aux")
+    n_cls = 2 if factorized else len(LABELS)
+    n_aux = 0
+    if ia:  # train-only PhrasIS supervision (written by the pipeline); unmatched rows are masked
+        import ists_targets
+        tg = pd.read_csv(Path("outputs") / cfg["name"] / "ists_targets.csv").set_index("instance_id")
+        has = np.array([k in tg.index for k in tr_ids])
+        mask_t = torch.tensor(has, device=device)
+        if ia["mode"] == "score":
+            n_aux = 1
+            aux_t = torch.tensor([tg.loc[k, "ists_score"] / 5.0 if h else 0.0 for k, h in zip(tr_ids, has)],
+                                 dtype=torch.float32, device=device)
+        else:
+            n_aux = len(ists_targets.TYPES)
+            aux_t = torch.tensor([ists_targets.TYPES.index(tg.loc[k, "ists_type"]) if h else 0 for k, h in zip(tr_ids, has)],
+                                 device=device)
+        print(f"ists_aux mode={ia['mode']} weight={ia['weight']} rows_with_target={int(has.sum())}/{len(has)}", flush=True)
+    tok, model = build_model(cfg, n_cls + n_aux, device)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
@@ -138,8 +156,8 @@ def run(cfg, seed, train_path, dev_path, device):
     ytr_t = torch.tensor(ytr, device=device)
 
     def dev_probs():
-        p = predict_probs(model, tok, f_dev, bs, device, amp)
-        q = predict_probs(model, tok, f_dev_swap, bs, device, amp)
+        p = predict_probs(model, tok, f_dev, bs, device, amp, n_cls)
+        q = predict_probs(model, tok, f_dev_swap, bs, device, amp, n_cls)
         if factorized:
             p, q = factorized_probs(p[:, 1], q[:, 1]), factorized_probs(q[:, 1], p[:, 1])
         return p, q
@@ -153,7 +171,16 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            logits = logits.float()
+            loss = F.cross_entropy(logits[:, :n_cls], ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            if n_aux:
+                mk = mask_t[idx]
+                if mk.any():
+                    if ia["mode"] == "score":
+                        aux = F.mse_loss(torch.sigmoid(logits[mk, n_cls]), aux_t[idx][mk])
+                    else:
+                        aux = F.cross_entropy(logits[mk, n_cls:], aux_t[idx][mk])
+                    loss = loss + float(ia["weight"]) * aux
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
