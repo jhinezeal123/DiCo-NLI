@@ -115,9 +115,19 @@ def main():
               f"soft_cons={s['soft_cons']:.4f} hard_cons={s['hard_cons']:.4f}")
 
     fused = np.mean(member_probs, axis=0)
+    # Prior-adaptive NEG weight: same rule as scripts/run_pipeline.py (calibrated on public dev).
+    r = float((fused.argmax(1) == LABELS.index("NEGATIVE_OTHER")).mean())
+    p_hat = min(max(1.05 * r, 0.05), 0.95)
+    if p_hat <= 0.20:
+        w_adapt = 0.90
+    elif p_hat >= 0.32:
+        w_adapt = 2.25
+    else:
+        w_adapt = 0.90 + (p_hat - 0.20) / 0.12 * 1.35
+    print(f"ADAPTIVE_DIAG split=dev raw_neg_rate={r:.4f} p_hat={p_hat:.4f} w={w_adapt:.4f}")
     section("FUSED DECODE")
     results = {}
-    for mode, w in (("bidir", None), ("bidir_negw", cfg.get("neg_weight"))):
+    for mode, w in (("bidir", None), ("bidir_negw", cfg.get("neg_weight")), ("bidir_adaptive", w_adapt)):
         pred = write_pred(out / f"{t}_dev_predictions_{mode}.csv", dev_rows, fused, w)
         validate(pred, dev_rows)
         s = official_score(upstream, ref_path, pred.resolve(), (out / f"scores_{mode}").resolve())
@@ -126,6 +136,9 @@ def main():
         print(f"{tag} decoding={mode} n_views={len(args.views)} n_models={len(args.views) * len(cfg['seeds'])} "
               f"weighted_f1={s['weighted_f1']:.4f} soft_cons={s['soft_cons']:.4f} hard_cons={s['hard_cons']:.4f}",
               flush=True)
+    e = results["bidir_adaptive"]
+    print(f"ADAPTIVE_METRICS decoding=bidir_adaptive raw_neg_rate={r:.4f} p_hat={p_hat:.4f} w={w_adapt:.4f} "
+          f"weighted_f1={e['weighted_f1']:.4f} soft_cons={e['soft_cons']:.4f} hard_cons={e['hard_cons']:.4f}")
 
     # diagnostic: mean of per-seed vectors across both views (12 models) vs seed-mean-then-fuse
     section("DECOMPOSITION")
