@@ -1,11 +1,11 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8_multitpl3",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8_multitpl3_seeds123",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
-    42,
-    13,
-    7
+    1,
+    2,
+    3
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
