@@ -1,14 +1,11 @@
 {
-  "name": "track1_lmtoken_ls0p1_negw0p8_seed6",
+  "name": "track1_lmtoken_multitpl3_negw0p8",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
+    42,
+    13,
+    7
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
@@ -20,6 +17,11 @@
   "amp": true,
   "decode": "bidir_negw",
   "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "pair_templates": [
+    "Text 1: {t1}\nText 2: {t2}\nRelation:",
+    "Premise: {t1}\nHypothesis: {t2}\nInference relation:",
+    "Phrase A: {t1}\nPhrase B: {t2}\nHow does phrase A relate to phrase B?"
+  ],
   "lora": {
     "r": 16,
     "alpha": 32,
