@@ -123,9 +123,12 @@ def run(cfg, seed, train_path, dev_path, device):
     tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
 
     L = cfg["max_length"]
-    tpl = cfg.get("pair_template")
-    f_train = encode(tok, tr1, tr2, L, tpl)
-    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
+    # Multi-template: train on a random template per example per epoch; average dev probs over templates.
+    tpls = cfg.get("pair_templates") or [cfg.get("pair_template")]
+    f_train_t = [encode(tok, tr1, tr2, L, t) for t in tpls]
+    f_train = f_train_t[0]
+    f_dev_t = [encode(tok, dv1, dv2, L, t) for t in tpls]
+    f_dev_swap_t = [encode(tok, dv2, dv1, L, t) for t in tpls]
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
@@ -138,8 +141,8 @@ def run(cfg, seed, train_path, dev_path, device):
     ytr_t = torch.tensor(ytr, device=device)
 
     def dev_probs():
-        p = predict_probs(model, tok, f_dev, bs, device, amp)
-        q = predict_probs(model, tok, f_dev_swap, bs, device, amp)
+        p = np.mean([predict_probs(model, tok, f, bs, device, amp) for f in f_dev_t], axis=0)
+        q = np.mean([predict_probs(model, tok, f, bs, device, amp) for f in f_dev_swap_t], axis=0)
         if factorized:
             p, q = factorized_probs(p[:, 1], q[:, 1]), factorized_probs(q[:, 1], p[:, 1])
         return p, q
@@ -147,6 +150,9 @@ def run(cfg, seed, train_path, dev_path, device):
     for epoch in range(epochs):
         model.train()
         perm = torch.randperm(len(f_train), generator=g).tolist()
+        if len(tpls) > 1:
+            choice = torch.randint(len(tpls), (len(f_train),), generator=g).tolist()
+            f_train = [f_train_t[c][i] for i, c in enumerate(choice)]
         total_loss = 0.0
         for s in range(0, len(perm), bs):
             idx = perm[s:s + bs]
