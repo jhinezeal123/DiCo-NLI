@@ -140,6 +140,9 @@ def run(cfg, seed, train_path, dev_path, device, fold=None):
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
     f_train = encode(tok, tr1, tr2, L, tpl)
+    # Optional multi-template training: random template per example per epoch (evaluation keeps `tpl`).
+    train_tpls = cfg.get("train_templates")
+    f_train_t = [encode(tok, tr1, tr2, L, t) for t in train_tpls] if train_tpls else None
     f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
@@ -162,6 +165,9 @@ def run(cfg, seed, train_path, dev_path, device, fold=None):
     for epoch in range(epochs):
         model.train()
         perm = torch.randperm(len(f_train), generator=g).tolist()
+        if f_train_t:
+            choice = torch.randint(len(f_train_t), (len(f_train),), generator=g).tolist()
+            f_train = [f_train_t[c][i] for i, c in enumerate(choice)]
         total_loss = 0.0
         for s in range(0, len(perm), bs):
             idx = perm[s:s + bs]
