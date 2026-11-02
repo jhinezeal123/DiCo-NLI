@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8",
+  "name": "track1_qwen25_1p5b_lora_r64_ls0p1_negw0p8",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -18,8 +18,8 @@
   "decode": "bidir_negw",
   "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
   "lora": {
-    "r": 16,
-    "alpha": 32,
+    "r": 64,
+    "alpha": 128,
     "dropout": 0.05,
     "target_modules": [
       "q_proj",
