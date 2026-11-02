@@ -33,11 +33,13 @@ def write(cfg, split_paths, out_path, emit):
                 if len(f) < 7:
                     continue
                 src.setdefault((norm(f[2]), norm(f[3])), set()).add((sp, dom, f[6].strip()))
+    shuffle = sc.get("shuffle_seed")
     with open(out_path, "w", newline="", encoding="utf-8") as fout:
         w = csv.writer(fout)
         w.writerow(["instance_id", "sent1", "sent2"])
         for split, path in split_paths.items():
             n = hit = 0
+            rows = []
             for r in csv.DictReader(open(path, encoding="utf-8")):
                 n += 1
                 a, b = norm(r["text1"]), norm(r["text2"])
@@ -46,9 +48,24 @@ def write(cfg, split_paths, out_path, emit):
                     m, rev = src.get((b, a)), True
                 if not m:
                     continue
-                s = sents.get(sorted(m)[0])  # deterministic pick when a chunk pair occurs in several sentences
-                if not s:
+                key = sorted(m)[0]  # deterministic pick when a chunk pair occurs in several sentences
+                if key not in sents:
                     continue
                 hit += 1
-                w.writerow([r["instance_id"], *(s[::-1] if rev else s)])
+                rows.append((r["instance_id"], key, rev))
+            if shuffle is not None:  # control: each source key gets another key's sentences (same domain)
+                import random
+                rng = random.Random(shuffle)
+                remap = {}
+                for dom in sorted({k[1] for _, k, _ in rows}):
+                    keys = sorted({k for _, k, _ in rows if k[1] == dom})
+                    order = keys[:]
+                    rng.shuffle(order)
+                    remap.update({order[i]: order[(i + 1) % len(order)] for i in range(len(order))})
+                same = sum(remap[k] == k for k in remap)
+                emit(f"source_context: shuffled control, {len(remap)} source keys remapped, fixed points {same}")
+                rows = [(i, remap[k], rev) for i, k, rev in rows]
+            for i, k, rev in rows:
+                s = sents[k]
+                w.writerow([i, *(s[::-1] if rev else s)])
             emit(f"source_context: {split} {hit}/{n} rows with source sentences")
