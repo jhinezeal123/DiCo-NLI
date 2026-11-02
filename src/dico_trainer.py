@@ -114,8 +114,8 @@ def factorized_probs(e_fwd, e_bwd):
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
-    _, tr1, tr2, ytr = load_split(train_path)
-    _, dv1, dv2, ydv = load_split(dev_path)
+    tr_ids, tr1, tr2, ytr = load_split(train_path)
+    dv_ids, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
     if factorized:
