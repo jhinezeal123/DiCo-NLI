@@ -92,15 +92,30 @@ def build_model(cfg, num_labels, device):
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    load_kwargs = {}
+    quant = cfg.get("quant_4bit", False)
+    if quant:
+        from transformers import BitsAndBytesConfig
+        load_kwargs.update(device_map={"": device.index or 0}, quantization_config=BitsAndBytesConfig(
+            load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_use_double_quant=True,
+            bnb_4bit_compute_dtype=torch.float16))
+    elif cfg.get("base_dtype") == "float16":
+        load_kwargs["torch_dtype"] = torch.float16
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config, **load_kwargs)
     if cfg.get("lora"):
-        from peft import LoraConfig, TaskType, get_peft_model
+        from peft import LoraConfig, TaskType, get_peft_model, prepare_model_for_kbit_training
+        if quant:
+            model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=False)
         lc = cfg["lora"]
         model = get_peft_model(model, LoraConfig(
             task_type=TaskType.SEQ_CLS, r=lc["r"], lora_alpha=lc["alpha"], lora_dropout=lc["dropout"],
             target_modules=lc["target_modules"]))
+        # Low-precision bases: keep trainable (LoRA + head) weights in fp32 for stable AdamW/GradScaler.
+        for prm in model.parameters():
+            if prm.requires_grad:
+                prm.data = prm.data.float()
         model.print_trainable_parameters()
-    return tok, model.to(device)
+    return tok, model if quant else model.to(device)
 
 
 def factorized_probs(e_fwd, e_bwd):
