@@ -1,11 +1,14 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8_neftune5_6seeds",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
     42,
     13,
-    7
+    7,
+    1,
+    2,
+    3
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
@@ -32,5 +35,6 @@
     ]
   },
   "label_smoothing": 0.1,
-  "neg_weight": 0.8
+  "neg_weight": 0.8,
+  "neftune_alpha": 5.0
 }

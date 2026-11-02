@@ -121,6 +121,15 @@ def run(cfg, seed, train_path, dev_path, device):
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
 
     tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    nef_alpha = float(cfg.get("neftune_alpha", 0.0))
+    if nef_alpha > 0:
+        # NEFTune: uniform noise on input embeddings in training mode, scale alpha / sqrt(L * d).
+        def _neftune(mod, inp, out):
+            if mod.training:
+                L_, d_ = out.shape[-2], out.shape[-1]
+                out = out + torch.zeros_like(out).uniform_(-1, 1) * (nef_alpha / (L_ * d_) ** 0.5)
+            return out
+        model.get_input_embeddings().register_forward_hook(_neftune)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
