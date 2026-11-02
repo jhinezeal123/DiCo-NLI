@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 # Fixed run contract for every experiment node: `bash run.sh`.
-# Behaviour is driven only by committed code/config.
 #
-# This node trains two views of the same backbone (4-way sequence-classification head and
-# LM-head label-word readout), each with the frozen LS 0.1 + NEG-0.8 recipe and 3 seeds,
-# then fuses their bidirectional probability vectors. See scripts/fuse_views.py.
+# LM-token head only, six seeds, frozen LS 0.1 + NEG-0.8 decode. Seed-replication check for
+# the readout head; see the experiment description for the pre-registered gate.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -26,16 +24,4 @@ PY="${PYTHON:-python3}"
 "$PY" --version
 "$PY" -m pip install -q --only-binary=:all: -r requirements-run.txt
 
-echo ""
-echo "===== VIEW 1/2: 4-way sequence-classification head ====="
 "$PY" -u scripts/run_pipeline.py --config configs/experiment.json --upstream "$UPSTREAM_DIR"
-
-echo ""
-echo "===== VIEW 2/2: LM-head label-word readout ====="
-"$PY" -u scripts/run_pipeline.py --config configs/experiment_lmtokens.json --upstream "$UPSTREAM_DIR"
-
-echo ""
-echo "===== FUSE VIEWS ====="
-"$PY" -u scripts/fuse_views.py --config configs/experiment.json --upstream "$UPSTREAM_DIR" \
-  --out outputs/fused_two_views \
-  --views "outputs/track1_ens_seqcls_ls0p1_negw0p8" "outputs/track1_ens_lmtokens_ls0p1_negw0p8"

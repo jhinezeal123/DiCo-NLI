@@ -1,11 +1,14 @@
 {
-  "name": "track1_ens_seqcls_ls0p1_negw0p8",
+  "name": "track1_lmtoken_ls0p1_negw0p8_seed6",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
-    42,
-    13,
-    7
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
@@ -32,5 +35,12 @@
     ]
   },
   "label_smoothing": 0.1,
-  "neg_weight": 0.8
+  "neg_weight": 0.8,
+  "readout": "lm_tokens",
+  "label_words": {
+    "BACKWARD_ENTAILMENT": " backward",
+    "EQUIVALENCE": " equivalent",
+    "FORWARD_ENTAILMENT": " forward",
+    "NEGATIVE_OTHER": " other"
+  }
 }
