@@ -205,6 +205,13 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    if cfg.get("source_context"):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+        import source_context
+        section("SOURCE CONTEXT (M6 analysis: iSTS 2016 sentences, no alignment labels)")
+        source_context.write(cfg, {"train": paths["train"], "dev": paths["dev"]}, out_root / "source_context.csv",
+                             lambda s: print(s, flush=True))
+
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
     import numpy as np
