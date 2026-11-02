@@ -16,6 +16,7 @@ import torch.nn.functional as F
 import transformers
 from sklearn.metrics import f1_score
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
+from transformers.modeling_outputs import SequenceClassifierOutput
 
 # Same order as the kit's sklearn LabelEncoder (alphabetical).
 LABELS = ["BACKWARD_ENTAILMENT", "EQUIVALENCE", "FORWARD_ENTAILMENT", "NEGATIVE_OTHER"]
@@ -109,6 +110,29 @@ def factorized_probs(e_fwd, e_bwd):
                      (1 - e_fwd) * (1 - e_bwd)], axis=1)
 
 
+class ScalarMixClassifier(torch.nn.Module):
+    """Last-token states of every layer, each layer-normalised, mixed with learned softmax weights
+    (ELMo-style scalar mix + gamma) into a fresh linear head. The wrapped model's own head is unused."""
+
+    def __init__(self, model, num_labels):
+        super().__init__()
+        self.model = model
+        cfg = model.config
+        n = cfg.num_hidden_layers + 1
+        self.mix = torch.nn.Parameter(torch.zeros(n))
+        self.gamma = torch.nn.Parameter(torch.ones(1))
+        self.head = torch.nn.Linear(cfg.hidden_size, num_labels)
+
+    def forward(self, input_ids, attention_mask, **kw):
+        out = self.model(input_ids=input_ids, attention_mask=attention_mask, output_hidden_states=True)
+        pos = torch.arange(attention_mask.shape[1], device=attention_mask.device)
+        last = (attention_mask * pos).argmax(1)  # last real token for left or right padding
+        rows = torch.arange(len(last), device=last.device)
+        hs = torch.stack([F.layer_norm(h[rows, last].float(), h.shape[-1:]) for h in out.hidden_states])
+        mixed = self.gamma * (torch.softmax(self.mix, 0)[:, None, None] * hs).sum(0)
+        return SequenceClassifierOutput(logits=self.head(mixed))
+
+
 def run(cfg, seed, train_path, dev_path, device):
     """Train on train only; return dev probabilities for the original and swapped inputs."""
     g = set_seed(seed)
@@ -121,6 +145,12 @@ def run(cfg, seed, train_path, dev_path, device):
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
 
     tok, model = build_model(cfg, 2 if factorized else len(LABELS), device)
+    if cfg.get("scalar_mix"):
+        model = ScalarMixClassifier(model, 2 if factorized else len(LABELS)).to(device)
+        if hasattr(model.model, "base_model"):  # peft: freeze the unused original score head
+            for n_, p_ in model.model.named_parameters():
+                if "score" in n_:
+                    p_.requires_grad_(False)
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
