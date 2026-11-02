@@ -116,6 +116,21 @@ def run(cfg, seed, train_path, dev_path, device):
     _, dv1, dv2, ydv = load_split(dev_path)
     factorized = bool(cfg.get("factorized", False))
     amp = bool(cfg.get("amp", False)) and device.type == "cuda"
+    class_weights = None
+    if cfg.get("train_class_weights"):
+        if factorized:
+            raise ValueError("train_class_weights requires the four-label classifier")
+        unknown = set(cfg["train_class_weights"]) - set(LABELS)
+        if unknown:
+            raise ValueError(f"Unknown class weight labels: {sorted(unknown)}")
+        weights = [float(cfg["train_class_weights"].get(label, 1.0)) for label in LABELS]
+        if not all(np.isfinite(w) and w > 0 for w in weights):
+            raise ValueError("Class weights must be finite and positive")
+        class_weights = torch.tensor(weights, dtype=torch.float32, device=device)
+        print(f"TRAIN_CLASS_WEIGHTS {dict(zip(LABELS, weights))} "
+              f"train_counts={dict(zip(LABELS, np.bincount(ytr, minlength=len(LABELS)).tolist()))} "
+              f"label_smoothing={cfg.get('label_smoothing', 0.0)} "
+              "loss=class_weighted_cross_entropy reduction=mean", flush=True)
     if factorized:
         # Binary target: does text1 entail text2?
         ytr = np.isin(ytr, [LABEL2ID["FORWARD_ENTAILMENT"], LABEL2ID["EQUIVALENCE"]]).astype(int)
@@ -153,7 +168,8 @@ def run(cfg, seed, train_path, dev_path, device):
             b = batch(tok, f_train, idx, device)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
                 logits = model(**b).logits
-            loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+            loss = F.cross_entropy(logits.float(), ytr_t[idx], weight=class_weights,
+                                   label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
             scaler.scale(loss).backward()
             scaler.unscale_(opt)
