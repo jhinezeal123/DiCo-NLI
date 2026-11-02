@@ -136,6 +136,10 @@ def run(cfg, seed, train_path, dev_path, device):
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     ytr_t = torch.tensor(ytr, device=device)
+    # Optional EMA of the trainable weights (bias-corrected warm-up), used for the final dev prediction.
+    ema_decay = float(cfg.get("ema_decay", 0.0))
+    ema = [p_.detach().clone() for p_ in params] if ema_decay > 0 else None
+    n_upd = 0
 
     def dev_probs():
         p = predict_probs(model, tok, f_dev, bs, device, amp)
@@ -161,6 +165,12 @@ def run(cfg, seed, train_path, dev_path, device):
             scaler.step(opt)
             scaler.update()
             sched.step()
+            if ema is not None:
+                n_upd += 1
+                d = min(ema_decay, (1 + n_upd) / (10 + n_upd))
+                with torch.no_grad():
+                    for e_, p_ in zip(ema, params):
+                        e_.mul_(d).add_(p_.detach(), alpha=1 - d)
             total_loss += loss.item()
         p, _ = dev_probs()
         acc = float((p.argmax(1) == ydv).mean())
@@ -169,5 +179,12 @@ def run(cfg, seed, train_path, dev_path, device):
         print(f"Epoch {epoch + 1} average loss: {total_loss / steps_per_epoch:.4f} "
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
+    if ema is not None:
+        p_raw, _ = dev_probs()
+        with torch.no_grad():
+            for e_, p_ in zip(ema, params):
+                p_.copy_(e_)
+        print(f"EMA weights loaded (decay {ema_decay}, {n_upd} updates); raw-weight dev weighted_f1 "
+              f"{f1_score(ydv, p_raw.argmax(1), average='weighted'):.4f}", flush=True)
     p, q = dev_probs()
     return {"orig": p, "swap": q}
