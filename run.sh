@@ -22,4 +22,4 @@ PY="${PYTHON:-python3}"
 "$PY" --version
 "$PY" -m pip install -q --only-binary=:all: -r requirements-run.txt
 
-"$PY" -u scripts/run_pipeline.py --config configs/experiment.json --upstream "$UPSTREAM_DIR"
+"$PY" -u scripts/run_selftrain.py --config configs/experiment.json --upstream "$UPSTREAM_DIR"
