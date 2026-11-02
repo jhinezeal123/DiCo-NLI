@@ -1,7 +1,7 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1_negw0p8_cv5x2",
+  "name": "track1_cv5x2_qwen25_3b",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen2.5-3B",
   "seeds": [
     42,
     13
@@ -32,5 +32,6 @@
   },
   "label_smoothing": 0.1,
   "neg_weight": 0.8,
-  "cv_folds": 5
+  "cv_folds": 5,
+  "base_dtype": "float16"
 }
