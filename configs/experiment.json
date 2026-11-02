@@ -1,11 +1,14 @@
 {
-  "name": "track1_adaptive_negw_submission_export",
+  "name": "track1_adaptive_negw_submission_export_seed6",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
     42,
     13,
-    7
+    7,
+    1,
+    2,
+    3
   ],
   "dropout": 0.1,
   "warmup_pcrt": 0.1,
