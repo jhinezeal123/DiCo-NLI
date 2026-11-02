@@ -92,7 +92,16 @@ def build_model(cfg, num_labels, device):
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    load_kwargs = {}
+    if cfg.get("full_finetune"):
+        # Full fine-tune: fp16 base weights + gradient checkpointing + 8-bit AdamW to fit one T4.
+        load_kwargs["torch_dtype"] = torch.float16
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config, **load_kwargs)
+    if cfg.get("full_finetune"):
+        model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+        model.enable_input_require_grads()
+        n = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print(f"full_finetune: trainable_params={n} dtype={next(model.parameters()).dtype}", flush=True)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
@@ -129,8 +138,14 @@ def run(cfg, seed, train_path, dev_path, device):
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]
-    opt = torch.optim.AdamW(params, lr=float(cfg["lr"]), weight_decay=float(cfg["wd"]),
-                            betas=(0.9, 0.999), eps=1e-6)
+    if cfg.get("full_finetune"):
+        import bitsandbytes as bnb
+        opt = bnb.optim.AdamW8bit(params, lr=float(cfg["lr"]), weight_decay=float(cfg["wd"]),
+                                  betas=(0.9, 0.999), eps=1e-6)
+        print(f"full_finetune: AdamW8bit lr={cfg['lr']} params={len(params)}", flush=True)
+    else:
+        opt = torch.optim.AdamW(params, lr=float(cfg["lr"]), weight_decay=float(cfg["wd"]),
+                                betas=(0.9, 0.999), eps=1e-6)
     steps_per_epoch = (len(f_train) + bs - 1) // bs
     total = steps_per_epoch * epochs
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)

@@ -7,3 +7,5 @@ transformers==4.48.3
 sentencepiece>=0.2.1
 tiktoken==0.9.0
 peft==0.14.0
+# Full fine-tune: 8-bit AdamW so 1.5B params + gradients fit one T4.
+bitsandbytes>=0.45.0
