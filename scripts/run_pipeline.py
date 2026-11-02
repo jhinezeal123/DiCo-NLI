@@ -17,12 +17,44 @@ import time
 from collections import Counter
 from pathlib import Path
 
+import numpy as np
+
 LABELS = ["EQUIVALENCE", "FORWARD_ENTAILMENT", "BACKWARD_ENTAILMENT", "NEGATIVE_OTHER"]
 REVERSE = {
     "EQUIVALENCE": "EQUIVALENCE",
     "FORWARD_ENTAILMENT": "BACKWARD_ENTAILMENT",
     "BACKWARD_ENTAILMENT": "FORWARD_ENTAILMENT",
 }
+
+
+# Probability-column order used by the trainer (alphabetical, same as the kit's LabelEncoder).
+PROB_LABELS = ["BACKWARD_ENTAILMENT", "EQUIVALENCE", "FORWARD_ENTAILMENT", "NEGATIVE_OTHER"]
+
+
+def adaptive_neg_weight(probs):
+    """Input-only NEG weight: estimate the eval-set NEG prevalence from the unweighted
+    predicted NEG rate (calibrated on public dev) and map it to the F1-optimal weight.
+
+    The curve was fitted on dev by resampling reversible rows to simulate NEG prevalences
+    0.16-0.70 (optimal w 0.90/0.97/1.95/2.33/2.32/2.33/2.35). The fixed weights 0.8 and 1.0
+    are only right for a dev-like prior; a NEG-heavy evaluation set needs a much larger w.
+    """
+    neg_id = PROB_LABELS.index("NEGATIVE_OTHER")
+    r = float((probs.argmax(1) == neg_id).mean())
+    p = min(max(1.05 * r, 0.05), 0.95)
+    if p <= 0.20:
+        w = 0.90
+    elif p >= 0.32:
+        w = 2.25
+    else:
+        w = 0.90 + (p - 0.20) / 0.12 * 1.35
+    return w, r, p
+
+
+def neg_scale(w):
+    vec = np.ones(len(PROB_LABELS))
+    vec[PROB_LABELS.index("NEGATIVE_OTHER")] = float(w)
+    return vec
 
 
 def read_csv(path):
@@ -215,7 +247,7 @@ def main():
     print(f"train_wall_seconds_all_seeds={time.time() - t0:.1f}")
 
     headline = cfg.get("decode", "standard")
-    modes = ["standard", "bidir"] + (["bidir_negw"] if "neg_weight" in cfg else [])
+    modes = ["standard", "bidir"] + (["bidir_negw"] if "neg_weight" in cfg else []) + ["bidir_adaptive"]
     results = {m: {} for m in modes}
     ens_sum = {}
     for seed in cfg["seeds"]:
@@ -230,6 +262,9 @@ def main():
             w = np.ones(len(dt.LABELS))
             w[dt.LABEL2ID["NEGATIVE_OTHER"]] = float(cfg["neg_weight"])
             final["bidir_negw"] = final["bidir"] * w
+        w_a, r_a, p_a = adaptive_neg_weight(final["bidir"])
+        final["bidir_adaptive"] = final["bidir"] * neg_scale(w_a)
+        print(f"ADAPTIVE_DIAG seed={seed} raw_neg_rate={r_a:.4f} p_hat={p_a:.4f} w={w_a:.4f}")
         for mode in final:
             ens_sum[mode] = ens_sum.get(mode, 0) + final[mode]
         print(f"<<<DEV_PROBS seed={seed}")
@@ -258,13 +293,17 @@ def main():
                   f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
 
     section("SEED ENSEMBLE (diagnostic: mean probabilities over seeds)")
+    ens_final = {m: ens_sum[m] / len(cfg["seeds"]) for m in modes}
+    w_e, r_e, p_e = adaptive_neg_weight(ens_final["bidir"])
+    ens_final["bidir_adaptive"] = ens_final["bidir"] * neg_scale(w_e)
+    print(f"ADAPTIVE_DIAG split=dev raw_neg_rate={r_e:.4f} p_hat={p_e:.4f} w={w_e:.4f}")
     ens_scores = {}
     for mode in modes:
         pred_path = out_root / f"{t}_dev_predictions_ensemble_{mode}.csv"
         with open(pred_path, "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f, lineterminator="\n")
             w.writerow(["instance_id", "label"])
-            for r, pr in zip(dev_rows, ens_sum[mode]):
+            for r, pr in zip(dev_rows, ens_final[mode]):
                 w.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
         validate(pred_path, dev_rows)
         ens_scores[mode] = official_score(upstream, paths["dev_reference"], pred_path.resolve(),
@@ -275,6 +314,9 @@ def main():
         e = ens_scores[mode]
         print(f"ENSEMBLE_METRICS decoding={mode} n_seeds={len(cfg['seeds'])} weighted_f1={e['weighted_f1']:.4f} "
               f"soft_cons={e['soft_cons']:.4f} hard_cons={e['hard_cons']:.4f}")
+    e = ens_scores["bidir_adaptive"]
+    print(f"ADAPTIVE_METRICS decoding=bidir_adaptive raw_neg_rate={r_e:.4f} p_hat={p_e:.4f} w={w_e:.4f} "
+          f"weighted_f1={e['weighted_f1']:.4f} soft_cons={e['soft_cons']:.4f} hard_cons={e['hard_cons']:.4f}")
     for mode in modes:
         tag = "FINAL_METRICS" if mode == headline else "DIAG_METRICS"
         agg = {}
