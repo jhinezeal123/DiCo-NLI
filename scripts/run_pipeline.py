@@ -292,6 +292,33 @@ def main():
             print(f"SEED_METRICS decoding={mode} seed={seed} weighted_f1={scores['weighted_f1']:.4f} "
                   f"soft_cons={scores['soft_cons']:.4f} hard_cons={scores['hard_cons']:.4f}", flush=True)
 
+    if cfg.get("extra_eval_path"):
+        section("SUBMISSION EXPORT (unlabeled evaluation inputs)")
+        extra_ids = None
+        per_seed_extra = []
+        for seed in cfg["seeds"]:
+            if "extra_ids" not in trained[seed]:
+                raise RuntimeError(f"seed {seed} has no extra_eval predictions")
+            ids_s = list(trained[seed]["extra_ids"])
+            if extra_ids is None:
+                extra_ids = ids_s
+            assert ids_s == extra_ids, "extra-eval id order differs between seeds"
+            per_seed_extra.append(0.5 * (trained[seed]["extra_orig"] + trained[seed]["extra_swap"][:, dt.REV]))
+        extra_probs = np.mean(per_seed_extra, axis=0)
+        w_x, r_x, p_x = adaptive_neg_weight(extra_probs)
+        preds_x = (extra_probs * neg_scale(w_x)).argmax(1)
+        sub_path = out_root / "submission.csv"
+        with open(sub_path, "w", newline="", encoding="utf-8") as f:
+            wr = csv.writer(f, lineterminator="\n")
+            wr.writerow(["instance_id", "label"])
+            for iid, j in zip(extra_ids, preds_x):
+                wr.writerow([iid, dt.LABELS[int(j)]])
+        assert len(set(extra_ids)) == len(extra_ids), "duplicate instance_id in submission"
+        assert all(dt.LABELS[int(j)] in dt.LABELS for j in preds_x)
+        dist = Counter(dt.LABELS[int(j)] for j in preds_x)
+        print(f"SUBMISSION_EXPORT path={sub_path} rows={len(extra_ids)} src={cfg['extra_eval_path']}")
+        print(f"EXTRA_DIAG raw_neg_rate={r_x:.4f} p_hat={p_x:.4f} w={w_x:.4f} pred_dist={dict(sorted(dist.items()))}")
+
     section("SEED ENSEMBLE (diagnostic: mean probabilities over seeds)")
     ens_final = {m: ens_sum[m] / len(cfg["seeds"]) for m in modes}
     w_e, r_e, p_e = adaptive_neg_weight(ens_final["bidir"])

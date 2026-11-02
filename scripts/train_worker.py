@@ -28,7 +28,11 @@ def main():
     print(f"worker seed={args.seed} device={device}"
           + (f" gpu={torch.cuda.get_device_name(0)}" if device.type == "cuda" else ""), flush=True)
     probs = dt.run(cfg, args.seed, args.train, args.dev, device)
-    np.savez(args.out, orig=probs["orig"], swap=probs["swap"])
+    arrays = {"orig": probs["orig"], "swap": probs["swap"]}
+    if "extra_orig" in probs:
+        arrays.update(extra_orig=probs["extra_orig"], extra_swap=probs["extra_swap"],
+                      extra_ids=probs["extra_ids"])
+    np.savez(args.out, **arrays)
 
 
 if __name__ == "__main__":

@@ -170,4 +170,15 @@ def run(cfg, seed, train_path, dev_path, device):
               f"| dev acc {acc:.4f} weighted_f1 {wf1:.4f}", flush=True)
 
     p, q = dev_probs()
-    return {"orig": p, "swap": q}
+    out = {"orig": p, "swap": q}
+    extra_path = cfg.get("extra_eval_path")
+    if extra_path:
+        # Unlabeled evaluation inputs (e.g. the released test CSV): same template, both orientations.
+        e_ids, e1, e2, _ = load_split(extra_path)
+        f_extra = encode(tok, e1, e2, L, tpl)
+        f_extra_swap = encode(tok, e2, e1, L, tpl)
+        out["extra_orig"] = predict_probs(model, tok, f_extra, bs, device, amp)
+        out["extra_swap"] = predict_probs(model, tok, f_extra_swap, bs, device, amp)
+        out["extra_ids"] = np.array(e_ids)
+        print(f"extra_eval: predicted {len(e_ids)} unlabeled rows from {extra_path}", flush=True)
+    return out

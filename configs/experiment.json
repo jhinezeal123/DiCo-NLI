@@ -1,5 +1,5 @@
 {
-  "name": "track1_adaptive_negw_ls0p1",
+  "name": "track1_adaptive_negw_submission_export",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -32,5 +32,6 @@
     ]
   },
   "label_smoothing": 0.1,
-  "neg_weight": 0.8
+  "neg_weight": 0.8,
+  "extra_eval_path": "external/dico_nli_official/trial_data/dico_nli_trial_track1_participant_unlabeled.csv"
 }
