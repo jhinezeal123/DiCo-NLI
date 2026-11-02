@@ -205,6 +205,12 @@ def main():
     audit(train_rows, dev_rows, paths)
     environment(cfg["model_id"])
 
+    if cfg.get("ists_aux"):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+        import ists_targets
+        section("ISTS AUX TARGETS (train only)")
+        ists_targets.write(cfg, paths["train"], out_root / "ists_targets.csv", lambda s: print(s, flush=True))
+
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
     import numpy as np
