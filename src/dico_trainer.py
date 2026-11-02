@@ -149,7 +149,11 @@ def run(cfg, seed, train_path, dev_path, device):
     steps_per_epoch = (len(f_train) + bs - 1) // bs
     total = steps_per_epoch * epochs
     sched = transformers.get_linear_schedule_with_warmup(opt, int(total * float(cfg["warmup_pcrt"])), total)
-    scaler = torch.amp.GradScaler("cuda", enabled=amp)
+    full_ft = bool(cfg.get("full_finetune"))
+    loss_scale = float(cfg.get("loss_scale", 1024.0))
+    # GradScaler cannot unscale fp16 gradients (full fine-tune keeps fp16 master weights on a T4),
+    # so that path uses fixed loss scaling and divides the fp16 grads back before the step.
+    scaler = torch.amp.GradScaler("cuda", enabled=amp and not full_ft)
     ytr_t = torch.tensor(ytr, device=device)
 
     def dev_probs():
@@ -170,11 +174,19 @@ def run(cfg, seed, train_path, dev_path, device):
                 logits = model(**b).logits
             loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
-            scaler.scale(loss).backward()
-            scaler.unscale_(opt)
-            torch.nn.utils.clip_grad_norm_(params, 1.0)
-            scaler.step(opt)
-            scaler.update()
+            if full_ft:
+                (loss * loss_scale).backward()
+                for prm in params:
+                    if prm.grad is not None:
+                        prm.grad = prm.grad / loss_scale
+                torch.nn.utils.clip_grad_norm_(params, 1.0)
+                opt.step()
+            else:
+                scaler.scale(loss).backward()
+                scaler.unscale_(opt)
+                torch.nn.utils.clip_grad_norm_(params, 1.0)
+                scaler.step(opt)
+                scaler.update()
             sched.step()
             total_loss += loss.item()
         p, _ = dev_probs()
