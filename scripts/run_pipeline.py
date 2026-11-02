@@ -85,43 +85,91 @@ def gpu_count():
         return 1
 
 
-def train_seeds_parallel(config_path, seeds, paths, out_root):
-    """Train each seed in its own process pinned to one GPU; at most one live job per GPU."""
+def train_jobs_parallel(config_path, jobs, dev_path, out_root):
+    """Train each job (name, seed, train_csv) in its own process pinned to one GPU; one live job per GPU."""
     import numpy as np
     n_gpu = gpu_count()
-    print(f"gpus_available={n_gpu} seeds={list(seeds)}", flush=True)
+    print(f"gpus_available={n_gpu} jobs={[j[0] for j in jobs]}", flush=True)
     worker = Path(__file__).resolve().parent / "train_worker.py"
-    pending, running, trained = list(seeds), {}, {}
+    pending, running, trained = list(jobs), {}, {}
     free_gpus = list(range(n_gpu))
     while pending or running:
         while pending and free_gpus:
-            seed, gpu = pending.pop(0), free_gpus.pop(0)
-            out = out_root / f"seed{seed}"
+            (name, seed, train_csv), gpu = pending.pop(0), free_gpus.pop(0)
+            out = out_root / name
             out.mkdir()
             env = {**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu)}
             log = open(out / "train.log", "w")
             proc = subprocess.Popen(
                 [sys.executable, "-u", str(worker), "--config", str(config_path), "--seed", str(seed),
-                 "--train", str(paths["train"]), "--dev", str(paths["dev"]), "--out", str(out / "probs.npz")],
+                 "--train", str(train_csv), "--dev", str(dev_path), "--out", str(out / "probs.npz")],
                 stdout=log, stderr=subprocess.STDOUT, env=env)
-            running[seed] = (proc, gpu, log, time.time())
-            print(f"launched seed={seed} on gpu={gpu}", flush=True)
+            running[name] = (proc, gpu, log, time.time())
+            print(f"launched job={name} on gpu={gpu}", flush=True)
         time.sleep(5)
-        for seed in list(running):
-            proc, gpu, log, t0 = running[seed]
+        for name in list(running):
+            proc, gpu, log, t0 = running[name]
             if proc.poll() is None:
                 continue
             log.close()
-            del running[seed]
+            del running[name]
             free_gpus.append(gpu)
-            print(f"seed={seed} finished rc={proc.returncode} gpu={gpu} wall={time.time() - t0:.0f}s", flush=True)
+            print(f"job={name} finished rc={proc.returncode} gpu={gpu} wall={time.time() - t0:.0f}s", flush=True)
             if proc.returncode != 0:
-                print((out_root / f"seed{seed}" / "train.log").read_text(errors="replace")[-3000:])
+                print((out_root / name / "train.log").read_text(errors="replace")[-3000:])
                 for p2, _, _, _ in running.values():
                     p2.kill()
-                sys.exit(f"worker for seed {seed} failed")
-            trained[seed] = dict(np.load(out_root / f"seed{seed}" / "probs.npz"))
+                sys.exit(f"worker for job {name} failed")
+            trained[name] = dict(np.load(out_root / name / "probs.npz"))
     return trained
+
+
+def dev_fold(pair_id, k):
+    return int(hashlib.sha256(pair_id.encode()).hexdigest(), 16) % k
+
+
+def train_seeds_crossfit(config_path, cfg, paths, train_rows, dev_rows, out_root):
+    """Dev cross-fit: fold f of dev (by pair_id) is predicted by a model trained on train + the other dev folds."""
+    import numpy as np
+    k = int(cfg["dev_crossfit_folds"])
+    folds = np.array([dev_fold(r["pair_id"], k) for r in dev_rows])
+    print(f"dev cross-fit folds={k} rows_per_fold={np.bincount(folds).tolist()} "
+          f"pairs_per_fold={[len({r['pair_id'] for r, f in zip(dev_rows, folds) if f == i}) for i in range(k)]}")
+    cols = list(train_rows[0].keys())
+    jobs = []
+    for f in range(k):
+        csv_path = (out_root / f"train_plus_dev_not_fold{f}.csv").resolve()
+        extra = [r for r, ff in zip(dev_rows, folds) if ff != f]
+        with open(csv_path, "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=cols, lineterminator="\n")
+            w.writeheader()
+            for r in train_rows + extra:
+                w.writerow({c: r[c] for c in cols})
+        assert not ({r["pair_id"] for r in extra} & {r["pair_id"] for r, ff in zip(dev_rows, folds) if ff == f})
+        print(f"fold {f}: train rows {len(train_rows)} + dev rows {len(extra)} -> predicts {int((folds == f).sum())} dev rows")
+        for seed in cfg["seeds"]:
+            jobs.append((f"seed{seed}_fold{f}", seed, csv_path))
+    trained = train_jobs_parallel(config_path, jobs, paths["dev"], out_root)
+    merged = {}
+    for seed in cfg["seeds"]:
+        p = np.zeros_like(trained[f"seed{seed}_fold0"]["orig"])
+        q = np.zeros_like(p)
+        logs = []
+        for f in range(k):
+            t = trained[f"seed{seed}_fold{f}"]
+            p[folds == f], q[folds == f] = t["orig"][folds == f], t["swap"][folds == f]
+            logs.append(f"--- fold {f} (per-epoch dev numbers below include rows seen in training; ignore) ---\n"
+                        + (out_root / f"seed{seed}_fold{f}" / "train.log").read_text(errors="replace"))
+        (out_root / f"seed{seed}").mkdir()
+        (out_root / f"seed{seed}" / "train.log").write_text("".join(logs))
+        merged[seed] = {"orig": p, "swap": q}
+    return merged
+
+
+def train_seeds_parallel(config_path, seeds, paths, out_root):
+    import numpy as np
+    trained = train_jobs_parallel(config_path, [(f"seed{s}", s, paths["train"]) for s in seeds], paths["dev"], out_root)
+    return {s: trained[f"seed{s}"] for s in seeds}
 
 
 def validate(pred_path, dev_rows):
@@ -211,7 +259,10 @@ def main():
 
     section("TRAIN (seeds in parallel, one per GPU)")
     t0 = time.time()
-    trained = train_seeds_parallel(args.config, cfg["seeds"], paths, out_root)
+    if cfg.get("dev_crossfit_folds"):
+        trained = train_seeds_crossfit(args.config, cfg, paths, train_rows, dev_rows, out_root)
+    else:
+        trained = train_seeds_parallel(args.config, cfg["seeds"], paths, out_root)
     print(f"train_wall_seconds_all_seeds={time.time() - t0:.1f}")
 
     headline = cfg.get("decode", "standard")
