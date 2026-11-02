@@ -179,6 +179,106 @@ def error_analysis(pred, ref_rows):
               f"consistent_but_wrong={buckets[(kind, 'consistent_but_wrong')]}")
 
 
+def train_cv_jobs(config_path, jobs, paths, out_root):
+    """jobs: (name, seed, fold). One live worker per GPU; returns {name: npz dict}."""
+    import numpy as np
+    n_gpu = gpu_count()
+    print(f"gpus_available={n_gpu} jobs={len(jobs)}", flush=True)
+    worker = Path(__file__).resolve().parent / "train_worker.py"
+    pending, running, trained = list(jobs), {}, {}
+    free_gpus = list(range(n_gpu))
+    while pending or running:
+        while pending and free_gpus:
+            (name, seed, fold), gpu = pending.pop(0), free_gpus.pop(0)
+            out = out_root / name
+            out.mkdir()
+            log = open(out / "train.log", "w")
+            proc = subprocess.Popen(
+                [sys.executable, "-u", str(worker), "--config", str(config_path), "--seed", str(seed),
+                 "--fold", str(fold), "--train", str(paths["train"]), "--dev", str(paths["dev"]),
+                 "--out", str(out / "probs.npz")],
+                stdout=log, stderr=subprocess.STDOUT, env={**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu)})
+            running[name] = (proc, gpu, log, time.time())
+        time.sleep(5)
+        for name in list(running):
+            proc, gpu, log, t0 = running[name]
+            if proc.poll() is None:
+                continue
+            log.close()
+            del running[name]
+            free_gpus.append(gpu)
+            print(f"job={name} finished rc={proc.returncode} wall={time.time() - t0:.0f}s", flush=True)
+            if proc.returncode != 0:
+                print((out_root / name / "train.log").read_text(errors="replace")[-3000:])
+                for p2, _, _, _ in running.values():
+                    p2.kill()
+                sys.exit(f"worker {name} failed")
+            trained[name] = dict(np.load(out_root / name / "probs.npz"))
+    return trained
+
+
+def run_cv(cfg, args, paths, train_rows, dev_rows, upstream, out_root, t):
+    """K-fold pair-grouped CV on train for each seed: out-of-fold scores on all train rows (official
+    scorer on the train reference) + dev scored with the mean of the fold models."""
+    import numpy as np
+    import dico_trainer as dt
+    K, seeds = int(cfg["cv_folds"]), cfg["seeds"]
+    trained = train_cv_jobs(args.config, [(f"seed{s}_fold{k}", s, k) for s in seeds for k in range(K)],
+                            paths, out_root)
+    ref = paths["train"].parent / f"dico_nli_train_{t}_reference.csv"
+    pos = {r["instance_id"]: i for i, r in enumerate(train_rows)}
+    w = np.ones(len(dt.LABELS))
+    w[dt.LABEL2ID["NEGATIVE_OTHER"]] = float(cfg.get("neg_weight", 1.0))
+    decs = {"standard": lambda p, q: p, "bidir": lambda p, q: 0.5 * (p + q[:, dt.REV]),
+            "bidir_negw": lambda p, q: 0.5 * (p + q[:, dt.REV]) * w}
+
+    def write_and_score(rows, probs, reference, tag):
+        path = out_root / f"{t}_{tag}.csv"
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            wr = csv.writer(f, lineterminator="\n")
+            wr.writerow(["instance_id", "label"])
+            for r, pr in zip(rows, probs):
+                wr.writerow([r["instance_id"], dt.LABELS[int(np.argmax(pr))]])
+        return official_score(upstream, reference, path.resolve(), (out_root / f"scores_{tag}").resolve())
+
+    oof, devp = {}, {}
+    for s in seeds:
+        P = np.zeros((len(train_rows), len(dt.LABELS)))
+        Q = np.zeros_like(P)
+        seen = np.zeros(len(train_rows), bool)
+        for k in range(K):
+            d = trained[f"seed{s}_fold{k}"]
+            idx = [pos[i] for i in d["oof_ids"]]
+            assert not seen[idx].any()
+            P[idx], Q[idx], seen[idx] = d["oof_orig"], d["oof_swap"], True
+        assert seen.all(), "some train rows were not held out"
+        oof[s] = (P, Q)
+        devp[s] = (np.mean([trained[f"seed{s}_fold{k}"]["orig"] for k in range(K)], axis=0),
+                   np.mean([trained[f"seed{s}_fold{k}"]["swap"] for k in range(K)], axis=0))
+        print(f"<<<OOF_PROBS seed={s}")
+        print("instance_id,label," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
+        for r, pi, qi in zip(train_rows, P, Q):
+            print(r["instance_id"] + "," + r["label"] + "," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
+        print("OOF_PROBS>>>")
+        print(f"<<<DEV_PROBS seed={s} (mean of {K} fold models)")
+        print("instance_id," + ",".join(f"p_{l}" for l in dt.LABELS) + "," + ",".join(f"q_{l}" for l in dt.LABELS))
+        for r, pi, qi in zip(dev_rows, *devp[s]):
+            print(r["instance_id"] + "," + ",".join(f"{v:.6f}" for v in list(pi) + list(qi)))
+        print("DEV_PROBS>>>")
+    section("CV SCORES (OOF on all train rows; dev = mean of fold models)")
+    groups = [(f"seed{s}", [s]) for s in seeds] + ([("allseeds", seeds)] if len(seeds) > 1 else [])
+    for gname, ss in groups:
+        for mode, fn in decs.items():
+            po = np.mean([fn(*oof[s]) for s in ss], axis=0)
+            pd_ = np.mean([fn(*devp[s]) for s in ss], axis=0)
+            so = write_and_score(train_rows, po, ref, f"oof_{gname}_{mode}")
+            sd = write_and_score(dev_rows, pd_, paths["dev_reference"], f"dev_{gname}_{mode}")
+            print(f"OOF_METRICS group={gname} decoding={mode} weighted_f1={so['weighted_f1']:.4f} "
+                  f"soft_cons={so['soft_cons']:.4f} hard_cons={so['hard_cons']:.4f} | "
+                  f"DEV weighted_f1={sd['weighted_f1']:.4f} soft_cons={sd['soft_cons']:.4f} "
+                  f"hard_cons={sd['hard_cons']:.4f}", flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -208,6 +308,10 @@ def main():
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     import dico_trainer as dt
     import numpy as np
+
+    if cfg.get("cv_folds"):
+        section("CROSS-VALIDATION (seed x fold jobs, one per GPU)")
+        return run_cv(cfg, args, paths, train_rows, dev_rows, upstream, out_root, t)
 
     section("TRAIN (seeds in parallel, one per GPU)")
     t0 = time.time()
