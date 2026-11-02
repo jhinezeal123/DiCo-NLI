@@ -92,13 +92,18 @@ def build_model(cfg, num_labels, device):
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     config.pad_token_id = tok.pad_token_id
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config)
+    load_kwargs = {"torch_dtype": torch.float16} if cfg.get("base_dtype") == "float16" else {}
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_id"], config=config, **load_kwargs)
     if cfg.get("lora"):
         from peft import LoraConfig, TaskType, get_peft_model
         lc = cfg["lora"]
         model = get_peft_model(model, LoraConfig(
             task_type=TaskType.SEQ_CLS, r=lc["r"], lora_alpha=lc["alpha"], lora_dropout=lc["dropout"],
             target_modules=lc["target_modules"]))
+        # Low-precision base: keep trainable (LoRA + head) weights in fp32 for stable AdamW/GradScaler.
+        for prm in model.parameters():
+            if prm.requires_grad:
+                prm.data = prm.data.float()
         model.print_trainable_parameters()
     return tok, model.to(device)
 
