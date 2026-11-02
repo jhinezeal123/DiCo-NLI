@@ -15,7 +15,7 @@
   "num_epochs": 3,
   "max_length": 128,
   "amp": true,
-  "decode": "bidir_negw",
+  "decode": "bidir_adaptive",
   "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
   "lora": {
     "r": 16,
