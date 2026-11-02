@@ -156,6 +156,30 @@ def run(cfg, seed, train_path, dev_path, device):
             loss = F.cross_entropy(logits.float(), ytr_t[idx], label_smoothing=float(cfg.get("label_smoothing", 0.0)))
             opt.zero_grad()
             scaler.scale(loss).backward()
+            rho = float(cfg.get("sam_rho", 0.0))
+            if rho > 0:
+                # SAM: ascend to w + rho * g/|g| (g unscaled by hand), recompute the loss there, descend from w.
+                inv = 1.0 / scaler.get_scale()
+                grads = [(p_.grad * inv) if p_.grad is not None else None for p_ in params]
+                gnorm = torch.norm(torch.stack([gg.norm() for gg in grads if gg is not None]))
+                eps = []
+                if torch.isfinite(gnorm) and gnorm > 0:
+                    with torch.no_grad():
+                        for p_, gg in zip(params, grads):
+                            e_ = gg * (rho / (gnorm + 1e-12)) if gg is not None else None
+                            if e_ is not None:
+                                p_.add_(e_)
+                            eps.append(e_)
+                    opt.zero_grad()
+                    with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
+                        logits2 = model(**b).logits
+                    loss2 = F.cross_entropy(logits2.float(), ytr_t[idx],
+                                            label_smoothing=float(cfg.get("label_smoothing", 0.0)))
+                    scaler.scale(loss2).backward()
+                    with torch.no_grad():
+                        for p_, e_ in zip(params, eps):
+                            if e_ is not None:
+                                p_.sub_(e_)
             scaler.unscale_(opt)
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             scaler.step(opt)
