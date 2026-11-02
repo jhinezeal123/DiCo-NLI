@@ -6,6 +6,7 @@ Difference: per-batch dynamic padding instead of padding to max_length (identica
 under the attention mask, much faster).
 """
 import os
+from pathlib import Path
 import random
 import re
 
@@ -52,10 +53,11 @@ def load_split(path):
     return ids, t1, t2, y
 
 
-def encode(tok, t1, t2, max_length, template=None):
+def encode(tok, t1, t2, max_length, template=None, s1=None, s2=None):
     if template:
         # Decoder tokenizers add no separator between a text pair; format explicitly.
-        enc = tok([template.format(t1=a, t2=b) for a, b in zip(t1, t2)], truncation=True,
+        s1, s2 = s1 or [""] * len(t1), s2 or [""] * len(t1)
+        enc = tok([template.format(t1=a, t2=b, s1=c, s2=d) for a, b, c, d in zip(t1, t2, s1, s2)], truncation=True,
                   max_length=max_length)
     else:
         enc = tok(t1, t2, truncation="only_second", max_length=max_length)
@@ -124,8 +126,21 @@ def run(cfg, seed, train_path, dev_path, device):
 
     L = cfg["max_length"]
     tpl = cfg.get("pair_template")
-    f_train = encode(tok, tr1, tr2, L, tpl)
-    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl), encode(tok, dv2, dv1, L, tpl)
+    if cfg.get("source_context"):  # M6 analysis: source sentences, oriented so s1 contains t1
+        ctx = pd.read_csv(Path("outputs") / cfg["name"] / "source_context.csv").set_index("instance_id")
+        na = cfg["source_context"]["missing"]
+        sget = lambda ids, c: [ctx.loc[i, c] if i in ctx.index else na for i in ids]
+        ts1, ts2, ds1, ds2 = sget(tr_ids, "sent1"), sget(tr_ids, "sent2"), sget(dv_ids, "sent1"), sget(dv_ids, "sent2")
+        print(f"source_context: train {sum(i in ctx.index for i in tr_ids)}/{len(tr_ids)} "
+              f"dev {sum(i in ctx.index for i in dv_ids)}/{len(dv_ids)}", flush=True)
+        print("example prompt:
+" + tpl.format(t1=tr1[0], t2=tr2[0], s1=ts1[0], s2=ts2[0]), flush=True)
+    else:
+        ts1 = ts2 = ds1 = ds2 = None
+    f_train = encode(tok, tr1, tr2, L, tpl, ts1, ts2)
+    f_dev, f_dev_swap = encode(tok, dv1, dv2, L, tpl, ds1, ds2), encode(tok, dv2, dv1, L, tpl, ds2, ds1)
+    n_trunc = sum(len(f["input_ids"]) >= L for f in f_train)
+    print(f"train prompts truncated at max_length={L}: {n_trunc}", flush=True)
 
     bs, epochs = int(cfg["batch_size"]), int(cfg["num_epochs"])
     params = [p for p in model.parameters() if p.requires_grad]

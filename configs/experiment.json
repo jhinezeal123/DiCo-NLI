@@ -1,5 +1,5 @@
 {
-  "name": "track1_qwen25_1p5b_lora_ls0p1",
+  "name": "track1_qwen25_1p5b_lora_ls0p1_srcctx",
   "track": 1,
   "model_id": "Qwen/Qwen2.5-1.5B",
   "seeds": [
@@ -13,10 +13,10 @@
   "batch_size": 8,
   "wd": 0.01,
   "num_epochs": 3,
-  "max_length": 128,
+  "max_length": 192,
   "amp": true,
   "decode": "bidir",
-  "pair_template": "Text 1: {t1}\nText 2: {t2}\nRelation:",
+  "pair_template": "Sentence 1: {s1}\nSentence 2: {s2}\nText 1: {t1}\nText 2: {t2}\nRelation:",
   "lora": {
     "r": 16,
     "alpha": 32,
@@ -31,5 +31,14 @@
       "down_proj"
     ]
   },
-  "label_smoothing": 0.1
+  "label_smoothing": 0.1,
+  "source_context": {
+    "ists_base": "https://huggingface.co/datasets/ZurichNLP/rsd-ists-2016/resolve/e3dbc95bb44fe7bfd71ca1924a4e1556ef19a7d4/data",
+    "ists_files": {
+      "train": "train_en-00000-of-00001-66ab37f4617e8e45.parquet",
+      "test": "test_en-00000-of-00001-8793bc665c43a210.parquet"
+    },
+    "phrasis_raw": "https://raw.githubusercontent.com/Jonapa/assessing_logical_coherence/ba845d26a76951b8721599df4160c6f9c9c77bcb",
+    "missing": "n/a"
+  }
 }
