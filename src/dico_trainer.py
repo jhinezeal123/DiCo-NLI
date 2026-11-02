@@ -133,8 +133,7 @@ def run(cfg, seed, train_path, dev_path, device):
         ts1, ts2, ds1, ds2 = sget(tr_ids, "sent1"), sget(tr_ids, "sent2"), sget(dv_ids, "sent1"), sget(dv_ids, "sent2")
         print(f"source_context: train {sum(i in ctx.index for i in tr_ids)}/{len(tr_ids)} "
               f"dev {sum(i in ctx.index for i in dv_ids)}/{len(dv_ids)}", flush=True)
-        print("example prompt:
-" + tpl.format(t1=tr1[0], t2=tr2[0], s1=ts1[0], s2=ts2[0]), flush=True)
+        print("example prompt: " + repr(tpl.format(t1=tr1[0], t2=tr2[0], s1=ts1[0], s2=ts2[0])), flush=True)
     else:
         ts1 = ts2 = ds1 = ds2 = None
     f_train = encode(tok, tr1, tr2, L, tpl, ts1, ts2)
