@@ -28,7 +28,12 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"worker seed={args.seed} device={device}"
           + (f" gpu={torch.cuda.get_device_name(0)}" if device.type == "cuda" else ""), flush=True)
-    probs = dt.run(cfg, args.seed, args.train, args.dev, device, fold=args.fold if args.fold >= 0 else None)
+    fold = args.fold if args.fold >= 0 else None
+    if cfg.get("objective") == "channel":
+        import channel_trainer
+        probs = channel_trainer.run(cfg, args.seed, args.train, args.dev, device, fold=fold)
+    else:
+        probs = dt.run(cfg, args.seed, args.train, args.dev, device, fold=fold)
     np.savez(args.out, **probs)
 
 
