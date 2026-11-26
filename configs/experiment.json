@@ -1,7 +1,7 @@
 {
-  "name": "track1_adaptive_negw_submission_export",
+  "name": "track1_adaptive_negw_submission_qwen3_4b",
   "track": 1,
-  "model_id": "Qwen/Qwen2.5-1.5B",
+  "model_id": "Qwen/Qwen3-4B-Base",
   "seeds": [
     42,
     13,
@@ -33,5 +33,6 @@
   },
   "label_smoothing": 0.1,
   "neg_weight": 0.8,
-  "extra_eval_path": "external/dico_nli_official/trial_data/dico_nli_trial_track1_participant_unlabeled.csv"
+  "extra_eval_path": "external/dico_nli_official/trial_data/dico_nli_trial_track1_participant_unlabeled.csv",
+  "base_dtype": "float16"
 }
